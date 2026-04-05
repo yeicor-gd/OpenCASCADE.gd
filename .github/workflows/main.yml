@@ -138,16 +138,16 @@ jobs:
       # <Cache save and export artifacts>
       - shell: "bash" # Print cache statistics
         run: "sccache --show-stats || true"
-      - uses: "actions/upload-artifact@v6"
+      - uses: "actions/upload-artifact@v7"
         with: # Build main artifact with only the addon files
           name: "OpenCASCADE.gd-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}"
           path: "demo/addons/OpenCASCADE.gd/**"
-      - uses: "actions/upload-artifact@v6"
+      - uses: "actions/upload-artifact@v7"
         if: "always()"
         with: # Build artifact useful for caching
           name: "vcpkg-installed-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}"
           path: "vcpkg/installed/\n${{ env.SCCACHE_DIR }}"
-      - uses: "actions/upload-artifact@v6"
+      - uses: "actions/upload-artifact@v7"
         if: "always()"
         with: # Build artifact useful for debugging
           name: "vcpkg-buildtrees-packages-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}"
@@ -157,7 +157,7 @@ jobs:
     runs-on: "ubuntu-24.04"
     needs: "build"
     steps:
-      - uses: "actions/upload-artifact/merge@v6"
+      - uses: "actions/upload-artifact/merge@v7"
         with:
           name: "OpenCASCADE.gd"
           pattern: "OpenCASCADE.gd-*"
