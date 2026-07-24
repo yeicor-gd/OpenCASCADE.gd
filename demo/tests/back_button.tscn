@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cro3y2vcs88kq"]
+
+[ext_resource type="Script" uid="uid://b6cb7bxu50bdf" path="res://tests/back_button.gd" id="1_s5ltg"]
+
+[node name="BackButton" type="Button" unique_id=444742837]
+text = "Back"
+script = ExtResource("1_s5ltg")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

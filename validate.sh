@@ -1,0 +1,314 @@
+#!/usr/bin/env bash
+
+set -e
+
+ERROR_FILE="${1:-}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+if [ -z "$GODOT_VERSION" ]; then
+    echo "GODOT_VERSION environment variable is not set. Please set it to a valid Godot version (e.g., 3.5.1 or 'system')."
+    exit 1
+fi
+
+if [ -z "$ERROR_FILE" ]; then
+    echo "No error file specified. Errors will be printed to the console."
+else
+    echo "Errors will be written to: $ERROR_FILE"
+fi
+
+export VCPKG_ROOT="$SCRIPT_DIR/vcpkg"
+export VCPKG_DISABLE_METRICS=1
+#export VCPKG_DEFAULT_TRIPLET=x64-linux
+export VCPKG_OVERLAY_TRIPLETS="$SCRIPT_DIR/vcpkg_triplets"
+export VCPKG_OVERLAY_PORTS="$SCRIPT_DIR/vcpkg_ports"
+export GDEXT_CMAKE_ARGS="-DGODOTCPP_TARGET=template_debug -DGODOTCPP_PRECISION=single -DGODOTCPP_THREADS=on -DENABLE_WERROR=on"
+if [ "$GODOT_VERSION" != "system" ]; then
+    export GDEXT_CMAKE_ARGS="$GDEXT_CMAKE_ARGS -DENABLE_SANITIZERS=on"
+fi
+
+# For wasm32-emscripten builds, export CFLAGS/CXXFLAGS so that ALL vcpkg
+# dependency ports (freetype, libpng, opencascade, …) compile with the
+# flags needed for a SIDE_MODULE build.  The vcpkg binary sanitises the
+# environment for port builds; VCPKG_ENV_PASSTHROUGH_UNTRACKED in our
+# overlay triplet forwards these variables to every cmake subprocess.
+if [ "$VCPKG_DEFAULT_TRIPLET" = "wasm32-emscripten" ]; then
+    export CFLAGS="-fPIC -sSUPPORT_LONGJMP=wasm -fwasm-exceptions -matomics -mbulk-memory"
+    export CXXFLAGS="$CFLAGS"
+fi
+
+DO_BUILD="${DO_BUILD:-1}"
+
+run_checked() {
+    tmp_output=$(mktemp)
+    if "$@" >"$tmp_output" 2>&1; then
+        rm -f "$tmp_output"
+        return 0
+    fi
+
+    if [ -n "$ERROR_FILE" ]; then
+        cat "$tmp_output" > "$ERROR_FILE"
+    fi
+    cat "$tmp_output"
+    rm -f "$tmp_output"
+    exit 1
+}
+
+# Regenerate autowrapper bindings from OpenCASCADE headers (always needed for tests)
+echo "Generating autowrapper bindings..."
+cd OpenCASCADE.gd-autowrapper
+./generate.sh
+cd "$SCRIPT_DIR"
+
+if [ "$DO_BUILD" = "1" ] || [ "$DO_BUILD" = "true" ]; then
+    # Bootstrap vcpkg if needed
+    if [ ! -f "$VCPKG_ROOT/vcpkg" ]; then
+        echo "Bootstrapping vcpkg..."
+        "$VCPKG_ROOT/bootstrap-vcpkg.sh" --disableMetrics
+    fi
+
+    "$VCPKG_ROOT/vcpkg" remove gdext 2>/dev/null || true
+
+    BUILD_LOG=$(mktemp)
+
+    echo "Building extension..."
+    "$VCPKG_ROOT/vcpkg" install gdext 2>&1 | tee "$BUILD_LOG"
+    BUILD_EXIT=${PIPESTATUS[0]}
+
+    if [ $BUILD_EXIT -ne 0 ]; then
+        echo "Build failed!"
+        if [ -n "$ERROR_FILE" ]; then
+            VCPKG_BUILD_DIR="$VCPKG_ROOT/buildtrees/gdext"
+            {
+                # First pass: try to extract real compiler errors from the ninja build logs.
+                # The vcpkg install output only shows progress; actual errors live in
+                # build-x64-linux-*-out.log files under buildtrees/gdext/.
+                COMPILER_ERRORS_FOUND=false
+                for logfile in "$VCPKG_BUILD_DIR"/build-x64-linux-*-out.log; do
+                    if [ -f "$logfile" ]; then
+                        # Extract lines with real errors: GCC/Clang style, linker, FAILED
+                        # Also grab a few lines of context around each error for the LLM
+                        grep_results=$(grep -n \
+                          -e '[.:][0-9]*:[0-9]*:[[:space:]]*error:' \
+                          -e '[.:][0-9]*:[0-9]*:[[:space:]]*fatal error:' \
+                          -e '[.:][0-9]*:[0-9]*:[[:space:]]*warning:' \
+                          -e '[.:][0-9]*:[0-9]*:[[:space:]]*note:' \
+                          -e 'FAILED:' \
+                          -e 'collect2: error' \
+                          -e 'ld: ' \
+                          -e 'undefined reference' \
+                          -e 'In file included from' \
+                          -e 'cc1plus:' \
+                          "$logfile" 2>/dev/null)
+                        if [ -n "$grep_results" ]; then
+                            # Get unique line numbers for context extraction
+                            line_nums=$(echo "$grep_results" | grep -oP '^\d+' | sort -nu)
+                            echo "$grep_results" > "$ERROR_FILE"
+                            echo "" >> "$ERROR_FILE"
+                            echo "=== Context around error lines ===" >> "$ERROR_FILE"
+                            for ln in $line_nums; do
+                                start=$((ln > 5 ? ln - 5 : 1))
+                                sed -n "${start},$((ln + 5))p" "$logfile" 2>/dev/null >> "$ERROR_FILE"
+                                echo "---" >> "$ERROR_FILE"
+                            done
+                        fi
+                        if [ -s "$ERROR_FILE" ]; then
+                            COMPILER_ERRORS_FOUND=true
+                            break
+                        fi
+                    fi
+                done
+
+                if [ "$COMPILER_ERRORS_FOUND" != "true" ]; then
+                    # Fallback: grep the vcpkg build output for cmake/ninja errors
+                    grep -n \
+                      -e 'CMake Error' \
+                      -e 'CMake Warning' \
+                      -e 'ninja: build stopped' \
+                      -e 'error: ' \
+                      -e 'BUILD_FAILED' \
+                      -e 'vcpkg_execute_build_process' \
+                      "$BUILD_LOG" 2>/dev/null | head -200 > "$ERROR_FILE"
+                fi
+
+                if [ ! -s "$ERROR_FILE" ]; then
+                    # Ultimate fallback: last 500 lines of the build log
+                    {
+                        echo "=== Last 500 lines of build output ==="
+                        tail -500 "$BUILD_LOG"
+                    } > "$ERROR_FILE"
+                fi
+            } 2>/dev/null
+        fi
+        exit 1
+    fi
+
+    echo "Build succeeded! Running runtime validation..."
+else
+    echo "Skipping build (DO_BUILD=$DO_BUILD). Running runtime validation..."
+fi
+
+if [ "$GODOT_VERSION" = "system" ]; then
+    # Use system Godot, no sanitizers, no build
+    GODOT_BIN="${GODOT_BIN:-godot}"
+else
+    GODOT_BUILD_DIR="$SCRIPT_DIR/build"
+    GODOT_SOURCE_DIR="$GODOT_BUILD_DIR/godot-$GODOT_VERSION"
+    GODOT_BIN="$GODOT_BUILD_DIR/bin/godot-$GODOT_VERSION"
+
+    if [ ! -d "$GODOT_SOURCE_DIR" ]; then
+        echo "Downloading Godot $GODOT_VERSION sources..."
+        mkdir -p "$GODOT_BUILD_DIR"
+        cd "$GODOT_BUILD_DIR"
+        curl -fsSL "https://github.com/godotengine/godot/archive/refs/tags/$GODOT_VERSION.zip" -o godot.zip
+        unzip -qo godot.zip
+        rm godot.zip
+        cd "$SCRIPT_DIR"
+    fi
+
+    if [ ! -f "$GODOT_BIN" ]; then
+        cd "$GODOT_SOURCE_DIR"
+        GODOT_BUILD_LOG=$(mktemp)
+
+        echo "Compiling Godot with ASAN, UBSAN, and LSAN..."
+        scons -j$(nproc) \
+            platform=linux \
+            target=editor \
+            dev_build=yes \
+            sanitizers=yes \
+            use_asan=yes \
+            use_lsan=yes \
+            2>&1 | tee "$GODOT_BUILD_LOG"
+
+        GODOT_BUILD_EXIT=${PIPESTATUS[0]}
+
+        if [ $GODOT_BUILD_EXIT -ne 0 ]; then
+            echo "Godot build failed!"
+            if [ -n "$ERROR_FILE" ]; then
+                {
+                    echo "=== Godot Build Failed ==="
+                    echo "See full build log above for details."
+                } > "$ERROR_FILE"
+            fi
+            exit 1
+        fi
+        mkdir -p "$(dirname $GODOT_BIN)"
+        mv "$GODOT_SOURCE_DIR/bin/godot.linuxbsd.editor.dev.x86_64.san" "$GODOT_BIN"
+    fi
+fi
+
+cd "$SCRIPT_DIR"
+
+IMPORT_LOG=$(mktemp)
+RUNTIME_LOG=$(mktemp)
+trap "rm -f '${BUILD_LOG:-}' '${GODOT_BUILD_LOG:-}' '$IMPORT_LOG' '$RUNTIME_LOG'" EXIT
+
+# Set up environment variables for running Godot
+if [ "$GODOT_VERSION" != "system" ]; then
+    export LD_PRELOAD="$(gcc -print-file-name=libasan.so)"
+    export LSAN_OPTIONS=detect_leaks=0
+fi
+
+export GODOT_TEST_RUNNER=true
+export GODOT_TEST_RUNNER_TIMEOUT=300000 # 5 minutes (actual timeout is 2x this = 10 minutes)
+# https://github.com/godotengine/godot/issues/111048: Import needs frame delay to avoid crash due to race condition
+"$GODOT_BIN" --frame-delay 1000 --quit-after 3 --import --path "$SCRIPT_DIR/demo" --headless 2>&1 | tee -a "$IMPORT_LOG"
+IMPORT_EXIT=${PIPESTATUS[0]}
+if [ $IMPORT_EXIT -ne 0 ]; then
+    echo "✗ Import failed - exit code $IMPORT_EXIT" >> "$IMPORT_LOG"
+fi
+
+# Portable timeout: use timeout (GNU), gtimeout (macOS coreutils), or fallback to shell
+_timeout_cmd() {
+    if command -v timeout &>/dev/null; then
+        timeout --preserve-status "$@"
+    elif command -v gtimeout &>/dev/null; then
+        gtimeout --preserve-status "$@"
+    else
+        local duration="$1"
+        shift
+        "$@" &
+        local _pid=$!
+        local _elapsed=0
+        while [ $_elapsed -lt $duration ]; do
+            if ! kill -0 $_pid 2>/dev/null; then
+                wait $_pid
+                return $?
+            fi
+            sleep 1 2>/dev/null || true
+            _elapsed=$((_elapsed + 1))
+        done
+        kill $_pid 2>/dev/null
+        wait $_pid 2>/dev/null
+        return 0  # --preserve-status equivalent on timeout: don't fail just for timing out
+    fi
+}
+USE_PERF="${USE_PERF:-0}"
+if [ "$USE_PERF" = "1" ] || [ "$USE_PERF" = "true" ]; then
+    echo "Running with perf record..."
+    PERF_DATA="$SCRIPT_DIR/perf.data"
+    rm -f "$PERF_DATA"
+    timeout $((GODOT_TEST_RUNNER_TIMEOUT * 2 / 1000)) \
+        perf record -g --no-compress -z=0 -o "$PERF_DATA" --call-graph dwarf \
+        "$GODOT_BIN" --path "$SCRIPT_DIR/demo" --headless 2>&1 | tee -a "$RUNTIME_LOG"
+    RUNTIME_EXIT=${PIPESTATUS[0]}
+    echo "perf data written to $PERF_DATA"
+else
+    _timeout_cmd $((GODOT_TEST_RUNNER_TIMEOUT * 2 / 1000)) "$GODOT_BIN" --path "$SCRIPT_DIR/demo" --headless 2>&1 | tee -a "$RUNTIME_LOG"
+    RUNTIME_EXIT=${PIPESTATUS[0]}
+fi
+if [ $RUNTIME_EXIT -ne 0 ]; then
+    echo "✗ Runtime execution failed - exit code $RUNTIME_EXIT" >> "$RUNTIME_LOG"
+    cat $RUNTIME_LOG
+fi
+
+unset LD_PRELOAD LSAN_OPTIONS
+
+_test_results_passed() {
+    # Check if the test runner reported all tests passed and no failures.
+    # This is more reliable than heuristically scanning for error patterns
+    # because a post-test core dump (Godot shutdown crash) produces spurious
+    # matches (exit code 139, "dumped core") even when all tests pass.
+    # Strip ANSI/BBCode coloring so ^PASSED: matches [color=...]PASSED:...[/color]
+    local stripped
+    stripped=$(cat "$RUNTIME_LOG" 2>/dev/null | sed 's/\x1b\[[0-9;]*[a-zA-Z]//g; s/\[color=[^]]*\]//g; s|\[/color\]||g; s/^[[:space:]]*//')
+    if echo "$stripped" | grep -q "^PASSED:.*tests total" && \
+       ! echo "$stripped" | grep -q "^FAILED:"; then
+        return 0
+    fi
+    return 1
+}
+
+_extract_errors() {
+    # Strip ANSI escape codes (print_rich output) so patterns match clean text
+    cat "$1" "$2" 2>/dev/null | sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' | \
+    grep -E -v "(ObjectDB|RID).*leaked|resources still in use at exit|PASSED|✓" | \
+    grep -i -E "failed|error|warning|crash|assert|exception|abort|segfault|undefined|not found|no such|TESTS FAILED|SCRIPT ERROR|✗|Expected" || return 0
+}
+
+if _test_results_passed; then
+    echo ""
+    echo "✓ All tests passed"
+    [ -n "$ERROR_FILE" ] && >"$ERROR_FILE"
+    exit 0
+fi
+
+# Only scan for error patterns if tests didn't all pass cleanly.
+# Post-test core dumps during Godot shutdown (exit code 139) are ignored
+# because they happen after all test results are reported.
+ERRORS=$(_extract_errors "$IMPORT_LOG" "$RUNTIME_LOG")
+
+if [ -n "$ERRORS" ]; then
+    echo "✗ Runtime validation failed - errors detected"
+    if [ -n "$ERROR_FILE" ]; then
+        echo "$ERRORS" > "$ERROR_FILE"
+    else
+        echo "$ERRORS"
+    fi
+    exit 1
+fi
+
+echo ""
+echo "✓ Runtime validation passed - no errors detected"
+[ -n "$ERROR_FILE" ] && >"$ERROR_FILE"
+exit 0

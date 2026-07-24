@@ -1,0 +1,175 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: OCCT-Light <dev@occt-light.example>
+Date: Fri Jul 3 12:00:00 2026 +0200
+Subject: [PATCH] Standard_Assert.hxx: always print assertion failures on all
+ platforms
+
+OCCT's assertion macros (Standard_ASSERT_RETURN, Standard_ASSERT,
+Standard_ASSERT_INVOKE_) only printed their diagnostic message when _DEBUG
+was defined.  On GCC/Clang, _DEBUG is never defined by the compiler (it is
+an MSVC-only macro), so assertion failures were silently swallowed on Linux
+even in Debug builds (when OCCT_DEBUG is defined, _DEBUG is not set).
+
+On MSVC Release, the assertion message was also silently swallowed because
+the #else branch defined only dummy/no-op macros.
+
+This patch makes three changes:
+
+1.  Move Standard_ASSERT_REPORT_() (fprintf-based) outside the #ifdef _DEBUG
+    guard so it is compiled unconditionally on all platforms.
+
+2.  Replace std::cerr with fprintf(stderr, ...) because std::cerr may crash
+    in shared-library contexts (e.g. Godot extensions) where the C++
+    runtime stream objects are not fully initialised.
+
+3.  In the Release (#else) branch, define Standard_ASSERT_INVOKE_ and
+    Standard_ASSERT to call Standard_ASSERT_REPORT_() on all platforms
+    (including MSVC).  In Debug (#ifdef _DEBUG), MSVC retains its native
+    _CrtDbgReport dialog via Standard_ASSERT_REPORT_MSVC_(), while all
+    other platforms use the fprintf-based reporter + raise(SIGTRAP).
+
+As a result, assertion failure messages are always written to stderr
+on all platforms (Linux and Windows, Debug and Release).
+---
+ .../TKernel/Standard/Standard_Assert.hxx           | 75 ++++++++++++++--------
+ 1 file changed, 47 insertions(+), 28 deletions(-)
+
+diff --git a/src/FoundationClasses/TKernel/Standard/Standard_Assert.hxx b/src/FoundationClasses/TKernel/Standard/Standard_Assert.hxx
+index 1111111..2222222 100644
+--- a/src/FoundationClasses/TKernel/Standard/Standard_Assert.hxx
++++ b/src/FoundationClasses/TKernel/Standard/Standard_Assert.hxx
+@@ -69,6 +69,28 @@
+ // Stub function used to make macros complete C++ operator
+ inline void Standard_ASSERT_DO_NOTHING() {}
+ 
++// Always print assertion failures to stderr on all platforms,
++// even in Release builds, so assertion failures are visible on all
++// platforms regardless of build type.
++// Use fprintf(stderr) instead of std::cerr because std::cerr may
++// not be safely usable from a shared library (Godot extension)
++// whose C++ runtime initialization is not fully compatible.
++#include <cstdio>
++inline bool Standard_ASSERT_REPORT_(const char* theFile,
++                                    const int   theLine,
++                                    const char* theExpr,
++                                    const char* theDesc)
++{
++  fprintf(stderr, "ERROR: statement '%s' is not TRUE!\n", theExpr);
++  fprintf(stderr, "\nFile: '%s'\n", theFile);
++  fprintf(stderr, "Line: %d\n", theLine);
++  if (theDesc != NULL && *theDesc != '\0')
++    fprintf(stderr, "Description: %s\n", theDesc);
++
++  fflush(stderr);
++  return true;
++}
++
+ // User messages are activated in debug mode only
+ #ifdef _DEBUG
+   #if (defined(_WIN32) || defined(__WIN32__))
+@@ -85,7 +107,6 @@
+     #define Standard_ASSERT_DBGBREAK_() emscripten_debugger()
+   #else
+     // POSIX systems
+-    #include <signal.h>
+     #define Standard_ASSERT_DBGBREAK_() raise(SIGTRAP)
+   #endif
+ 
+@@ -94,10 +115,11 @@
+ 
+ // use debug CRT built-in function that show up message box to user
+ // with formatted assert description and 3 possible actions
+-inline bool Standard_ASSERT_REPORT_(const char* theFile,
+-                                    const int   theLine,
+-                                    const char* theExpr,
+-                                    const char* theDesc)
++// (only available in Debug CRT mode, i.e. when _DEBUG is defined)
++inline bool Standard_ASSERT_REPORT_MSVC_(const char* theFile,
++                                         const int   theLine,
++                                         const char* theExpr,
++                                         const char* theDesc)
+ {
+   // 1 means user pressed Retry button
+   return _CrtDbgReport(_CRT_ASSERT,
+@@ -109,33 +131,25 @@
+                        theExpr)
+          == 1;
+ }
++    // In MSVC Debug mode, use the CRT report dialog (prints to stderr + dialog)
++    #define Standard_ASSERT_INVOKE_(theExpr, theDesc)                                              \
++      if (Standard_ASSERT_REPORT_MSVC_(__FILE__, __LINE__, #theExpr, theDesc))                      \
++      {                                                                                              \
++        Standard_ASSERT_DBGBREAK_();                                                                 \
++      }                                                                                              \
++      else                                                                                           \
++        Standard_ASSERT_DO_NOTHING()
+   #else
+-// just log assertion description into standard error stream
+-inline bool Standard_ASSERT_REPORT_(const char* theFile,
+-                                    const int   theLine,
+-                                    const char* theExpr,
+-                                    const char* theDesc)
+-{
+-  std::cerr << "ERROR: statement '" << theExpr << "' is not TRUE!\n"
+-            << "\nFile: '" << theFile << "'"
+-            << "\nLine: " << theLine << "\n";
+-  if (theDesc != NULL && *theDesc != '\0')
+-    std::cerr << "Description: " << theDesc << "\n";
+-
+-  std::cerr << std::flush;
+-  return true;
+-}
++    // In Debug mode on non-MSVC, print to stderr and break
++    #define Standard_ASSERT_INVOKE_(theExpr, theDesc)                                              \
++      if (Standard_ASSERT_REPORT_(__FILE__, __LINE__, #theExpr, theDesc))                            \
++      {                                                                                              \
++        Standard_ASSERT_DBGBREAK_();                                                                 \
++      }                                                                                              \
++      else                                                                                           \
++        Standard_ASSERT_DO_NOTHING()
+   #endif
+ 
+-  // report issue and add debug breakpoint or abort execution
+-  #define Standard_ASSERT_INVOKE_(theExpr, theDesc)                                                \
+-    if (Standard_ASSERT_REPORT_(__FILE__, __LINE__, #theExpr, theDesc))                            \
+-    {                                                                                              \
+-      Standard_ASSERT_DBGBREAK_();                                                                 \
+-    }                                                                                              \
+-    else                                                                                           \
+-      Standard_ASSERT_DO_NOTHING()
+-
+   // Basic ASSERT macros
+   #define Standard_ASSERT(theExpr, theDesc, theAction)                                             \
+     if (!(theExpr))                                                                                \
+@@ -151,16 +165,18 @@
+     Standard_ASSERT(theExpr, theDesc, Standard_VOID_RETURN)
+ #else
+ 
+-  // dummy block
+-  #define Standard_ASSERT_INVOKE_(theExpr, theDesc) Standard_ASSERT_DO_NOTHING()
+-
+-  // Basic ASSERT macros
+-  #define Standard_ASSERT(theExpr, theDesc, theAction)                                             \
+-    if (!(theExpr))                                                                                \
+-    {                                                                                              \
+-      theAction;                                                                                   \
+-    }                                                                                              \
+-    else                                                                                           \
++  // Always report assertion failures to stderr on all platforms
++  // (MSVC _CrtDbgReport is only available in Debug CRT mode, so
++  //  in Release builds we use fprintf(stderr) instead).
++  #define Standard_ASSERT_INVOKE_(theExpr, theDesc)                                              \
++    Standard_ASSERT_REPORT_(__FILE__, __LINE__, #theExpr, theDesc)
++  #define Standard_ASSERT(theExpr, theDesc, theAction)                                           \
++    if (!(theExpr))                                                                              \
++    {                                                                                            \
++      Standard_ASSERT_INVOKE_(theExpr, theDesc);                                                 \
++      theAction;                                                                                 \
++    }                                                                                            \
++    else                                                                                         \
+       Standard_ASSERT_DO_NOTHING()
+   #define Standard_ASSERT_SKIP(theExpr, theDesc) theExpr
+   #define Standard_ASSERT_VOID(theExpr, theDesc) Standard_ASSERT_DO_NOTHING()
+-- 
+2.43.0
+

@@ -1,0 +1,10 @@
+{
+  "name": "gdext",
+  "version": "0.0.10",
+  "dependencies": [
+    {
+      "name": "opencascade",
+      "features": ["freetype", "rapidjson"]
+    }
+  ]
+}

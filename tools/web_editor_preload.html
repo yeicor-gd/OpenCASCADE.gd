@@ -1,0 +1,61 @@
+<script>
+(async function () {
+	"use strict";
+	const REPO = "__GITHUB_REPOSITORY__";
+	const BRANCH = "__GITHUB_BRANCH__";
+	const PROJECT_PATH = "/home/web_user/demo";
+
+	try {
+		const treeResp = await fetch(
+			`https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`
+		);
+		if (!treeResp.ok) throw new Error(`Failed to fetch repo tree: ${treeResp.status}`);
+		const tree = await treeResp.json();
+
+		const files = tree.tree.filter(
+			(e) => e.type === "blob" && e.path.startsWith("demo/")
+		);
+		console.log(`Preloading ${files.length} files from demo/...`);
+
+		const CONCURRENT = 8;
+		let loaded = 0;
+		const total = files.length;
+
+		async function fetchFile(path) {
+			const resp = await fetch(
+				`https://raw.githubusercontent.com/${REPO}/${BRANCH}/${path}`
+			);
+			if (!resp.ok) throw new Error(`Failed to fetch ${path}: ${resp.status}`);
+			const buf = await resp.arrayBuffer();
+			const rel = path.substring("demo/".length);
+			editor.copyToFS(`${PROJECT_PATH}/${rel}`, new Uint8Array(buf));
+			loaded++;
+			if (loaded % 10 === 0 || loaded === total) {
+				console.log(`Preloaded ${loaded}/${total} files`);
+			}
+		}
+
+		for (let i = 0; i < files.length; i += CONCURRENT) {
+			const batch = files.slice(i, i + CONCURRENT);
+			await Promise.all(batch.map((f) => fetchFile(f.path)));
+		}
+
+		console.log("All demo files preloaded.");
+
+		// Dismiss the welcome modal if visible.
+		if (typeof closeWelcomeModal === "function") {
+			closeWelcomeModal(true);
+		}
+
+		startEditor(null, PROJECT_PATH);
+	} catch (err) {
+		console.error("Failed to preload project:", err);
+		const el = document.getElementById("status-notice");
+		if (el) {
+			el.style.display = "block";
+			el.textContent =
+				"Failed to load project files. You can still upload a ZIP manually.";
+		}
+	}
+})();
+</script>

@@ -1,0 +1,9 @@
+[submodule "godot-cpp"]
+	path = godot-cpp
+	url = git@github.com:godotengine/godot-cpp.git
+[submodule "vcpkg"]
+	path = vcpkg
+	url = git@github.com:microsoft/vcpkg.git
+[submodule "OpenCASCADE.gd-autowrapper"]
+	path = OpenCASCADE.gd-autowrapper
+	url = git@github.com:yeicor/OpenCASCADE.gd-autowrapper.git

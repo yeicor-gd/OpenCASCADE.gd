@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c7nshix38qqm4"]
+
+[ext_resource type="Script" uid="uid://gig31rsvuqq0" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dh0oj81pufivs" path="res://tests/tests.tscn" id="2_h2yge"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0e071"]
+font_size = 32
+
+[node name="Main" type="BoxContainer" unique_id=2023614771]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+vertical = true
+script = ExtResource("1_ig7tw")
+tests_scene = ExtResource("2_h2yge")
+
+[node name="Panel" type="VBoxContainer" parent="." unique_id=1861824163]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Panel" unique_id=735035985]
+layout_mode = 2
+text = "OpenCASCADE GDExtension"
+label_settings = SubResource("LabelSettings_0e071")
+
+[node name="TestsButton" type="Button" parent="Panel" unique_id=947654445]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "TESTS
+"
+
+[connection signal="pressed" from="Panel/TestsButton" to="." method="_on_tests_button_pressed"]

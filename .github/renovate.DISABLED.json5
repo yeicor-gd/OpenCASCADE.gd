@@ -1,0 +1,48 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":disableDependencyDashboard"
+  ],
+  "automerge": true,
+  "automergeType": "branch",
+  "schedule": [
+    "* * * * 0,6"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "* * * * 0,6"
+    ]
+  },
+  "git-submodules": {
+    "enabled": true
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update OS versions in GitHub Actions matrix",
+      "managerFilePatterns": [
+        ".github/workflows/*.yml"
+      ],
+      "matchStrings": [
+        "os:\\s*\"?(?<depName>ubuntu|windows|macos)-(?<currentValue>[^\",} ]*)"
+      ],
+      "datasourceTemplate": "github-runners",
+      "versioningTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "Update ccache version",
+      "managerFilePatterns": [
+        ".github/workflows/*.yml"
+      ],
+      "matchStrings": [
+        "CCACHE_VERSION=(?<currentValue>[^\\s]+)"
+      ],
+      "depNameTemplate": "ccache/ccache",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    }
+  ]
+}

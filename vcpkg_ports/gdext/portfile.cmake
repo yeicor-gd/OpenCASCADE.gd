@@ -1,0 +1,26 @@
+# Portfile for the Godot extension of this project
+# ABI change to force rebuild
+
+# The dependencies are specified in vcpkg.json
+
+set(SOURCE_PATH "${CMAKE_CURRENT_LIST_DIR}/../../")
+
+if(EXISTS "${SOURCE_PATH}/__GDEXT_CMAKE_ARGS")
+    file(READ "${SOURCE_PATH}/__GDEXT_CMAKE_ARGS" GDEXT_CMAKE_ARGS)
+elseif(DEFINED ENV{GDEXT_CMAKE_ARGS})
+    set(GDEXT_CMAKE_ARGS "$ENV{GDEXT_CMAKE_ARGS}")
+else()
+    message(FATAL_ERROR "GDEXT_CMAKE_ARGS environment variable OR ${SOURCE_PATH}/__GDEXT_CMAKE_ARGS file not set.")
+endif()
+separate_arguments(GDEXT_CMAKE_ARGS UNIX_COMMAND "${GDEXT_CMAKE_ARGS}")
+
+vcpkg_configure_cmake(
+    SOURCE_PATH "${SOURCE_PATH}"
+    OPTIONS ${GDEXT_CMAKE_ARGS}
+    MAYBE_UNUSED_VARIABLES GODOTCPP_PRECISION GODOTCPP_THREADS
+)
+
+vcpkg_build_cmake(TARGET install)
+
+set(VCPKG_POLICY_EMPTY_INCLUDE_FOLDER enabled)
+vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
