@@ -127,6 +127,13 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE src/autowrapper)
 get_target_property(GODOTCPP_INCLUDES godot-cpp INTERFACE_INCLUDE_DIRECTORIES)
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 
+# Force-include the auto-generated OCCT compatibility header.
+# It provides all transitive OCCT dependencies in topological order,
+# derived from libclang's include graphs (no hardcoded library knowledge).
+target_compile_options(${PROJECT_NAME} PRIVATE
+  "-include" "${CMAKE_CURRENT_SOURCE_DIR}/src/autowrapper/occt_compat.hxx"
+)
+
 if(MSVC) # Maximum warnings and treat them as errors
   set(WARN_FLAGS "/W4")
   if(ENABLE_WERROR)
