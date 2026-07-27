@@ -338,10 +338,14 @@ func _matches_filter(suite_name: String, method_name: String) -> bool:
 
 
 func _run_test(script: Object, method: String) -> String:
-	if not script.has_method(method):
-		return "Method not found"
+	var instance = script.new()
+	if instance == null:
+		return "Failed to instantiate script"
 
-	var result = script.call(method)
+	if not instance.has_method(method):
+		return "Instance method not found: %s" % method
+
+	var result = instance.call(method)
 
 	match typeof(result):
 		TYPE_STRING:
