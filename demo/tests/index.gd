@@ -3,4 +3,5 @@
 # This file is necessary for test runner compatibility with exported binaries.
 
 const SUITES := [
+	"res://tests/autowrapper/test_occt_basics.gd",
 ]
