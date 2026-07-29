@@ -7,7 +7,7 @@
         <method name="default" qualifiers="static">
             <description>Constructor</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_int_int_int" qualifiers="static">
             <description>Constructor</description>
         </method>
         <method name="SetDeflection">

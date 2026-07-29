@@ -3,7 +3,7 @@
     <brief_description>A Class</brief_description>
     <description>! A Class</description>
     <methods>
-        <method name="AIS_BadEdgeFilter" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an empty filter object for bad edges.</description>
         </method>
         <method name="SetContour">

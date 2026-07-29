@@ -18,10 +18,10 @@
         <method name="default" qualifiers="static">
             <description>Constructs an empty explorer (which can be initialized using Init)</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Wire_const_ref" qualifiers="static">
             <description>IInitializes an exploration of the wire &lt;W&gt;.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_TopoDS_Wire_const_ref_TopoDS_Face_const_ref" qualifiers="static">
             <description>Initializes an exploration of the wire &lt;W&gt;. F is used to select the edge connected to the previous in the parametric representation of &lt;F&gt;.</description>
         </method>
         <method name="Init_1">

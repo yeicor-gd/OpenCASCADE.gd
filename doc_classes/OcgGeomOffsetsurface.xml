@@ -24,7 +24,7 @@
 ! to detect points with multiple possible normal
 ! directions (for example, the top of a conical surface).</description>
     <methods>
-        <method name="Geom_OffsetSurface" qualifiers="static">
+        <method name="from_Geom_OffsetSurface_const_ref" qualifiers="static">
             <description>Copy constructor for optimized copying without validation.</description>
         </method>
         <method name="ClearEvalRepresentation">

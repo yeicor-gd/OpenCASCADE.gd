@@ -4,7 +4,7 @@
     <description>! A framework to define an or selection filter.
 ! This selects one or another type of sensitive entity.</description>
     <methods>
-        <method name="SelectMgr_OrFilter" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an empty or selection filter.</description>
         </method>
     </methods>

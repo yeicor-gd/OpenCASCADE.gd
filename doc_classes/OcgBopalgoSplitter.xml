@@ -28,7 +28,7 @@
 ! performs the necessary actions for the Splitter algorithm - it adds
 ! the split parts of only Objects into result, avoiding the split parts of Tools.</description>
     <methods>
-        <method name="BOPAlgo_Splitter" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="Perform">

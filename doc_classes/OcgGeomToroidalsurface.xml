@@ -46,10 +46,10 @@
 ! - [ 0, 2.*Pi ] for u
 ! - [ 0, 2.*Pi ] for v</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Torus_const_ref" qualifiers="static">
             <description>Creates a ToroidalSurface from a non transient Torus from package gp.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax3_const_ref_double_double" qualifiers="static">
             <description>A3 is the local coordinate system of the surface. The orientation of increasing V parametric value is defined by the rotation around the main axis (ZAxis) in the trigonometric sense. The parametrization of the surface in the U direction is defined such as the normal Vector (N = D1U ^ D1V) is oriented towards the "outside region" of the surface. Warnings : It is not forbidden to create a toroidal surface with MajorRadius = MinorRadius = 0.0</description>
         </method>
         <method name="SetMajorRadius">

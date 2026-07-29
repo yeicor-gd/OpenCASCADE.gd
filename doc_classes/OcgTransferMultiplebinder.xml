@@ -20,7 +20,7 @@
 ! can produce a Multiple Result, may be defined as a sub-class
 ! of MultipleBinder by redefining method Transfer.</description>
     <methods>
-        <method name="Transfer_MultipleBinder" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>normal standard constructor, creates an empty MultipleBinder</description>
         </method>
         <method name="IsMultiple" qualifiers="const">

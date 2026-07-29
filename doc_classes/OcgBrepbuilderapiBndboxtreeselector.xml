@@ -7,7 +7,7 @@
 !   NCollection::UBTree; contains methods to maintain the selection
 !   condition and to retrieve selected objects after search.</description>
     <methods>
-        <method name="BRepBuilderAPI_BndBoxTreeSelector" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor; calls the base class constructor</description>
         </method>
         <method name="ClearResList">

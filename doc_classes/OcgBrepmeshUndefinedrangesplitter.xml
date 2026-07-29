@@ -4,7 +4,7 @@
     <description>! Auxiliary class provides safe value for surfaces that looks like NURBS
 ! but has no poles or other characteristics.</description>
     <methods>
-        <method name="BRepMesh_UndefinedRangeSplitter" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
     </methods>

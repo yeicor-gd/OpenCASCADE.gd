@@ -5,10 +5,10 @@
 ! WARNING! Quadrangle primitives might be unsupported by graphics library.
 ! Triangulation should be used instead of quads for better compatibility.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_int_int_int" qualifiers="static">
             <description>Creates an array of quadrangle strips (Graphic3d_TOPA_QUADRANGLESTRIPS), a polygon can be filled as: 1) Creating a single strip defined with his vertexes, i.e: 2) Creating separate strips defined with a predefined number of strips and the number of vertex per strip, i.e: The number of quadrangle really drawn is: VertexNumber()/2 - std::min(1, BoundNumber()).</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_int_int_bool_bool_bool_bool" qualifiers="static">
             <description>Creates an array of quadrangle strips (Graphic3d_TOPA_QUADRANGLESTRIPS).</description>
         </method>
     </methods>

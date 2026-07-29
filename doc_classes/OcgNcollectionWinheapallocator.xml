@@ -15,7 +15,7 @@
 ! and you should control that allocator is alive along all objects
 ! allocated with him.</description>
     <methods>
-        <method name="NCollection_WinHeapAllocator" qualifiers="static">
+        <method name="from_int" qualifiers="static">
             <description>Main constructor</description>
         </method>
         <method name="Allocate">

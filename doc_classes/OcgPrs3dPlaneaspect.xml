@@ -3,7 +3,7 @@
     <brief_description>A framework to define the display of planes.</brief_description>
     <description>! A framework to define the display of planes.</description>
     <methods>
-        <method name="Prs3d_PlaneAspect" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an empty framework for the display of planes.</description>
         </method>
         <method name="SetArrowsSize">

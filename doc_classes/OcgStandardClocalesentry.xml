@@ -12,7 +12,7 @@
 ! Internally you should prefer more portable C++ locale interfaces
 ! or OCCT wrappers to some C functions like Sprintf, Atof, Strtod.</description>
     <methods>
-        <method name="Standard_CLocaleSentry" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Setup current C locale to "C".</description>
         </method>
     </methods>

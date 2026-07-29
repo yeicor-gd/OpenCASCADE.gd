@@ -13,7 +13,7 @@
 ! such as printing on standard trace file, recignizing most
 ! currently used auxiliary types (Binder,Mapper ...)</description>
     <methods>
-        <method name="XSControl_Utils" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>the only use of this, is to allow a frontal to get one distinct "Utils" set per separate engine</description>
         </method>
         <method name="TraceLine" qualifiers="const">

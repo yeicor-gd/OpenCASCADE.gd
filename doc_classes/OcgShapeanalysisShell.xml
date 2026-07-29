@@ -4,7 +4,7 @@
     <description>! This class provides operators to analyze edges orientation
 ! in the shell.</description>
     <methods>
-        <method name="ShapeAnalysis_Shell" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="Clear">

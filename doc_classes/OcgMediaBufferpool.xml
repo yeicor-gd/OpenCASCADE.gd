@@ -3,7 +3,7 @@
     <brief_description>AVBufferPool wrapper.</brief_description>
     <description>! AVBufferPool wrapper.</description>
     <methods>
-        <method name="Media_BufferPool" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="Release">

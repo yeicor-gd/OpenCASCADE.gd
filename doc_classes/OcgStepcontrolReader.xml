@@ -37,7 +37,7 @@
 ! if ( WS-&gt;TransferReader()-&gt;HasResult(ent) )
 ! TopoDS_Shape shape = WS-&gt;TransferReader()-&gt;ShapeResult(ent);</description>
     <methods>
-        <method name="STEPControl_Reader" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates a reader object with an empty STEP model.</description>
         </method>
         <method name="ReadFile_1">

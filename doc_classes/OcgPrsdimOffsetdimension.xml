@@ -7,7 +7,7 @@
 ! text. The text gives the dsitance between the offset
 ! and the basis shape.</description>
     <methods>
-        <method name="PrsDim_OffsetDimension" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_TopoDS_Shape_const_ref_double_TCollection_ExtendedString_const_ref" qualifiers="static">
             <description>Constructs the offset display object defined by the first shape aFShape, the second shape aSShape, the dimension aVal, and the text aText.</description>
         </method>
         <method name="KindOfDimension" qualifiers="const">

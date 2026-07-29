@@ -5,7 +5,7 @@
 ! finding shape with tolerance matching given criteria,
 ! setting or limitating tolerances.</description>
     <methods>
-        <method name="ShapeAnalysis_ShapeTolerance" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="Tolerance">

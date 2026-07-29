@@ -7,7 +7,7 @@
 ! Translation can be performed in one or several operations. Each
 ! translation operation outputs a distinct root entity in the STEP file.</description>
     <methods>
-        <method name="STEPControl_Writer" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates a Writer from scratch</description>
         </method>
         <method name="SetTolerance">

@@ -4,7 +4,7 @@
     <description>! Describes a selector and an iterator on a
 ! selector of components of a mesh.</description>
     <methods>
-        <method name="BRepMesh_SelectorOfDataStructureOfDelaun" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Default constructor.</description>
         </method>
         <method name="NeighboursOf_1">

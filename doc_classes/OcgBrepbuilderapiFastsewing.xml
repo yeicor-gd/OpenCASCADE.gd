@@ -15,7 +15,7 @@
 ! - retrieve the error status if any
 ! - retrieve the resulted shape</description>
     <methods>
-        <method name="BRepBuilderAPI_FastSewing" qualifiers="static">
+        <method name="from_double" qualifiers="static">
             <description>Creates an object with tolerance of connexity</description>
         </method>
         <method name="Add">

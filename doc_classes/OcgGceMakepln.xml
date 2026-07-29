@@ -13,28 +13,28 @@
 !       - main direction is the plane normal,
 !       - `XDirection` and `YDirection` define in-plane axes.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Ax2_const_ref" qualifiers="static">
             <description>The coordinate system of the plane is defined with the axis placement A2. The "Direction" of A2 defines the normal to the plane. The "Location" of A2 defines the location (origin) of the plane. The "XDirection" and "YDirection" of A2 define the "XAxis" and the "YAxis" of the plane used to parametrize the plane.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax1_const_ref" qualifiers="static">
             <description>Make a pln passing through the location of &lt;Axis&gt;and normal to the Direction of &lt;Axis&gt;.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Dir_const_ref" qualifiers="static">
             <description>Creates a plane with the "Location" point &lt;P&gt; and the normal direction &lt;V&gt;.</description>
         </method>
-        <method name="from_4" qualifiers="static">
+        <method name="from_gp_Pln_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a plane parallel to input plane and passing through a point.</description>
         </method>
-        <method name="from_5" qualifiers="static">
+        <method name="from_gp_Pln_const_ref_double" qualifiers="static">
             <description>Creates a plane parallel to input plane at signed distance.</description>
         </method>
-        <method name="from_6" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a plane through `P1`, normal to direction (`P1`,`P2`).</description>
         </method>
-        <method name="from_7" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a plane through three points.</description>
         </method>
-        <method name="from_8" qualifiers="static">
+        <method name="from_double_double_double_double" qualifiers="static">
             <description>Creates a plane from its cartesian equation : A * X + B * Y + C * Z + D = 0.0</description>
         </method>
         <method name="Value" qualifiers="const">

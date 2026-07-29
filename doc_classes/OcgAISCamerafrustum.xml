@@ -4,7 +4,7 @@
     <description>! Presentation for drawing camera frustum.
 ! Default configuration is built with filling and some transparency.</description>
     <methods>
-        <method name="AIS_CameraFrustum" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs camera frustum with default configuration.</description>
         </method>
         <method name="SetColor">

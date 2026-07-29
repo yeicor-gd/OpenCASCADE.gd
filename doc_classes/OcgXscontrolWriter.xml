@@ -8,7 +8,7 @@
         <method name="default" qualifiers="static">
             <description>Creates a Writer from scratch</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_char_const_ptr" qualifiers="static">
             <description>Creates a Writer from scratch, with a norm name which identifie a Controller</description>
         </method>
         <method name="SetNorm">

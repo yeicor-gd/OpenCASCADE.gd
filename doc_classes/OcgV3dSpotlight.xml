@@ -11,10 +11,10 @@
 ! The concentration factor determines the dispersion of the light on the surface, the default
 ! value (1.0) corresponds to a minimum of dispersion.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_V3d_TypeOfOrientation_Quantity_Color_const_ref" qualifiers="static">
             <description>Creates a light source of the Spot type in the viewer with default attenuation factors (1.0, 0.0), concentration factor 1.0 and spot angle 30 degrees.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Dir_const_ref_Quantity_Color_const_ref" qualifiers="static">
             <description>Creates a light source of the Spot type in the viewer with default attenuation factors (1.0, 0.0), concentration factor 1.0 and spot angle 30 degrees.</description>
         </method>
         <method name="SetDirection">

@@ -15,16 +15,16 @@
 ! - from directrix and focus;
 ! - from focus and vertex.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Ax22d_const_ref_double" qualifiers="static">
             <description>Creates a parabola from full local coordinate system and focal length.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax2d_const_ref_double_bool" qualifiers="static">
             <description>Creates a parabola from symmetry axis and focal length.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Ax2d_const_ref_gp_Pnt2d_const_ref_bool" qualifiers="static">
             <description>Creates a parabola from directrix and focus.</description>
         </method>
-        <method name="from_4" qualifiers="static">
+        <method name="from_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref_bool" qualifiers="static">
             <description>Creates a parabola from focus and vertex.</description>
         </method>
         <method name="Value" qualifiers="const">

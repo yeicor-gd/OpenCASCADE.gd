@@ -14,7 +14,7 @@
         <method name="default" qualifiers="static">
             <description>Constructs a default date (00:00 GMT, January 1, 1979 (zero hour)); use the function SetValues to define the required date; or</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_int_int_int_int_int_int_int_int" qualifiers="static">
             <description>Constructs a date from the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0). With: 1 &lt;= mm &lt;= 12 1 &lt;= dd &lt;= max number of days of &lt;mm&gt; 1979 &lt;= yyyy 0 &lt;= hh &lt;= 23 0 &lt;= mn &lt;= 59 0 &lt;= ss &lt;= 59 0 &lt;= mis &lt;= 999 0 &lt;= mics &lt;= 999 Exceptions Quantity_DateDefinitionError if mm, dd, hh, mn, ss, mis and mics are not the components of the valid date.</description>
         </method>
         <method name="Values" qualifiers="const">

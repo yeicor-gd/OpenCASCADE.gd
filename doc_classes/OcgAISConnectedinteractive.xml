@@ -14,7 +14,7 @@
 ! Descendants may redefine ComputeSelection() though.
 ! Also ConnectedInteractive will handle HLR if its reference based on AIS_Shape.</description>
     <methods>
-        <method name="AIS_ConnectedInteractive" qualifiers="static">
+        <method name="from_PrsMgr_TypeOfPresentation3d" qualifiers="static">
             <description>Disconnects the previous view and sets highlight mode to 0. This highlights the wireframe presentation aTypeOfPresentation3d. Top_AllView deactivates hidden line removal.</description>
         </method>
         <method name="Type" qualifiers="const">

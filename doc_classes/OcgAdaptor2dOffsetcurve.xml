@@ -3,7 +3,7 @@
     <brief_description>Defines an Offset curve (algorithmic 2d curve).</brief_description>
     <description>! Defines an Offset curve (algorithmic 2d curve).</description>
     <methods>
-        <method name="Adaptor2d_OffsetCurve" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>The Offset is set to 0.</description>
         </method>
         <method name="Load_1">

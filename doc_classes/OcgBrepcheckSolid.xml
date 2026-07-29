@@ -3,7 +3,7 @@
     <brief_description>The class is to check a solid.</brief_description>
     <description>! The class is to check a solid.</description>
     <methods>
-        <method name="BRepCheck_Solid" qualifiers="static">
+        <method name="from_TopoDS_Solid_const_ref" qualifiers="static">
             <description>Constructor &lt;theS&gt; is the solid to check</description>
         </method>
         <method name="InContext">

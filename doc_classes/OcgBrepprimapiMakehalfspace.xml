@@ -12,10 +12,10 @@
 ! -   defining and implementing the construction of a half-space, and
 ! -   consulting the result.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_TopoDS_Face_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Make a HalfSpace defined with a Face and a Point.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shell_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Make a HalfSpace defined with a Shell and a Point.</description>
         </method>
         <method name="Solid" qualifiers="const">

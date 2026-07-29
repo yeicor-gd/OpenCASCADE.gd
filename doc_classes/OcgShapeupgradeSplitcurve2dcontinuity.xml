@@ -6,7 +6,7 @@
 ! geometrically the criterion, in order to reduce the
 ! multiplicity of the knot.</description>
     <methods>
-        <method name="ShapeUpgrade_SplitCurve2dContinuity" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="SetCriterion">

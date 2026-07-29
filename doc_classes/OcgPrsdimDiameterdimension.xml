@@ -27,16 +27,16 @@
 ! In case if the dimension is built on the arbitrary shape, it can be considered
 ! as invalid if the shape does not contain circle geometry.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Circ_const_ref" qualifiers="static">
             <description>Construct diameter dimension for the circle.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Construct diameter on the passed shape, if applicable.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Circ_const_ref_gp_Pln_const_ref" qualifiers="static">
             <description>Construct diameter dimension for the circle and orient it correspondingly to the passed plane.</description>
         </method>
-        <method name="from_4" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_gp_Pln_const_ref" qualifiers="static">
             <description>Construct diameter on the passed shape, if applicable - and define the preferred plane to orient the dimension.</description>
         </method>
         <method name="Circle" qualifiers="const">

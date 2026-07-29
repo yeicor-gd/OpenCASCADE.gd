@@ -6,7 +6,7 @@
 ! In case if it fits specified deflection, restores data structure using
 ! it, else clears edges from outdated data.</description>
     <methods>
-        <method name="BRepMesh_EdgeDiscret" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
     </methods>

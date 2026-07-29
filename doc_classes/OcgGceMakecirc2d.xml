@@ -9,25 +9,25 @@
 ! - circle from center and radius;
 ! - circle from center and one point.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Ax22d_const_ref_double" qualifiers="static">
             <description>Creates a circle from local coordinate system and radius.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Circ2d_const_ref_double" qualifiers="static">
             <description>Creates a circle concentric to input circle with signed offset.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Circ2d_const_ref_gp_Pnt2d_const_ref" qualifiers="static">
             <description>Creates a circle concentric to input circle and passing through a point.</description>
         </method>
-        <method name="from_4" qualifiers="static">
+        <method name="from_gp_Ax2d_const_ref_double_bool" qualifiers="static">
             <description>Creates a circle from axis and radius.</description>
         </method>
-        <method name="from_5" qualifiers="static">
+        <method name="from_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref" qualifiers="static">
             <description>Creates a circle passing through three points.</description>
         </method>
-        <method name="from_6" qualifiers="static">
+        <method name="from_gp_Pnt2d_const_ref_double_bool" qualifiers="static">
             <description>Creates a circle from center and radius.</description>
         </method>
-        <method name="from_7" qualifiers="static">
+        <method name="from_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref_bool" qualifiers="static">
             <description>Creates a circle from center and one point on circle.</description>
         </method>
         <method name="Value" qualifiers="const">

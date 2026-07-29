@@ -15,10 +15,10 @@
         <method name="default" qualifiers="static">
             <description>Constructs an empty attribute filter object. This filter object determines whether selectable interactive objects have a non-null owner.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_Quantity_NameOfColor" qualifiers="static">
             <description>Constructs an attribute filter object defined by the color attribute aCol.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_double" qualifiers="static">
             <description>Constructs an attribute filter object defined by the line width attribute aWidth.</description>
         </method>
         <method name="SetColor">

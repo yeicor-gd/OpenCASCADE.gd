@@ -20,7 +20,7 @@
 ! To define the sizeof memory blocks requested from the OS, use the
 ! parameter of the constructor (measured in bytes).</description>
     <methods>
-        <method name="NCollection_AccAllocator" qualifiers="static">
+        <method name="from_int" qualifiers="static">
             <description>Constructor</description>
         </method>
         <method name="Allocate">

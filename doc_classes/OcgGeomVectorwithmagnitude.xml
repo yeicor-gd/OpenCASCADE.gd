@@ -4,13 +4,13 @@
     <description>! Defines a vector with magnitude.
 ! A vector with magnitude can have a zero length.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Vec_const_ref" qualifiers="static">
             <description>Creates a transient copy of V.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a vector from the point P1 to the point P2. The magnitude of the vector is the distance between P1 and P2</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_double_double_double" qualifiers="static">
             <description>Creates a vector with three cartesian coordinates.</description>
         </method>
         <method name="SetCoord">

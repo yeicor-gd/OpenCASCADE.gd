@@ -3,7 +3,7 @@
     <brief_description>AVFormatContext wrapper - the media input/output stream holder.</brief_description>
     <description>! AVFormatContext wrapper - the media input/output stream holder.</description>
     <methods>
-        <method name="Media_FormatContext" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
         <method name="OpenInput">

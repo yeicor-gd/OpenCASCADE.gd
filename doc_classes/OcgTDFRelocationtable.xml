@@ -14,7 +14,7 @@
 ! Look at SelfRelocate method for more explanation
 ! about self relocation behavior of this class.</description>
     <methods>
-        <method name="TDF_RelocationTable" qualifiers="static">
+        <method name="from_bool" qualifiers="static">
             <description>Creates an relocation table. &lt;selfRelocate&gt; says if a value without explicit relocation is its own relocation.</description>
         </method>
         <method name="SelfRelocate_2">

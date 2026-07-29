@@ -5,10 +5,10 @@
 ! gives the interval between two dates.
 ! A period is expressed in seconds and microseconds.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_int_int" qualifiers="static">
             <description>Creates a Period with a number of seconds and microseconds. Exceptions Quantity_PeriodDefinitionError: - if the number of seconds expressed either by: - dd days, hh hours, mn minutes and ss seconds, or - Ss is less than 0. - if the number of microseconds expressed either by: - mis milliseconds and mics microseconds, or - Mics is less than 0.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_int_int_int_int_int_int" qualifiers="static">
             <description>Creates a Period With: 0 &lt;= dd 0 &lt;= hh 0 &lt;= mn 0 &lt;= ss 0 &lt;= mis 0 &lt;= mics</description>
         </method>
         <method name="Values_2" qualifiers="const">

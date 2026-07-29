@@ -5,7 +5,7 @@
 ! applied, it restores the TDF_Data in the state it
 ! was at &lt;aTargetTime&gt;.</description>
     <methods>
-        <method name="TDocStd_CompoundDelta" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates a compound delta. Validates &lt;me&gt; at &lt;aBeginTime&gt;. If applied, it restores the TDF_Data in the state it was at &lt;anEndTime&gt;. Reserved to TDF_Data.</description>
         </method>
     </methods>

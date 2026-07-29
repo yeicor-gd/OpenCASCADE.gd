@@ -9,13 +9,13 @@
 ! -   consulting the results. In particular, the
 ! Value function returns the constructed arc of ellipse.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Elips_const_ref_double_double_bool" qualifiers="static">
             <description>Constructs an arc from angular bounds on an ellipse.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Elips_const_ref_gp_Pnt_const_ref_double_bool" qualifiers="static">
             <description>Constructs an arc from a point and angle on an ellipse.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Elips_const_ref_gp_Pnt_const_ref_gp_Pnt_const_ref_bool" qualifiers="static">
             <description>Constructs an arc between two points on an ellipse.</description>
         </method>
     </methods>

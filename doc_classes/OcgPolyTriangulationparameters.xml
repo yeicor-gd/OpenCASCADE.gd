@@ -3,7 +3,7 @@
     <brief_description>Represents initial set of parameters triangulation is built for.</brief_description>
     <description>! Represents initial set of parameters triangulation is built for.</description>
     <methods>
-        <method name="Poly_TriangulationParameters" qualifiers="static">
+        <method name="from_double_double_double" qualifiers="static">
             <description>Constructor. Initializes object with the given parameters.</description>
         </method>
     </methods>

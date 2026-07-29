@@ -3,7 +3,7 @@
     <brief_description>A filter framework which allows you to define a filter for a specific shape type.</brief_description>
     <description>! A filter framework which allows you to define a filter for a specific shape type.</description>
     <methods>
-        <method name="StdSelect_ShapeTypeFilter" qualifiers="static">
+        <method name="from_TopAbs_ShapeEnum" qualifiers="static">
             <description>Constructs a filter object defined by the shape type aType.</description>
         </method>
         <method name="Type" qualifiers="const">

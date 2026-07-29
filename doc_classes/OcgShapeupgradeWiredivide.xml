@@ -13,7 +13,7 @@
 ! (ShapeBuild_ReShape). This tool is applied to all edges
 ! before splitting them in order to keep sharing.</description>
     <methods>
-        <method name="ShapeUpgrade_WireDivide" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="Init">

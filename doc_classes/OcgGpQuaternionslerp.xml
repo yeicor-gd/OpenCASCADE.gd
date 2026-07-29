@@ -7,7 +7,7 @@
         <method name="default" qualifiers="static">
             <description>Empty constructor,</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Quaternion_const_ref_gp_Quaternion_const_ref" qualifiers="static">
             <description>Constructor with initialization.</description>
         </method>
         <method name="Init">

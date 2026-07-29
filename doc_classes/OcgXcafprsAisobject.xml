@@ -3,7 +3,7 @@
     <brief_description>Implements AIS_InteractiveObject functionality for shape in DECAF document.</brief_description>
     <description>! Implements AIS_InteractiveObject functionality for shape in DECAF document.</description>
     <methods>
-        <method name="XCAFPrs_AISObject" qualifiers="static">
+        <method name="from_TDF_Label_const_ref" qualifiers="static">
             <description>Creates an object to visualise the shape label.</description>
         </method>
         <method name="GetLabel" qualifiers="const">

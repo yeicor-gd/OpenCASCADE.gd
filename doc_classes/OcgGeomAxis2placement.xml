@@ -27,10 +27,10 @@
 ! used in a context where they can be shared by
 ! several objects contained inside a common data structure.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Ax2_const_ref" qualifiers="static">
             <description>Returns a transient copy of A2.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Dir_const_ref_gp_Dir_const_ref" qualifiers="static">
             <description>P is the origin of the axis placement, N is the main direction of the axis placement and Vx is the "XDirection". If the two directions N and Vx are not orthogonal the "XDirection" is computed as follow : XDirection = N ^ (Vx ^ N). Raised if N and Vx are parallel.</description>
         </method>
         <method name="SetAx2">

@@ -10,7 +10,7 @@
 ! @endcode
 ! Where Distance is the distance of the isolated source from the surface.</description>
     <methods>
-        <method name="V3d_PositionalLight" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_Quantity_Color_const_ref" qualifiers="static">
             <description>Creates an isolated light source in the viewer with default attenuation factors (1.0, 0.0).</description>
         </method>
     </methods>

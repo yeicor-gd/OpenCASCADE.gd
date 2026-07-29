@@ -7,7 +7,7 @@
 ! Connected objects. That way memory-costly
 ! calculations of presentation are avoided.</description>
     <methods>
-        <method name="AIS_MultipleConnectedInteractive" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Initializes the Interactive Object with multiple connections to AIS_Interactive objects.</description>
         </method>
         <method name="HasConnection" qualifiers="const">

@@ -14,7 +14,7 @@
         <method name="default" qualifiers="static">
             <description>Construct an empty Law</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_double_double_double" qualifiers="static">
             <description>Construct an empty, trimmed Law</description>
         </method>
         <method name="NbIntervals" qualifiers="const">

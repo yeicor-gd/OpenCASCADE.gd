@@ -3,7 +3,7 @@
     <brief_description>NCollection allocator with managed memory alignment capabilities.</brief_description>
     <description>! NCollection allocator with managed memory alignment capabilities.</description>
     <methods>
-        <method name="NCollection_AlignedAllocator" qualifiers="static">
+        <method name="from_int" qualifiers="static">
             <description>Constructor. The alignment should be specified explicitly: 16 bytes for SSE instructions 32 bytes for AVX instructions</description>
         </method>
         <method name="Allocate">

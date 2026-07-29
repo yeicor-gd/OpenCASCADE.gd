@@ -35,7 +35,7 @@
 ! applications working on basic triangles, and which do not
 ! work directly with a Poly_Triangulation.</description>
     <methods>
-        <method name="Poly_Connect" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an uninitialized algorithm.</description>
         </method>
         <method name="Initialize">

@@ -3,7 +3,7 @@
     <brief_description>defines basic controller for STEP processor</brief_description>
     <description>! defines basic controller for STEP processor</description>
     <methods>
-        <method name="STEPControl_Controller" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Initializes the use of STEP Norm (the first time) and returns a Controller</description>
         </method>
         <method name="Init" qualifiers="static">

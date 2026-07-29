@@ -32,13 +32,13 @@
 ! (or Second) Conjugate branch.
 ! The major radius can be lower than the minor radius.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref" qualifiers="static">
             <description>Creates a hyperbola from center and two points.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax22d_const_ref_double_double" qualifiers="static">
             <description>Creates a hyperbola from local coordinate system and radii.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Ax2d_const_ref_double_double_bool" qualifiers="static">
             <description>Creates a hyperbola from major axis and radii.</description>
         </method>
         <method name="Value" qualifiers="const">

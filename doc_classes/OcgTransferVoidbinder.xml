@@ -7,7 +7,7 @@
 ! VoidBinder to be over-written, and copies its check to the
 ! new Binder</description>
     <methods>
-        <method name="Transfer_VoidBinder" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>a VoidBinder is not Multiple (Remark : it is not Simple too) But it can bring next results ...</description>
         </method>
         <method name="ResultTypeName" qualifiers="const">

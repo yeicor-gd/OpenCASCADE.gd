@@ -54,7 +54,7 @@
 ! derivatives for the parameter u = 1 even if the curve is closed.
 ! - The length of a Bezier curve can be null.</description>
     <methods>
-        <method name="from_2" qualifiers="static">
+        <method name="from_Geom2d_BezierCurve_const_ref" qualifiers="static">
             <description>Copy constructor for optimized copying without validation.</description>
         </method>
         <method name="ClearEvalRepresentation">

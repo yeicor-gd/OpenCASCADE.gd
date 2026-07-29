@@ -5,7 +5,7 @@
 ! between two or more interactive datums. These
 ! datums can be edges or faces.</description>
     <methods>
-        <method name="PrsDim_PerpendicularRelation" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Constructs an object to display constraints of perpendicularity on shapes. This object is defined by a first shape aFShape and a second shape aSShape.</description>
         </method>
     </methods>

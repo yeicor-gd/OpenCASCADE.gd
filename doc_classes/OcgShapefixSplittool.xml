@@ -4,7 +4,7 @@
     <description>! Tool for splitting and cutting edges; includes methods
 ! used in OverlappingTool and IntersectionTool</description>
     <methods>
-        <method name="ShapeFix_SplitTool" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="SplitEdge_1" qualifiers="const">

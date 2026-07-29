@@ -39,7 +39,7 @@
 ! equal to the Resolution sea package gp) . The OffsetCurve can be
 ! closed even if the basis curve is not closed.</description>
     <methods>
-        <method name="Geom2d_OffsetCurve" qualifiers="static">
+        <method name="from_Geom2d_OffsetCurve_const_ref" qualifiers="static">
             <description>Copy constructor for optimized copying without validation.</description>
         </method>
         <method name="ClearEvalRepresentation">

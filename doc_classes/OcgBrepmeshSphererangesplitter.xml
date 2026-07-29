@@ -4,7 +4,7 @@
     <description>! Auxiliary class extending default range splitter in
 ! order to generate internal nodes for spherical surface.</description>
     <methods>
-        <method name="BRepMesh_SphereRangeSplitter" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
     </methods>

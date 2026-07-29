@@ -9,10 +9,10 @@
 ! -   implementing the construction algorithm, and
 ! -   consulting the result.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Vec_const_ref" qualifiers="static">
             <description>Constructs a translation from a vector.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Constructs a translation from two points.</description>
         </method>
     </methods>

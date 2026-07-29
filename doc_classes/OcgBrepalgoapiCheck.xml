@@ -23,10 +23,10 @@
         <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_bool_bool_Message_ProgressRange_const_ref" qualifiers="static">
             <description>Constructor for checking single shape.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_TopoDS_Shape_const_ref_BOPAlgo_Operation_bool_bool_Message_ProgressRange_const_ref" qualifiers="static">
             <description>Constructor for checking the couple of shapes. Additionally to the validity checks of each given shape, the types of the given shapes will be checked on validity for Boolean operation of given type.</description>
         </method>
         <method name="SetData_1">

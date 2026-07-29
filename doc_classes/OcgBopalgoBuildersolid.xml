@@ -53,7 +53,7 @@
 ! ~~~~
 !</description>
     <methods>
-        <method name="BOPAlgo_BuilderSolid" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="Perform">

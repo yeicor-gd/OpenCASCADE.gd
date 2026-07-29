@@ -6,16 +6,16 @@
 ! - direction from vector or coordinate components;
 ! - direction from two points.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Vec_const_ref" qualifiers="static">
             <description>Normalizes the vector V and creates a direction.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_XYZ_const_ref" qualifiers="static">
             <description>Creates a direction from a coordinate vector.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a direction from two points.</description>
         </method>
-        <method name="from_4" qualifiers="static">
+        <method name="from_double_double_double" qualifiers="static">
             <description>Creates a direction with its 3 cartesian coordinates.</description>
         </method>
         <method name="Value" qualifiers="const">

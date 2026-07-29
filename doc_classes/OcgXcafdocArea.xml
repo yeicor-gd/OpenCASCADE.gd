@@ -3,7 +3,7 @@
     <brief_description>attribute to store area</brief_description>
     <description>! attribute to store area</description>
     <methods>
-        <method name="XCAFDoc_Area" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>class methods =============</description>
         </method>
         <method name="Set">

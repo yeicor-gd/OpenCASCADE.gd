@@ -7,7 +7,7 @@
 !
 ! Window properties should be managed by application and assigned to this class as properties.</description>
     <methods>
-        <method name="Aspect_NeutralWindow" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor. Note that window is considered "mapped" by default.</description>
         </method>
         <method name="NativeHandle" qualifiers="const">

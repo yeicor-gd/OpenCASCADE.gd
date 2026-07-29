@@ -8,7 +8,7 @@
 ! Provides methods for analyzing geometry and topology consistency
 ! (3d and pcurve(s) consistency, their adjacency to the vertices).</description>
     <methods>
-        <method name="ShapeAnalysis_Edge" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor; initialises Status to OK</description>
         </method>
         <method name="HasCurve3d" qualifiers="const">

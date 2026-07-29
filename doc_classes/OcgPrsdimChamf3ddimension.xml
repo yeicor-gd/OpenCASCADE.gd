@@ -6,10 +6,10 @@
 ! gives the length of the chamfer if it is a symmetrical
 ! chamfer, or the angle if it is not.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_double_TCollection_ExtendedString_const_ref" qualifiers="static">
             <description>Constructs a display object for 3D chamfers. This object is defined by the shape aFShape, the dimension aVal and the text aText.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_double_TCollection_ExtendedString_const_ref_gp_Pnt_const_ref_DsgPrs_ArrowSide_double" qualifiers="static">
             <description>Constructs a display object for 3D chamfers. This object is defined by the shape aFShape, the dimension aVal, the text aText, the point of origin of the chamfer aPosition, the type of arrow aSymbolPrs with the size anArrowSize.</description>
         </method>
         <method name="KindOfDimension" qualifiers="const">

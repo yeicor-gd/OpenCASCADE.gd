@@ -16,7 +16,7 @@
 !   Compare() will return the list of indices of the boxes which intersect
 !   the box or plane passed as argument.</description>
     <methods>
-        <method name="Bnd_BoundSortBox" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an empty comparison algorithm for bounding boxes. The bounding boxes are then defined using the Initialize function.</description>
         </method>
         <method name="Initialize">

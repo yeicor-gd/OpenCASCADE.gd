@@ -13,10 +13,10 @@
 ! -   implementing the transformation algorithm, and
 ! -   consulting the results.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Trsf_const_ref" qualifiers="static">
             <description>Constructs a framework for applying the geometric transformation T to a shape. Use the function Perform to define the shape to transform.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_gp_Trsf_const_ref_bool_bool" qualifiers="static">
             <description>Creates a transformation from the gp_Trsf &lt;theTrsf&gt;, and applies it to the shape &lt;theShape&gt;. If the transformation is direct and isometric (determinant = 1) and &lt;theCopyGeom&gt; = false, the resulting shape is &lt;theShape&gt; on which a new location has been set. Otherwise, the transformation is applied on a duplication of &lt;theShape&gt;. If &lt;theCopyMesh&gt; is true, the triangulation will be copied, and the copy will be assigned to the result shape.</description>
         </method>
         <method name="Perform">

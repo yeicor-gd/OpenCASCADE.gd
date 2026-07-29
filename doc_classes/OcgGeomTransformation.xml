@@ -39,7 +39,7 @@
         <method name="default" qualifiers="static">
             <description>Creates an identity transformation.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Trsf_const_ref" qualifiers="static">
             <description>Creates a transient copy of T.</description>
         </method>
         <method name="SetMirror_1">

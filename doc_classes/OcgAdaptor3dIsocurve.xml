@@ -6,7 +6,7 @@
 ! with the enumeration IsoType from GeomAbs if
 ! NoneIso is given an error is raised.</description>
     <methods>
-        <method name="Adaptor3d_IsoCurve" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>The iso is set to NoneIso.</description>
         </method>
         <method name="Load_1">

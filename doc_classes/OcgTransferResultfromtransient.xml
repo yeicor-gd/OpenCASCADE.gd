@@ -10,7 +10,7 @@
 ! have been recorded in the TrabsientProcess, under scope
 ! attached to the starting transient.</description>
     <methods>
-        <method name="Transfer_ResultFromTransient" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates a ResultFromTransient, empty</description>
         </method>
         <method name="HasResult" qualifiers="const">

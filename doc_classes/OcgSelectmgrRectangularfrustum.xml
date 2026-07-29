@@ -13,7 +13,7 @@
 ! Overlap detection tests are implemented according to the terms of separating axis
 ! theorem (SAT).</description>
     <methods>
-        <method name="SelectMgr_RectangularFrustum" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates rectangular selecting frustum.</description>
         </method>
         <method name="Init_1">

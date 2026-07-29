@@ -5,7 +5,7 @@
 ! Nullifies existing polygonal data in case if model elements
 ! have IMeshData_Outdated status.</description>
     <methods>
-        <method name="BRepMesh_ModelPreProcessor" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
     </methods>

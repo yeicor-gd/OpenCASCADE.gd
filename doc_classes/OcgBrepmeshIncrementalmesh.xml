@@ -7,10 +7,10 @@
         <method name="default" qualifiers="static">
             <description>Default constructor</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_IMeshTools_Parameters_const_ref_Message_ProgressRange_const_ref" qualifiers="static">
             <description>Constructor. Automatically calls method Perform.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_double_bool_double_bool" qualifiers="static">
             <description>Constructor. Automatically calls method Perform.</description>
         </method>
         <method name="Perform">

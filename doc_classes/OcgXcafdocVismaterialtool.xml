@@ -15,7 +15,7 @@
 !
 ! @sa XCAFDoc_VisMaterial</description>
     <methods>
-        <method name="XCAFDoc_VisMaterialTool" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="BaseLabel" qualifiers="const">

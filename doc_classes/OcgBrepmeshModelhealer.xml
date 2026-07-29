@@ -14,7 +14,7 @@
 ! amplify discrete representation by decreasing of deflection for the target edge.
 ! Checks can be performed in parallel mode.</description>
     <methods>
-        <method name="BRepMesh_ModelHealer" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
     </methods>

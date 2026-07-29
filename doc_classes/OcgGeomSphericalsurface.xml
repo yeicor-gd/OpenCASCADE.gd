@@ -41,10 +41,10 @@
 ! - [ 0, 2.*Pi ] for u, and
 ! - [ - Pi/2., + Pi/2. ] for v.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Sphere_const_ref" qualifiers="static">
             <description>Creates a SphericalSurface from a non persistent Sphere from package gp.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax3_const_ref_double" qualifiers="static">
             <description>A3 is the local coordinate system of the surface. At the creation the parametrization of the surface is defined such as the normal Vector (N = D1U ^ D1V) is directed away from the center of the sphere. The direction of increasing parametric value V is defined by the rotation around the "YDirection" of A2 in the trigonometric sense and the orientation of increasing parametric value U is defined by the rotation around the main direction of A2 in the trigonometric sense. Warnings : It is not forbidden to create a spherical surface with Radius = 0.0 Raised if Radius &lt; 0.0.</description>
         </method>
         <method name="SetRadius">

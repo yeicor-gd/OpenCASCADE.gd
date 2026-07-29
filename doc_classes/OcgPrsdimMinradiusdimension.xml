@@ -5,10 +5,10 @@
 ! can be Edge or Face (planar or cylindrical(surface of
 ! extrusion or surface of offset))</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_double_TCollection_ExtendedString_const_ref" qualifiers="static">
             <description>Max Ellipse radius dimension Shape can be edge, planar face or cylindrical face</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_double_TCollection_ExtendedString_const_ref_gp_Pnt_const_ref_DsgPrs_ArrowSide_double" qualifiers="static">
             <description>Max Ellipse radius dimension with position Shape can be edge, planar face or cylindrical face</description>
         </method>
     </methods>

@@ -3,7 +3,7 @@
     <brief_description>Describes an "S" evolution law.</brief_description>
     <description>! Describes an "S" evolution law.</description>
     <methods>
-        <method name="Law_S" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an empty "S" evolution law.</description>
         </method>
         <method name="Set_1">

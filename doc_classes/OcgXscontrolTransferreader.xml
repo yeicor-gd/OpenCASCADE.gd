@@ -20,7 +20,7 @@
 ! Some more direct access are given for results which are
 ! Transient or Shapes</description>
     <methods>
-        <method name="XSControl_TransferReader" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates a TransferReader, empty</description>
         </method>
         <method name="SetFileName">

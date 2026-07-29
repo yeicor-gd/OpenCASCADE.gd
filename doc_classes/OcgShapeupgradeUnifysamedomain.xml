@@ -33,7 +33,7 @@
         <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_bool_bool_bool" qualifiers="static">
             <description>Constructor defining input shape and necessary flags. It does not perform unification.</description>
         </method>
         <method name="Initialize">

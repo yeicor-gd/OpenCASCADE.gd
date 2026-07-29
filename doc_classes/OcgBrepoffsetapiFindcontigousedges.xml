@@ -14,7 +14,7 @@
 ! - output couples of connected edges for control
 ! - output the problems if any</description>
     <methods>
-        <method name="BRepOffsetAPI_FindContigousEdges" qualifiers="static">
+        <method name="from_double_bool" qualifiers="static">
             <description>Initializes an algorithm for identifying contiguous edges on shapes with tolerance as the tolerance of contiguity (defaulted to 1.0e-6). This tolerance value is used to determine whether two edges or sections of edges are coincident. Use the function Add to define the shapes to be checked. Set option to false. This argument (defaulted to true) will serve in subsequent software releases for performing an analysis of degenerated shapes.</description>
         </method>
         <method name="Init">

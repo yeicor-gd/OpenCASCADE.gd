@@ -3,7 +3,7 @@
     <brief_description>Structure holding information about supported texture formats.</brief_description>
     <description>! Structure holding information about supported texture formats.</description>
     <methods>
-        <method name="Image_SupportedFormats" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="Add_1">

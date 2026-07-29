@@ -5,7 +5,7 @@
 ! Tool tries to merge all nodes within input triangulation, but split the ones on sharp corners at
 ! specified angle.</description>
     <methods>
-        <method name="Poly_MergeNodesTool" qualifiers="static">
+        <method name="from_double_double_int" qualifiers="static">
             <description>Constructor</description>
         </method>
         <method name="PushLastElement">

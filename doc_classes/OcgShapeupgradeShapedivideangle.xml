@@ -6,10 +6,10 @@
 ! each resulting segment covers not more than defined number
 ! of degrees (to segments less than 90).</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_double" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_double_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Initialize by a Shape.</description>
         </method>
         <method name="InitTool">

@@ -5,7 +5,7 @@
 ! STL files from Open CASCADE shapes. An STL file can be written to an existing STL file or to a
 ! new one.</description>
     <methods>
-        <method name="StlAPI_Writer" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates a writer object with default parameters: ASCIIMode.</description>
         </method>
         <method name="ASCIIMode">

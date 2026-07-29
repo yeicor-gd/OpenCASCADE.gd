@@ -4,7 +4,7 @@
     <description>! Default implementation of IMeshTools_MeshAlgoFactory providing algorithms
 ! of different complexity depending on type of target surface.</description>
     <methods>
-        <method name="BRepMesh_MeshAlgoFactory" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
     </methods>

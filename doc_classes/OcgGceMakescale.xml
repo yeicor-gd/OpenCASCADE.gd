@@ -8,7 +8,7 @@
 ! -   implementing the construction algorithm, and
 ! -   consulting the result.</description>
     <methods>
-        <method name="gce_MakeScale" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_double" qualifiers="static">
             <description>Constructs a scaling transformation.</description>
         </method>
         <method name="Value" qualifiers="const">

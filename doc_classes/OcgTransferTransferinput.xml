@@ -7,7 +7,7 @@
 ! Transient (the Complete Result is considered, it must contain
 ! only Transient Objects)</description>
     <methods>
-        <method name="Transfer_TransferInput" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates a TransferInput ready to use</description>
         </method>
     </methods>

@@ -17,7 +17,7 @@
 ! - implementing the construction algorithm, and
 ! - consulting the result.</description>
     <methods>
-        <method name="BRepOffsetAPI_MakeThickSolid" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor does nothing.</description>
         </method>
         <method name="MakeThickSolidBySimple">

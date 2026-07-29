@@ -7,16 +7,16 @@
 ! -   implementing the construction algorithm, and
 ! -   consulting the result.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_double_double_double_double" qualifiers="static">
             <description>Make a STEP right angular wedge. (ltx &gt;= 0)</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax2_const_ref_double_double_double_double" qualifiers="static">
             <description>Make a STEP right angular wedge. (ltx &gt;= 0)</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_double_double_double_double_double_double_double" qualifiers="static">
             <description>Make a wedge. The face at dy is xmin,zmin xmax,zmax</description>
         </method>
-        <method name="from_4" qualifiers="static">
+        <method name="from_gp_Ax2_const_ref_double_double_double_double_double_double_double" qualifiers="static">
             <description>Make a wedge. The face at dy is xmin,zmin xmax,zmax</description>
         </method>
         <method name="Build">

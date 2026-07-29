@@ -3,7 +3,7 @@
     <brief_description>Standard presentation algorithm that outputs graphical primitives for disk surface.</brief_description>
     <description>! Standard presentation algorithm that outputs graphical primitives for disk surface.</description>
     <methods>
-        <method name="Prs3d_ToolDisk" qualifiers="static">
+        <method name="from_double_double_int_int" qualifiers="static">
             <description>Initializes the algorithm creating a disk.</description>
         </method>
     </methods>

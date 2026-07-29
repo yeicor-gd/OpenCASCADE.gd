@@ -3,7 +3,7 @@
     <brief_description>Describes an linear evolution law.</brief_description>
     <description>! Describes an linear evolution law.</description>
     <methods>
-        <method name="Law_Linear" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an empty linear evolution law.</description>
         </method>
         <method name="Set">

@@ -11,7 +11,7 @@
         <method name="default" qualifiers="static">
             <description>Initializes an empty algorithm. The function Init is then used to define the shape.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_double" qualifiers="static">
             <description>Constructs the plane containing the edges of the shape S. A plane is built only if all the edges are within a distance of less than or equal to tolerance from a planar surface. This tolerance value is equal to the larger of the following two values: - Tol, where the default value is negative, or - the largest of the tolerance values assigned to the individual edges of S. Use the function Found to verify that a plane is built. The resulting plane is then retrieved using the function Plane.</description>
         </method>
         <method name="Init">

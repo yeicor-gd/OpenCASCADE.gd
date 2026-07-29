@@ -3,7 +3,7 @@
     <brief_description>Auxiliary tool for buffered reading from input stream within chunks of constant size.</brief_description>
     <description>! Auxiliary tool for buffered reading from input stream within chunks of constant size.</description>
     <methods>
-        <method name="Standard_ReadBuffer" qualifiers="static">
+        <method name="from_long_int_bool" qualifiers="static">
             <description>Constructor with initialization.</description>
         </method>
     </methods>

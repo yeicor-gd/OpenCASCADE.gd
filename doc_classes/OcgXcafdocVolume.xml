@@ -3,7 +3,7 @@
     <brief_description>attribute to store volume</brief_description>
     <description>! attribute to store volume</description>
     <methods>
-        <method name="XCAFDoc_Volume" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>class methods =============</description>
         </method>
         <method name="Set">

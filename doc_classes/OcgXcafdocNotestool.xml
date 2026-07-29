@@ -46,7 +46,7 @@
 ! }
 ! \endcode</description>
     <methods>
-        <method name="XCAFDoc_NotesTool" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates an empty notes tool.</description>
         </method>
         <method name="GetNotesLabel" qualifiers="const">

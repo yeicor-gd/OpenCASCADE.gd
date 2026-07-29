@@ -7,7 +7,7 @@
 ! at a knot with given tolerance then the surface is corrected,
 ! otherwise it is spltted at that knot.</description>
     <methods>
-        <method name="ShapeUpgrade_SplitSurfaceContinuity" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="SetCriterion">

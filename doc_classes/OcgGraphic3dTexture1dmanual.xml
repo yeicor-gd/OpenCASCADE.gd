@@ -4,10 +4,10 @@
     <description>! This class provides the implementation of a manual 1D texture.
 ! you MUST provide texture coordinates on your facets if you want to see your texture.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_TCollection_AsciiString_const_ref" qualifiers="static">
             <description>Creates a texture from the file FileName.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_Graphic3d_NameOfTexture1D" qualifiers="static">
             <description>Create a texture from a predefined texture name set.</description>
         </method>
     </methods>

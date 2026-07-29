@@ -3,7 +3,7 @@
     <brief_description />
     <description>Wrapper for OCCT class XCAFDoc_NoteBinData.</description>
     <methods>
-        <method name="XCAFDoc_NoteBinData" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates an empty binary data note.</description>
         </method>
         <method name="Title" qualifiers="const">

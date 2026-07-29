@@ -9,10 +9,10 @@
 ! - running the construction algorithm;
 ! - querying the resulting transformation via `Value()`.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Vec2d_const_ref" qualifiers="static">
             <description>Constructs a translation along a vector.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref" qualifiers="static">
             <description>Constructs a translation along the vector from one point to another.</description>
         </method>
     </methods>

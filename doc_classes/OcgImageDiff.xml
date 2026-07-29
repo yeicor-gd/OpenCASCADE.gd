@@ -35,7 +35,7 @@
 !     4. http://www.worldscientific.com/worldscibooks/10.1142/2641#t=toc (there is a list of
 !     articles and books in PDF format)</description>
     <methods>
-        <method name="Image_Diff" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>An empty constructor. Init() should be called for initialization.</description>
         </method>
         <method name="Init">

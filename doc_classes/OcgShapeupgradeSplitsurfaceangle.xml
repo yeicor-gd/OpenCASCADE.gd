@@ -5,7 +5,7 @@
 ! conical, spherical so that each resulting segment covers
 ! not more than defined number of degrees.</description>
     <methods>
-        <method name="ShapeUpgrade_SplitSurfaceAngle" qualifiers="static">
+        <method name="from_double" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="SetMaxAngle">

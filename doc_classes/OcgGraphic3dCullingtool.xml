@@ -5,7 +5,7 @@
 ! such as its vertices and equations, and contains methods detecting if given AABB overlaps view
 ! volume.</description>
     <methods>
-        <method name="Graphic3d_CullingTool" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates an empty selector object with parallel projection type by default.</description>
         </method>
         <method name="CacheClipPtsProjections">

@@ -7,7 +7,7 @@
 ! - Android, through __android_log_write().
 ! - UNIX/Linux, through syslog().</description>
     <methods>
-        <method name="Message_PrinterSystemLog" qualifiers="static">
+        <method name="from_TCollection_AsciiString_const_ref_Message_Gravity" qualifiers="static">
             <description>Main constructor.</description>
         </method>
     </methods>

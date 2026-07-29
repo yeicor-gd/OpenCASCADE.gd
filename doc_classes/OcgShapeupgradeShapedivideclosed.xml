@@ -4,7 +4,7 @@
     <description>! Divides all closed faces in the shape. Class
 ! ShapeUpgrade_ClosedFaceDivide is used as divide tool.</description>
     <methods>
-        <method name="ShapeUpgrade_ShapeDivideClosed" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Initialises tool with shape and default parameter.</description>
         </method>
         <method name="SetNbSplitPoints">

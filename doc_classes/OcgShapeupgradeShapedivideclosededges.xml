@@ -3,7 +3,7 @@
     <brief_description />
     <description>Wrapper for OCCT class ShapeUpgrade_ShapeDivideClosedEdges.</description>
     <methods>
-        <method name="ShapeUpgrade_ShapeDivideClosedEdges" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Initialises tool with shape and default parameter.</description>
         </method>
         <method name="SetNbSplitPoints">

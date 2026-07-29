@@ -3,7 +3,7 @@
     <brief_description>Auxiliary textured mesh presentation of tracked XR device.</brief_description>
     <description>! Auxiliary textured mesh presentation of tracked XR device.</description>
     <methods>
-        <method name="AIS_XRTrackedDevice" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="Role" qualifiers="const">

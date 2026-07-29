@@ -34,10 +34,10 @@
 ! @note The major radius (on major axis) can be lower than the
 !       minor radius (on minor axis).</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Ax2_const_ref_double_double" qualifiers="static">
             <description>Creates a hyperbola from a local coordinate system and radii.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a hyperbola from center and two points.</description>
         </method>
         <method name="Value" qualifiers="const">

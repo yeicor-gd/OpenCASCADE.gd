@@ -17,7 +17,7 @@
         <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_bool_double_bool" qualifiers="static">
             <description>Creates a WireOrder. Flag &lt;theMode3D&gt; defines 3D or 2d mode. Flag &lt;theModeBoth&gt; defines miscible mode and the flag &lt;theMode3D&gt; is ignored. Warning: Parameter &lt;theTolerance&gt; is not used in algorithm.</description>
         </method>
         <method name="SetMode">

@@ -8,7 +8,7 @@
 ! -   implementing the construction algorithm, and
 ! -   consulting the result.</description>
     <methods>
-        <method name="gce_MakeRotation2d" qualifiers="static">
+        <method name="from_gp_Pnt2d_const_ref_double" qualifiers="static">
             <description>Constructs a rotation around a point in 2D.</description>
         </method>
         <method name="Value" qualifiers="const">

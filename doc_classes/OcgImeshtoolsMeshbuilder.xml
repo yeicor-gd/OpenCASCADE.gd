@@ -18,7 +18,7 @@
 ! Message_Fail7 - fail to post-process model.
 ! Message_Warn1 - shape contains no objects to mesh.</description>
     <methods>
-        <method name="IMeshTools_MeshBuilder" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
         <method name="Perform">

@@ -9,7 +9,7 @@
 ! edge tolerance),
 ! - not adjacent curves (3d or pcurve) to the vertices.</description>
     <methods>
-        <method name="ShapeFix_Edge" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
         <method name="FixRemoveCurve3d">

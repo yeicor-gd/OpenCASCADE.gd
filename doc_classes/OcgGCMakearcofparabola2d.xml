@@ -9,13 +9,13 @@
 ! - querying the construction status and the resulting arc via `Value()`.
 ! @note Angular parameters are expressed in radians.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Parab2d_const_ref_double_double_bool" qualifiers="static">
             <description>Constructs an arc from angular bounds on a parabola.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Parab2d_const_ref_gp_Pnt2d_const_ref_double_bool" qualifiers="static">
             <description>Constructs an arc from a point and angular bound on a parabola.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Parab2d_const_ref_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref_bool" qualifiers="static">
             <description>Constructs an arc between two points on a parabola.</description>
         </method>
     </methods>

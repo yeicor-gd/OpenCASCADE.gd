@@ -3,7 +3,7 @@
     <brief_description>Presentation for video playback.</brief_description>
     <description>! Presentation for video playback.</description>
     <methods>
-        <method name="AIS_MediaPlayer" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="OpenInput">

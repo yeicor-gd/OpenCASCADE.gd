@@ -4,7 +4,7 @@
     <description>! Alert object storing alert metrics values.
 ! Start and stop values for each metric.</description>
     <methods>
-        <method name="Message_AttributeMeter" qualifiers="static">
+        <method name="from_TCollection_AsciiString_const_ref" qualifiers="static">
             <description>Constructor with string argument</description>
         </method>
         <method name="HasMetric" qualifiers="const">

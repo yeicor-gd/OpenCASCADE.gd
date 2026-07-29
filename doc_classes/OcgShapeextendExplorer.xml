@@ -8,7 +8,7 @@
 ! - exploring shapes in context of TopoDS_Compound,
 ! - converting different representations of shapes (list, sequence, compound).</description>
     <methods>
-        <method name="ShapeExtend_Explorer" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates an object Explorer</description>
         </method>
         <method name="ShapeType" qualifiers="const">

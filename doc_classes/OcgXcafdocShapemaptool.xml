@@ -3,7 +3,7 @@
     <brief_description>attribute containing map of sub shapes</brief_description>
     <description>! attribute containing map of sub shapes</description>
     <methods>
-        <method name="XCAFDoc_ShapeMapTool" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates an empty tool</description>
         </method>
         <method name="IsSubShape" qualifiers="const">

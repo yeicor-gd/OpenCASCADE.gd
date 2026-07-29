@@ -9,22 +9,22 @@
 ! -   implementing the construction algorithm, and
 ! -   consulting the result.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref" qualifiers="static">
             <description>Constructs a central symmetry about a point.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax1_const_ref" qualifiers="static">
             <description>Constructs an axial symmetry about an axis.</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Lin_const_ref" qualifiers="static">
             <description>Constructs an axial symmetry about a line.</description>
         </method>
-        <method name="from_4" qualifiers="static">
+        <method name="from_gp_Pln_const_ref" qualifiers="static">
             <description>Constructs a planar symmetry about a plane.</description>
         </method>
-        <method name="from_5" qualifiers="static">
+        <method name="from_gp_Ax2_const_ref" qualifiers="static">
             <description>Constructs a planar symmetry about a plane.</description>
         </method>
-        <method name="from_6" qualifiers="static">
+        <method name="from_gp_Pnt_const_ref_gp_Dir_const_ref" qualifiers="static">
             <description>Constructs an axial symmetry about an axis defined by point and direction.</description>
         </method>
         <method name="Value" qualifiers="const">

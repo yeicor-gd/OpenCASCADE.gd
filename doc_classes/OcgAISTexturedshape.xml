@@ -18,7 +18,7 @@
 ! - the position of the origin of the texture
 ! - the scale factor of the texture</description>
     <methods>
-        <method name="AIS_TexturedShape" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Initializes the textured shape.</description>
         </method>
         <method name="SetTextureFileName">

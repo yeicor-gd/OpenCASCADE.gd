@@ -3,7 +3,7 @@
     <brief_description>Dumps shape contents</brief_description>
     <description>! Dumps shape contents</description>
     <methods>
-        <method name="ShapeAnalysis_ShapeContents" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Initialize fields and call ClearFlags()</description>
         </method>
         <method name="Clear">

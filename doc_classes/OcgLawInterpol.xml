@@ -4,7 +4,7 @@
     <description>! Provides an evolution law that interpolates a set
 ! of parameter and value pairs (wi, radi)</description>
     <methods>
-        <method name="Law_Interpol" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructs an empty interpolative evolution law. The function Set is used to define the law.</description>
         </method>
     </methods>

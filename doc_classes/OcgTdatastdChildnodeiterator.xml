@@ -6,7 +6,7 @@
 ! iterator to explore all the sub step levels of the
 ! given one, with the option "allLevels".</description>
     <methods>
-        <method name="TDataStd_ChildNodeIterator" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Creates an empty iterator.</description>
         </method>
         <method name="Next">

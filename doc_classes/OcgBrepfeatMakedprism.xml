@@ -18,7 +18,7 @@
 ! it out and move it to a different height which will define the
 ! limiting face of a protrusion or depression.</description>
     <methods>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_TopoDS_Face_const_ref_TopoDS_Face_const_ref_double_int_bool" qualifiers="static">
             <description>A face Pbase is selected in the shape Sbase to serve as the basis for the draft prism. The draft will be defined by the angle Angle and Fuse offers a choice between: - removing matter with a Boolean cut using the setting 0 - adding matter with Boolean fusion using the setting 1. The sketch face Skface serves to determine the type of operation. If it is inside the basis shape, a local operation such as glueing can be performed. Initializes the draft prism class</description>
         </method>
         <method name="Init">

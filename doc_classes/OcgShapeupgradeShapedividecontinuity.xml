@@ -3,7 +3,7 @@
     <brief_description>API Tool for converting shapes with C0 geometry into C1 ones</brief_description>
     <description>! API Tool for converting shapes with C0 geometry into C1 ones</description>
     <methods>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Initialize by a Shape.</description>
         </method>
         <method name="SetTolerance">

@@ -3,7 +3,7 @@
     <brief_description>Fixing solids with small size</brief_description>
     <description>! Fixing solids with small size</description>
     <methods>
-        <method name="ShapeFix_FixSmallSolid" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Construct</description>
         </method>
         <method name="SetFixMode">

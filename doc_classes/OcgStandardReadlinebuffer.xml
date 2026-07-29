@@ -3,7 +3,7 @@
     <brief_description>Auxiliary tool for buffered reading of lines from input stream.</brief_description>
     <description>! Auxiliary tool for buffered reading of lines from input stream.</description>
     <methods>
-        <method name="Standard_ReadLineBuffer" qualifiers="static">
+        <method name="from_int" qualifiers="static">
             <description>Constructor with initialization.</description>
         </method>
         <method name="Clear">

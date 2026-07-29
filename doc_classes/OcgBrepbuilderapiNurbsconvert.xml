@@ -11,7 +11,7 @@
         <method name="default" qualifiers="static">
             <description>Constructs a framework for converting the geometry of a shape into NURBS geometry. Use the function Perform to define the shape to convert.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_TopoDS_Shape_const_ref_bool" qualifiers="static">
             <description>Builds a new shape by converting the geometry of the shape S into NURBS geometry. Specifically, all curves supporting edges of S are converted into BSpline curves, and all surfaces supporting its faces are converted into BSpline surfaces. Use the function Shape to access the new shape. Note: the constructed framework can be reused to convert other shapes. You specify these with the function Perform.</description>
         </method>
         <method name="Perform">

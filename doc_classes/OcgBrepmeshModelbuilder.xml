@@ -8,7 +8,7 @@
 ! Message_Fail1 - empty shape.
 ! Message_Fail2 - model has not been build due to unexpected reason.</description>
     <methods>
-        <method name="BRepMesh_ModelBuilder" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
     </methods>

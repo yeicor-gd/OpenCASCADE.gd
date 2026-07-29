@@ -3,7 +3,7 @@
     <brief_description>Presentation of the text.</brief_description>
     <description>! Presentation of the text.</description>
     <methods>
-        <method name="AIS_TextLabel" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Default constructor</description>
         </method>
         <method name="SetColor">

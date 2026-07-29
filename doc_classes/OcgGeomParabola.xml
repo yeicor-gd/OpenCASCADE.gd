@@ -35,13 +35,13 @@
 ! of the parameter.
 ! The parameter range is ] -infinite, +infinite [.</description>
     <methods>
-        <method name="from_1" qualifiers="static">
+        <method name="from_gp_Parab_const_ref" qualifiers="static">
             <description>Creates a parabola from a non transient one.</description>
         </method>
-        <method name="from_2" qualifiers="static">
+        <method name="from_gp_Ax2_const_ref_double" qualifiers="static">
             <description>Creates a parabola with its local coordinate system "A2" and it's focal length "Focal". The XDirection of A2 defines the axis of symmetry of the parabola. The YDirection of A2 is parallel to the directrix of the parabola. The Location point of A2 is the vertex of the parabola Raised if Focal &lt; 0.0</description>
         </method>
-        <method name="from_3" qualifiers="static">
+        <method name="from_gp_Ax1_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>D is the directrix of the parabola and F the focus point. The symmetry axis (XAxis) of the parabola is normal to the directrix and pass through the focus point F, but its location point is the vertex of the parabola. The YAxis of the parabola is parallel to D and its location point is the vertex of the parabola. The normal to the plane of the parabola is the cross product between the XAxis and the YAxis.</description>
         </method>
         <method name="SetFocal">

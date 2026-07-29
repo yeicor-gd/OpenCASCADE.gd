@@ -3,7 +3,7 @@
     <brief_description>Video recording tool based on FFmpeg framework.</brief_description>
     <description>! Video recording tool based on FFmpeg framework.</description>
     <methods>
-        <method name="Image_VideoRecorder" qualifiers="static">
+        <method name="default" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
         <method name="Close">
