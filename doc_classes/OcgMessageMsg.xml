@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageMsg" inherits="RefCounted">
+    <brief_description>This class provides a tool for constructing the parametrized message basing on resources loaded by Message_MsgFile tool.</brief_description>
+    <description>! This class provides a tool for constructing the parametrized message
+! basing on resources loaded by Message_MsgFile tool.
+!
+! A Message is created from a keyword: this keyword identifies the
+! message in a message file that should be previously loaded by call
+! to Message_MsgFile::LoadFile().
+!
+! The text of the message can contain placeholders for the parameters
+! which are to be filled by the proper values when the message
+! is prepared. Most of the format specifiers used in C can be used,
+! for instance, %s for string, %d for integer etc. In addition,
+! specifier %f is supported for double numbers (for compatibility
+! with previous versions).
+!
+! User fills the parameter fields in the text of the message by
+! calling corresponding methods Arg() or operators .
+!
+! The resulting message, filled with all parameters, can be obtained
+! by method Get(). If some parameters were not filled, the text
+! UNKNOWN is placed instead.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Copy constructor</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Create a message using a corresponding entry in Message_MsgFile</description>
+        </method>
+        <method name="Set_1">
+            <description>Set a message body text -- can be used as alternative to using messages from resource file</description>
+        </method>
+        <method name="Arg_1">
+            <description>Set a value for %..s conversion</description>
+        </method>
+        <method name="Arg_3">
+            <description>Set a value for %..s conversion</description>
+        </method>
+        <method name="Arg_5">
+            <description>Set a value for %..s conversion</description>
+        </method>
+        <method name="Arg_6">
+            <description>Set a value for %..d, %..i, %..o, %..u, %..x or %..X conversion</description>
+        </method>
+        <method name="Arg_7">
+            <description>Set a value for %..f, %..e, %..E, %..g or %..G conversion</description>
+        </method>
+        <method name="IsEdited" qualifiers="const">
+            <description>Tells if Value differs from Original</description>
+        </method>
+    </methods>
+</class>

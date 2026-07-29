@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsTcompsolid" inherits="RefCounted">
+    <brief_description>A set of solids connected by their faces.</brief_description>
+    <description>! A set of solids connected by their faces.</description>
+    <methods>
+        <method name="TopoDS_TCompSolid" qualifiers="static">
+            <description>Creates an empty TCompSolid.</description>
+        </method>
+        <method name="ShapeType" qualifiers="const">
+            <description>returns COMPSOLID</description>
+        </method>
+        <method name="EmptyCopy" qualifiers="const">
+            <description>Returns an empty TCompSolid.</description>
+        </method>
+    </methods>
+</class>

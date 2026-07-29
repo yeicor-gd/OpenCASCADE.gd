@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMediaPacket" inherits="RefCounted">
+    <brief_description>AVPacket wrapper - the packet (data chunk for decoding/encoding) holder.</brief_description>
+    <description>! AVPacket wrapper - the packet (data chunk for decoding/encoding) holder.</description>
+    <methods>
+        <method name="Media_Packet" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="Unref">
+            <description>av_packet_unref() wrapper.</description>
+        </method>
+        <method name="Size" qualifiers="const">
+            <description>Return data size.</description>
+        </method>
+        <method name="Pts" qualifiers="const">
+            <description>Return presentation timestamp (PTS).</description>
+        </method>
+        <method name="Dts" qualifiers="const">
+            <description>Return decoding timestamp (DTS).</description>
+        </method>
+        <method name="Duration" qualifiers="const">
+            <description>Return Duration.</description>
+        </method>
+        <method name="DurationSeconds" qualifiers="const">
+            <description>Return Duration in seconds.</description>
+        </method>
+        <method name="SetDurationSeconds">
+            <description>Set Duration in seconds.</description>
+        </method>
+        <method name="StreamIndex" qualifiers="const">
+            <description>Return stream index.</description>
+        </method>
+        <method name="IsKeyFrame" qualifiers="const">
+            <description>Return TRUE for a key frame.</description>
+        </method>
+        <method name="SetKeyFrame">
+            <description>Mark as key frame.</description>
+        </method>
+    </methods>
+</class>

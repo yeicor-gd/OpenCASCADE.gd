@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISPlanetrihedron" inherits="RefCounted">
+    <brief_description>To construct a selectable 2d axis system in a 3d drawing. This can be placed anywhere in the 3d system, and provides a coordinate system for drawing curves and shapes in a plane. There are 3 selection modes: - mode 0 selection of the whole plane "trihedron" - mode 1 selection of the origin of the plane "trihedron" - mode 2 selection of the axes. Warning For the presentation of planes and trihedra, the millimetre is default unit of length, and 100 the default value for the representation of the axes. If you modify these dimensions, you must temporarily recover the Drawer object. From inside it, take the Aspects in which the values for length are stocked, for example, PlaneAspect for planes and LineAspect for trihedra. Change these values and recalculate the presentation.</brief_description>
+    <description>! To construct a selectable 2d axis system in a 3d
+! drawing. This can be placed anywhere in the 3d
+! system, and provides a coordinate system for
+! drawing curves and shapes in a plane.
+! There are 3 selection modes:
+! -   mode 0   selection of the whole plane "trihedron"
+! -   mode 1   selection of the origin of the plane "trihedron"
+! -   mode 2   selection of the axes.
+! Warning
+! For the presentation of planes and trihedra, the
+! millimetre is default unit of length, and 100 the default
+! value for the representation of the axes. If you modify
+! these dimensions, you must temporarily recover the
+! Drawer object. From inside it, take the Aspects in
+! which the values for length are stocked, for example,
+! PlaneAspect for planes and LineAspect for
+! trihedra. Change these values and recalculate the presentation.</description>
+    <methods>
+        <method name="SetLength">
+            <description>Sets the length of the X and Y axes.</description>
+        </method>
+        <method name="GetLength" qualifiers="const">
+            <description>Returns the length of X and Y axes.</description>
+        </method>
+        <method name="AcceptDisplayMode" qualifiers="const">
+            <description>Returns true if the display mode selected, aMode, is valid.</description>
+        </method>
+        <method name="Type" qualifiers="const">
+            <description>Returns datum as the type of Interactive Object.</description>
+        </method>
+        <method name="SetColor">
+            <description>Allows you to provide settings for the color aColor.</description>
+        </method>
+    </methods>
+</class>

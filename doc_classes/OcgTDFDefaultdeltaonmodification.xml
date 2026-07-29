@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFDefaultdeltaonmodification" inherits="RefCounted">
+    <brief_description>This class provides a default implementation of a TDF_DeltaOnModification.</brief_description>
+    <description>! This class provides a default implementation of a
+! TDF_DeltaOnModification.</description>
+    <methods>
+        <method name="TDF_DefaultDeltaOnModification" qualifiers="static">
+            <description>Creates a TDF_DefaultDeltaOnModification. &lt;anAttribute&gt; must be the backup copy.</description>
+        </method>
+        <method name="Apply">
+            <description>Applies the delta to the attribute.</description>
+        </method>
+    </methods>
+</class>

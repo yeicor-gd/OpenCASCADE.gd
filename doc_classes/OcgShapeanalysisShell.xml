@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeanalysisShell" inherits="RefCounted">
+    <brief_description>This class provides operators to analyze edges orientation in the shell.</brief_description>
+    <description>! This class provides operators to analyze edges orientation
+! in the shell.</description>
+    <methods>
+        <method name="ShapeAnalysis_Shell" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="Clear">
+            <description>Clears data about loaded shells and performed checks</description>
+        </method>
+        <method name="LoadShells">
+            <description>Adds shells contained in the &lt;shape&gt; to the list of loaded shells</description>
+        </method>
+        <method name="CheckOrientedShells">
+            <description>Checks if shells fulfill orientation condition, i.e. if each edge is, either present once (free edge) or twice (connected edge) but with different orientations (FORWARD/REVERSED) Edges which do not fulfill these conditions are bad</description>
+        </method>
+        <method name="IsLoaded" qualifiers="const">
+            <description>Tells if a shape is loaded (only shells are checked)</description>
+        </method>
+        <method name="NbLoaded" qualifiers="const">
+            <description>Returns the actual number of loaded shapes (i.e. shells)</description>
+        </method>
+        <method name="Loaded" qualifiers="const">
+            <description>Returns a loaded shape specified by its rank number. Returns null shape if &lt;num&gt; is out of range</description>
+        </method>
+        <method name="HasBadEdges" qualifiers="const">
+            <description>Tells if at least one edge is recorded as bad</description>
+        </method>
+        <method name="BadEdges" qualifiers="const">
+            <description>Returns the list of bad edges as a Compound It is empty (not null) if no edge are recorded as bad</description>
+        </method>
+        <method name="HasFreeEdges" qualifiers="const">
+            <description>Tells if at least one edge is recorded as free (not connected)</description>
+        </method>
+        <method name="FreeEdges" qualifiers="const">
+            <description>Returns the list of free (not connected) edges as a Compound It is empty (not null) if no edge are recorded as free</description>
+        </method>
+        <method name="HasConnectedEdges" qualifiers="const">
+            <description>Tells if at least one edge is connected (shared twice or more)</description>
+        </method>
+    </methods>
+</class>

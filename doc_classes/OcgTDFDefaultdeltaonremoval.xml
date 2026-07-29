@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFDefaultdeltaonremoval" inherits="RefCounted">
+    <brief_description>This class provides a default implementation of a TDF_DeltaOnRemoval.</brief_description>
+    <description>! This class provides a default implementation of a
+! TDF_DeltaOnRemoval.</description>
+    <methods>
+        <method name="TDF_DefaultDeltaOnRemoval" qualifiers="static">
+            <description>Creates a TDF_DefaultDeltaOnRemoval.</description>
+        </method>
+        <method name="Apply">
+            <description>Applies the delta to the attribute.</description>
+        </method>
+    </methods>
+</class>

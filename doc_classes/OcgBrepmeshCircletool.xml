@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshCircletool" inherits="RefCounted">
+    <brief_description>Create sort and destroy the circles used in triangulation.</brief_description>
+    <description>! Create sort and destroy the circles used in triangulation. &lt;br&gt;</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="Init">
+            <description>Initializes the tool.</description>
+        </method>
+        <method name="SetCellSize_1">
+            <description>Sets new size for cell filter.</description>
+        </method>
+        <method name="SetCellSize_2">
+            <description>Sets new size for cell filter.</description>
+        </method>
+        <method name="SetMinMaxSize">
+            <description>Sets limits of inspection area.</description>
+        </method>
+        <method name="IsEmpty" qualifiers="const">
+            <description>Returns true if cell filter contains no circle.</description>
+        </method>
+        <method name="Bind_1">
+            <description>Binds the circle to the tool.</description>
+        </method>
+        <method name="Bind_2">
+            <description>Computes circle on three points and bind it to the tool.</description>
+        </method>
+        <method name="MocBind">
+            <description>Binds implicit zero circle.</description>
+        </method>
+        <method name="Delete">
+            <description>Deletes a circle from the tool.</description>
+        </method>
+        <method name="MakeCircle" qualifiers="static">
+            <description>Computes circle on three points.</description>
+        </method>
+    </methods>
+</class>

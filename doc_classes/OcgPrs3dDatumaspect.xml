@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dDatumaspect" inherits="RefCounted">
+    <brief_description>A framework to define the display of datums.</brief_description>
+    <description>! A framework to define the display of datums.</description>
+    <methods>
+        <method name="Prs3d_DatumAspect" qualifiers="static">
+            <description>An empty constructor.</description>
+        </method>
+        <method name="LineAspect" qualifiers="const">
+            <description>Returns line aspect for specified part.</description>
+        </method>
+        <method name="ShadingAspect" qualifiers="const">
+            <description>Returns shading aspect for specified part.</description>
+        </method>
+        <method name="TextAspect_2" qualifiers="const">
+            <description>Returns the text attributes for rendering label of specified part (Prs3d_DatumParts_XAxis/Prs3d_DatumParts_YAxis/Prs3d_DatumParts_ZAxis).</description>
+        </method>
+        <method name="SetTextAspect">
+            <description>Sets text attributes for rendering labels.</description>
+        </method>
+        <method name="PointAspect" qualifiers="const">
+            <description>Returns the point aspect of origin wireframe presentation</description>
+        </method>
+        <method name="SetPointAspect">
+            <description>Returns the point aspect of origin wireframe presentation</description>
+        </method>
+        <method name="ArrowAspect" qualifiers="const">
+            <description>Returns the arrow aspect of presentation.</description>
+        </method>
+        <method name="SetArrowAspect">
+            <description>Sets the arrow aspect of presentation</description>
+        </method>
+        <method name="DrawDatumPart" qualifiers="const">
+            <description>Returns true if the given part is used in axes of aspect</description>
+        </method>
+        <method name="SetDrawDatumAxes">
+            <description>Sets the axes used in the datum aspect</description>
+        </method>
+        <method name="DatumAxes" qualifiers="const">
+            <description>Returns axes used in the datum aspect</description>
+        </method>
+        <method name="Attribute" qualifiers="const">
+            <description>Returns the attribute of the datum type</description>
+        </method>
+        <method name="SetAttribute">
+            <description>Sets the attribute of the datum type</description>
+        </method>
+        <method name="AxisLength" qualifiers="const">
+            <description>Returns the length of the displayed first axis.</description>
+        </method>
+        <method name="SetAxisLength">
+            <description>Sets the lengths of the three axes.</description>
+        </method>
+        <method name="ToDrawLabels" qualifiers="const">
+            <description>Returns true if axes labels are drawn; TRUE by default.</description>
+        </method>
+        <method name="SetDrawLabels">
+            <description>Sets option to draw or not to draw text labels for axes</description>
+        </method>
+        <method name="ToDrawArrows" qualifiers="const">
+            <description>Returns true if axes arrows are drawn; TRUE by default.</description>
+        </method>
+        <method name="SetDrawArrows">
+            <description>Sets option to draw or not arrows for axes</description>
+        </method>
+        <method name="CopyAspectsFrom">
+            <description>Performs deep copy of attributes from another aspect instance.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="TextAspect_1" qualifiers="const">
+            <description>Returns the text attributes for rendering labels.</description>
+        </method>
+        <method name="ArrowPartForAxis" qualifiers="static">
+            <description>Returns type of arrow for a type of axis</description>
+        </method>
+    </methods>
+</class>

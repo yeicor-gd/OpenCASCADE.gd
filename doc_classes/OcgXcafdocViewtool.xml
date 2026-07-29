@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocViewtool" inherits="RefCounted">
+    <brief_description>Provides tools to store and retrieve Views in and from TDocStd_Document Each View contains parts XCAFDoc_View attribute with all information about camera and view window. Also each view contain information of displayed shapes and GDTs as sets of shape and GDT labels.</brief_description>
+    <description>! Provides tools to store and retrieve Views
+! in and from TDocStd_Document
+! Each View contains parts XCAFDoc_View attribute
+! with all information about camera and view window.
+! Also each view contain information of displayed shapes and GDTs
+! as sets of shape and GDT labels.</description>
+    <methods>
+        <method name="BaseLabel" qualifiers="const">
+            <description>Returns the label under which Views are stored</description>
+        </method>
+        <method name="IsView" qualifiers="const">
+            <description>Returns True if label belongs to a View table and is a View definition</description>
+        </method>
+        <method name="RemoveView">
+            <description>Remove View</description>
+        </method>
+        <method name="AddView">
+            <description>Adds a view definition to a View table and returns its label</description>
+        </method>
+        <method name="IsLocked" qualifiers="const">
+            <description>Returns true if the given View is marked as locked</description>
+        </method>
+        <method name="Lock" qualifiers="const">
+            <description>Mark the given View as locked</description>
+        </method>
+        <method name="Unlock" qualifiers="const">
+            <description>Unlock the given View</description>
+        </method>
+    </methods>
+</class>

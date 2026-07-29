@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISAnimationcamera" inherits="RefCounted">
+    <brief_description>Camera animation.</brief_description>
+    <description>! Camera animation.</description>
+    <methods />
+</class>

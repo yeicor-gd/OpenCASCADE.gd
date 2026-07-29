@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dMaterialaspect" inherits="RefCounted">
+    <brief_description>This class allows the definition of the type of a surface. Aspect attributes of a 3d face. Keywords: Material, FillArea, Shininess, Ambient, Color, Diffuse, Specular, Transparency, Emissive, ReflectionMode, BackFace, FrontFace, Reflection, Absorption</brief_description>
+    <description>! This class allows the definition of the type of a surface.
+! Aspect attributes of a 3d face.
+! Keywords: Material, FillArea, Shininess, Ambient, Color, Diffuse,
+! Specular, Transparency, Emissive, ReflectionMode,
+! BackFace, FrontFace, Reflection, Absorption</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates a material from default values.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a generic material.</description>
+        </method>
+        <method name="Name" qualifiers="const">
+            <description>Returns the material name (within predefined enumeration).</description>
+        </method>
+        <method name="RequestedName" qualifiers="const">
+            <description>Returns the material name within predefined enumeration which has been requested (before modifications).</description>
+        </method>
+        <method name="MaterialName_1" qualifiers="const">
+            <description>Returns the given name of this material. This might be:</description>
+        </method>
+        <method name="Color" qualifiers="const">
+            <description>Returns the diffuse color of the surface. WARNING! This method does NOT return color for Graphic3d_MATERIAL_ASPECT material (color is defined by Graphic3d_Aspects::InteriorColor()).</description>
+        </method>
+        <method name="SetColor">
+            <description>Modifies the ambient and diffuse color of the surface. WARNING! Has no effect for Graphic3d_MATERIAL_ASPECT material (color should be set to Graphic3d_Aspects::SetInteriorColor()).</description>
+        </method>
+        <method name="Transparency" qualifiers="const">
+            <description>Returns the transparency coefficient of the surface (1.0 - Alpha); 0.0 means opaque.</description>
+        </method>
+        <method name="Alpha" qualifiers="const">
+            <description>Returns the alpha coefficient of the surface (1.0 - Transparency); 1.0 means opaque.</description>
+        </method>
+        <method name="SetTransparency">
+            <description>Modifies the transparency coefficient of the surface, where 0 is opaque and 1 is fully transparent. Transparency is applicable to materials that have at least one of reflection modes (ambient, diffuse, specular or emissive) enabled. See also SetReflectionModeOn() and SetReflectionModeOff() methods.</description>
+        </method>
+        <method name="SetAlpha">
+            <description>Modifies the alpha coefficient of the surface, where 1.0 is opaque and 0.0 is fully transparent.</description>
+        </method>
+        <method name="AmbientColor" qualifiers="const">
+            <description>Returns the ambient color of the surface.</description>
+        </method>
+        <method name="SetAmbientColor">
+            <description>Modifies the ambient color of the surface.</description>
+        </method>
+        <method name="DiffuseColor" qualifiers="const">
+            <description>Returns the diffuse color of the surface.</description>
+        </method>
+        <method name="SetDiffuseColor">
+            <description>Modifies the diffuse color of the surface.</description>
+        </method>
+        <method name="SpecularColor" qualifiers="const">
+            <description>Returns the specular color of the surface.</description>
+        </method>
+        <method name="SetSpecularColor">
+            <description>Modifies the specular color of the surface.</description>
+        </method>
+        <method name="EmissiveColor" qualifiers="const">
+            <description>Returns the emissive color of the surface.</description>
+        </method>
+        <method name="SetEmissiveColor">
+            <description>Modifies the emissive color of the surface.</description>
+        </method>
+        <method name="Shininess" qualifiers="const">
+            <description>Returns the luminosity of the surface.</description>
+        </method>
+        <method name="SetShininess">
+            <description>Modifies the luminosity of the surface. Warning: Raises MaterialDefinitionError if given value is a negative value or greater than 1.0.</description>
+        </method>
+        <method name="IncreaseShine">
+            <description>Increases or decreases the luminosity.</description>
+        </method>
+        <method name="RefractionIndex" qualifiers="const">
+            <description>Returns the refraction index of the material</description>
+        </method>
+        <method name="SetRefractionIndex">
+            <description>Modifies the refraction index of the material. Warning: Raises MaterialDefinitionError if given value is a lesser than 1.0.</description>
+        </method>
+        <method name="BSDF" qualifiers="const">
+            <description>Returns BSDF (bidirectional scattering distribution function).</description>
+        </method>
+        <method name="SetBSDF">
+            <description>Modifies the BSDF (bidirectional scattering distribution function).</description>
+        </method>
+        <method name="PBRMaterial" qualifiers="const">
+            <description>Returns physically based representation of material</description>
+        </method>
+        <method name="SetPBRMaterial">
+            <description>Modifies the physically based representation of material</description>
+        </method>
+        <method name="ReflectionMode" qualifiers="const">
+            <description>Returns TRUE if the reflection mode is active, FALSE otherwise.</description>
+        </method>
+        <method name="MaterialType_1" qualifiers="const">
+            <description>Returns material type.</description>
+        </method>
+        <method name="MaterialType_2" qualifiers="const">
+            <description>Returns TRUE if type of this material is equal to specified type.</description>
+        </method>
+        <method name="SetMaterialType">
+            <description>Set material type.</description>
+        </method>
+        <method name="IsDifferent" qualifiers="const">
+            <description>Returns TRUE if this material differs from specified one.</description>
+        </method>
+        <method name="IsEqual" qualifiers="const">
+            <description>Returns TRUE if this material is identical to specified one.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="SetReflectionModeOff">
+            <description>Deactivates the reflective properties of the surface with specified reflection type.</description>
+        </method>
+        <method name="not_equal" qualifiers="const">
+            <description>Returns TRUE if this material differs from specified one.</description>
+        </method>
+        <method name="equal" qualifiers="const">
+            <description>Returns TRUE if this material is identical to specified one.</description>
+        </method>
+        <method name="NumberOfMaterials" qualifiers="static">
+            <description>Returns the number of predefined textures.</description>
+        </method>
+        <method name="MaterialName_2" qualifiers="static">
+            <description>Returns the name of the predefined material of specified rank within range [1, NumberOfMaterials()].</description>
+        </method>
+        <method name="MaterialType_3" qualifiers="static">
+            <description>Returns the type of the predefined material of specified rank within range [1, NumberOfMaterials()].</description>
+        </method>
+        <method name="MaterialFromName_1" qualifiers="static">
+            <description>Returns the material for specified name or Graphic3d_NameOfMaterial_DEFAULT if name is unknown.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafprsTexture" inherits="RefCounted">
+    <brief_description>Texture holder.</brief_description>
+    <description>! Texture holder.</description>
+    <methods />
+</class>

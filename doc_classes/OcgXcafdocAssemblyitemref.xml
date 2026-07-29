@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocAssemblyitemref" inherits="RefCounted">
+    <brief_description>An attribute that describes a weak reference to an assembly item or to a subshape or to an assembly label attribute.</brief_description>
+    <description>! An attribute that describes a weak reference to an assembly item
+! or to a subshape or to an assembly label attribute.</description>
+    <methods>
+        <method name="XCAFDoc_AssemblyItemRef" qualifiers="static">
+            <description>Creates an empty reference attribute.</description>
+        </method>
+        <method name="IsOrphan" qualifiers="const">
+            <description>Checks if the reference points to a really existing item in XDE document.</description>
+        </method>
+        <method name="HasExtraRef" qualifiers="const">
+            <description>Checks if the reference points on an item's shapeindex or attribute.</description>
+        </method>
+        <method name="IsGUID" qualifiers="const">
+            <description>Checks is the reference points to an item's attribute.</description>
+        </method>
+        <method name="IsSubshapeIndex" qualifiers="const">
+            <description>Checks is the reference points to an item's subshape.</description>
+        </method>
+        <method name="GetGUID" qualifiers="const">
+            <description>Returns the assembly item's attribute that the reference points to. If the reference doesn't point to an attribute, returns an empty GUID.</description>
+        </method>
+        <method name="GetSubshapeIndex" qualifiers="const">
+            <description>Returns the assembly item's subshape that the reference points to. If the reference doesn't point to a subshape, returns 0.</description>
+        </method>
+        <method name="GetItem" qualifiers="const">
+            <description>Returns the assembly item ID that the reference points to.</description>
+        </method>
+        <method name="SetItem_1">
+            <description>Sets the assembly item ID that the reference points to. Extra reference data (if any) will be cleared.</description>
+        </method>
+        <method name="SetItem_2">
+            <description>Sets the assembly item ID from a list of label entries that the reference points to. Extra reference data (if any) will be cleared.</description>
+        </method>
+        <method name="SetGUID">
+            <description>Sets the assembly item's label attribute that the reference points to. The base assembly item will not change.</description>
+        </method>
+        <method name="SetSubshapeIndex">
+            <description>Sets the assembly item's subshape that the reference points to. The base assembly item will not change.</description>
+        </method>
+        <method name="ClearExtraRef">
+            <description>Reverts the reference to empty state.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Get" qualifiers="static">
+            <description>Finds a reference attribute on the given label and returns it, if it is found</description>
+        </method>
+        <method name="Set_1" qualifiers="static">
+            <description>Create (if not exist) a reference to an assembly item.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Create (if not exist) a reference to an assembly item's label attribute.</description>
+        </method>
+        <method name="Set_3" qualifiers="static">
+            <description>Create (if not exist) a reference to an assembly item's subshape.</description>
+        </method>
+    </methods>
+</class>

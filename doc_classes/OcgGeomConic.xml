@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomConic" inherits="RefCounted">
+    <brief_description>The abstract class Conic describes the common behavior of conic curves in 3D space and, in particular, their general characteristics. The Geom package provides four concrete classes of conics: Geom_Circle, Geom_Ellipse, Geom_Hyperbola and Geom_Parabola. A conic is positioned in space with a right-handed coordinate system (gp_Ax2 object), where: - the origin is the center of the conic (or the apex in the case of a parabola), - the origin, "X Direction" and "Y Direction" define the plane of the conic. This coordinate system is the local coordinate system of the conic. The "main Direction" of this coordinate system is the vector normal to the plane of the conic. The axis, of which the origin and unit vector are respectively the origin and "main Direction" of the local coordinate system, is termed the "Axis" or "main Axis" of the conic. The "main Direction" of the local coordinate system gives an explicit orientation to the conic, determining the direction in which the parameter increases along the conic. The "X Axis" of the local coordinate system also defines the origin of the parameter of the conic.</brief_description>
+    <description>! The abstract class Conic describes the common
+! behavior of conic curves in 3D space and, in
+! particular, their general characteristics. The Geom
+! package provides four concrete classes of conics:
+! Geom_Circle, Geom_Ellipse, Geom_Hyperbola and Geom_Parabola.
+! A conic is positioned in space with a right-handed
+! coordinate system (gp_Ax2 object), where:
+! - the origin is the center of the conic (or the apex in
+! the case of a parabola),
+! - the origin, "X Direction" and "Y Direction" define the
+! plane of the conic.
+! This coordinate system is the local coordinate
+! system of the conic.
+! The "main Direction" of this coordinate system is the
+! vector normal to the plane of the conic. The axis, of
+! which the origin and unit vector are respectively the
+! origin and "main Direction" of the local coordinate
+! system, is termed the "Axis" or "main Axis" of the conic.
+! The "main Direction" of the local coordinate system
+! gives an explicit orientation to the conic, determining
+! the direction in which the parameter increases along
+! the conic. The "X Axis" of the local coordinate system
+! also defines the origin of the parameter of the conic.</description>
+    <methods>
+        <method name="SetAxis">
+            <description>Changes the orientation of the conic's plane. The normal axis to the plane is A1. The XAxis and the YAxis are recomputed.</description>
+        </method>
+        <method name="SetLocation">
+            <description>changes the location point of the conic.</description>
+        </method>
+        <method name="SetPosition">
+            <description>changes the local coordinate system of the conic.</description>
+        </method>
+        <method name="Axis" qualifiers="const">
+            <description>Returns the "main Axis" of this conic. This axis is normal to the plane of the conic.</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>Returns the location point of the conic. For the circle, the ellipse and the hyperbola it is the center of the conic. For the parabola it is the Apex of the parabola.</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the local coordinates system of the conic. The main direction of the Axis2Placement is normal to the plane of the conic. The X direction of the Axis2placement is in the plane of the conic and corresponds to the origin for the conic's parametric value u.</description>
+        </method>
+        <method name="XAxis" qualifiers="const">
+            <description>Returns the XAxis of the conic. This axis defines the origin of parametrization of the conic. This axis is perpendicular to the Axis of the conic. This axis and the Yaxis define the plane of the conic.</description>
+        </method>
+        <method name="YAxis" qualifiers="const">
+            <description>Returns the YAxis of the conic. The YAxis is perpendicular to the Xaxis. This axis and the Xaxis define the plane of the conic.</description>
+        </method>
+        <method name="Reverse">
+            <description>Reverses the direction of parameterization of &lt;me&gt;. The local coordinate system of the conic is modified.</description>
+        </method>
+        <method name="Continuity" qualifiers="const">
+            <description>The continuity of the conic is Cn.</description>
+        </method>
+        <method name="IsCN" qualifiers="const">
+            <description>Returns True. Raised if N &lt; 0.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

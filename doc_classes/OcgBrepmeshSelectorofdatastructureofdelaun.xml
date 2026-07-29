@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshSelectorofdatastructureofdelaun" inherits="RefCounted">
+    <brief_description>Describes a selector and an iterator on a selector of components of a mesh.</brief_description>
+    <description>! Describes a selector and an iterator on a
+! selector of components of a mesh.</description>
+    <methods>
+        <method name="BRepMesh_SelectorOfDataStructureOfDelaun" qualifiers="static">
+            <description>Default constructor.</description>
+        </method>
+        <method name="NeighboursOf_1">
+            <description>Selects all neighboring elements of the given node.</description>
+        </method>
+        <method name="NeighboursOfNode">
+            <description>Selects all neighboring elements of node with the given index.</description>
+        </method>
+        <method name="NeighboursOf_2">
+            <description>Selects all neighboring elements of the given link.</description>
+        </method>
+        <method name="NeighboursOfLink">
+            <description>Selects all neighboring elements of link with the given index.</description>
+        </method>
+        <method name="NeighboursOf_3">
+            <description>Selects all neighboring elements of the given element.</description>
+        </method>
+        <method name="NeighboursOfElement">
+            <description>Selects all neighboring elements by nodes of the given element.</description>
+        </method>
+        <method name="NeighboursByEdgeOf">
+            <description>Selects all neighboring elements by links of the given element.</description>
+        </method>
+        <method name="NeighboursOf_4">
+            <description>Adds a level of neighbours by edge to the selector.</description>
+        </method>
+        <method name="AddNeighbours">
+            <description>Adds a level of neighbours by edge the selector.</description>
+        </method>
+    </methods>
+</class>

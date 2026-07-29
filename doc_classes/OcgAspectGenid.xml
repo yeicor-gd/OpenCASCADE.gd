@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAspectGenid" inherits="RefCounted">
+    <brief_description>This class permits the creation and control of integer identifiers.</brief_description>
+    <description>! This class permits the creation and control of integer identifiers.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates an available set of identifiers with the lower bound 0 and the upper bound INT_MAX / 2.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an available set of identifiers with specified range. Raises IdentDefinitionError if theUpper is less than theLow.</description>
+        </method>
+        <method name="Free_1">
+            <description>Free all identifiers - make the whole range available again.</description>
+        </method>
+        <method name="Free_2">
+            <description>Free specified identifier. Warning - method has no protection against double-freeing!</description>
+        </method>
+        <method name="HasFree" qualifiers="const">
+            <description>Returns true if there are available identifiers in range.</description>
+        </method>
+        <method name="Available" qualifiers="const">
+            <description>Returns the number of available identifiers.</description>
+        </method>
+        <method name="Lower" qualifiers="const">
+            <description>Returns the lower identifier in range.</description>
+        </method>
+        <method name="Next_1">
+            <description>Returns the next available identifier. Warning: Raises IdentDefinitionError if all identifiers are busy.</description>
+        </method>
+        <method name="Next_2">
+            <description>Generates the next available identifier.</description>
+        </method>
+        <method name="Upper" qualifiers="const">
+            <description>Returns the upper identifier in range.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

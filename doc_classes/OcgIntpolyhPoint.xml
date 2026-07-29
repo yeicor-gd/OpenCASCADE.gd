@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIntpolyhPoint" inherits="RefCounted">
+    <brief_description>The class represents the point on the surface with both 3D and 2D points.</brief_description>
+    <description>! The class represents the point on the surface with
+! both 3D and 2D points.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor</description>
+        </method>
+        <method name="X" qualifiers="const">
+            <description>Returns X coordinate of the 3D point</description>
+        </method>
+        <method name="Y" qualifiers="const">
+            <description>Returns Y coordinate of the 3D point</description>
+        </method>
+        <method name="Z" qualifiers="const">
+            <description>Returns the Z coordinate of the 3D point</description>
+        </method>
+        <method name="U" qualifiers="const">
+            <description>Returns the U coordinate of the 2D point</description>
+        </method>
+        <method name="V" qualifiers="const">
+            <description>Returns the V coordinate of the 2D point</description>
+        </method>
+        <method name="PartOfCommon" qualifiers="const">
+            <description>Returns 0 if the point is not common with the other surface</description>
+        </method>
+        <method name="Set">
+            <description>Sets the point</description>
+        </method>
+        <method name="SetX">
+            <description>Sets the X coordinate for the 3D point</description>
+        </method>
+        <method name="SetY">
+            <description>Sets the Y coordinate for the 3D point</description>
+        </method>
+        <method name="SetZ">
+            <description>Sets the Z coordinate for the 3D point</description>
+        </method>
+        <method name="SetU">
+            <description>Sets the U coordinate for the 2D point</description>
+        </method>
+        <method name="SetV">
+            <description>Sets the V coordinate for the 2D point</description>
+        </method>
+        <method name="SetPartOfCommon">
+            <description>Sets the part of common</description>
+        </method>
+        <method name="Middle">
+            <description>Creates middle point from P1 and P2 and stores it to this</description>
+        </method>
+        <method name="Add" qualifiers="const">
+            <description>Addition</description>
+        </method>
+        <method name="Sub" qualifiers="const">
+            <description>Subtraction</description>
+        </method>
+        <method name="Divide" qualifiers="const">
+            <description>Division</description>
+        </method>
+        <method name="Multiplication" qualifiers="const">
+            <description>Multiplication</description>
+        </method>
+        <method name="SquareModulus" qualifiers="const">
+            <description>Square modulus</description>
+        </method>
+        <method name="SquareDistance" qualifiers="const">
+            <description>Square distance to the other point</description>
+        </method>
+        <method name="Dot" qualifiers="const">
+            <description>Dot</description>
+        </method>
+        <method name="Cross">
+            <description>Cross</description>
+        </method>
+        <method name="SetDegenerated">
+            <description>Sets the degenerated flag</description>
+        </method>
+        <method name="Degenerated" qualifiers="const">
+            <description>Returns the degenerated flag</description>
+        </method>
+    </methods>
+</class>

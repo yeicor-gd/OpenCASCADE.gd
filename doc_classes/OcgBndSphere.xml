@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBndSphere" inherits="RefCounted">
+    <brief_description>This class represents a bounding sphere of a geometric entity (triangle, segment of line or whatever else).</brief_description>
+    <description>! This class represents a bounding sphere of a geometric entity
+! (triangle, segment of line or whatever else).</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor of a definite sphere</description>
+        </method>
+        <method name="U" qualifiers="const">
+            <description>Returns the U parameter on shape</description>
+        </method>
+        <method name="V" qualifiers="const">
+            <description>Returns the V parameter on shape</description>
+        </method>
+        <method name="IsValid" qualifiers="const">
+            <description>Returns validity status, indicating that this sphere corresponds to a real entity</description>
+        </method>
+        <method name="Center" qualifiers="const">
+            <description>Returns center of sphere object</description>
+        </method>
+        <method name="Radius" qualifiers="const">
+            <description>Returns the radius value</description>
+        </method>
+        <method name="Distances" qualifiers="const">
+            <description>Calculate and return minimal and maximal distance to sphere. NOTE: This function is tightly optimized; any modifications may affect performance!</description>
+        </method>
+        <method name="SquareDistances" qualifiers="const">
+            <description>Calculate and return minimal and maximal distance to sphere. NOTE: This function is tightly optimized; any modifications may affect performance!</description>
+        </method>
+        <method name="Project" qualifiers="const">
+            <description>Projects a point on entity. Returns true if success</description>
+        </method>
+    </methods>
+</class>

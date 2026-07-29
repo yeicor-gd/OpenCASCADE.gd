@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsCompsolid" inherits="RefCounted">
+    <brief_description>Describes a composite solid which - references an underlying composite solid with the potential to be given a location and an orientation - has a location for the underlying composite solid, giving its placement in the local coordinate system - has an orientation for the underlying composite solid, in terms of its geometry (as opposed to orientation in relation to other shapes). Casts shape S to the more specialized return type, CompSolid.</brief_description>
+    <description>! Describes a composite solid which
+! - references an underlying composite solid with the
+! potential to be given a location and an orientation
+! - has a location for the underlying composite solid,
+! giving its placement in the local coordinate system
+! - has an orientation for the underlying composite
+! solid, in terms of its geometry (as opposed to
+! orientation in relation to other shapes).
+! Casts shape S to the more specialized return type, CompSolid.</description>
+    <methods>
+        <method name="TopoDS_CompSolid" qualifiers="static">
+            <description>Constructs an Undefined CompSolid.</description>
+        </method>
+    </methods>
+</class>

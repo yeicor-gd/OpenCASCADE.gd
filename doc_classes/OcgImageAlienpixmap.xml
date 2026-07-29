@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImageAlienpixmap" inherits="RefCounted">
+    <brief_description>Image class that support file reading/writing operations using auxiliary image library. Supported image formats: - *.bmp - bitmap image, lossless format without compression. - *.ppm - PPM (Portable Pixmap Format), lossless format without compression. - *.png - PNG (Portable Network Graphics) lossless format with compression. - *.jpg, *.jpe, *.jpeg - JPEG/JIFF (Joint Photographic Experts Group) lossy format (compressed with quality losses). YUV color space used (automatically converted from/to RGB). - *.tif, *.tiff - TIFF (Tagged Image File Format). - *.tga - TGA (Truevision Targa Graphic), lossless format. - *.gif - GIF (Graphical Interchange Format), lossy format. Color stored using palette (up to 256 distinct colors). - *.exr - OpenEXR high dynamic-range format (supports float pixel formats).</brief_description>
+    <description>! Image class that support file reading/writing operations using auxiliary image library.
+! Supported image formats:
+! - *.bmp - bitmap image, lossless format without compression.
+! - *.ppm - PPM (Portable Pixmap Format), lossless format without compression.
+! - *.png - PNG (Portable Network Graphics) lossless format with compression.
+! - *.jpg, *.jpe, *.jpeg - JPEG/JIFF (Joint Photographic Experts Group) lossy format (compressed
+! with quality losses). YUV color space used (automatically converted from/to RGB).
+! - *.tif, *.tiff - TIFF (Tagged Image File Format).
+! - *.tga - TGA (Truevision Targa Graphic), lossless format.
+! - *.gif - GIF (Graphical Interchange Format), lossy format. Color stored using palette (up to
+! 256 distinct colors).
+! - *.exr - OpenEXR high dynamic-range format (supports float pixel formats).</description>
+    <methods>
+        <method name="Image_AlienPixMap" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="InitTrash">
+            <description>Initialize image plane with required dimensions.</description>
+        </method>
+        <method name="InitCopy">
+            <description>Initialize by copying data.</description>
+        </method>
+        <method name="Clear">
+            <description>Method correctly deallocate internal buffer.</description>
+        </method>
+        <method name="AdjustGamma">
+            <description>Performs gamma correction on image.</description>
+        </method>
+        <method name="IsTopDownDefault" qualifiers="static">
+            <description>Return default rows order used by underlying image library.</description>
+        </method>
+    </methods>
+</class>

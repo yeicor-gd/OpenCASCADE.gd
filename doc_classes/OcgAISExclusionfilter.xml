@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISExclusionfilter" inherits="RefCounted">
+    <brief_description>A framework to reject or to accept only objects of given types and/or signatures. Objects are stored, and the stored objects - along with the flag settings - are used to define the filter. Objects to be filtered are compared with the stored objects added to the filter, and are accepted or rejected according to the exclusion flag setting. - Exclusion flag on - the function IsOk answers true for all objects, except those of the types and signatures stored in the filter framework - Exclusion flag off - the function IsOk answers true for all objects which have the same type and signature as the stored ones.</brief_description>
+    <description>! A framework to reject or to accept only objects of
+! given types and/or signatures.
+! Objects are stored, and the stored objects - along
+! with the flag settings - are used to define the filter.
+! Objects to be filtered are compared with the stored
+! objects added to the filter, and are accepted or
+! rejected according to the exclusion flag setting.
+! -   Exclusion flag on
+! -   the function IsOk answers true for all objects,
+! except those of the types and signatures stored
+! in the filter framework
+! -   Exclusion flag off
+! -   the function IsOk answers true for all objects
+! which have the same type and signature as the stored ones.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs an empty exclusion filter object defined by the flag setting ExclusionFlagOn. By default, the flag is set to true.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>All the AIS objects of &lt;TypeToExclude&gt; Will be rejected by the IsOk Method.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs an exclusion filter object defined by the enumeration value TypeToExclude, the signature SignatureInType, and the flag setting ExclusionFlagOn. By default, the flag is set to true.</description>
+        </method>
+        <method name="Add_1">
+            <description>Adds the type TypeToExclude to the list of types.</description>
+        </method>
+    </methods>
+</class>

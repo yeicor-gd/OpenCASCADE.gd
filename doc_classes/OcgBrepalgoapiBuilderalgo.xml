@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepalgoapiBuilderalgo" inherits="RefCounted">
+    <brief_description>The class contains API level of the General Fuse algorithm.</brief_description>
+    <description>! The class contains API level of the General Fuse algorithm.&lt;br&gt;
+!
+! Additionally to the options defined in the base class, the algorithm has
+! the following options:&lt;br&gt;
+! - *Safe processing mode* - allows to avoid modification of the input
+!                            shapes during the operation (by default it is off);
+! - *Gluing options* - allows to speed up the calculation of the intersections
+!                      on the special cases, in which some sub-shapes are coinciding.
+! - *Disabling the check for inverted solids* - Disables/Enables the check of the input solids
+!                          for inverted status (holes in the space). The default value is TRUE,
+!                          i.e. the check is performed. Setting this flag to FALSE for inverted
+!                          solids, most likely will lead to incorrect results.
+! - *Disabling history collection* - allows disabling the collection of the history
+!                                    of shapes modifications during the operation.
+!
+! It returns the following Error statuses:&lt;br&gt;
+! - 0 - in case of success;&lt;br&gt;
+! - *BOPAlgo_AlertTooFewArguments* - in case there are no enough arguments to perform the
+! operation;&lt;br&gt;
+! - *BOPAlgo_AlertIntersectionFailed* - in case the intersection of the arguments has failed;&lt;br&gt;
+! - *BOPAlgo_AlertBuilderFailed* - in case building of the result shape has failed.&lt;br&gt;
+!
+! Warnings statuses from underlying DS Filler and Builder algorithms
+! are collected in the report.
+!
+! The class provides possibility to simplify the resulting shape by unification
+! of the tangential edges and faces. It is performed by the method *SimplifyResult*.
+! See description of this method for more details.
+!</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="SetArguments">
+            <description>Sets the arguments</description>
+        </method>
+        <method name="Arguments" qualifiers="const">
+            <description>Gets the arguments</description>
+        </method>
+        <method name="SetNonDestructive">
+            <description>Sets the flag that defines the mode of treatment. In non-destructive mode the argument shapes are not modified. Instead a copy of a sub-shape is created in the result if it is needed to be updated.</description>
+        </method>
+        <method name="NonDestructive" qualifiers="const">
+            <description>Returns the flag that defines the mode of treatment. In non-destructive mode the argument shapes are not modified. Instead a copy of a sub-shape is created in the result if it is needed to be updated.</description>
+        </method>
+        <method name="SetGlue">
+            <description>Sets the glue option for the algorithm, which allows increasing performance of the intersection of the input shapes.</description>
+        </method>
+        <method name="Glue" qualifiers="const">
+            <description>Returns the glue option of the algorithm</description>
+        </method>
+        <method name="SetCheckInverted">
+            <description>Enables/Disables the check of the input solids for inverted status</description>
+        </method>
+        <method name="CheckInverted" qualifiers="const">
+            <description>Returns the flag defining whether the check for input solids on inverted status should be performed or not.</description>
+        </method>
+        <method name="Build">
+            <description>Performs the algorithm</description>
+        </method>
+        <method name="SimplifyResult">
+            <description>Simplification of the result shape is performed by the means of *ShapeUpgrade_UnifySameDomain* algorithm. The result of the operation will be overwritten with the simplified result.</description>
+        </method>
+        <method name="Modified">
+            <description>Returns the shapes modified from the shape &lt;theS&gt;. If any, the list will contain only those splits of the given shape, contained in the result.</description>
+        </method>
+        <method name="Generated">
+            <description>Returns the list of shapes generated from the shape &lt;theS&gt;. In frames of Boolean Operations algorithms only Edges and Faces could have Generated elements, as only they produce new elements during intersection: - Edges can generate new vertices; - Faces can generate new edges and vertices.</description>
+        </method>
+        <method name="IsDeleted">
+            <description>Checks if the shape &lt;theS&gt; has been completely removed from the result, i.e. the result does not contain the shape itself and any of its splits. Returns TRUE if the shape has been deleted.</description>
+        </method>
+        <method name="HasModified" qualifiers="const">
+            <description>Returns true if any of the input shapes has been modified during operation.</description>
+        </method>
+        <method name="HasGenerated" qualifiers="const">
+            <description>Returns true if any of the input shapes has generated shapes during operation.</description>
+        </method>
+        <method name="HasDeleted" qualifiers="const">
+            <description>Returns true if any of the input shapes has been deleted during operation. Normally, General Fuse operation should not have Deleted elements, but all derived operation can have.</description>
+        </method>
+        <method name="SetToFillHistory">
+            <description>Allows disabling the history collection</description>
+        </method>
+        <method name="HasHistory" qualifiers="const">
+            <description>Returns flag of history availability</description>
+        </method>
+        <method name="SectionEdges">
+            <description>Returns a list of section edges. The edges represent the result of intersection between arguments of operation.</description>
+        </method>
+        <method name="History" qualifiers="const">
+            <description>History tool</description>
+        </method>
+    </methods>
+</class>

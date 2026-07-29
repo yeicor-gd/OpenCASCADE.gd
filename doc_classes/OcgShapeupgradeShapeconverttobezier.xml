@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeShapeconverttobezier" inherits="RefCounted">
+    <brief_description>API class for performing conversion of 3D, 2D curves to bezier curves and surfaces to bezier based surfaces ( bezier surface, surface of revolution based on bezier curve, offset surface based on any previous type).</brief_description>
+    <description>! API class for performing conversion of 3D, 2D curves to bezier curves
+! and surfaces to bezier based surfaces (
+! bezier surface,
+! surface of revolution based on bezier curve,
+! offset surface based on any previous type).</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Initialize by a Shape.</description>
+        </method>
+        <method name="Set2dConversion">
+            <description>Sets mode for conversion 2D curves to bezier.</description>
+        </method>
+        <method name="Get2dConversion" qualifiers="const">
+            <description>Returns the 2D conversion mode.</description>
+        </method>
+        <method name="Set3dConversion">
+            <description>Sets mode for conversion 3d curves to bezier.</description>
+        </method>
+        <method name="Get3dConversion" qualifiers="const">
+            <description>Returns the 3D conversion mode.</description>
+        </method>
+        <method name="SetSurfaceConversion">
+            <description>Sets mode for conversion surfaces curves to bezier basis.</description>
+        </method>
+        <method name="GetSurfaceConversion" qualifiers="const">
+            <description>Returns the surface conversion mode.</description>
+        </method>
+        <method name="Set3dLineConversion">
+            <description>Sets mode for conversion Geom_Line to bezier.</description>
+        </method>
+        <method name="Get3dLineConversion" qualifiers="const">
+            <description>Returns the Geom_Line conversion mode.</description>
+        </method>
+        <method name="Set3dCircleConversion">
+            <description>Sets mode for conversion Geom_Circle to bezier.</description>
+        </method>
+        <method name="Get3dCircleConversion" qualifiers="const">
+            <description>Returns the Geom_Circle conversion mode.</description>
+        </method>
+        <method name="Set3dConicConversion">
+            <description>Sets mode for conversion Geom_Conic to bezier.</description>
+        </method>
+        <method name="Get3dConicConversion" qualifiers="const">
+            <description>Returns the Geom_Conic conversion mode.</description>
+        </method>
+        <method name="SetPlaneMode">
+            <description>Sets mode for conversion Geom_Plane to Bezier</description>
+        </method>
+        <method name="GetPlaneMode" qualifiers="const">
+            <description>Returns the Geom_Pline conversion mode.</description>
+        </method>
+        <method name="SetRevolutionMode">
+            <description>Sets mode for conversion Geom_SurfaceOfRevolution to Bezier</description>
+        </method>
+        <method name="GetRevolutionMode" qualifiers="const">
+            <description>Returns the Geom_SurfaceOfRevolution conversion mode.</description>
+        </method>
+        <method name="SetExtrusionMode">
+            <description>Sets mode for conversion Geom_SurfaceOfLinearExtrusion to Bezier</description>
+        </method>
+        <method name="GetExtrusionMode" qualifiers="const">
+            <description>Returns the Geom_SurfaceOfLinearExtrusion conversion mode.</description>
+        </method>
+        <method name="SetBSplineMode">
+            <description>Sets mode for conversion Geom_BSplineSurface to Bezier</description>
+        </method>
+        <method name="GetBSplineMode" qualifiers="const">
+            <description>Returns the Geom_BSplineSurface conversion mode.</description>
+        </method>
+        <method name="Perform">
+            <description>Performs converting and computes the resulting shape</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dMediatexture" inherits="RefCounted">
+    <brief_description>Texture adapter for Media_Frame.</brief_description>
+    <description>! Texture adapter for Media_Frame.</description>
+    <methods>
+        <method name="Frame" qualifiers="const">
+            <description>Return the frame.</description>
+        </method>
+        <method name="SetFrame">
+            <description>Set the frame.</description>
+        </method>
+        <method name="GenerateNewId">
+            <description>Regenerate a new texture id</description>
+        </method>
+    </methods>
+</class>

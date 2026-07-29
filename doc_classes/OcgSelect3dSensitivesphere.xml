@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitivesphere" inherits="RefCounted">
+    <brief_description>A framework to define selection by a sensitive sphere.</brief_description>
+    <description>! A framework to define selection by a sensitive sphere.</description>
+    <methods>
+        <method name="CenterOfGeometry" qualifiers="const">
+            <description>Returns center of the sphere with transformation applied</description>
+        </method>
+        <method name="LastDetectedPoint" qualifiers="const">
+            <description>Returns the position of detected point on the sphere.</description>
+        </method>
+        <method name="ResetLastDetectedPoint">
+            <description>Invalidate the position of detected point on the sphere.</description>
+        </method>
+    </methods>
+</class>

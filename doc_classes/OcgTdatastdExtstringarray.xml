@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdExtstringarray" inherits="RefCounted">
+    <brief_description>ExtStringArray Attribute. Handles an array of UNICODE strings (represented by the TCollection_ExtendedString class).</brief_description>
+    <description>! ExtStringArray Attribute. Handles an array of UNICODE strings (represented by the
+! TCollection_ExtendedString class).</description>
+    <methods>
+        <method name="Init">
+            <description>Initializes the inner array with bounds from &lt;lower&gt; to &lt;upper&gt;</description>
+        </method>
+        <method name="SetID_2">
+            <description>Sets the explicit GUID (user defined) for the attribute.</description>
+        </method>
+        <method name="SetID_1">
+            <description>Sets default GUID for the attribute.</description>
+        </method>
+        <method name="Lower" qualifiers="const">
+            <description>Return the lower bound.</description>
+        </method>
+        <method name="Upper" qualifiers="const">
+            <description>Return the upper bound</description>
+        </method>
+        <method name="Length" qualifiers="const">
+            <description>Return the number of elements of &lt;me&gt;.</description>
+        </method>
+        <method name="SetDelta">
+            <description>for internal use only!</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods ============= Returns the GUID for the attribute.</description>
+        </method>
+    </methods>
+</class>

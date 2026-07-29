@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpSphere" inherits="RefCounted">
+    <brief_description>Describes a sphere. A sphere is defined by its radius and positioned in space with a coordinate system (a gp_Ax3 object). The origin of the coordinate system is the center of the sphere. This coordinate system is the "local coordinate system" of the sphere. Note: when a gp_Sphere sphere is converted into a Geom_SphericalSurface sphere, some implicit properties of its local coordinate system are used explicitly: - its origin, "X Direction", "Y Direction" and "main Direction" are used directly to define the parametric directions on the sphere and the origin of the parameters, - its implicit orientation (right-handed or left-handed) gives the orientation (direct, indirect) to the Geom_SphericalSurface sphere. See Also gce_MakeSphere which provides functions for more complex sphere constructions Geom_SphericalSurface which provides additional functions for constructing spheres and works, in particular, with the parametric equations of spheres.</brief_description>
+    <description>! Describes a sphere.
+! A sphere is defined by its radius and positioned in space
+! with a coordinate system (a gp_Ax3 object). The origin of
+! the coordinate system is the center of the sphere. This
+! coordinate system is the "local coordinate system" of the sphere.
+! Note: when a gp_Sphere sphere is converted into a
+! Geom_SphericalSurface sphere, some implicit
+! properties of its local coordinate system are used explicitly:
+! -   its origin, "X Direction", "Y Direction" and "main
+! Direction" are used directly to define the parametric
+! directions on the sphere and the origin of the parameters,
+! -   its implicit orientation (right-handed or left-handed)
+! gives the orientation (direct, indirect) to the
+! Geom_SphericalSurface sphere.
+! See Also
+! gce_MakeSphere which provides functions for more
+! complex sphere constructions
+! Geom_SphericalSurface which provides additional
+! functions for constructing spheres and works, in
+! particular, with the parametric equations of spheres.</description>
+    <methods>
+        <method name="gp_Sphere" qualifiers="static">
+            <description>Creates an indefinite sphere.</description>
+        </method>
+        <method name="SetLocation">
+            <description>Changes the center of the sphere.</description>
+        </method>
+        <method name="SetPosition">
+            <description>Changes the local coordinate system of the sphere.</description>
+        </method>
+        <method name="SetRadius">
+            <description>Assigns theR the radius of the Sphere. Warnings : It is not forbidden to create a sphere with null radius. Raises ConstructionError if theR &lt; 0.0</description>
+        </method>
+        <method name="Area" qualifiers="const">
+            <description>Computes the area of the sphere.</description>
+        </method>
+        <method name="Coefficients" qualifiers="const">
+            <description>Computes the coefficients of the implicit equation of the quadric in the absolute cartesian coordinates system :</description>
+        </method>
+        <method name="UReverse">
+            <description>Reverses the U parametrization of the sphere reversing the YAxis.</description>
+        </method>
+        <method name="VReverse">
+            <description>Reverses the V parametrization of the sphere reversing the ZAxis.</description>
+        </method>
+        <method name="Direct" qualifiers="const">
+            <description>Returns true if the local coordinate system of this sphere is right-handed.</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>--- Purpose ; Returns the center of the sphere.</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the local coordinates system of the sphere.</description>
+        </method>
+        <method name="Radius" qualifiers="const">
+            <description>Returns the radius of the sphere.</description>
+        </method>
+        <method name="Volume" qualifiers="const">
+            <description>Computes the volume of the sphere</description>
+        </method>
+        <method name="XAxis" qualifiers="const">
+            <description>Returns the axis X of the sphere.</description>
+        </method>
+        <method name="YAxis" qualifiers="const">
+            <description>Returns the axis Y of the sphere.</description>
+        </method>
+        <method name="Mirrored_1" qualifiers="const">
+            <description>Performs the symmetrical transformation of a sphere with respect to the point theP which is the center of the symmetry.</description>
+        </method>
+        <method name="Mirrored_2" qualifiers="const">
+            <description>Performs the symmetrical transformation of a sphere with respect to an axis placement which is the axis of the symmetry.</description>
+        </method>
+        <method name="Mirrored_3" qualifiers="const">
+            <description>Performs the symmetrical transformation of a sphere with respect to a plane. The axis placement theA2 locates the plane of the of the symmetry : (Location, XDirection, YDirection).</description>
+        </method>
+        <method name="Rotated" qualifiers="const">
+            <description>Rotates a sphere. theA1 is the axis of the rotation. theAng is the angular value of the rotation in radians.</description>
+        </method>
+        <method name="Scaled" qualifiers="const">
+            <description>Scales a sphere. theS is the scaling value. The absolute value of S is used to scale the sphere</description>
+        </method>
+        <method name="Transformed" qualifiers="const">
+            <description>Transforms a sphere with the transformation theT from class Trsf.</description>
+        </method>
+        <method name="Translated_1" qualifiers="const">
+            <description>Translates a sphere in the direction of the vector theV. The magnitude of the translation is the vector's magnitude.</description>
+        </method>
+        <method name="Translated_2" qualifiers="const">
+            <description>Translates a sphere from the point theP1 to the point theP2.</description>
+        </method>
+    </methods>
+</class>

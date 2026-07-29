@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFDeltaonremoval" inherits="RefCounted">
+    <brief_description>This class provides default services for an AttributeDelta on a REMOVAL action.</brief_description>
+    <description>! This class provides default services for an
+! AttributeDelta on a REMOVAL action.
+!
+! Applying this AttributeDelta means ADDING its
+! attribute.</description>
+    <methods />
+</class>

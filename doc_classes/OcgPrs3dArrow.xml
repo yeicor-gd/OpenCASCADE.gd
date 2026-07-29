@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dArrow" inherits="RefCounted">
+    <brief_description>Provides class methods to draw an arrow at a given location, along a given direction and using a given angle.</brief_description>
+    <description>! Provides class methods to draw an arrow at a given location, along a given direction and using a
+! given angle.</description>
+    <methods>
+        <method name="DrawShaded" qualifiers="static">
+            <description>Defines the representation of the arrow as shaded triangulation.</description>
+        </method>
+        <method name="DrawSegments" qualifiers="static">
+            <description>Defines the representation of the arrow as a container of segments.</description>
+        </method>
+        <method name="Draw" qualifiers="static">
+            <description>Defines the representation of the arrow. Note that this method does NOT assign any presentation aspects to the primitives group!</description>
+        </method>
+    </methods>
+</class>

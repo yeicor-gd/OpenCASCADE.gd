@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepCurveonsurface" inherits="RefCounted">
+    <brief_description>Representation of a curve by a curve in the parametric space of a surface.</brief_description>
+    <description>! Representation  of a  curve   by a   curve  in the
+! parametric space of a surface.</description>
+    <methods>
+        <method name="D0" qualifiers="const">
+            <description>Computes the point at parameter U.</description>
+        </method>
+        <method name="IsCurveOnSurface_1" qualifiers="const">
+            <description>Returns True.</description>
+        </method>
+        <method name="IsCurveOnSurface_2" qualifiers="const">
+            <description>A curve in the parametric space of a surface.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Return a copy of this representation.</description>
+        </method>
+        <method name="Update">
+            <description>Recomputes any derived data after a modification. This is called when the range is modified.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

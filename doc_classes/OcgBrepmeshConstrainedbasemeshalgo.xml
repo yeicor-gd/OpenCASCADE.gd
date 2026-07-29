@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshConstrainedbasemeshalgo" inherits="RefCounted">
+    <brief_description>Class provides base functionality to build face triangulation using Dealunay approach. Performs generation of mesh using raw data from model.</brief_description>
+    <description>! Class provides base functionality to build face triangulation using Dealunay approach.
+! Performs generation of mesh using raw data from model.</description>
+    <methods>
+        <method name="BRepMesh_ConstrainedBaseMeshAlgo" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+    </methods>
+</class>

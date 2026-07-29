@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrFrustumbuilder" inherits="RefCounted">
+    <brief_description>The purpose of this class is to provide unified interface for building selecting frustum depending on current camera projection and orientation matrices, window size and viewport parameters.</brief_description>
+    <description>! The purpose of this class is to provide unified interface for building
+! selecting frustum depending on current camera projection and orientation
+! matrices, window size and viewport parameters.</description>
+    <methods>
+        <method name="SelectMgr_FrustumBuilder" qualifiers="static">
+            <description>Creates new frustum builder with empty matrices</description>
+        </method>
+        <method name="Camera" qualifiers="const">
+            <description>Returns current camera</description>
+        </method>
+        <method name="SetCamera">
+            <description>Stores current camera</description>
+        </method>
+        <method name="SetWindowSize">
+            <description>Stores current window width and height</description>
+        </method>
+        <method name="SetViewport">
+            <description>Stores current viewport coordinates</description>
+        </method>
+        <method name="ProjectPntOnViewPlane" qualifiers="const">
+            <description>Projects 2d screen point onto view frustum plane: theZ = 0 - near plane, theZ = 1 - far plane</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomAxisplacement" inherits="RefCounted">
+    <brief_description>The abstract class AxisPlacement describes the common behavior of positioning systems in 3D space, such as axis or coordinate systems. The Geom package provides two implementations of 3D positioning systems: - the axis (Geom_Axis1Placement class), which is defined by: - its origin, also termed the "Location point" of the axis, - its unit vector, termed the "Direction" or "main Direction" of the axis; - the right-handed coordinate system (Geom_Axis2Placement class), which is defined by: - its origin, also termed the "Location point" of the coordinate system, - three orthogonal unit vectors, termed respectively the "X Direction", the "Y Direction" and the "Direction" of the coordinate system. As the coordinate system is right-handed, these unit vectors have the following relation: "Direction" = "X Direction" ^ "Y Direction". The "Direction" is also called the "main Direction" because, when the unit vector is modified, the "X Direction" and "Y Direction" are recomputed, whereas when the "X Direction" or "Y Direction" is modified, the "main Direction" does not change. The axis whose origin is the origin of the positioning system and whose unit vector is its "main Direction" is also called the "Axis" or "main Axis" of the positioning system.</brief_description>
+    <description>! The abstract class AxisPlacement describes the
+! common behavior of positioning systems in 3D space,
+! such as axis or coordinate systems.
+! The Geom package provides two implementations of
+! 3D positioning systems:
+! - the axis (Geom_Axis1Placement class), which is defined by:
+! - its origin, also termed the "Location point" of the  axis,
+! - its unit vector, termed the "Direction" or "main
+! Direction" of the axis;
+! - the right-handed coordinate system
+! (Geom_Axis2Placement class), which is defined by:
+! - its origin, also termed the "Location point" of the coordinate system,
+! - three orthogonal unit vectors, termed
+! respectively the "X Direction", the "Y Direction"
+! and the "Direction" of the coordinate system. As
+! the coordinate system is right-handed, these
+! unit vectors have the following relation:
+! "Direction" = "X Direction" ^
+! "Y Direction". The "Direction" is also
+! called the "main Direction" because, when the
+! unit vector is modified, the "X Direction" and "Y
+! Direction" are recomputed, whereas when the "X
+! Direction" or "Y Direction" is modified, the "main Direction" does not change.
+! The axis whose origin is the origin of the positioning
+! system and whose unit vector is its "main Direction" is
+! also called the "Axis" or "main Axis" of the positioning system.</description>
+    <methods>
+        <method name="SetAxis">
+            <description>Assigns A1 as the "main Axis" of this positioning system. This modifies - its origin, and - its "main Direction". If this positioning system is a Geom_Axis2Placement, then its "X Direction" and "Y Direction" are recomputed. Exceptions For a Geom_Axis2Placement: Standard_ConstructionError if A1 and the previous "X Direction" of the coordinate system are parallel.</description>
+        </method>
+        <method name="SetLocation">
+            <description>Assigns the point P as the origin of this positioning system.</description>
+        </method>
+        <method name="Angle" qualifiers="const">
+            <description>Computes the angular value, in radians, between the "main Direction" of this positioning system and that of positioning system Other. The result is a value between 0 and Pi.</description>
+        </method>
+        <method name="Axis" qualifiers="const">
+            <description>Returns the main axis of the axis placement. For an "Axis2placement" it is the main axis (Location, Direction ). For an "Axis1Placement" this method returns a copy of &lt;me&gt;.</description>
+        </method>
+        <method name="Direction" qualifiers="const">
+            <description>Returns the main "Direction" of an axis placement.</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>Returns the Location point (origin) of the axis placement.</description>
+        </method>
+    </methods>
+</class>

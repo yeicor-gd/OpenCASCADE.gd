@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXscontrolTransferreader" inherits="RefCounted">
+    <brief_description>A TransferReader performs, manages, handles results of, transfers done when reading a file (i.e. from entities of an InterfaceModel, to objects for Imagine)</brief_description>
+    <description>! A TransferReader performs, manages, handles results of,
+! transfers done when reading a file (i.e. from entities of an
+! InterfaceModel, to objects for Imagine)
+!
+! Running is organised around basic tools : TransientProcess and
+! its Actor, results are Binders and CheckIterators. It implies
+! control by a Controller (which prepares the Actor as required)
+!
+! Getting results can be done directly on TransientProcess, but
+! these are immediate "last produced" results. Each transfer of
+! an entity gives a final result, but also possible intermediate
+! data, and checks, which can be attached to sub-entities.
+!
+! Hence, final results (which intermediates and checks) are
+! recorded as ResultFromModel and can be queried individually.
+!
+! Some more direct access are given for results which are
+! Transient or Shapes</description>
+    <methods>
+        <method name="XSControl_TransferReader" qualifiers="static">
+            <description>Creates a TransferReader, empty</description>
+        </method>
+        <method name="SetFileName">
+            <description>Sets a new value for (loaded) file name</description>
+        </method>
+        <method name="FileName" qualifiers="const">
+            <description>Returns actual value of file name</description>
+        </method>
+        <method name="Clear">
+            <description>Clears data, according mode : -1 all 0 nothing done +1 final results +2 working data (model, context, transfer process)</description>
+        </method>
+        <method name="BeginTransfer">
+            <description>Defines a new TransferProcess for reading transfer Returns True if done, False if data are not properly defined (the Model, the Actor for Read)</description>
+        </method>
+        <method name="PrintStats" qualifiers="const">
+            <description>Prints statistics on current Trace File, according &lt;what&gt; and &lt;mode&gt;. See PrintStatsProcess for details</description>
+        </method>
+        <method name="LastCheckList" qualifiers="const">
+            <description>Returns the CheckList resulting from last TransferRead i.e. from TransientProcess itself, recorded from last Clear</description>
+        </method>
+    </methods>
+</class>

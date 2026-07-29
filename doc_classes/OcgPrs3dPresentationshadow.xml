@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dPresentationshadow" inherits="RefCounted">
+    <brief_description>Defines a "shadow" of existing presentation object with custom aspects.</brief_description>
+    <description>! Defines a "shadow" of existing presentation object with custom aspects.</description>
+    <methods>
+        <method name="ParentId" qualifiers="const">
+            <description>Returns the id of the parent presentation</description>
+        </method>
+        <method name="CalculateBoundBox">
+            <description>Do nothing - axis-aligned bounding box should be initialized from parent structure.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

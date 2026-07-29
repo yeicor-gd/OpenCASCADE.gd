@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStandardDump" inherits="RefCounted">
+    <brief_description>This interface has some tool methods for stream (in JSON format) processing.</brief_description>
+    <description>! This interface has some tool methods for stream (in JSON format) processing.</description>
+    <methods>
+        <method name="JsonKeyToString" qualifiers="static">
+            <description>Returns key value for enum type</description>
+        </method>
+        <method name="JsonKeyLength" qualifiers="static">
+            <description>Returns length value for enum type</description>
+        </method>
+        <method name="AddValuesSeparator" qualifiers="static">
+            <description>! @param theOStream source value</description>
+        </method>
+        <method name="DumpCharacterValues" qualifiers="static">
+            <description>Unite values in one value using template: "value_1", "value_2", ..., "value_n"</description>
+        </method>
+        <method name="DumpRealValues" qualifiers="static">
+            <description>Unite values in one value using template: value_1, value_2, ..., value_n</description>
+        </method>
+    </methods>
+</class>

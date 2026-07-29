@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISViewcontroller" inherits="RefCounted">
+    <brief_description>Auxiliary structure for handling viewer events between GUI and Rendering threads.</brief_description>
+    <description>! Auxiliary structure for handling viewer events between GUI and Rendering threads.
+!
+! Class implements the following features:
+! - Buffers storing the state of user input (mouse, touches and keyboard).
+! - Mapping mouse/multi-touch input to View camera manipulations (panning/rotating/zooming).
+! - Input events are not applied immediately but queued for separate processing from two working
+! threads
+!   UI thread receiving user input and Rendering thread for OCCT 3D Viewer drawing.</description>
+    <methods>
+        <method name="AIS_ViewController" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="InputBuffer" qualifiers="const">
+            <description>Return input buffer.</description>
+        </method>
+        <method name="ChangeInputBuffer">
+            <description>Return input buffer.</description>
+        </method>
+        <method name="ViewAnimation" qualifiers="const">
+            <description>Return view animation; empty (but not NULL) animation by default.</description>
+        </method>
+        <method name="SetViewAnimation">
+            <description>Set view animation to be handled within handleViewRedraw().</description>
+        </method>
+        <method name="AbortViewAnimation">
+            <description>Interrupt active view animation.</description>
+        </method>
+        <method name="ObjectsAnimation" qualifiers="const">
+            <description>Return objects animation; empty (but not NULL) animation by default.</description>
+        </method>
+        <method name="SetObjectsAnimation">
+            <description>Set object animation to be handled within handleViewRedraw().</description>
+        </method>
+        <method name="ToPauseObjectsAnimation" qualifiers="const">
+            <description>Return TRUE if object animation should be paused on mouse click; FALSE by default.</description>
+        </method>
+        <method name="SetPauseObjectsAnimation">
+            <description>Set if object animation should be paused on mouse click.</description>
+        </method>
+        <method name="IsContinuousRedraw" qualifiers="const">
+            <description>Return TRUE if continuous redrawing is enabled; FALSE by default. This option would request a next viewer frame to be completely redrawn right after current frame is finished.</description>
+        </method>
+        <method name="SetContinuousRedraw">
+            <description>Enable or disable continuous updates.</description>
+        </method>
+        <method name="RotationMode" qualifiers="const">
+            <description>Return camera rotation mode, AIS_RotationMode_BndBoxActive by default.</description>
+        </method>
+        <method name="SetRotationMode">
+            <description>Set camera rotation mode.</description>
+        </method>
+        <method name="NavigationMode" qualifiers="const">
+            <description>Return camera navigation mode; AIS_NavigationMode_Orbit by default.</description>
+        </method>
+        <method name="SetNavigationMode">
+            <description>Set camera navigation mode.</description>
+        </method>
+        <method name="MouseAcceleration" qualifiers="const">
+            <description>Return mouse input acceleration ratio in First Person mode; 1.0 by default.</description>
+        </method>
+        <method name="SetMouseAcceleration">
+            <description>Set mouse input acceleration ratio.</description>
+        </method>
+        <method name="OrbitAcceleration" qualifiers="const">
+            <description>Return orbit rotation acceleration ratio; 1.0 by default.</description>
+        </method>
+        <method name="SetOrbitAcceleration">
+            <description>Set orbit rotation acceleration ratio.</description>
+        </method>
+        <method name="ToShowPanAnchorPoint" qualifiers="const">
+            <description>Return TRUE if panning anchor point within perspective projection should be displayed in 3D Viewer; TRUE by default.</description>
+        </method>
+        <method name="SetShowPanAnchorPoint">
+            <description>Set if panning anchor point within perspective projection should be displayed in 3D Viewer.</description>
+        </method>
+        <method name="ToShowRotateCenter" qualifiers="const">
+            <description>Return TRUE if rotation point should be displayed in 3D Viewer; TRUE by default.</description>
+        </method>
+        <method name="SetShowRotateCenter">
+            <description>Set if rotation point should be displayed in 3D Viewer.</description>
+        </method>
+        <method name="ToLockOrbitZUp" qualifiers="const">
+            <description>Return TRUE if camera up orientation within AIS_NavigationMode_Orbit rotation mode should be forced Z up; FALSE by default.</description>
+        </method>
+        <method name="SetLockOrbitZUp">
+            <description>Set if camera up orientation within AIS_NavigationMode_Orbit rotation mode should be forced Z up.</description>
+        </method>
+        <method name="ToAllowTouchZRotation" qualifiers="const">
+            <description>Return TRUE if z-rotation via two-touches gesture is enabled; FALSE by default.</description>
+        </method>
+        <method name="SetAllowTouchZRotation">
+            <description>Set if z-rotation via two-touches gesture is enabled.</description>
+        </method>
+        <method name="ToAllowRotation" qualifiers="const">
+            <description>Return TRUE if camera rotation is allowed; TRUE by default.</description>
+        </method>
+        <method name="SetAllowRotation">
+            <description>Set if camera rotation is allowed.</description>
+        </method>
+        <method name="ToAllowPanning" qualifiers="const">
+            <description>Return TRUE if panning is allowed; TRUE by default.</description>
+        </method>
+        <method name="SetAllowPanning">
+            <description>Set if panning is allowed.</description>
+        </method>
+        <method name="ToAllowZooming" qualifiers="const">
+            <description>Return TRUE if zooming is allowed; TRUE by default.</description>
+        </method>
+        <method name="SetAllowZooming">
+            <description>Set if zooming is allowed.</description>
+        </method>
+        <method name="ToAllowZFocus" qualifiers="const">
+            <description>Return TRUE if ZFocus change is allowed; TRUE by default.</description>
+        </method>
+        <method name="SetAllowZFocus">
+            <description>Set if ZFocus change is allowed.</description>
+        </method>
+        <method name="ToAllowHighlight" qualifiers="const">
+            <description>Return TRUE if dynamic highlight on mouse move is allowed; TRUE by default.</description>
+        </method>
+        <method name="SetAllowHighlight">
+            <description>Set if dragging object is allowed.</description>
+        </method>
+        <method name="ToAllowDragging" qualifiers="const">
+            <description>Return TRUE if dragging object is allowed; TRUE by default.</description>
+        </method>
+        <method name="SetAllowDragging">
+            <description>Set if dynamic highlight on mouse move is allowed.</description>
+        </method>
+        <method name="ToStickToRayOnZoom" qualifiers="const">
+            <description>Return TRUE if picked point should be projected to picking ray on zooming at point; TRUE by default.</description>
+        </method>
+        <method name="SetStickToRayOnZoom">
+            <description>Set if picked point should be projected to picking ray on zooming at point.</description>
+        </method>
+        <method name="ToStickToRayOnRotation" qualifiers="const">
+            <description>Return TRUE if picked point should be projected to picking ray on rotating around point; TRUE by default.</description>
+        </method>
+        <method name="SetStickToRayOnRotation">
+            <description>Set if picked point should be projected to picking ray on rotating around point.</description>
+        </method>
+        <method name="ToInvertPitch" qualifiers="const">
+            <description>Return TRUE if pitch direction should be inverted while processing Aspect_VKey_NavLookUp/Aspect_VKey_NavLookDown; FALSE by default.</description>
+        </method>
+        <method name="SetInvertPitch">
+            <description>Set flag inverting pitch direction.</description>
+        </method>
+        <method name="WalkSpeedAbsolute" qualifiers="const">
+            <description>Return normal walking speed, in m/s; 1.5 by default.</description>
+        </method>
+        <method name="SetWalkSpeedAbsolute">
+            <description>Set normal walking speed, in m/s; 1.5 by default.</description>
+        </method>
+        <method name="WalkSpeedRelative" qualifiers="const">
+            <description>Return walking speed relative to scene bounding box; 0.1 by default.</description>
+        </method>
+        <method name="SetWalkSpeedRelative">
+            <description>Set walking speed relative to scene bounding box.</description>
+        </method>
+        <method name="ThrustSpeed" qualifiers="const">
+            <description>Return active thrust value; 0.0f by default.</description>
+        </method>
+        <method name="SetThrustSpeed">
+            <description>Set active thrust value.</description>
+        </method>
+        <method name="HasPreviousMoveTo" qualifiers="const">
+            <description>Return TRUE if previous position of MoveTo has been defined.</description>
+        </method>
+        <method name="ResetPreviousMoveTo">
+            <description>Reset previous position of MoveTo.</description>
+        </method>
+        <method name="ToDisplayXRAuxDevices" qualifiers="const">
+            <description>Return TRUE to display auxiliary tracked XR devices (like tracking stations).</description>
+        </method>
+        <method name="SetDisplayXRAuxDevices">
+            <description>Set if auxiliary tracked XR devices should be displayed.</description>
+        </method>
+        <method name="ToDisplayXRHands" qualifiers="const">
+            <description>Return TRUE to display XR hand controllers.</description>
+        </method>
+        <method name="SetDisplayXRHands">
+            <description>Set if tracked XR hand controllers should be displayed.</description>
+        </method>
+        <method name="KeyDown">
+            <description>Press key. Default implementation updates internal cache.</description>
+        </method>
+        <method name="KeyUp">
+            <description>Release key. Default implementation updates internal cache.</description>
+        </method>
+        <method name="KeyFromAxis">
+            <description>Simulate key up/down events from axis value. Default implementation updates internal cache.</description>
+        </method>
+        <method name="FetchNavigationKeys">
+            <description>Fetch active navigation actions.</description>
+        </method>
+        <method name="MouseDoubleClickInterval" qualifiers="const">
+            <description>Return double click interval in seconds; 0.4 by default.</description>
+        </method>
+        <method name="SetMouseDoubleClickInterval">
+            <description>Set double click interval in seconds.</description>
+        </method>
+        <method name="UpdateZoom">
+            <description>Update zoom event (e.g. from mouse scroll). This method is expected to be called from UI thread.</description>
+        </method>
+        <method name="UpdateZRotation">
+            <description>Update Z rotation event.</description>
+        </method>
+        <method name="UpdateMouseScroll">
+            <description>Update mouse scroll event; redirects to UpdateZoom by default. This method is expected to be called from UI thread.</description>
+        </method>
+        <method name="TouchToleranceScale" qualifiers="const">
+            <description>Return scale factor for adjusting tolerances for starting multi-touch gestures; 1.0 by default This scale factor is expected to be computed from touch screen resolution.</description>
+        </method>
+        <method name="SetTouchToleranceScale">
+            <description>Set scale factor for adjusting tolerances for starting multi-touch gestures.</description>
+        </method>
+        <method name="RemoveTouchPoint">
+            <description>Remove touch point with the given ID. This method is expected to be called from UI thread.</description>
+        </method>
+        <method name="ProcessExpose">
+            <description>Handle expose event (window content has been invalidation and should be redrawn). Default implementation does nothing.</description>
+        </method>
+        <method name="ProcessConfigure">
+            <description>Handle window resize event. Default implementation does nothing.</description>
+        </method>
+        <method name="ProcessInput">
+            <description>Handle window input event immediately. Default implementation does nothing - input events are accumulated in internal buffer until explicit FlushViewEvents() call.</description>
+        </method>
+        <method name="ProcessFocus">
+            <description>Handle focus event. Default implementation resets cached input state (pressed keys).</description>
+        </method>
+        <method name="ProcessClose">
+            <description>Handle window close event. Default implementation does nothing.</description>
+        </method>
+        <method name="ResetViewInput">
+            <description>Reset input state (pressed keys, mouse buttons, etc.) e.g. on window focus loss. This method is expected to be called from UI thread.</description>
+        </method>
+        <method name="UpdateViewOrientation">
+            <description>Reset view orientation. This method is expected to be called from UI thread.</description>
+        </method>
+        <method name="FlushViewEvents">
+            <description>Update buffer for rendering thread. This method is expected to be called within synchronization barrier between GUI and Rendering threads (e.g. GUI thread should be locked beforehand to avoid data races).</description>
+        </method>
+        <method name="HandleViewEvents">
+            <description>Process events within rendering thread.</description>
+        </method>
+        <method name="OnSelectionChanged">
+            <description>Callback called by handleMoveTo() on Selection in 3D Viewer. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="OnObjectDragged">
+            <description>Callback called by handleMoveTo() on dragging object in 3D Viewer. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="OnSubviewChanged">
+            <description>Callback called by HandleViewEvents() on Selection of another (sub)view. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="PickAxis">
+            <description>Pick closest point by axis. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="GravityPoint">
+            <description>Compute rotation gravity center point depending on rotation mode. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="FitAllAuto">
+            <description>Modify view camera to fit all objects. Default implementation fits either all visible and all selected objects (swapped on each call).</description>
+        </method>
+        <method name="handleViewOrientationKeys">
+            <description>Handle hot-keys defining new camera orientation (Aspect_VKey_ViewTop and similar keys). Default implementation starts an animated transaction from the current to the target camera orientation, when specific action key was pressed. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="handleNavigationKeys">
+            <description>Perform navigation (Aspect_VKey_NavForward and similar keys). This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="handleCameraActions">
+            <description>Perform immediate camera actions (rotate/zoom/pan) on gesture progress. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="handleMoveTo">
+            <description>Perform moveto/selection/dragging. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="toAskNextFrame" qualifiers="const">
+            <description>Return TRUE if another frame should be drawn right after this one.</description>
+        </method>
+        <method name="setAskNextFrame">
+            <description>Set if another frame should be drawn right after this one.</description>
+        </method>
+        <method name="panningAnchorPoint" qualifiers="const">
+            <description>Return active panning anchor point.</description>
+        </method>
+        <method name="setPanningAnchorPoint">
+            <description>Set active panning anchor point.</description>
+        </method>
+        <method name="handlePanning">
+            <description>Handle panning event myGL.Panning.</description>
+        </method>
+        <method name="handleZRotate">
+            <description>Handle Z rotation event myGL.ZRotate.</description>
+        </method>
+        <method name="MinZoomDistance" qualifiers="const">
+            <description>Return minimal camera distance for zoom operation.</description>
+        </method>
+        <method name="SetMinZoomDistance">
+            <description>Set minimal camera distance for zoom operation.</description>
+        </method>
+        <method name="handleZFocusScroll">
+            <description>Handle ZScroll event myGL.ZoomActions. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="handleOrbitRotation">
+            <description>Handle orbital rotation events myGL.OrbitRotation.</description>
+        </method>
+        <method name="handleViewRotation">
+            <description>Handle view direction rotation events myGL.ViewRotation. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="handleViewRedraw">
+            <description>Handle view redraw. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="handleXRInput">
+            <description>Perform XR input. This method is expected to be called from rendering thread.</description>
+        </method>
+        <method name="handleXRTurnPad">
+            <description>Handle trackpad view turn action.</description>
+        </method>
+        <method name="handleXRTeleport">
+            <description>Handle trackpad teleportation action.</description>
+        </method>
+        <method name="handleXRPicking">
+            <description>Handle picking on trigger click.</description>
+        </method>
+        <method name="handleXRHighlight">
+            <description>Perform dynamic highlighting for active hand.</description>
+        </method>
+        <method name="handleXRPresentations">
+            <description>Display auxiliary XR presentations.</description>
+        </method>
+        <method name="handleXRMoveTo">
+            <description>Perform picking with/without dynamic highlighting for XR pose.</description>
+        </method>
+    </methods>
+</class>

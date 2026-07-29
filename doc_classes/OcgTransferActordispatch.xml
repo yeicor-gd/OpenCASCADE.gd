@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferActordispatch" inherits="RefCounted">
+    <brief_description>This class allows to work with a TransferDispatch, i.e. to transfer entities from a data set to another one defined by the same interface norm, with the following features : - ActorDispatch itself acts as a default actor, i.e. it copies entities with the general service Copy, as CopyTool does - it allows to add other actors for specific ways of transfer, which may include data modifications, conversions ... - and other features from TransferDispatch (such as mapping other than one-one)</brief_description>
+    <description>! This class allows to work with a TransferDispatch, i.e. to
+! transfer entities from a data set to another one defined by
+! the same interface norm, with the following features :
+! - ActorDispatch itself acts as a default actor, i.e. it copies
+! entities with the general service Copy, as CopyTool does
+! - it allows to add other actors for specific ways of transfer,
+! which may include data modifications, conversions ...
+! - and other features from TransferDispatch (such as mapping
+! other than one-one)</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Same as above, but works with the Active Protocol</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Same as above, but Library is defined through a Protocol</description>
+        </method>
+        <method name="AddActor">
+            <description>Utility which adds an actor to the default &lt;me&gt; (it calls SetActor from the TransientProcess)</description>
+        </method>
+        <method name="TransferDispatch">
+            <description>Returns the TransferDispatch, which does the work, records the intermediate data, etc... See TransferDispatch &amp; CopyTool, to see the available methods</description>
+        </method>
+        <method name="Transfer">
+            <description>Specific action : it calls the method Transfer from CopyTool i.e. the general service Copy, then returns the Binder produced by the TransientProcess</description>
+        </method>
+    </methods>
+</class>

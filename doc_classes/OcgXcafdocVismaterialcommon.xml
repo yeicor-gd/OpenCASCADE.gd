@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocVismaterialcommon" inherits="RefCounted">
+    <brief_description>Common (obsolete) material definition.</brief_description>
+    <description>! Common (obsolete) material definition.</description>
+    <methods>
+        <method name="XCAFDoc_VisMaterialCommon" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="IsEqual" qualifiers="const">
+            <description>Compare two materials.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

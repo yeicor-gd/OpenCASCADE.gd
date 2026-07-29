@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeanalysisCurve" inherits="RefCounted">
+    <brief_description>Analyzing tool for 2d or 3d curve. Computes parameters of projected point onto a curve.</brief_description>
+    <description>! Analyzing tool for 2d or 3d curve.
+! Computes parameters of projected point onto a curve.</description>
+    <methods>
+        <method name="Project" qualifiers="const">
+            <description>Projects a Point on a Curve. Computes the projected point and its parameter on the curve. &lt;preci&gt; is used as 3d precision (hence, 0 will produce reject unless exact confusion). The number of iterations is limited.</description>
+        </method>
+        <method name="NextProject" qualifiers="const">
+            <description>Projects a Point on a Curve using Newton method. &lt;paramPrev&gt; is taken as the first approximation of solution. If Newton algorithm fails the method Project() is used.</description>
+        </method>
+    </methods>
+</class>

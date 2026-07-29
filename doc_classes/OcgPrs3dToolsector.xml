@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dToolsector" inherits="RefCounted">
+    <brief_description>Standard presentation algorithm that outputs graphical primitives for disk surface.</brief_description>
+    <description>! Standard presentation algorithm that outputs graphical primitives for disk surface.</description>
+    <methods>
+        <method name="Prs3d_ToolSector" qualifiers="static">
+            <description>Initializes the algorithm creating a sector (quadrant).</description>
+        </method>
+    </methods>
+</class>

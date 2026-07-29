@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeom2dCartesianpoint" inherits="RefCounted">
+    <brief_description>Describes a point in 2D space. A Geom2d_CartesianPoint is defined by a gp_Pnt2d point, with its two Cartesian coordinates X and Y.</brief_description>
+    <description>! Describes a point in 2D space. A
+! Geom2d_CartesianPoint is defined by a gp_Pnt2d
+! point, with its two Cartesian coordinates X and Y.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Returns a persistent copy of P.</description>
+        </method>
+        <method name="SetCoord">
+            <description>Set &lt;me&gt; to X, Y coordinates.</description>
+        </method>
+        <method name="SetPnt2d">
+            <description>Set &lt;me&gt; to P.X(), P.Y() coordinates.</description>
+        </method>
+        <method name="SetX">
+            <description>Changes the X coordinate of me.</description>
+        </method>
+        <method name="SetY">
+            <description>Changes the Y coordinate of me.</description>
+        </method>
+        <method name="Coord" qualifiers="const">
+            <description>Returns the coordinates of &lt;me&gt;.</description>
+        </method>
+        <method name="Pnt2d" qualifiers="const">
+            <description>Returns a non persistent cartesian point with the same coordinates as &lt;me&gt;. -C++: return const&amp;</description>
+        </method>
+        <method name="X" qualifiers="const">
+            <description>Returns the X coordinate of &lt;me&gt;.</description>
+        </method>
+        <method name="Y" qualifiers="const">
+            <description>Returns the Y coordinate of &lt;me&gt;.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

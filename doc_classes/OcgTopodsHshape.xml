@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsHshape" inherits="RefCounted">
+    <brief_description>Class to manipulate a Shape with handle.</brief_description>
+    <description>! Class to manipulate a Shape with  handle.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty shape object</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs a shape object defined by the shape aShape.</description>
+        </method>
+        <method name="Shape_2">
+            <description>Loads this shape with the shape aShape</description>
+        </method>
+        <method name="Shape_1" qualifiers="const">
+            <description>Returns a reference to a constant TopoDS_Shape based on this shape.</description>
+        </method>
+        <method name="ChangeShape">
+            <description>Exchanges the TopoDS_Shape object defining this shape for another one referencing the same underlying shape Accesses the list of shapes within the underlying shape referenced by the TopoDS_Shape object. Returns a reference to a TopoDS_Shape based on this shape. The TopoDS_Shape can be modified.</description>
+        </method>
+    </methods>
+</class>

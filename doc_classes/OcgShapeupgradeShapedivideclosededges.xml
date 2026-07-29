@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeShapedivideclosededges" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class ShapeUpgrade_ShapeDivideClosedEdges.</description>
+    <methods>
+        <method name="ShapeUpgrade_ShapeDivideClosedEdges" qualifiers="static">
+            <description>Initialises tool with shape and default parameter.</description>
+        </method>
+        <method name="SetNbSplitPoints">
+            <description>Sets the number of cuts applied to divide closed edges. The number of resulting faces will be num+1.</description>
+        </method>
+    </methods>
+</class>

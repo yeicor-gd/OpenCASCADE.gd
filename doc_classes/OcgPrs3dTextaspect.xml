@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dTextaspect" inherits="RefCounted">
+    <brief_description>Defines the attributes when displaying a text.</brief_description>
+    <description>! Defines the attributes when displaying a text.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty framework for defining display attributes of text.</description>
+        </method>
+        <method name="SetColor">
+            <description>Sets the color of the type used in text display.</description>
+        </method>
+        <method name="SetFont">
+            <description>Sets the font used in text display.</description>
+        </method>
+        <method name="SetHeight">
+            <description>Sets the height of the text.</description>
+        </method>
+        <method name="SetAngle">
+            <description>Sets the angle</description>
+        </method>
+        <method name="Height" qualifiers="const">
+            <description>Returns the height of the text box.</description>
+        </method>
+        <method name="Angle" qualifiers="const">
+            <description>Returns the angle</description>
+        </method>
+        <method name="SetHorizontalJustification">
+            <description>Sets horizontal alignment of text.</description>
+        </method>
+        <method name="SetVerticalJustification">
+            <description>Sets the vertical alignment of text.</description>
+        </method>
+        <method name="SetOrientation">
+            <description>Sets the orientation of text.</description>
+        </method>
+        <method name="HorizontalJustification" qualifiers="const">
+            <description>Returns the horizontal alignment of the text. The range of values includes: - left - center - right, and - normal (justified).</description>
+        </method>
+        <method name="VerticalJustification" qualifiers="const">
+            <description>Returns the vertical alignment of the text. The range of values includes: - normal - top - cap - half - base - bottom</description>
+        </method>
+        <method name="Orientation" qualifiers="const">
+            <description>Returns the orientation of the text. Text can be displayed in the following directions: - up - down - left, or - right</description>
+        </method>
+        <method name="Aspect" qualifiers="const">
+            <description>Returns the purely textual attributes used in the display of text. These include: - color - font - height/width ratio, that is, the expansion factor, and - space between characters.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

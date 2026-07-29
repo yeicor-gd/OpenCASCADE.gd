@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXscontrolFuncshape" inherits="RefCounted">
+    <brief_description>Defines additional commands for XSControl to : - control of initialisation (xinit, xnorm, newmodel) - analyse of the result of a transfer (recorded in a TransientProcess for Read, FinderProcess for Write) : statistics, various lists (roots,complete,abnormal), what about one specific entity, producing a model with the abnormal result</brief_description>
+    <description>! Defines additional commands for XSControl to :
+! - control of initialisation (xinit, xnorm, newmodel)
+! - analyse of the result of a transfer (recorded in a
+! TransientProcess for Read, FinderProcess for Write) :
+! statistics, various lists (roots,complete,abnormal), what
+! about one specific entity, producing a model with the
+! abnormal result
+!
+! This appendix of XSControl is compiled separately to distinguish
+! basic features from user callable forms</description>
+    <methods>
+        <method name="Init" qualifiers="static">
+            <description>Defines and loads all functions which work on shapes for XSControl (as ActFunc)</description>
+        </method>
+    </methods>
+</class>

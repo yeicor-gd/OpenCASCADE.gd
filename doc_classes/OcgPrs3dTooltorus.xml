@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dTooltorus" inherits="RefCounted">
+    <brief_description>Standard presentation algorithm that outputs graphical primitives for torus surface.</brief_description>
+    <description>! Standard presentation algorithm that outputs graphical primitives for torus surface.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Initializes the algorithm creating a complete torus.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Initializes the algorithm creating a torus pipe segment.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Initializes the algorithm creating a torus ring segment.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Initializes the algorithm creating a torus ring segment.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdocstdApplication" inherits="RefCounted">
+    <brief_description>The abstract root class for all application classes. They are in charge of: - Creating documents - Storing documents and retrieving them - Initializing document views. To create a useful OCAF-based application, you derive a class from Application and implement the methods below. You will have to redefine the deferred (virtual) methods Formats, InitDocument, and Resources, and override others. The application is a container for a document, which in its turn is the container of the data framework made up of labels and attributes. Besides furnishing a container for documents, TDocStd_Application provides the following services for them: - Creation of new documents - Activation of documents in sessions of an application - Storage and retrieval of documents - Initialization of document views. Note: If a client needs detailed information concerning the events during the Open/Store operation, a MessageDriver based on Message_PrinterOStream may be used. In case of need client can implement his own version inheriting from Message_Printer class and add it to the Messenger. Also the trace level of messages can be tuned by setting trace level (SetTraceLevel (Gravity )) for the used Printer. By default, trace level is Message_Info, so that all messages are output.</brief_description>
+    <description>! The abstract root class for all application classes.
+! They are in charge of:
+! -   Creating documents
+! -   Storing documents and retrieving them
+! -   Initializing document views.
+! To create a useful OCAF-based application, you
+! derive a class from Application and implement
+! the methods below. You will have to redefine the
+! deferred (virtual) methods Formats,
+! InitDocument, and Resources, and override others.
+! The application is a container for a document,
+! which in its turn is the container of the data
+! framework made up of labels and attributes.
+! Besides furnishing a container for documents,
+! TDocStd_Application provides the following
+! services for them:
+! -   Creation of new documents
+! -   Activation of documents in sessions of an application
+! -   Storage and retrieval of documents
+! -   Initialization of document views.
+! Note:
+! If a client needs detailed information concerning
+! the events during the Open/Store operation, a MessageDriver
+! based on Message_PrinterOStream may be used. In case of need client
+! can implement his own version inheriting from Message_Printer class
+! and add it to the Messenger.
+! Also the trace level of messages can be tuned by setting trace level (SetTraceLevel (Gravity ))
+! for the used Printer. By default, trace level is Message_Info, so that all messages are output.</description>
+    <methods>
+        <method name="TDocStd_Application" qualifiers="static">
+            <description>Constructs the new instance and registers it in CDM_Session</description>
+        </method>
+        <method name="IsDriverLoaded" qualifiers="const">
+            <description>Check if meta data driver was successfully loaded by the application constructor</description>
+        </method>
+        <method name="Resources">
+            <description>Returns resource manager defining supported persistent formats.</description>
+        </method>
+        <method name="ResourcesName">
+            <description>Returns the name of the file containing the resources of this application, for support of legacy method of loading formats data from resource files.</description>
+        </method>
+        <method name="ReadingFormats">
+            <description>Returns the sequence of reading formats supported by the application.</description>
+        </method>
+        <method name="WritingFormats">
+            <description>Returns the sequence of writing formats supported by the application.</description>
+        </method>
+        <method name="NbDocuments" qualifiers="const">
+            <description>returns the number of documents handled by the current applicative session.</description>
+        </method>
+        <method name="GetDocument" qualifiers="const">
+            <description>Constructs the new document aDoc. aDoc is identified by the index index which is any integer between 1 and n where n is the number of documents returned by NbDocument. Example Handle(TDocStd_Application) anApp; if (!CafTest::Find(A)) return 1; Handle(TDocStd) aDoc; Standard_Integer nbdoc = anApp-&gt;NbDocuments(); for (Standard_Integer i = 1; i &lt;= nbdoc; i++) { aApp-&gt;GetDocument(i,aDoc);</description>
+        </method>
+        <method name="InitDocument" qualifiers="const">
+            <description>Initialize the document aDoc for the applicative session. This virtual function is called by NewDocument and is to be redefined for each specific application. Modified flag (different of disk version) ============= to open/save a document =======================</description>
+        </method>
+        <method name="Close">
+            <description>Close the given document. the document is not any more handled by the applicative session.</description>
+        </method>
+        <method name="Open_4">
+            <description>Retrieves document from standard stream.</description>
+        </method>
+        <method name="Open_2">
+            <description>Retrieves document from standard stream.</description>
+        </method>
+        <method name="SaveAs_2">
+            <description>Save theDoc to standard SEEKABLE stream theOStream. the stream should support SEEK functionality</description>
+        </method>
+        <method name="Save_1">
+            <description>Save aDoc active document. Exceptions: Standard_NotImplemented if the document was not retrieved in the applicative session by using Open.</description>
+        </method>
+        <method name="OnOpenTransaction">
+            <description>Notification that is fired at each OpenTransaction event.</description>
+        </method>
+        <method name="OnCommitTransaction">
+            <description>Notification that is fired at each CommitTransaction event.</description>
+        </method>
+        <method name="OnAbortTransaction">
+            <description>Notification that is fired at each AbortTransaction event.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

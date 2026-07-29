@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFComparisontool" inherits="RefCounted">
+    <brief_description>This class provides services to compare sets of information. The use of this tool can works after a copy, acted by a CopyTool.</brief_description>
+    <description>! This class provides services to compare sets of
+! information. The use of this tool can works after
+! a copy, acted by a CopyTool.
+!
+! * Compare(...) compares two DataSet and returns the result.
+!
+! * SourceUnbound(...) builds the difference between
+! a relocation dictionary and a source set of information.
+!
+! * TargetUnbound(...) does the same between a
+! relocation dictionary and a target set of information.
+!
+! * Cut(aDataSet, anLabel) removes a set of attributes.
+!
+! * IsSelfContained(...) returns true if all the
+! labels of the attributes of the given DataSet are
+! descendant of the given label.</description>
+    <methods />
+</class>

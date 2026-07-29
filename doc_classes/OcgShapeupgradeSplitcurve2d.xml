@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeSplitcurve2d" inherits="RefCounted">
+    <brief_description>Splits a 2d curve with a criterion.</brief_description>
+    <description>! Splits a 2d curve with a criterion.</description>
+    <methods>
+        <method name="ShapeUpgrade_SplitCurve2d" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Init_1">
+            <description>Initializes with pcurve with its first and last parameters.</description>
+        </method>
+        <method name="Init_2">
+            <description>Initializes with pcurve with its parameters.</description>
+        </method>
+        <method name="Build">
+            <description>If Segment is True, the result is composed with segments of the curve bounded by the SplitValues. If Segment is False, the result is composed with trimmed Curves all based on the same complete curve.</description>
+        </method>
+    </methods>
+</class>

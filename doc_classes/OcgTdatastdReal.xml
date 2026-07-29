@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdReal" inherits="RefCounted">
+    <brief_description>The basis to define a real number attribute.</brief_description>
+    <description>! The basis to define a real number attribute.</description>
+    <methods>
+        <method name="SetDimension">
+            <description>Obsolete method that will be removed in next versions. This field is not supported in the persistence mechanism.</description>
+        </method>
+        <method name="GetDimension" qualifiers="const">
+            <description>Obsolete method that will be removed in next versions. This field is not supported in the persistence mechanism.</description>
+        </method>
+        <method name="Set_1">
+            <description>Sets the real number V.</description>
+        </method>
+        <method name="SetID_2">
+            <description>Sets the explicit GUID for the attribute.</description>
+        </method>
+        <method name="SetID_1">
+            <description>Sets default GUID for the attribute.</description>
+        </method>
+        <method name="Get" qualifiers="const">
+            <description>Returns the real number value contained in the attribute.</description>
+        </method>
+        <method name="IsCaptured" qualifiers="const">
+            <description>Returns True if there is a reference on the same label</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods ============= Returns the default GUID for real numbers.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds, or creates, a Real attribute with default GUID and sets &lt;value&gt;. The Real attribute is returned. The Real dimension is Scalar by default. Use SetDimension to overwrite. Real methods ============</description>
+        </method>
+        <method name="Set_3" qualifiers="static">
+            <description>Finds, or creates, a Real attribute with explicit GUID and sets &lt;value&gt;. The Real attribute is returned. Real methods ============</description>
+        </method>
+    </methods>
+</class>

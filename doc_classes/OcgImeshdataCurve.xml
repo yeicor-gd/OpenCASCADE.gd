@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshdataCurve" inherits="RefCounted">
+    <brief_description>Interface class representing discrete 3d curve of edge. Indexation of points starts from zero.</brief_description>
+    <description>! Interface class representing discrete 3d curve of edge.
+! Indexation of points starts from zero.</description>
+    <methods />
+</class>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepcheckWire" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class BRepCheck_Wire.</description>
+    <methods>
+        <method name="InContext">
+            <description>if &lt;ContextShape&gt; is a face, consequently checks SelfIntersect(), Closed(), Orientation() and Closed2d until faulty is found</description>
+        </method>
+        <method name="Minimum">
+            <description>checks that the wire is not empty and "connex". Called by constructor</description>
+        </method>
+        <method name="Blind">
+            <description>Does nothing</description>
+        </method>
+        <method name="Closed">
+            <description>Checks if the oriented edges of the wire give a closed wire. If the wire is closed, returns BRepCheck_NoError. Warning: if the first and last edge are infinite, the wire will be considered as a closed one. If &lt;Update&gt; is set to true, registers the status in the list. May return (and registers): **BRepCheck_NotConnected, if wire is not topologically closed **BRepCheck_RedundantEdge, if an edge is in wire more than 3 times or in case of 2 occurrences if not with FORWARD and REVERSED orientation. **BRepCheck_NoError</description>
+        </method>
+        <method name="Closed2d">
+            <description>Checks if edges of the wire give a wire closed in 2d space. Returns BRepCheck_NoError, or BRepCheck_NotClosed If &lt;Update&gt; is set to true, registers the status in the list.</description>
+        </method>
+        <method name="Orientation">
+            <description>Checks if the oriented edges of the wire are correctly oriented. An internal call is made to the method Closed. If no face exists, call the method with a null face (TopoDS_face()). If &lt;Update&gt; is set to true, registers the status in the list. May return (and registers): BRepCheck_InvalidDegeneratedFlag, BRepCheck_BadOrientationOfSubshape, BRepCheck_NotClosed, BRepCheck_NoError</description>
+        </method>
+        <method name="SelfIntersect">
+            <description>Checks if the wire intersect itself on the face &lt;F&gt;. &lt;E1&gt; and &lt;E2&gt; are the first intersecting edges found. &lt;E2&gt; may be a null edge when a self-intersecting edge is found.If &lt;Update&gt; is set to true, registers the status in the list. May return (and register): BRepCheck_EmptyWire, BRepCheck_SelfIntersectingWire, BRepCheck_NoCurveOnSurface, BRepCheck_NoError</description>
+        </method>
+        <method name="GeometricControls_1" qualifiers="const">
+            <description>report SelfIntersect() check would be (is) done</description>
+        </method>
+        <method name="GeometricControls_2">
+            <description>set SelfIntersect() to be checked</description>
+        </method>
+        <method name="SetStatus">
+            <description>Sets status of Wire;</description>
+        </method>
+    </methods>
+</class>

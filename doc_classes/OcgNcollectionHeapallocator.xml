@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgNcollectionHeapallocator" inherits="RefCounted">
+    <brief_description>Allocator that uses the global dynamic heap (malloc / free).</brief_description>
+    <description>/**
+ * Allocator that uses the global dynamic heap (malloc / free).
+ */</description>
+    <methods />
+</class>

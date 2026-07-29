@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBreptoolsReshape" inherits="RefCounted">
+    <brief_description>Rebuilds a Shape by making pre-defined substitutions on some of its components</brief_description>
+    <description>! Rebuilds a Shape by making pre-defined substitutions on some
+! of its components
+!
+! In a first phase, it records requests to replace or remove
+! some individual shapes
+! For each shape, the last given request is recorded
+! Requests may be applied "Oriented" (i.e. only to an item with
+! the SAME orientation) or not (the orientation of replacing
+! shape is respectful of that of the original one)
+!
+! Then, these requests may be applied to any shape which may
+! contain one or more of these individual shapes
+!
+! Supports the 'BRepTools_History' history by method 'History'.</description>
+    <methods>
+        <method name="BRepTools_ReShape" qualifiers="static">
+            <description>Returns an empty Reshape</description>
+        </method>
+        <method name="Clear">
+            <description>Clears all substitutions requests</description>
+        </method>
+        <method name="Remove">
+            <description>Sets a request to Remove a Shape whatever the orientation</description>
+        </method>
+        <method name="Replace">
+            <description>Sets a request to Replace a Shape by a new one.</description>
+        </method>
+        <method name="IsRecorded" qualifiers="const">
+            <description>Tells if a shape is recorded for Replace/Remove</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the new value for an individual shape If not recorded, returns the original shape itself If to be Removed, returns a Null Shape Else, returns the replacing item</description>
+        </method>
+        <method name="Status">
+            <description>Returns a complete substitution status for a shape 0 : not recorded, &lt;newsh&gt; = original &lt;shape&gt; &lt; 0: to be removed, &lt;newsh&gt; is NULL &gt; 0: to be replaced, &lt;newsh&gt; is a new item If &lt;last&gt; is False, returns status and new shape recorded in the map directly for the shape, if True and status &gt; 0 then recursively searches for the last status and new shape.</description>
+        </method>
+        <method name="Apply">
+            <description>Applies the substitutions requests to a shape.</description>
+        </method>
+        <method name="ModeConsiderLocation">
+            <description>Returns (modifiable) the flag which defines whether Location of shape take into account during replacing shapes.</description>
+        </method>
+        <method name="History" qualifiers="const">
+            <description>Returns the history of the substituted shapes.</description>
+        </method>
+    </methods>
+</class>

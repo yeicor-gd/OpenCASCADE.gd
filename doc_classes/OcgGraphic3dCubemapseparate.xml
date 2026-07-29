@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dCubemapseparate" inherits="RefCounted">
+    <brief_description>Class to manage cubemap located in six different images.</brief_description>
+    <description>! Class to manage cubemap located in six different images.</description>
+    <methods>
+        <method name="IsDone" qualifiers="const">
+            <description>Checks if a texture class is valid or not. Returns true if the construction of the class is correct.</description>
+        </method>
+    </methods>
+</class>

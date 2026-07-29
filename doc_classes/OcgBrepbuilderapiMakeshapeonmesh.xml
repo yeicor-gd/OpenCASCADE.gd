@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepbuilderapiMakeshapeonmesh" inherits="RefCounted">
+    <brief_description>Builds shape on per-facet basis on the input mesh. Resulting shape has shared edges by construction, but no maximization (unify same domain) is applied. No generation history is provided.</brief_description>
+    <description>! Builds shape on per-facet basis on the input mesh. Resulting shape has shared
+! edges by construction, but no maximization (unify same domain) is applied.
+! No generation history is provided.</description>
+    <methods>
+        <method name="Build">
+            <description>Builds shape on mesh.</description>
+        </method>
+    </methods>
+</class>

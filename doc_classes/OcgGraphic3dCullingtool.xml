@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dCullingtool" inherits="RefCounted">
+    <brief_description>Graphic3d_CullingTool class provides a possibility to store parameters of view volume, such as its vertices and equations, and contains methods detecting if given AABB overlaps view volume.</brief_description>
+    <description>! Graphic3d_CullingTool class provides a possibility to store parameters of view volume,
+! such as its vertices and equations, and contains methods detecting if given AABB overlaps view
+! volume.</description>
+    <methods>
+        <method name="Graphic3d_CullingTool" qualifiers="static">
+            <description>Creates an empty selector object with parallel projection type by default.</description>
+        </method>
+        <method name="CacheClipPtsProjections">
+            <description>Caches view volume's vertices projections along its normals and AABBs dimensions. Must be called at the beginning of each BVH tree traverse loop.</description>
+        </method>
+        <method name="WorldViewProjState" qualifiers="const">
+            <description>Returns state of current world view projection transformation matrices.</description>
+        </method>
+    </methods>
+</class>

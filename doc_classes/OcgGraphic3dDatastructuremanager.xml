@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dDatastructuremanager" inherits="RefCounted">
+    <brief_description>This class allows the definition of a manager to which the graphic objects are associated. It allows them to be globally manipulated. It defines the global attributes.</brief_description>
+    <description>! This class allows the definition of a manager to
+! which the graphic objects are associated.
+! It allows them to be globally manipulated.
+! It defines the global attributes.</description>
+    <methods />
+</class>

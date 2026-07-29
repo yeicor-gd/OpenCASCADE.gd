@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshIncrementalmesh" inherits="RefCounted">
+    <brief_description>Builds the mesh of a shape with respect of their correctly triangulated parts</brief_description>
+    <description>! Builds the mesh of a shape with respect of their
+! correctly triangulated parts</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Default constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor. Automatically calls method Perform.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructor. Automatically calls method Perform.</description>
+        </method>
+        <method name="Perform">
+            <description>Performs meshing of the shape.</description>
+        </method>
+        <method name="Parameters" qualifiers="const">
+            <description>Returns meshing parameters</description>
+        </method>
+        <method name="ChangeParameters">
+            <description>Returns modifiable meshing parameters</description>
+        </method>
+        <method name="IsParallelDefault" qualifiers="static">
+            <description>Returns multi-threading usage flag set by default in Discret() static method (thus applied only to Mesh Factories).</description>
+        </method>
+        <method name="SetParallelDefault" qualifiers="static">
+            <description>Setup multi-threading usage flag set by default in Discret() static method (thus applied only to Mesh Factories).</description>
+        </method>
+    </methods>
+</class>

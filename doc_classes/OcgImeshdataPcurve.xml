@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshdataPcurve" inherits="RefCounted">
+    <brief_description>Interface class representing pcurve of edge associated with discrete face. Indexation of points starts from zero.</brief_description>
+    <description>! Interface class representing pcurve of edge associated with discrete face.
+! Indexation of points starts from zero.</description>
+    <methods>
+        <method name="IsForward" qualifiers="const">
+            <description>Returns forward flag of this pcurve.</description>
+        </method>
+        <method name="IsInternal" qualifiers="const">
+            <description>Returns internal flag of this pcurve.</description>
+        </method>
+        <method name="GetOrientation" qualifiers="const">
+            <description>Returns orientation of the edge associated with current pcurve.</description>
+        </method>
+    </methods>
+</class>

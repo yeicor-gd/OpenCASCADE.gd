@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitivetriangle" inherits="RefCounted">
+    <brief_description>A framework to define selection of triangles in a view. This comes into play in the detection of meshing and triangulation in surfaces. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</brief_description>
+    <description>! A framework to define selection of triangles in a view.
+! This comes into play in the detection of meshing and triangulation in surfaces.
+! In some cases this class can raise Standard_ConstructionError and
+! Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</description>
+    <methods>
+        <method name="Points3D" qualifiers="const">
+            <description>Returns the 3D points P1, P2, P3 used at the time of construction.</description>
+        </method>
+        <method name="Center3D" qualifiers="const">
+            <description>Returns the center point of the sensitive triangle created at construction time.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

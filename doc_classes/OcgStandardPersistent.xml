@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStandardPersistent" inherits="RefCounted">
+    <brief_description>Root of "persistent" classes, a legacy support of object oriented databases, now outdated.</brief_description>
+    <description>! Root of "persistent" classes, a legacy support of
+! object oriented databases, now outdated.</description>
+    <methods />
+</class>

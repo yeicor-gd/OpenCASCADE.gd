@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgLawS" inherits="RefCounted">
+    <brief_description>Describes an "S" evolution law.</brief_description>
+    <description>! Describes an "S" evolution law.</description>
+    <methods>
+        <method name="Law_S" qualifiers="static">
+            <description>Constructs an empty "S" evolution law.</description>
+        </method>
+        <method name="Set_1">
+            <description>Defines this S evolution law by assigning both: - the bounds Pdeb and Pfin of the parameter, and - the values Valdeb and Valfin of the function at these two parametric bounds. The function is assumed to have the first derivatives equal to 0 at the two parameter points Pdeb and Pfin.</description>
+        </method>
+        <method name="Set_2">
+            <description>Defines this S evolution law by assigning - the bounds Pdeb and Pfin of the parameter, - the values Valdeb and Valfin of the function at these two parametric bounds, and - the values Ddeb and Dfin of the first derivative of the function at these two parametric bounds.</description>
+        </method>
+    </methods>
+</class>

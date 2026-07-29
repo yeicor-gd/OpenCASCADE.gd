@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocShapetool" inherits="RefCounted">
+    <brief_description>A tool to store shapes in an XDE document in the form of assembly structure, and to maintain this structure. Attribute containing Shapes section of DECAF document. Provide tools for management of Shapes section. The API provided by this class allows to work with this structure regardless of its low-level implementation. All the shapes are stored on child labels of a main label which is XCAFDoc_DocumentTool::LabelShapes(). The label for assembly also has sub-labels, each of which represents the instance of another shape in that assembly (component). Such sub-label stores reference to the label of the original shape in the form of TDataStd_TreeNode with GUID XCAFDoc::ShapeRefGUID(), and its location encapsulated into the NamedShape. For correct work with an XDE document, it is necessary to use methods for analysis and methods for working with shapes. For example: if ( STool-&gt;IsAssembly(aLabel) ) { Standard_Boolean subchilds = Standard_False; (default) Standard_Integer nbc = STool-&gt;NbComponents (aLabel[,subchilds]); } If subchilds is True, commands also consider sub-levels. By default, only level one is checked. In this example, number of children from the first level of assembly will be returned. Methods for creation and initialization: Constructor: XCAFDoc_ShapeTool::XCAFDoc_ShapeTool() Getting a guid: Standard_GUID GetID (); Creation (if does not exist) of ShapeTool on label L: Handle(XCAFDoc_ShapeTool) XCAFDoc_ShapeTool::Set(const TDF_Label&amp; L) Analyze whether shape is a simple shape or an instance or a component of an assembly or it is an assembly ( methods of analysis). For example: STool-&gt;IsShape(aLabel) ; Analyze that the label represents a shape (simple shape, assembly or reference) or STool-&gt;IsTopLevel(aLabel); Analyze that the label is a label of a top-level shape. Work with simple shapes, assemblies and instances ( methods for work with shapes). For example: Add shape: Standard_Boolean makeAssembly; // True to interpret a Compound as an Assembly, False to take it as a whole aLabel = STool-&gt;AddShape(aShape, makeAssembly); Get shape: TDF_Label aLabel... // A label must be present if (aLabel.IsNull()) { ... no such label : abandon .. } TopoDS_Shape aShape; aShape = STool-&gt;GetShape(aLabel); if (aShape.IsNull()) { ... this label is not for a Shape ... } To get a label from shape. Standard_Boolean findInstance = Standard_False; (this is default value) aLabel = STool-&gt;FindShape(aShape [,findInstance]); if (aLabel.IsNull()) { ... no label found for this shape ... }</brief_description>
+    <description>! A tool to store shapes in an XDE
+! document in the form of assembly structure, and to maintain this structure.
+! Attribute containing Shapes section of DECAF document.
+! Provide tools for management of Shapes section.
+! The API provided by this class allows to work with this
+! structure regardless of its low-level implementation.
+! All the shapes are stored on child labels of a main label which is
+! XCAFDoc_DocumentTool::LabelShapes(). The label for assembly also has
+! sub-labels, each of which represents the instance of
+! another shape in that assembly (component). Such sub-label
+! stores reference to the label of the original shape in the form
+! of TDataStd_TreeNode with GUID XCAFDoc::ShapeRefGUID(), and its
+! location encapsulated into the NamedShape.
+! For correct work with an XDE document, it is necessary to use
+! methods for analysis and methods for working with shapes.
+! For example:
+! if ( STool-&gt;IsAssembly(aLabel) )
+! { Standard_Boolean subchilds = Standard_False; (default)
+! Standard_Integer nbc = STool-&gt;NbComponents
+! (aLabel[,subchilds]);
+! }
+! If subchilds is True, commands also consider sub-levels. By
+! default, only level one is checked.
+! In this example, number of children from the first level of
+! assembly will be returned. Methods for creation and initialization:
+! Constructor:
+! XCAFDoc_ShapeTool::XCAFDoc_ShapeTool()
+! Getting a guid:
+! Standard_GUID GetID ();
+! Creation (if does not exist) of ShapeTool on label L:
+! Handle(XCAFDoc_ShapeTool) XCAFDoc_ShapeTool::Set(const TDF_Label&amp; L)
+! Analyze whether shape is a simple shape or an instance or a
+! component of an assembly or it is an assembly ( methods of analysis).
+! For example:
+! STool-&gt;IsShape(aLabel) ;
+! Analyze that the label represents a shape (simple
+! shape, assembly or reference) or
+! STool-&gt;IsTopLevel(aLabel);
+! Analyze that the label is a label of a top-level shape.
+! Work with simple shapes, assemblies and instances (
+! methods for work with shapes).
+! For example:
+! Add shape:
+! Standard_Boolean makeAssembly;
+! // True to interpret a Compound as an Assembly, False to take it
+! as a whole
+! aLabel = STool-&gt;AddShape(aShape, makeAssembly);
+! Get shape:
+! TDF_Label aLabel...
+! // A label must be present if
+! (aLabel.IsNull()) { ... no such label : abandon .. }
+! TopoDS_Shape aShape;
+! aShape = STool-&gt;GetShape(aLabel);
+! if (aShape.IsNull())
+! { ... this label is not for a Shape ... }
+! To get a label from shape.
+! Standard_Boolean findInstance = Standard_False;
+! (this is default value)
+! aLabel = STool-&gt;FindShape(aShape [,findInstance]);
+! if (aLabel.IsNull())
+! { ... no label found for this shape ... }</description>
+    <methods>
+        <method name="XCAFDoc_ShapeTool" qualifiers="static">
+            <description>Creates an empty tool Creates a tool to work with a document &lt;Doc&gt; Attaches to label XCAFDoc::LabelShapes()</description>
+        </method>
+        <method name="IsTopLevel" qualifiers="const">
+            <description>Returns True if the label is a label of top-level shape, as opposed to component of assembly or subshape</description>
+        </method>
+        <method name="IsSubShape_2" qualifiers="const">
+            <description>Checks whether shape is subshape of shape stored on label shapeL</description>
+        </method>
+        <method name="Search" qualifiers="const">
+            <description>General tool to find a (sub) shape in the document * If findInstance is True, and S has a non-null location, first tries to find the shape among the top-level shapes with this location * If not found, and findComponent is True, tries to find the shape among the components of assemblies * If not found, tries to find the shape without location among top-level shapes * If not found and findSubshape is True, tries to find a shape as a subshape of top-level simple shapes Returns False if nothing is found</description>
+        </method>
+        <method name="FindShape_2" qualifiers="const">
+            <description>Returns the label corresponding to shape S (searches among top-level shapes, not including subcomponents of assemblies and subshapes) If findInstance is False (default), search for the input shape without location If findInstance is True, searches for the input shape as is. Return True if &lt;S&gt; is found.</description>
+        </method>
+        <method name="FindShape_1" qualifiers="const">
+            <description>Does the same as previous method Returns Null label if not found</description>
+        </method>
+        <method name="GetOneShape_1" qualifiers="const">
+            <description>Gets shape from a sequence of all top-level shapes which are free</description>
+        </method>
+        <method name="NewShape" qualifiers="const">
+            <description>Creates new (empty) top-level shape. Initially it holds empty TopoDS_Compound</description>
+        </method>
+        <method name="SetShape">
+            <description>Sets representation (TopoDS_Shape) for top-level shape.</description>
+        </method>
+        <method name="AddShape">
+            <description>Adds a new top-level (creates and returns a new label) If makeAssembly is True, treats TopAbs_COMPOUND shapes as assemblies (creates assembly structure). NOTE: &lt;makePrepare&gt; replace components without location in assembly by located components to avoid some problems. If AutoNaming() is True then automatically attaches names.</description>
+        </method>
+        <method name="RemoveShape" qualifiers="const">
+            <description>Removes shape (whole label and all its sublabels) If removeCompletely is true, removes complete shape If removeCompletely is false, removes instance(location) only Returns False (and does nothing) if shape is not free or is not top-level shape</description>
+        </method>
+        <method name="Init">
+            <description>set hasComponents into false</description>
+        </method>
+        <method name="ComputeShapes">
+            <description>recursive</description>
+        </method>
+        <method name="ComputeSimpleShapes">
+            <description>Compute a sequence of simple shapes</description>
+        </method>
+        <method name="GetShapes" qualifiers="const">
+            <description>Returns a sequence of all top-level shapes</description>
+        </method>
+        <method name="GetFreeShapes" qualifiers="const">
+            <description>Returns a sequence of all top-level shapes which are free (i.e. not referred by any other)</description>
+        </method>
+        <method name="AddComponent_1">
+            <description>Adds a component given by its label and location to the assembly Note: assembly must be IsAssembly() or IsSimpleShape()</description>
+        </method>
+        <method name="AddComponent_2">
+            <description>Adds a shape (located) as a component to the assembly If necessary, creates an additional top-level shape for component and return the Label of component. If expand is True and component is Compound, it will be created as assembly also Note: assembly must be IsAssembly() or IsSimpleShape()</description>
+        </method>
+        <method name="RemoveComponent" qualifiers="const">
+            <description>Removes a component from its assembly</description>
+        </method>
+        <method name="UpdateAssemblies">
+            <description>Top-down update for all assembly compounds stored in the document.</description>
+        </method>
+        <method name="FindSubShape" qualifiers="const">
+            <description>Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found</description>
+        </method>
+        <method name="AddSubShape_1" qualifiers="const">
+            <description>Adds a label for subshape of shape stored on label shapeL Returns Null label if it is not subshape</description>
+        </method>
+        <method name="AddSubShape_2" qualifiers="const">
+            <description>Adds (of finds already existed) a label for subshape of shape stored on label shapeL. Label addedSubShapeL returns added (found) label or empty in case of wrong subshape. Returns True, if new shape was added, False in case of already existed subshape/wrong subshape</description>
+        </method>
+        <method name="FindMainShape" qualifiers="const">
+            <description>Performs a search among top-level shapes to find the shape containing as subshape Checks only simple shapes, and returns the first found label (which should be the only one for valid model)</description>
+        </method>
+        <method name="BaseLabel" qualifiers="const">
+            <description>returns the label under which shapes are stored</description>
+        </method>
+        <method name="SetExternRefs_1" qualifiers="const">
+            <description>Sets the names of references on the no-step files</description>
+        </method>
+        <method name="SetExternRefs_2" qualifiers="const">
+            <description>Sets the names of references on the no-step files</description>
+        </method>
+        <method name="SetSHUO" qualifiers="const">
+            <description>Sets the SHUO structure between upper_usage and next_usage create multy-level (if number of labels &gt; 2) SHUO from first to last Initialise out &lt;MainSHUOAttr&gt; by main upper_usage SHUO attribute. Returns FALSE if some of labels in not component label</description>
+        </method>
+        <method name="RemoveSHUO" qualifiers="const">
+            <description>Remove SHUO from component sublabel, remove all dependencies on other SHUO. Returns FALSE if cannot remove SHUO dependencies. NOTE: remove any styles that associated with this SHUO.</description>
+        </method>
+        <method name="FindComponent" qualifiers="const">
+            <description>Search the path of labels in the document, that corresponds the component from any assembly Try to search the sequence of labels with location that produce this shape as component of any assembly NOTE: Clear sequence of labels before filling</description>
+        </method>
+        <method name="GetSHUOInstance" qualifiers="const">
+            <description>Search for the component shape that styled by shuo Returns null shape if no any shape is found.</description>
+        </method>
+        <method name="SetInstanceSHUO" qualifiers="const">
+            <description>Search for the component shape by labelks path and set SHUO structure for founded label structure Returns null attribute if no component in any assembly found.</description>
+        </method>
+        <method name="GetAllSHUOInstances" qualifiers="const">
+            <description>Searching for component shapes that styled by shuo Returns empty sequence of shape if no any shape is found.</description>
+        </method>
+        <method name="SetLocation">
+            <description>Sets location to the shape label If label is reference -&gt; changes location attribute If label is free shape -&gt; creates reference with location to it</description>
+        </method>
+        <method name="Expand">
+            <description>Convert Shape (compound/compsolid/shell/wire) to assembly</description>
+        </method>
+        <method name="GetNamedProperties_1" qualifiers="const">
+            <description>Method to get NamedData attribute assigned to the given shape label.</description>
+        </method>
+        <method name="GetNamedProperties_2" qualifiers="const">
+            <description>Method to get NamedData attribute assigned to a label of the given shape.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Create (if not exist) ShapeTool from XCAFDoc on &lt;L&gt;.</description>
+        </method>
+        <method name="IsFree" qualifiers="static">
+            <description>Returns True if the label is not used by any assembly, i.e. contains sublabels which are assembly components This is relevant only if IsShape() is True (There is no Father TreeNode on this &lt;L&gt;)</description>
+        </method>
+        <method name="IsShape" qualifiers="static">
+            <description>Returns True if the label represents a shape (simple shape, assembly or reference)</description>
+        </method>
+        <method name="IsSimpleShape" qualifiers="static">
+            <description>Returns True if the label is a label of simple shape</description>
+        </method>
+        <method name="IsReference" qualifiers="static">
+            <description>Return true if &lt;L&gt; is a located instance of other shape i.e. reference</description>
+        </method>
+        <method name="IsAssembly" qualifiers="static">
+            <description>Returns True if the label is a label of assembly, i.e. contains sublabels which are assembly components This is relevant only if IsShape() is True</description>
+        </method>
+        <method name="IsComponent" qualifiers="static">
+            <description>Return true if &lt;L&gt; is reference serving as component of assembly</description>
+        </method>
+        <method name="IsCompound" qualifiers="static">
+            <description>Returns True if the label is a label of compound, i.e. contains some sublabels This is relevant only if IsShape() is True</description>
+        </method>
+        <method name="IsSubShape_1" qualifiers="static">
+            <description>Return true if &lt;L&gt; is subshape of the top-level shape</description>
+        </method>
+        <method name="GetShape_2" qualifiers="static">
+            <description>To get TopoDS_Shape from shape's label For component, returns new shape with correct location Returns False if label does not contain shape</description>
+        </method>
+        <method name="GetShape_1" qualifiers="static">
+            <description>To get TopoDS_Shape from shape's label For component, returns new shape with correct location Returns Null shape if label does not contain shape</description>
+        </method>
+        <method name="GetOneShape_2" qualifiers="static">
+            <description>Gets shape from a sequence of shape's labels</description>
+        </method>
+        <method name="SetAutoNaming" qualifiers="static">
+            <description>Sets auto-naming mode to &lt;V&gt;. If True then for added shapes, links, assemblies and SHUO's, the TDataStd_Name attribute is automatically added. For shapes it contains a shape type (e.g. "SOLID", "SHELL", etc); for links it has a form "=&gt;[0:1:1:2]" (where a tag is a label containing a shape without a location); for assemblies it is "ASSEMBLY", and "SHUO" for SHUO's. This setting is global; it cannot be made a member function as it is used by static methods as well. By default, auto-naming is enabled. See also AutoNaming().</description>
+        </method>
+        <method name="AutoNaming" qualifiers="static">
+            <description>Returns current auto-naming mode. See SetAutoNaming() for description.</description>
+        </method>
+        <method name="GetUsers" qualifiers="static">
+            <description>Returns list of labels which refer shape L as component Returns number of users (0 if shape is free)</description>
+        </method>
+        <method name="GetLocation" qualifiers="static">
+            <description>Returns location of instance</description>
+        </method>
+        <method name="GetReferredShape" qualifiers="static">
+            <description>Returns label which corresponds to a shape referred by L Returns False if label is not reference</description>
+        </method>
+        <method name="NbComponents" qualifiers="static">
+            <description>Returns number of Assembles components</description>
+        </method>
+        <method name="GetComponents" qualifiers="static">
+            <description>Returns list of components of assembly Returns False if label is not assembly</description>
+        </method>
+        <method name="GetSubShapes" qualifiers="static">
+            <description>Returns list of labels identifying subshapes of the given shape Returns False if no subshapes are placed on that label</description>
+        </method>
+        <method name="DumpShape" qualifiers="static">
+            <description>Print to std::ostream &lt;theDumpLog&gt; type of shape found on &lt;L&gt; label and the entry of &lt;L&gt;, with &lt;level&gt; tabs before. If &lt;deep&gt;, print also TShape and Location addresses</description>
+        </method>
+        <method name="IsExternRef" qualifiers="static">
+            <description>Returns True if the label is a label of external references, i.e. there are some reference on the no-step files, which are described in document only their names</description>
+        </method>
+        <method name="GetExternRefs" qualifiers="static">
+            <description>Gets the names of references on the no-step files</description>
+        </method>
+        <method name="GetSHUO" qualifiers="static">
+            <description>Returns founded SHUO GraphNode attribute &lt;aSHUOAttr&gt; Returns false in other case</description>
+        </method>
+        <method name="GetAllComponentSHUO" qualifiers="static">
+            <description>Returns founded SHUO GraphNodes of indicated component Returns false in other case</description>
+        </method>
+        <method name="GetSHUOUpperUsage" qualifiers="static">
+            <description>Returns the sequence of labels of SHUO attributes, which is upper_usage for this next_usage SHUO attribute (that indicated by label) NOTE: returns upper_usages only on one level (not recurse) NOTE: do not clear the sequence before filling</description>
+        </method>
+        <method name="GetSHUONextUsage" qualifiers="static">
+            <description>Returns the sequence of labels of SHUO attributes, which is next_usage for this upper_usage SHUO attribute (that indicated by label) NOTE: returns next_usages only on one level (not recurse) NOTE: do not clear the sequence before filling</description>
+        </method>
+        <method name="FindSHUO" qualifiers="static">
+            <description>Searches the SHUO by labels of components from upper_usage component to next_usage Returns null attribute if no SHUO found</description>
+        </method>
+    </methods>
+</class>

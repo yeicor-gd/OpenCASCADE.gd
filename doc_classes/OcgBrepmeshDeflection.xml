@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshDeflection" inherits="RefCounted">
+    <brief_description>Auxiliary tool encompassing methods to compute deflection of shapes.</brief_description>
+    <description>! Auxiliary tool encompassing methods to compute deflection of shapes.</description>
+    <methods>
+        <method name="ComputeAbsoluteDeflection" qualifiers="static">
+            <description>Returns absolute deflection for theShape with respect to the relative deflection and theMaxShapeSize.</description>
+        </method>
+        <method name="IsConsistent" qualifiers="static">
+            <description>Checks if the deflection of current polygonal representation is consistent with the required deflection.</description>
+        </method>
+    </methods>
+</class>

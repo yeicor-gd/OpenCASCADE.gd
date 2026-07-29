@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdRealarray" inherits="RefCounted">
+    <brief_description>A framework for an attribute composed of a real number array.</brief_description>
+    <description>! A framework for an attribute composed of a real number array.</description>
+    <methods>
+        <method name="Init">
+            <description>Initialize the inner array with bounds from &lt;lower&gt; to &lt;upper&gt;</description>
+        </method>
+        <method name="SetID_2">
+            <description>Sets the explicit GUID (user defined) for the attribute.</description>
+        </method>
+        <method name="SetID_1">
+            <description>Sets default GUID for the attribute.</description>
+        </method>
+        <method name="SetValue">
+            <description>Sets the &lt;Index&gt;th element of the array to &lt;Value&gt; OutOfRange exception is raised if &lt;Index&gt; doesn't respect Lower and Upper bounds of the internal array.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Return the value of the &lt;Index&gt;th element of the array</description>
+        </method>
+        <method name="Lower" qualifiers="const">
+            <description>Returns the lower boundary of the array.</description>
+        </method>
+        <method name="Upper" qualifiers="const">
+            <description>Returns the upper boundary of the array.</description>
+        </method>
+        <method name="Length" qualifiers="const">
+            <description>Returns the number of elements of the array of reals in terms of the number of elements it contains.</description>
+        </method>
+        <method name="SetDelta">
+            <description>for internal use only!</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods ============= Returns the GUID for arrays of reals.</description>
+        </method>
+    </methods>
+</class>

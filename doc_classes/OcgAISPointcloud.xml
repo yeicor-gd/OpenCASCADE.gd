@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISPointcloud" inherits="RefCounted">
+    <brief_description>Interactive object for set of points. The presentation supports two display modes: - Points. - Bounding box for highlighting. Presentation provides selection by bounding box. Selection and consequently highlighting can disabled by setting default selection mode to -1. There will be no way to select object from interactive view. Any calls to AIS_InteractiveContext::AddOrRemoveSelected should be also prohibited, to avoid programmatic highlighting (workaround is setting non-supported hilight mode, e.g. 100);</brief_description>
+    <description>! Interactive object for set of points.
+! The presentation supports two display modes:
+! - Points.
+! - Bounding box for highlighting.
+! Presentation provides selection by bounding box.
+! Selection and consequently highlighting can disabled by
+! setting default selection mode to -1. There will be no way
+! to select object from interactive view. Any calls to
+! AIS_InteractiveContext::AddOrRemoveSelected should be also prohibited,
+! to avoid programmatic highlighting (workaround is setting non-supported
+! hilight mode, e.g. 100);</description>
+    <methods>
+        <method name="AIS_PointCloud" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="SetPoints_1">
+            <description>Sets the points from array of points. Method will not copy the input data - array will be stored as handle.</description>
+        </method>
+        <method name="SetPoints_2">
+            <description>Sets the points with optional colors. The input data will be copied into internal buffer. The input arrays should have equal length, otherwise the presentation will not be computed and displayed.</description>
+        </method>
+        <method name="GetPoints" qualifiers="const">
+            <description>Get the points array. Method might be overridden to fill in points array dynamically from application data structures.</description>
+        </method>
+        <method name="GetBoundingBox" qualifiers="const">
+            <description>Get bounding box for presentation.</description>
+        </method>
+        <method name="SetColor">
+            <description>Setup custom color. Affects presentation only when no per-point color attribute has been assigned.</description>
+        </method>
+        <method name="UnsetColor">
+            <description>Restore default color.</description>
+        </method>
+        <method name="SetMaterial">
+            <description>Setup custom material. Affects presentation only when normals are defined.</description>
+        </method>
+        <method name="UnsetMaterial">
+            <description>Restore default material.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimDimensionowner" inherits="RefCounted">
+    <brief_description>The owner is the entity which makes it possible to link the sensitive primitives and the reference shapes that you want to detect. It stocks the various pieces of information which make it possible to find objects. An owner has a priority which you can modulate, so as to make one entity more selectable than another. You might want to make edges more selectable than faces, for example. In that case, you could attribute sa higher priority to the one compared to the other. An edge, could have priority 5, for example, and a face, priority 4. The default priority is 5.</brief_description>
+    <description>! The owner is the entity which makes it possible to link
+! the sensitive primitives and the reference shapes that
+! you want to detect. It stocks the various pieces of
+! information which make it possible to find objects. An
+! owner has a priority which you can modulate, so as to
+! make one entity more selectable than another. You
+! might want to make edges more selectable than
+! faces, for example. In that case, you could attribute sa
+! higher priority to the one compared to the other. An
+! edge, could have priority 5, for example, and a face,
+! priority 4. The default priority is 5.</description>
+    <methods>
+        <method name="PrsDim_DimensionOwner" qualifiers="static">
+            <description>Initializes the dimension owner, theSO, and attributes it the priority, thePriority.</description>
+        </method>
+        <method name="IsHilighted" qualifiers="const">
+            <description>Returns true if an object with the selection mode aMode is highlighted in the presentation manager aPM.</description>
+        </method>
+        <method name="Unhilight">
+            <description>Removes highlighting from the selected part of dimension.</description>
+        </method>
+    </methods>
+</class>

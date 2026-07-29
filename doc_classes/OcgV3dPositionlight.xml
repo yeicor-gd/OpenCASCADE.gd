@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgV3dPositionlight" inherits="RefCounted">
+    <brief_description>Base class for Positional, Spot and Directional Light classes.</brief_description>
+    <description>! Base class for Positional, Spot and Directional Light classes.</description>
+    <methods />
+</class>

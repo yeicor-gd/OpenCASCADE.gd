@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBndTools" inherits="RefCounted">
+    <brief_description>Defines a set of static methods operating with bounding boxes</brief_description>
+    <description>! Defines a set of static methods operating with bounding boxes</description>
+    <methods />
+</class>

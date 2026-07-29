@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepcheckEdge" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class BRepCheck_Edge.</description>
+    <methods>
+        <method name="SetStatus">
+            <description>Sets status of Edge;</description>
+        </method>
+        <method name="CheckPolygonOnTriangulation">
+            <description>Checks, if polygon on triangulation of heEdge is out of 3D-curve of this edge.</description>
+        </method>
+    </methods>
+</class>

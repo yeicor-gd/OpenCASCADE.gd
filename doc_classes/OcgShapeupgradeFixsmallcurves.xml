@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeFixsmallcurves" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class ShapeUpgrade_FixSmallCurves.</description>
+    <methods>
+        <method name="SetSplitCurve3dTool">
+            <description>Sets the tool for splitting 3D curves.</description>
+        </method>
+        <method name="SetSplitCurve2dTool">
+            <description>Sets the tool for splitting pcurves.</description>
+        </method>
+        <method name="Status" qualifiers="const">
+            <description>Queries the status of last call to Perform OK : DONE1: DONE2: FAIL1:</description>
+        </method>
+    </methods>
+</class>

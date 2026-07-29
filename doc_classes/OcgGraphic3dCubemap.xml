@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dCubemap" inherits="RefCounted">
+    <brief_description>Base class for cubemaps. It is iterator over cubemap sides.</brief_description>
+    <description>! Base class for cubemaps.
+! It is iterator over cubemap sides.</description>
+    <methods>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor defining direct cubemap initialization from PixMap.</description>
+        </method>
+        <method name="More" qualifiers="const">
+            <description>Returns whether the iterator has reached the end (true if it hasn't).</description>
+        </method>
+        <method name="CurrentSide" qualifiers="const">
+            <description>Returns current cubemap side (iterator state).</description>
+        </method>
+        <method name="Next">
+            <description>Moves iterator to the next cubemap side. Uses OpenGL cubemap sides order +X -&gt; -X -&gt; +Y -&gt; -Y -&gt; +Z -&gt; -Z.</description>
+        </method>
+        <method name="SetZInversion">
+            <description>Sets Z axis inversion (vertical flipping).</description>
+        </method>
+        <method name="ZIsInverted" qualifiers="const">
+            <description>Returns whether Z axis is inverted.</description>
+        </method>
+        <method name="HasMipmaps" qualifiers="const">
+            <description>Returns whether mipmaps of cubemap will be generated or not.</description>
+        </method>
+        <method name="SetMipmapsGeneration">
+            <description>Sets whether to generate mipmaps of cubemap or not.</description>
+        </method>
+    </methods>
+</class>

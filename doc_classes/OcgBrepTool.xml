@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepTool" inherits="RefCounted">
+    <brief_description>Provides class methods to access to the geometry of BRep shapes.</brief_description>
+    <description>! Provides class methods  to  access to the geometry
+! of BRep shapes.</description>
+    <methods>
+        <method name="IsClosed_1" qualifiers="static">
+            <description>If S is Shell, returns True if it has no free boundaries (edges). If S is Wire, returns True if it has no free ends (vertices). (Internal and External sub-shepes are ignored in these checks) If S is Edge, returns True if its vertices are the same. For other shape types returns S.Closed().</description>
+        </method>
+        <method name="Surface_2" qualifiers="static">
+            <description>Returns the geometric surface of the face. Returns in &lt;L&gt; the location for the surface.</description>
+        </method>
+        <method name="Surface_1" qualifiers="static">
+            <description>Returns the geometric surface of the face. It can be a copy if there is a Location.</description>
+        </method>
+        <method name="Triangulation" qualifiers="static">
+            <description>Returns the triangulation of the face according to the mesh purpose.</description>
+        </method>
+        <method name="Triangulations" qualifiers="static">
+            <description>Returns all triangulations of the face.</description>
+        </method>
+        <method name="Tolerance_1" qualifiers="static">
+            <description>Returns the tolerance of the face.</description>
+        </method>
+        <method name="NaturalRestriction" qualifiers="static">
+            <description>Returns the NaturalRestriction flag of the face.</description>
+        </method>
+        <method name="IsGeometric_1" qualifiers="static">
+            <description>Returns True if &lt;F&gt; has a surface, false otherwise.</description>
+        </method>
+        <method name="IsGeometric_2" qualifiers="static">
+            <description>Returns True if &lt;E&gt; is a 3d curve or a curve on surface.</description>
+        </method>
+        <method name="Curve_2" qualifiers="static">
+            <description>Returns the 3D curve of the edge. May be a Null handle. Returns in &lt;L&gt; the location for the curve. In &lt;First&gt; and &lt;Last&gt; the parameter range.</description>
+        </method>
+        <method name="Curve_1" qualifiers="static">
+            <description>Returns the 3D curve of the edge. May be a Null handle. In &lt;First&gt; and &lt;Last&gt; the parameter range. It can be a copy if there is a Location.</description>
+        </method>
+        <method name="Polygon3D" qualifiers="static">
+            <description>Returns the 3D polygon of the edge. May be a Null handle. Returns in &lt;L&gt; the location for the polygon.</description>
+        </method>
+        <method name="CurveOnPlane" qualifiers="static">
+            <description>For the planar surface builds the 2d curve for the edge by projection of the edge on plane. Returns a NULL handle if the surface is not planar or the projection failed.</description>
+        </method>
+        <method name="CurveOnSurface_3" qualifiers="static">
+            <description>Returns in &lt;C&gt;, &lt;S&gt;, &lt;L&gt; a 2d curve, a surface and a location for the edge &lt;E&gt;. &lt;C&gt; and &lt;S&gt; are null if the edge has no curve on surface. Returns in &lt;First&gt; and &lt;Last&gt; the parameter range.</description>
+        </method>
+        <method name="CurveOnSurface_4" qualifiers="static">
+            <description>Returns in &lt;C&gt;, &lt;S&gt;, &lt;L&gt; the 2d curve, the surface and the location for the edge &lt;E&gt; of rank &lt;Index&gt;. &lt;C&gt; and &lt;S&gt; are null if the index is out of range. Returns in &lt;First&gt; and &lt;Last&gt; the parameter range.</description>
+        </method>
+        <method name="PolygonOnSurface_1" qualifiers="static">
+            <description>Returns the polygon associated to the edge in the parametric space of the face. Returns a NULL handle if this polygon does not exist.</description>
+        </method>
+        <method name="PolygonOnSurface_2" qualifiers="static">
+            <description>Returns the polygon associated to the edge in the parametric space of the surface. Returns a NULL handle if this polygon does not exist.</description>
+        </method>
+        <method name="PolygonOnSurface_3" qualifiers="static">
+            <description>Returns in &lt;C&gt;, &lt;S&gt;, &lt;L&gt; a 2d curve, a surface and a location for the edge &lt;E&gt;. &lt;C&gt; and &lt;S&gt; are null if the edge has no polygon on surface.</description>
+        </method>
+        <method name="PolygonOnSurface_4" qualifiers="static">
+            <description>Returns in &lt;C&gt;, &lt;S&gt;, &lt;L&gt; the 2d curve, the surface and the location for the edge &lt;E&gt; of rank &lt;Index&gt;. &lt;C&gt; and &lt;S&gt; are null if the index is out of range.</description>
+        </method>
+        <method name="PolygonOnTriangulation_1" qualifiers="static">
+            <description>Returns the polygon associated to the edge in the parametric space of the face. Returns a NULL handle if this polygon does not exist.</description>
+        </method>
+        <method name="PolygonOnTriangulation_2" qualifiers="static">
+            <description>Returns in &lt;P&gt;, &lt;T&gt;, &lt;L&gt; a polygon on triangulation, a triangulation and a location for the edge &lt;E&gt;. &lt;P&gt; and &lt;T&gt; are null if the edge has no polygon on triangulation.</description>
+        </method>
+        <method name="PolygonOnTriangulation_3" qualifiers="static">
+            <description>Returns in &lt;P&gt;, &lt;T&gt;, &lt;L&gt; a polygon on triangulation, a triangulation and a location for the edge &lt;E&gt; for the range index. &lt;C&gt; and &lt;S&gt; are null if the edge has no polygon on triangulation.</description>
+        </method>
+        <method name="IsClosed_2" qualifiers="static">
+            <description>Returns True if &lt;E&gt; has two PCurves in the parametric space of &lt;F&gt;. i.e. &lt;F&gt; is on a closed surface and &lt;E&gt; is on the closing curve.</description>
+        </method>
+        <method name="IsClosed_3" qualifiers="static">
+            <description>Returns True if &lt;E&gt; has two PCurves in the parametric space of &lt;S&gt;. i.e. &lt;S&gt; is a closed surface and &lt;E&gt; is on the closing curve.</description>
+        </method>
+        <method name="IsClosed_4" qualifiers="static">
+            <description>Returns True if &lt;E&gt; has two arrays of indices in the triangulation &lt;T&gt;.</description>
+        </method>
+        <method name="Tolerance_2" qualifiers="static">
+            <description>Returns the tolerance for &lt;E&gt;.</description>
+        </method>
+        <method name="SameParameter" qualifiers="static">
+            <description>Returns the SameParameter flag for the edge.</description>
+        </method>
+        <method name="SameRange" qualifiers="static">
+            <description>Returns the SameRange flag for the edge.</description>
+        </method>
+        <method name="Degenerated" qualifiers="static">
+            <description>Returns True if the edge is degenerated.</description>
+        </method>
+        <method name="Range_1" qualifiers="static">
+            <description>Gets the range of the 3d curve.</description>
+        </method>
+        <method name="Range_3" qualifiers="static">
+            <description>Gets the range of the edge on the pcurve on the surface.</description>
+        </method>
+        <method name="Range_2" qualifiers="static">
+            <description>Gets the range of the edge on the pcurve on the face.</description>
+        </method>
+        <method name="UVPoints_2" qualifiers="static">
+            <description>Gets the UV locations of the extremities of the edge.</description>
+        </method>
+        <method name="UVPoints_1" qualifiers="static">
+            <description>Gets the UV locations of the extremities of the edge.</description>
+        </method>
+        <method name="SetUVPoints_2" qualifiers="static">
+            <description>Sets the UV locations of the extremities of the edge.</description>
+        </method>
+        <method name="SetUVPoints_1" qualifiers="static">
+            <description>Sets the UV locations of the extremities of the edge.</description>
+        </method>
+        <method name="HasContinuity_2" qualifiers="static">
+            <description>Returns True if the edge is on the surfaces of the two faces.</description>
+        </method>
+        <method name="Continuity_1" qualifiers="static">
+            <description>Returns the continuity.</description>
+        </method>
+        <method name="HasContinuity_3" qualifiers="static">
+            <description>Returns True if the edge is on the surfaces.</description>
+        </method>
+        <method name="Continuity_2" qualifiers="static">
+            <description>Returns the continuity.</description>
+        </method>
+        <method name="HasContinuity_1" qualifiers="static">
+            <description>Returns True if the edge has regularity on some two surfaces</description>
+        </method>
+        <method name="MaxContinuity" qualifiers="static">
+            <description>Returns the max continuity of edge between some surfaces or GeomAbs_C0 if there no such surfaces.</description>
+        </method>
+        <method name="Pnt" qualifiers="static">
+            <description>Returns the 3d point.</description>
+        </method>
+        <method name="Tolerance_3" qualifiers="static">
+            <description>Returns the tolerance.</description>
+        </method>
+        <method name="Parameter_2" qualifiers="static">
+            <description>Finds the parameter of &lt;theV&gt; on &lt;theE&gt;.</description>
+        </method>
+        <method name="Parameter_1" qualifiers="static">
+            <description>Returns the parameter of &lt;V&gt; on &lt;E&gt;. Throws Standard_NoSuchObject if no parameter on edge</description>
+        </method>
+        <method name="Parameter_3" qualifiers="static">
+            <description>Returns the parameters of the vertex on the pcurve of the edge on the face.</description>
+        </method>
+        <method name="Parameter_4" qualifiers="static">
+            <description>Returns the parameters of the vertex on the pcurve of the edge on the surface.</description>
+        </method>
+        <method name="Parameters" qualifiers="static">
+            <description>Returns the parameters of the vertex on the face.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocDimtoltool" inherits="RefCounted">
+    <brief_description>Attribute containing GD&amp;T section of XCAF document. Provide tools for GD&amp;T section management.</brief_description>
+    <description>! Attribute containing GD&amp;T section of XCAF document.
+! Provide tools for GD&amp;T section management.</description>
+    <methods>
+        <method name="BaseLabel" qualifiers="const">
+            <description>Returns the label under which GD&amp;T table is stored.</description>
+        </method>
+        <method name="IsDimension" qualifiers="const">
+            <description>Returns True if the label belongs to a GD&amp;T table and is a Dimension definition.</description>
+        </method>
+        <method name="SetDimension_3" qualifiers="const">
+            <description>Sets a dimension to target labels.</description>
+        </method>
+        <method name="SetDimension_1" qualifiers="const">
+            <description>Sets a dimension to the target label.</description>
+        </method>
+        <method name="AddDimension">
+            <description>Adds a dimension definition to the GD&amp;T table and returns its label.</description>
+        </method>
+        <method name="IsGeomTolerance" qualifiers="const">
+            <description>Returns True if the label belongs to the GD&amp;T table and is a dimension tolerance.</description>
+        </method>
+        <method name="SetGeomTolerance_1" qualifiers="const">
+            <description>Sets a geometry tolerance from theGeomTolL to theL label. Checks if theGeomTolL is a geometry tolerance definition first.</description>
+        </method>
+        <method name="AddGeomTolerance">
+            <description>Adds a GeomTolerance definition to the GD&amp;T table and returns its label.</description>
+        </method>
+        <method name="IsDimTol" qualifiers="const">
+            <description>Returns True if theLab belongs to the GD&amp;T table and is a dmension tolerance.</description>
+        </method>
+        <method name="SetDimTol" qualifiers="const">
+            <description>Sets existing dimension tolerance to theL label.</description>
+        </method>
+        <method name="IsDatum" qualifiers="const">
+            <description>Returns True if label belongs to the GD&amp;T table and is a Datum definition.</description>
+        </method>
+        <method name="AddDatum">
+            <description>Adds a datum definition to the GD&amp;T table and returns its label.</description>
+        </method>
+        <method name="SetDatumToGeomTol" qualifiers="const">
+            <description>Sets a datum from theDatumL label to theToletL label.</description>
+        </method>
+        <method name="IsLocked" qualifiers="const">
+            <description>Returns true if the given GDT is marked as locked.</description>
+        </method>
+        <method name="Lock" qualifiers="const">
+            <description>Mark the given GDT as locked.</description>
+        </method>
+        <method name="Unlock" qualifiers="const">
+            <description>Unlock the given GDT.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>Returns the standard GD&amp;T tool GUID.</description>
+        </method>
+    </methods>
+</class>

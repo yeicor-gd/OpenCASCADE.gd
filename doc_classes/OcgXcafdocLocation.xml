@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocLocation" inherits="RefCounted">
+    <brief_description>attribute to store TopLoc_Location</brief_description>
+    <description>! attribute to store TopLoc_Location</description>
+    <methods>
+        <method name="XCAFDoc_Location" qualifiers="static">
+            <description>class methods =============</description>
+        </method>
+        <method name="Get" qualifiers="const">
+            <description>Returns True if there is a reference on the same label</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

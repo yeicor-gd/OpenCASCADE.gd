@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimMidpointrelation" inherits="RefCounted">
+    <brief_description>presentation of equal distance to point myMidPoint</brief_description>
+    <description>! presentation of equal distance to point myMidPoint</description>
+    <methods />
+</class>

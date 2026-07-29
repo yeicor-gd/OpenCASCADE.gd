@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocDocumenttool" inherits="RefCounted">
+    <brief_description>Defines sections structure of an XDE document. attribute marking CAF document as being DECAF document. Creates the sections structure of the document.</brief_description>
+    <description>! Defines sections structure of an XDE document.
+! attribute marking CAF document as being DECAF document.
+! Creates the sections structure of the document.</description>
+    <methods>
+        <method name="Init" qualifiers="const">
+            <description>to be called when reading this attribute from file</description>
+        </method>
+        <method name="AfterRetrieval">
+            <description>To init this derived attribute after the attribute restore using the base restore-methods</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Create (if not exist) DocumentTool attribute on 0.1 label if &lt;IsAcces&gt; is true, else on &lt;L&gt; label. This label will be returned by DocLabel(); If the attribute is already set it won't be reset on &lt;L&gt; even if &lt;IsAcces&gt; is false. ColorTool and ShapeTool attributes are also set by this method.</description>
+        </method>
+        <method name="DocLabel" qualifiers="static">
+            <description>Returns label where the DocumentTool attribute is or 0.1 if DocumentTool is not yet set.</description>
+        </method>
+        <method name="ShapesLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 1.</description>
+        </method>
+        <method name="ColorsLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 2.</description>
+        </method>
+        <method name="LayersLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 3.</description>
+        </method>
+        <method name="DGTsLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 4.</description>
+        </method>
+        <method name="MaterialsLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 5.</description>
+        </method>
+        <method name="ViewsLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 7.</description>
+        </method>
+        <method name="ClippingPlanesLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 8.</description>
+        </method>
+        <method name="NotesLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 9.</description>
+        </method>
+        <method name="VisMaterialLabel" qualifiers="static">
+            <description>Returns sub-label of DocLabel() with tag 10.</description>
+        </method>
+        <method name="ShapeTool" qualifiers="static">
+            <description>Creates (if it does not exist) ShapeTool attribute on ShapesLabel().</description>
+        </method>
+        <method name="CheckShapeTool" qualifiers="static">
+            <description>Checks for the ShapeTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="ColorTool" qualifiers="static">
+            <description>Creates (if it does not exist) ColorTool attribute on ColorsLabel().</description>
+        </method>
+        <method name="CheckColorTool" qualifiers="static">
+            <description>Checks for the ColorTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="VisMaterialTool" qualifiers="static">
+            <description>Creates (if it does not exist) XCAFDoc_VisMaterialTool attribute on VisMaterialLabel(). Should not be confused with MaterialTool() defining physical/manufacturing materials.</description>
+        </method>
+        <method name="CheckVisMaterialTool" qualifiers="static">
+            <description>Checks for the VisMaterialTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="LayerTool" qualifiers="static">
+            <description>Creates (if it does not exist) LayerTool attribute on LayersLabel().</description>
+        </method>
+        <method name="CheckLayerTool" qualifiers="static">
+            <description>Checks for the LayerTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="DimTolTool" qualifiers="static">
+            <description>Creates (if it does not exist) DimTolTool attribute on DGTsLabel().</description>
+        </method>
+        <method name="CheckDimTolTool" qualifiers="static">
+            <description>Checks for the DimTolTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="MaterialTool" qualifiers="static">
+            <description>Creates (if it does not exist) DimTolTool attribute on DGTsLabel().</description>
+        </method>
+        <method name="CheckMaterialTool" qualifiers="static">
+            <description>Checks for the MaterialTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="ViewTool" qualifiers="static">
+            <description>Creates (if it does not exist) ViewTool attribute on ViewsLabel().</description>
+        </method>
+        <method name="CheckViewTool" qualifiers="static">
+            <description>Checks for the ViewTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="ClippingPlaneTool" qualifiers="static">
+            <description>Creates (if it does not exist) ClippingPlaneTool attribute on ClippingPlanesLabel().</description>
+        </method>
+        <method name="CheckClippingPlaneTool" qualifiers="static">
+            <description>Checks for the ClippingPlaneTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="NotesTool" qualifiers="static">
+            <description>Creates (if it does not exist) NotesTool attribute on NotesLabel().</description>
+        </method>
+        <method name="CheckNotesTool" qualifiers="static">
+            <description>Checks for the NotesTool attribute on the label's document Returns TRUE if Tool exists, ELSE if it has not been created</description>
+        </method>
+        <method name="GetLengthUnit_1" qualifiers="static">
+            <description>Returns value of current internal unit for the document in meter</description>
+        </method>
+        <method name="SetLengthUnit_1" qualifiers="static">
+            <description>Sets value of current internal unit to the document in meter</description>
+        </method>
+    </methods>
+</class>

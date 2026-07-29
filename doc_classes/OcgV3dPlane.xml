@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgV3dPlane" inherits="RefCounted">
+    <brief_description>Obsolete clip plane presentation class. Ported on new core of Graphic3d_ClipPlane approach. Please access Graphic3d_ClipPlane via ClipPlane() method to use it for standard clipping workflow. Example of use:</brief_description>
+    <description>! Obsolete clip plane presentation class.
+! Ported on new core of Graphic3d_ClipPlane approach.
+! Please access Graphic3d_ClipPlane via ClipPlane() method
+! to use it for standard clipping workflow.
+! Example of use:
+! @code
+!
+! Handle(V3d_Plane) aPlane (0, 1, 0, -20);
+! Handle(V3d_View) aView;
+! aView-&gt;AddClipPlane (aPlane-&gt;ClipPlane());
+!
+! aPlane-&gt;Display (aView);
+! aPlane-&gt;SetPlane (0, 1, 0, -30);
+! aView-&gt;RemoveClipPlane (aPlane-&gt;ClipPlane());
+!
+! @endcode
+! Use interface of this class to modify plane equation synchronously
+! with clipping equation.</description>
+    <methods>
+        <method name="V3d_Plane" qualifiers="static">
+            <description>Creates a clipping plane from plane coefficients.</description>
+        </method>
+        <method name="SetPlane">
+            <description>Change plane equation.</description>
+        </method>
+        <method name="Display">
+            <description>Display the plane representation in the chosen view.</description>
+        </method>
+        <method name="Erase">
+            <description>Erase the plane representation.</description>
+        </method>
+        <method name="Plane" qualifiers="const">
+            <description>Returns the parameters of the plane.</description>
+        </method>
+        <method name="IsDisplayed" qualifiers="const">
+            <description>Returns TRUE when the plane representation is displayed.</description>
+        </method>
+        <method name="ClipPlane" qualifiers="const">
+            <description>Use this method to pass clipping plane implementation for standard clipping workflow.</description>
+        </method>
+    </methods>
+</class>

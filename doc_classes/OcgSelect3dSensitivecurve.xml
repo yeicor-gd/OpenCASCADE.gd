@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitivecurve" inherits="RefCounted">
+    <brief_description>A framework to define a sensitive 3D curve. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</brief_description>
+    <description>! A framework to define a sensitive 3D curve.
+! In some cases this class can raise Standard_ConstructionError and
+! Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</description>
+    <methods />
+</class>

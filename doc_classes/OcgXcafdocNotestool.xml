@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocNotestool" inherits="RefCounted">
+    <brief_description>A tool to annotate items in the hierarchical product structure. There are two basic entities, which operates the notes tool: notes and annotated items. A note is a user defined data structure derived from XCAFDoc_Note attribute that is attached to a separate label under the notes hive. An annotated item is represented by XCAFDoc_AssemblyItemRef attribute attached to a separate label under the annotated items hive. Notes are linked with annotated items by means of XCAFDoc_GraphNode attribute. Notes play parent roles and annotated items - child roles.</brief_description>
+    <description>! A tool to annotate items in the hierarchical product structure.
+! There are two basic entities, which operates the notes tool: notes
+! and annotated items. A note is a user defined data structure derived
+! from \ref XCAFDoc_Note attribute that is attached to a separate label under
+! the notes hive. An annotated item is represented by \ref XCAFDoc_AssemblyItemRef
+! attribute attached to a separate label under the annotated items
+! hive. Notes are linked with annotated items by means of \ref XCAFDoc_GraphNode
+! attribute. Notes play parent roles and annotated items - child roles.
+!
+! ------------------------
+! | XCAFDoc_DocumentTool |
+! |          0:1         |
+! ------------------------
+!             |1
+! ------------------------
+! |  XCAFDoc_NotesTool   |
+! |         0:1:9        |
+! ------------------------
+!             |1
+!             |   -------------------     ---------------------------
+!             +___|      Notes      |-----|       XCAFDoc_Note      |
+!             |  1|     0:1:9:1     |1   *|         0:1:9:1:*       |
+!             |   -------------------     ---------------------------
+!             |                                        !*
+!             |                              { XCAFDoc_GraphNode }
+!             |                                       *!
+!             |   -------------------     ---------------------------
+!             +___| Annotated items |-----| XCAFDoc_AssemblyItemRef |
+!                1|     0:1:9:2     |1   *|         0:1:9:2:*       |
+!                 -------------------     ---------------------------
+!
+! A typical annotation procedure is illustrated by the code example below:
+! \code{.c++}
+! // Get the notes tool from a XCAF document
+! occ::handle&lt;XCAFDoc_NotesTool&gt; aNotesTool = XCAFDoc_DocumentTool::NotesTool(aDoc-&gt;Main());
+! // Create new comment note
+! occ::handle&lt;XCAFDoc_Note&gt; aNote = aNotesTool-&gt;CreateComment(aUserName, aTimestamp, aComment);
+! if (!aNote.IsNull()) {
+!   occ::handle&lt;XCAFDoc_AssemblyItemRef&gt; aRef = aNotesTool-&gt;AddNote(aNote-&gt;Label(),
+!   anAssemblyItemId); if (aRef.IsNull()) {
+!     // Process error...
+!   }
+! }
+! \endcode</description>
+    <methods>
+        <method name="XCAFDoc_NotesTool" qualifiers="static">
+            <description>Creates an empty notes tool.</description>
+        </method>
+        <method name="GetNotesLabel" qualifiers="const">
+            <description>Returns the label of the notes hive.</description>
+        </method>
+        <method name="GetAnnotatedItemsLabel" qualifiers="const">
+            <description>Returns the label of the annotated items hive.</description>
+        </method>
+        <method name="NbNotes" qualifiers="const">
+            <description>Returns the number of labels in the notes hive.</description>
+        </method>
+        <method name="NbAnnotatedItems" qualifiers="const">
+            <description>Returns the number of labels in the annotated items hive.</description>
+        </method>
+        <method name="IsAnnotatedItem_1" qualifiers="const">
+            <description>Checks if the given assembly item is annotated.</description>
+        </method>
+        <method name="IsAnnotatedItem_2" qualifiers="const">
+            <description>Checks if the given labeled item is annotated.</description>
+        </method>
+        <method name="FindAnnotatedItem_1" qualifiers="const">
+            <description>Finds a label of the given assembly item ID in the annotated items hive.</description>
+        </method>
+        <method name="FindAnnotatedItem_2" qualifiers="const">
+            <description>Finds a label of the given labeled item in the annotated items hive.</description>
+        </method>
+        <method name="FindAnnotatedItemAttr_1" qualifiers="const">
+            <description>Finds a label of the given assembly item's attribute in the annotated items hive.</description>
+        </method>
+        <method name="FindAnnotatedItemAttr_2" qualifiers="const">
+            <description>Finds a label of the given labeled item's attribute in the annotated items hive.</description>
+        </method>
+        <method name="FindAnnotatedItemSubshape_1" qualifiers="const">
+            <description>Finds a label of the given assembly item's subshape in the annotated items hive.</description>
+        </method>
+        <method name="FindAnnotatedItemSubshape_2" qualifiers="const">
+            <description>Finds a label of the given labeled item's subshape in the annotated items hive.</description>
+        </method>
+        <method name="RemoveNote_1">
+            <description>Removes the given note from the assembly item.</description>
+        </method>
+        <method name="RemoveNote_2">
+            <description>Removes the given note from the labeled item.</description>
+        </method>
+        <method name="RemoveSubshapeNote_1">
+            <description>Removes the given note from the assembly item's subshape.</description>
+        </method>
+        <method name="RemoveSubshapeNote_2">
+            <description>Removes the given note from the labeled item's subshape.</description>
+        </method>
+        <method name="RemoveAttrNote_1">
+            <description>Removes a note from the assembly item's attribute.</description>
+        </method>
+        <method name="RemoveAttrNote_2">
+            <description>Removes a note from the labeled item's attribute.</description>
+        </method>
+        <method name="RemoveAllNotes_1">
+            <description>Removes all notes from the assembly item.</description>
+        </method>
+        <method name="RemoveAllNotes_2">
+            <description>Removes all notes from the labeled item.</description>
+        </method>
+        <method name="RemoveAllSubshapeNotes">
+            <description>Removes all notes from the assembly item's subshape.</description>
+        </method>
+        <method name="RemoveAllAttrNotes_1">
+            <description>Removes all notes from the assembly item's attribute.</description>
+        </method>
+        <method name="RemoveAllAttrNotes_2">
+            <description>Removes all notes from the labeled item's attribute.</description>
+        </method>
+        <method name="DeleteNote">
+            <description>Deletes the given note. Removes all links with items annotated by the note.</description>
+        </method>
+        <method name="DeleteAllNotes">
+            <description>Deletes all notes. Clears all annotations.</description>
+        </method>
+        <method name="NbOrphanNotes" qualifiers="const">
+            <description>Returns number of notes that aren't linked to annotated items.</description>
+        </method>
+        <method name="DeleteOrphanNotes">
+            <description>Deletes all notes that aren't linked to annotated items.</description>
+        </method>
+        <method name="ID" qualifiers="const">
+            <description>@}</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>Returns default attribute GUID</description>
+        </method>
+    </methods>
+</class>

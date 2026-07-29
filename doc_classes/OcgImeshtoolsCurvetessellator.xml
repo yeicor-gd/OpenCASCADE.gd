@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshtoolsCurvetessellator" inherits="RefCounted">
+    <brief_description>Interface class providing API for edge tessellation tools.</brief_description>
+    <description>! Interface class providing API for edge tessellation tools.</description>
+    <methods />
+</class>

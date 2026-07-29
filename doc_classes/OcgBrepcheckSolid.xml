@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepcheckSolid" inherits="RefCounted">
+    <brief_description>The class is to check a solid.</brief_description>
+    <description>! The class is to check a solid.</description>
+    <methods>
+        <method name="BRepCheck_Solid" qualifiers="static">
+            <description>Constructor &lt;theS&gt; is the solid to check</description>
+        </method>
+        <method name="InContext">
+            <description>Checks the solid in context of the shape &lt;theContextShape&gt;</description>
+        </method>
+        <method name="Minimum">
+            <description>Checks the solid per se.</description>
+        </method>
+        <method name="Blind">
+            <description>see the parent class for more details</description>
+        </method>
+    </methods>
+</class>

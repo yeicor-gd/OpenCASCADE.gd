@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshVertexinspector" inherits="RefCounted">
+    <brief_description>Class intended for fast searching of the coincidence points.</brief_description>
+    <description>! Class intended for fast searching of the coincidence points.</description>
+    <methods>
+        <method name="BRepMesh_VertexInspector" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="Add">
+            <description>Registers the given vertex.</description>
+        </method>
+        <method name="SetTolerance_1">
+            <description>Sets the tolerance to be used for identification of coincident vertices equal for both dimensions.</description>
+        </method>
+        <method name="SetTolerance_2">
+            <description>Sets the tolerance to be used for identification of coincident vertices.</description>
+        </method>
+        <method name="Clear">
+            <description>Clear inspector's internal data structures.</description>
+        </method>
+        <method name="Delete">
+            <description>Deletes vertex with the given index.</description>
+        </method>
+        <method name="NbVertices" qualifiers="const">
+            <description>Returns number of registered vertices.</description>
+        </method>
+        <method name="GetVertex">
+            <description>Returns vertex with the given index.</description>
+        </method>
+        <method name="SetPoint">
+            <description>Set reference point to be checked.</description>
+        </method>
+        <method name="GetCoincidentPoint" qualifiers="const">
+            <description>Returns index of point coinciding with regerence one.</description>
+        </method>
+        <method name="Inspect">
+            <description>Performs inspection of a point with the given index.</description>
+        </method>
+        <method name="IsEqual" qualifiers="static">
+            <description>Checks indices for equality.</description>
+        </method>
+    </methods>
+</class>

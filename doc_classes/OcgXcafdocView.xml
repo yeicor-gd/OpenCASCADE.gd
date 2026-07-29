@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocView" inherits="RefCounted">
+    <brief_description>Attribute to store view</brief_description>
+    <description>! Attribute to store view</description>
+    <methods />
+</class>

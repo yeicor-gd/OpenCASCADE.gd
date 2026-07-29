@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAspectTouch" inherits="RefCounted">
+    <brief_description>Structure holding touch position - original and current location.</brief_description>
+    <description>! Structure holding touch position - original and current location.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructor with initialization.</description>
+        </method>
+    </methods>
+</class>

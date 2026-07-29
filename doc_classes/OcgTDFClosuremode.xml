@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFClosuremode" inherits="RefCounted">
+    <brief_description>This class provides options closure management.</brief_description>
+    <description>! This class provides options closure management.</description>
+    <methods>
+        <method name="TDF_ClosureMode" qualifiers="static">
+            <description>Creates an object with all modes set to &lt;aMode&gt;.</description>
+        </method>
+        <method name="Descendants_2">
+            <description>Sets the mode "Descendants" to &lt;aStatus&gt;.</description>
+        </method>
+        <method name="Descendants_1" qualifiers="const">
+            <description>Returns true if the mode "Descendants" is set.</description>
+        </method>
+        <method name="References_2">
+            <description>Sets the mode "References" to &lt;aStatus&gt;.</description>
+        </method>
+        <method name="References_1" qualifiers="const">
+            <description>Returns true if the mode "References" is set.</description>
+        </method>
+    </methods>
+</class>

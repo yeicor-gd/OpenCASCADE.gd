@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsShell" inherits="RefCounted">
+    <brief_description>Describes a shell which - references an underlying shell with the potential to be given a location and an orientation - has a location for the underlying shell, giving its placement in the local coordinate system - has an orientation for the underlying shell, in terms of its geometry (as opposed to orientation in relation to other shapes).</brief_description>
+    <description>! Describes a shell which
+! - references an underlying shell with the potential to
+! be given a location and an orientation
+! - has a location for the underlying shell, giving its
+! placement in the local coordinate system
+! - has an orientation for the underlying shell, in terms
+! of its geometry (as opposed to orientation in relation to other shapes).</description>
+    <methods>
+        <method name="TopoDS_Shell" qualifiers="static">
+            <description>Constructs an Undefined Shell.</description>
+        </method>
+    </methods>
+</class>

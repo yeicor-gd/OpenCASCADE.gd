@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimRelation" inherits="RefCounted">
+    <brief_description>One of the four types of interactive object in AIS,comprising dimensions and constraints. Serves as the abstract class for the seven relation classes as well as the seven dimension classes. The statuses available for relations between shapes are as follows: - 0 - there is no connection to a shape; - 1 - there is a connection to the first shape; - 2 - there is a connection to the second shape. The connection takes the form of an edge between the two shapes.</brief_description>
+    <description>! One of the four types of interactive object in
+! AIS,comprising dimensions and constraints. Serves
+! as the abstract class for the seven relation classes as
+! well as the seven dimension classes.
+! The statuses available for relations between shapes are as follows:
+! -   0 - there is no connection to a shape;
+! -   1 - there is a connection to the first shape;
+! -   2 - there is a connection to the second shape.
+! The connection takes the form of an edge between the two shapes.</description>
+    <methods>
+        <method name="SetColor">
+            <description>Allows you to provide settings for the color theColor of the lines representing the relation between the two shapes.</description>
+        </method>
+        <method name="UnsetColor">
+            <description>Allows you to remove settings for the color of the lines representing the relation between the two shapes.</description>
+        </method>
+        <method name="KindOfDimension" qualifiers="const">
+            <description>Indicates that the type of dimension is unknown.</description>
+        </method>
+        <method name="IsMovable" qualifiers="const">
+            <description>Returns true if the interactive object is movable.</description>
+        </method>
+        <method name="SecondShape" qualifiers="const">
+            <description>Returns the second shape.</description>
+        </method>
+        <method name="SetSecondShape">
+            <description>Allows you to identify the second shape aSShape relative to the first.</description>
+        </method>
+        <method name="Plane" qualifiers="const">
+            <description>Returns the plane.</description>
+        </method>
+        <method name="SetPlane">
+            <description>Allows you to set the plane thePlane. This is used to define relations and dimensions in several daughter classes.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the value of each object in the relation.</description>
+        </method>
+        <method name="SetValue">
+            <description>Allows you to provide settings for the value theVal for each object in the relation.</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the position set using SetPosition.</description>
+        </method>
+        <method name="SetPosition">
+            <description>Allows you to provide the objects in the relation with settings for a non-default position.</description>
+        </method>
+        <method name="ArrowSize" qualifiers="const">
+            <description>Returns the value for the size of the arrow identifying the relation between the two shapes.</description>
+        </method>
+        <method name="SetArrowSize">
+            <description>Allows you to provide settings for the size of the arrow theArrowSize identifying the relation between the two shapes.</description>
+        </method>
+        <method name="SymbolPrs" qualifiers="const">
+            <description>Returns the value of the symbol presentation. This will be one of: - AS_NONE - none - AS_FIRSTAR - first arrow - AS_LASTAR - last arrow - AS_BOTHAR - both arrows - AS_FIRSTPT - first point - AS_LASTPT - last point - AS_BOTHPT - both points - AS_FIRSTAR_LASTPT - first arrow, last point - AS_FIRSTPT_LASTAR - first point, last arrow</description>
+        </method>
+        <method name="SetSymbolPrs">
+            <description>Allows you to provide settings for the symbol presentation.</description>
+        </method>
+        <method name="SetExtShape">
+            <description>Allows you to set the status of the extension shape by the index aIndex. The status will be one of the following: - 0 - there is no connection to a shape; - 1 - there is a connection to the first shape; - 2 - there is a connection to the second shape.</description>
+        </method>
+        <method name="ExtShape" qualifiers="const">
+            <description>Returns the status index of the extension shape.</description>
+        </method>
+        <method name="AcceptDisplayMode" qualifiers="const">
+            <description>Returns true if the display mode aMode is accepted for the Interactive Objects in the relation. ComputeProjPresentation(me; aPres : Presentation from Prs3d; Curve1 : Curve from Geom; Curve2 : Curve from Geom; FirstP1 : Pnt from gp; LastP1 : Pnt from gp; FirstP2 : Pnt from gp; LastP2 : Pnt from gp; aColor : NameOfColor from Quantity = Quantity_NOC_PURPLE; aWidth : Real from Standard = 2; aProjTOL : TypeOfLine from Aspect = Aspect_TOL_DASH; aCallTOL : TypeOfLine from Aspect = Aspect_TOL_DOT)</description>
+        </method>
+    </methods>
+</class>

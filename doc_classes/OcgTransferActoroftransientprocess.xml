@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferActoroftransientprocess" inherits="RefCounted">
+    <brief_description>The original class was renamed. Compatibility only</brief_description>
+    <description>! The original class was renamed. Compatibility only</description>
+    <methods />
+</class>

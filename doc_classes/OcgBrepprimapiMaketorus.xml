@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepprimapiMaketorus" inherits="RefCounted">
+    <brief_description>Describes functions to build tori or portions of tori. A MakeTorus object provides a framework for: - defining the construction of a torus, - implementing the construction algorithm, and - consulting the result.</brief_description>
+    <description>! Describes functions to build tori or portions of tori.
+! A MakeTorus object provides a framework for:
+! -   defining the construction of a torus,
+! -   implementing the construction algorithm, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Make a torus.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Make a section of a torus.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Make a torus.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Make a torus with angles on the small circle.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Make a section of a torus.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Make a torus with angles on the small circle.</description>
+        </method>
+        <method name="from_7" qualifiers="static">
+            <description>Make a torus.</description>
+        </method>
+        <method name="from_8" qualifiers="static">
+            <description>Make a section of a torus of radii R1 R2. For all algorithms The resulting shape is composed of - a lateral toroidal face, - two conical faces (defined by the equation v = angle1 and v = angle2) if the sphere is truncated in the v parametric direction (they may be cylindrical faces in some particular conditions), and in case of a portion of torus, two planar faces to close the shape.(in the planes u = 0 and u = angle). Notes: - The u parameter corresponds to a rotation angle around the Z axis. - The circle whose radius is equal to the minor radius, located in the plane defined by the X axis and the Z axis, centered on the X axis, on its positive side, and positioned at a distance from the origin equal to the major radius, is the reference circle of the torus. The rotation around an axis parallel to the Y axis and passing through the center of the reference circle gives the v parameter on the reference circle. The X axis gives the origin of the v parameter. Near 0, as v increases, the Z coordinate decreases.</description>
+        </method>
+    </methods>
+</class>

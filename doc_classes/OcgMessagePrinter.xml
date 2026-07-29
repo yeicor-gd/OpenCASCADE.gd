@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessagePrinter" inherits="RefCounted">
+    <brief_description>Abstract interface class defining printer as output context for text messages</brief_description>
+    <description>! Abstract interface class defining printer as output context for text messages
+!
+! The message, besides being text string, has associated gravity
+! level, which can be used by printer to decide either to process a message or ignore it.</description>
+    <methods>
+        <method name="GetTraceLevel" qualifiers="const">
+            <description>Return trace level used for filtering messages; messages with lover gravity will be ignored.</description>
+        </method>
+        <method name="SetTraceLevel">
+            <description>Set trace level used for filtering messages. By default, trace level is Message_Info, so that all messages are output</description>
+        </method>
+        <method name="Send_2" qualifiers="const">
+            <description>Send a string message with specified trace level. The last Boolean argument is deprecated and unused. Default implementation redirects to send().</description>
+        </method>
+        <method name="SendObject" qualifiers="const">
+            <description>Send a string message with specified trace level. The object is converted to string in format: &lt;object kind&gt; : &lt;object pointer&gt;. Default implementation calls first method Send().</description>
+        </method>
+    </methods>
+</class>

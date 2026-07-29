@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFCopylabel" inherits="RefCounted">
+    <brief_description>This class gives copy of source label hierarchy</brief_description>
+    <description>! This class gives copy of  source  label  hierarchy</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>CopyTool</description>
+        </method>
+        <method name="Load">
+            <description>Loads src and tgt labels</description>
+        </method>
+        <method name="Perform">
+            <description>performs algorithm of selfcontained copy</description>
+        </method>
+        <method name="RelocationTable" qualifiers="const">
+            <description>returns relocation table</description>
+        </method>
+    </methods>
+</class>

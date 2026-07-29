@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakecircle" inherits="RefCounted">
+    <brief_description>Implements construction algorithms for circles in 3D space.</brief_description>
+    <description>! Implements construction algorithms for circles in 3D space.
+!
+! * Create a circle parallel to another and passing
+! through a point.
+! * Create a Circle parallel to another at the distance
+! Dist.
+! * Create a Circle passing through 3 points.
+! * Create a Circle with its center and the normal of its
+! plane and its radius.
+! * Create a Circle with its axis and radius.
+! The circle parameter is the angle in radians.
+! The parametrization range is [0,2*PI].
+! The circle is a closed and periodic curve.
+! The center of the circle is the Location point of its axis
+! placement. The XDirection of the axis placement defines the
+! origin of the parametrization.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a circle from a `gp_Circ`.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a circle from axis placement and radius.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a circle concentric to the input circle with an offset radius.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a circle concentric to the input circle and passing through the input point.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Creates a circle from axis and radius.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Creates a circle passing through three points.</description>
+        </method>
+        <method name="from_7" qualifiers="static">
+            <description>Creates a circle from center point, normal and radius.</description>
+        </method>
+        <method name="from_8" qualifiers="static">
+            <description>Creates a circle from center point, axis point and radius.</description>
+        </method>
+    </methods>
+</class>

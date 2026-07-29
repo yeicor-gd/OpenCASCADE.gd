@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshExtrusionrangesplitter" inherits="RefCounted">
+    <brief_description>Auxiliary class analysing extrusion surface in order to generate internal nodes.</brief_description>
+    <description>! Auxiliary class analysing extrusion surface in order to generate internal nodes.</description>
+    <methods>
+        <method name="BRepMesh_ExtrusionRangeSplitter" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+    </methods>
+</class>

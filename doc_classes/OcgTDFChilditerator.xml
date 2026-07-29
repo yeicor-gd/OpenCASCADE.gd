@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFChilditerator" inherits="RefCounted">
+    <brief_description>Iterates on the children of a label, at the first level only. It is possible to ask the iterator to explore all the sub label levels of the given one, with the option "allLevels".</brief_description>
+    <description>! Iterates on the children of a label, at the first
+! level only. It is possible to ask the iterator to
+! explore all the sub label levels of the given one,
+! with the option "allLevels".</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates an empty iterator object to explore the children of a label.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs the iterator object defined by the label aLabel. Iterates on the children of the given label. If &lt;allLevels&gt; option is set to true, it explores not only the first, but all the sub label levels.</description>
+        </method>
+        <method name="Initialize">
+            <description>Initializes the iteration on the children of the given label. If &lt;allLevels&gt; option is set to true, it explores not only the first, but all the sub label levels. If allLevels is false, only the first level of child labels is explored. In the example below, the label is iterated using Initialize, More and Next and its child labels dumped using TDF_Tool::Entry. Example void DumpChildren(const TDF_Label&amp; aLabel) { TDF_ChildIterator it; TCollection_AsciiString es; for (it.Initialize(aLabel,Standard_True); it.More(); it.Next()){ TDF_Tool::Entry(it.Value(),es); std::cout &lt;&lt; as.ToCString() &lt;&lt; std::endl; } }</description>
+        </method>
+        <method name="More" qualifiers="const">
+            <description>Returns true if a current label is found in the iteration process.</description>
+        </method>
+        <method name="Next">
+            <description>Move the current iteration to the next Item.</description>
+        </method>
+        <method name="NextBrother">
+            <description>Moves this iteration to the next brother label. A brother label is one with the same father as an initial label. Use this function when the non-empty constructor or Initialize has allLevels set to true. The result is that the iteration does not explore the children of the current label. This method is interesting only with "allLevels" behavior, because it avoids to explore the current label children.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the current label; or, if there is none, a null label.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFReference" inherits="RefCounted">
+    <brief_description>This attribute is used to store in the framework a reference to an other label.</brief_description>
+    <description>! This attribute is used to store in the framework a
+! reference to an other label.</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafprsDocumentiditerator" inherits="RefCounted">
+    <brief_description>Auxiliary tool for iterating through Path identification string.</brief_description>
+    <description>! Auxiliary tool for iterating through Path identification string.</description>
+    <methods>
+        <method name="Next">
+            <description>Find the next value.</description>
+        </method>
+    </methods>
+</class>

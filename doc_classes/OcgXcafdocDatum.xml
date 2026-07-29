@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocDatum" inherits="RefCounted">
+    <brief_description>attribute to store datum</brief_description>
+    <description>! attribute to store datum</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

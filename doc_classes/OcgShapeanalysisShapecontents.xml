@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeanalysisShapecontents" inherits="RefCounted">
+    <brief_description>Dumps shape contents</brief_description>
+    <description>! Dumps shape contents</description>
+    <methods>
+        <method name="ShapeAnalysis_ShapeContents" qualifiers="static">
+            <description>Initialize fields and call ClearFlags()</description>
+        </method>
+        <method name="Clear">
+            <description>Clears all accumulated statistics</description>
+        </method>
+        <method name="ClearFlags">
+            <description>Clears all flags</description>
+        </method>
+        <method name="Perform">
+            <description>Counts quantities of sun-shapes in shape and stores sub-shapes according to flags</description>
+        </method>
+        <method name="ModifyBigSplineMode">
+            <description>Returns (modifiable) the flag which defines whether to store faces with edges if its 3D curves has more than 8192 poles.</description>
+        </method>
+        <method name="ModifyIndirectMode">
+            <description>Returns (modifiable) the flag which defines whether to store faces on indirect surfaces.</description>
+        </method>
+        <method name="ModifyOffsetSurfaceMode">
+            <description>Returns (modifiable) the flag which defines whether to store faces on offset surfaces.</description>
+        </method>
+        <method name="ModifyTrimmed3dMode">
+            <description>Returns (modifiable) the flag which defines whether to store faces with edges if its 3D curves are trimmed curves</description>
+        </method>
+        <method name="ModifyOffsetCurveMode">
+            <description>Returns (modifiable) the flag which defines whether to store faces with edges if its 3D curves and pcurves are offset curves</description>
+        </method>
+        <method name="ModifyTrimmed2dMode">
+            <description>Returns (modifiable) the flag which defines whether to store faces with edges if its pcurves are trimmed curves</description>
+        </method>
+    </methods>
+</class>

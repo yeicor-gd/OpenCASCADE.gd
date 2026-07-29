@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsEdge" inherits="RefCounted">
+    <brief_description>Describes an edge which - references an underlying edge with the potential to be given a location and an orientation - has a location for the underlying edge, giving its placement in the local coordinate system - has an orientation for the underlying edge, in terms of its geometry (as opposed to orientation in relation to other shapes).</brief_description>
+    <description>! Describes an edge which
+! - references an underlying edge with the potential to
+! be given a location and an orientation
+! - has a location for the underlying edge, giving its
+! placement in the local coordinate system
+! - has an orientation for the underlying edge, in terms
+! of its geometry (as opposed to orientation in
+! relation to other shapes).</description>
+    <methods>
+        <method name="TopoDS_Edge" qualifiers="static">
+            <description>Undefined Edge.</description>
+        </method>
+    </methods>
+</class>

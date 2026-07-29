@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dBvhindexbuffer" inherits="RefCounted">
+    <brief_description>Index buffer for BVH tree.</brief_description>
+    <description>! Index buffer for BVH tree.</description>
+    <methods>
+        <method name="Select3D_BVHIndexBuffer" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Init">
+            <description>Allocates new empty index array</description>
+        </method>
+        <method name="SetIndex_1">
+            <description>Change index at specified position</description>
+        </method>
+        <method name="SetIndex_2">
+            <description>Change index at specified position</description>
+        </method>
+    </methods>
+</class>

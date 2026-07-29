@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimSymmetricrelation" inherits="RefCounted">
+    <brief_description>A framework to display constraints of symmetricity between two or more datum Interactive Objects. A plane serves as the axis of symmetry between the shapes of which the datums are parts.</brief_description>
+    <description>! A framework to display constraints of symmetricity
+! between two or more datum Interactive Objects.
+! A plane serves as the axis of symmetry between the
+! shapes of which the datums are parts.</description>
+    <methods>
+        <method name="SetTool">
+            <description>Sets the tool aSymmetricTool composed of a first shape, a second shape, and a plane. This tool is initially created at construction time.</description>
+        </method>
+        <method name="GetTool" qualifiers="const">
+            <description>Returns the tool composed of a first shape, a second shape, and a plane. This tool is created at construction time.</description>
+        </method>
+    </methods>
+</class>

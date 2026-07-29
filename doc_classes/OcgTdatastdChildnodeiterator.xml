@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdChildnodeiterator" inherits="RefCounted">
+    <brief_description>Iterates on the ChildStepren step of a step, at the first level only. It is possible to ask the iterator to explore all the sub step levels of the given one, with the option "allLevels".</brief_description>
+    <description>! Iterates on the ChildStepren step of a step, at the
+! first level only. It is possible to ask the
+! iterator to explore all the sub step levels of the
+! given one, with the option "allLevels".</description>
+    <methods>
+        <method name="TDataStd_ChildNodeIterator" qualifiers="static">
+            <description>Creates an empty iterator.</description>
+        </method>
+        <method name="Next">
+            <description>Move to the next Item</description>
+        </method>
+        <method name="NextBrother">
+            <description>Move to the next Brother. If there is none, go up etc. This method is interesting only with "allLevels" behavior, because it avoids to explore the current Step ChildStepren.</description>
+        </method>
+    </methods>
+</class>

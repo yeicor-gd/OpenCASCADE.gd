@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepprimapiMakerevol" inherits="RefCounted">
+    <brief_description>Class to make revolved sweep topologies.</brief_description>
+    <description>! Class to make revolved sweep topologies.
+!
+! a revolved sweep is defined by :
+!
+! * A basis topology which is swept.
+!
+! The   basis topology  must   not  contain solids
+! (neither composite solids.).
+!
+! The basis topology  may be copied  or  shared in
+! the result.
+!
+! * A rotation axis and angle :
+!
+! - The axis is an Ax1 from gp.
+!
+! - The angle is in [0, 2*Pi].
+!
+! - The angle default value is 2*Pi.
+!
+! The result is a topology with a higher dimension :
+!
+! - Vertex -&gt; Edge.
+! - Edge   -&gt; Face.
+! - Wire   -&gt; Shell.
+! - Face   -&gt; Solid.
+! - Shell  -&gt; CompSolid.
+!
+! Sweeping a Compound sweeps  the elements  of the
+! compound  and creates    a  compound with    the
+! results.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Builds the Revol of base S, axis A and angle 2*Pi. If C is true, S is copied.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Builds the Revol of base S, axis A and angle D. If C is true, S is copied.</description>
+        </method>
+        <method name="Build">
+            <description>Builds the resulting shape (redefined from MakeShape).</description>
+        </method>
+        <method name="FirstShape_1">
+            <description>Returns the first shape of the revol (coinciding with the generating shape).</description>
+        </method>
+        <method name="LastShape_1">
+            <description>Returns the TopoDS Shape of the end of the revol.</description>
+        </method>
+        <method name="Generated">
+            <description>Returns list of shape generated from shape S Warning: shape S must be shape of type VERTEX, EDGE, FACE, SOLID. For shapes of other types method always returns empty list</description>
+        </method>
+        <method name="IsDeleted">
+            <description>Returns true if the shape S has been deleted.</description>
+        </method>
+        <method name="FirstShape_2">
+            <description>Returns the TopoDS Shape of the beginning of the revolution, generated with theShape (subShape of the generating shape).</description>
+        </method>
+        <method name="LastShape_2">
+            <description>Returns the TopoDS Shape of the end of the revolution, generated with theShape (subShape of the generating shape).</description>
+        </method>
+        <method name="HasDegenerated" qualifiers="const">
+            <description>Check if there are degenerated edges in the result.</description>
+        </method>
+        <method name="Degenerated" qualifiers="const">
+            <description>Returns the list of degenerated edges</description>
+        </method>
+    </methods>
+</class>

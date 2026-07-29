@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocAssemblyitemid" inherits="RefCounted">
+    <brief_description>Unique item identifier in the hierarchical product structure. A full path to an assembly component in the "part-of" graph starting from the root node.</brief_description>
+    <description>! Unique item identifier in the hierarchical product structure.
+! A full path to an assembly component in the "part-of" graph starting from
+! the root node.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty item ID.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs an item ID from a list of strings, where every string is a label entry.</description>
+        </method>
+        <method name="Init_1">
+            <description>Initializes the item ID from a list of strings, where every string is a label entry.</description>
+        </method>
+        <method name="IsNull" qualifiers="const">
+            <description>Returns true if the full path is empty, otherwise - false.</description>
+        </method>
+        <method name="Nullify">
+            <description>Clears the full path.</description>
+        </method>
+        <method name="IsChild" qualifiers="const">
+            <description>Checks if this item is a child of the given item.</description>
+        </method>
+        <method name="IsDirectChild" qualifiers="const">
+            <description>Checks if this item is a direct child of the given item.</description>
+        </method>
+        <method name="IsEqual" qualifiers="const">
+            <description>Checks for item IDs equality.</description>
+        </method>
+        <method name="GetPath" qualifiers="const">
+            <description>Returns the full path as a list of label entries.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

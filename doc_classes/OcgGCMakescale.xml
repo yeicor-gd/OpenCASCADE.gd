@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakescale" inherits="RefCounted">
+    <brief_description>Implements construction of a scaling transformation in 3D space. The result is a `Geom_Transformation` centered at `Point` with scale factor `Scale`. A MakeScale object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.</brief_description>
+    <description>! Implements construction of a scaling transformation in 3D space.
+! The result is a `Geom_Transformation` centered at `Point`
+! with scale factor `Scale`.
+! A MakeScale object provides a framework for:
+! -   defining the construction of the transformation,
+! -   implementing the construction algorithm, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="GC_MakeScale" qualifiers="static">
+            <description>Constructs a scaling transformation.</description>
+        </method>
+    </methods>
+</class>

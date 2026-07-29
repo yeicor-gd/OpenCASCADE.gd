@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMediaTimer" inherits="RefCounted">
+    <brief_description>Auxiliary class defining the animation timer.</brief_description>
+    <description>! Auxiliary class defining the animation timer.</description>
+    <methods>
+        <method name="Media_Timer" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="ElapsedTime" qualifiers="const">
+            <description>Return elapsed time in seconds.</description>
+        </method>
+        <method name="PlaybackSpeed" qualifiers="const">
+            <description>Return playback speed coefficient (1.0 means normal speed).</description>
+        </method>
+        <method name="SetPlaybackSpeed">
+            <description>Setup playback speed coefficient.</description>
+        </method>
+        <method name="IsStarted" qualifiers="const">
+            <description>Return true if timer has been started.</description>
+        </method>
+        <method name="Start">
+            <description>Start the timer.</description>
+        </method>
+        <method name="Pause">
+            <description>Pause the timer.</description>
+        </method>
+        <method name="Stop">
+            <description>Stop the timer.</description>
+        </method>
+        <method name="Seek">
+            <description>Seek the timer to specified position.</description>
+        </method>
+    </methods>
+</class>

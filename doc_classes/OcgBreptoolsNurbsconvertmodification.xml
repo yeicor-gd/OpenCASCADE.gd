@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBreptoolsNurbsconvertmodification" inherits="RefCounted">
+    <brief_description>Defines a modification of the geometry by a Trsf from gp. All methods return True and transform the geometry.</brief_description>
+    <description>! Defines a modification of the geometry by a Trsf
+! from gp. All methods return True and transform the
+! geometry.</description>
+    <methods>
+        <method name="NewPoint">
+            <description>Returns true if the vertex &lt;V&gt; has been modified. In this case, &lt;P&gt; is the new geometric support of the vertex, &lt;Tol&gt; the new tolerance. Otherwise, returns false, and &lt;P&gt;, &lt;Tol&gt; are not significant.</description>
+        </method>
+        <method name="NewParameter">
+            <description>Returns true if the Vertex &lt;V&gt; has a new parameter on the edge &lt;E&gt;. In this case, &lt;P&gt; is the parameter, &lt;Tol&gt; the new tolerance. Otherwise, returns false, and &lt;P&gt;, &lt;Tol&gt; are not significant.</description>
+        </method>
+        <method name="Continuity">
+            <description>Returns the continuity of &lt;NewE&gt; between &lt;NewF1&gt; and &lt;NewF2&gt;.</description>
+        </method>
+    </methods>
+</class>

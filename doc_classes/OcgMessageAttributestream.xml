@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageAttributestream" inherits="RefCounted">
+    <brief_description>Alert object storing stream value</brief_description>
+    <description>! Alert object storing stream value</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

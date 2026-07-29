@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepCurverepresentation" inherits="RefCounted">
+    <brief_description>Root class for the curve representations. Contains a location.</brief_description>
+    <description>! Root class for the curve representations. Contains
+! a location.</description>
+    <methods>
+        <method name="IsCurve3D" qualifiers="const">
+            <description>A 3D curve representation.</description>
+        </method>
+        <method name="IsCurveOnSurface_1" qualifiers="const">
+            <description>A curve in the parametric space of a surface.</description>
+        </method>
+        <method name="IsRegularity_1" qualifiers="const">
+            <description>A continuity between two surfaces.</description>
+        </method>
+        <method name="IsCurveOnClosedSurface" qualifiers="const">
+            <description>A curve with two parametric curves on the same surface.</description>
+        </method>
+        <method name="IsCurveOnSurface_2" qualifiers="const">
+            <description>Is it a curve in the parametric space of &lt;S&gt; with location &lt;L&gt;.</description>
+        </method>
+        <method name="IsRegularity_2" qualifiers="const">
+            <description>Is it a regularity between &lt;S1&gt; and &lt;S2&gt; with location &lt;L1&gt; and &lt;L2&gt;.</description>
+        </method>
+        <method name="IsPolygon3D" qualifiers="const">
+            <description>A 3D polygon representation.</description>
+        </method>
+        <method name="IsPolygonOnTriangulation_1" qualifiers="const">
+            <description>A representation by an array of nodes on a triangulation.</description>
+        </method>
+        <method name="IsPolygonOnTriangulation_2" qualifiers="const">
+            <description>Is it a polygon in the definition of &lt;T&gt; with location &lt;L&gt;.</description>
+        </method>
+        <method name="IsPolygonOnClosedTriangulation" qualifiers="const">
+            <description>A representation by two arrays of nodes on a triangulation.</description>
+        </method>
+        <method name="IsPolygonOnSurface_1" qualifiers="const">
+            <description>A polygon in the parametric space of a surface.</description>
+        </method>
+        <method name="IsPolygonOnSurface_2" qualifiers="const">
+            <description>Is it a polygon in the parametric space of &lt;S&gt; with location &lt;L&gt;.</description>
+        </method>
+        <method name="IsPolygonOnClosedSurface" qualifiers="const">
+            <description>Two 2D polygon representations in the parametric space of a surface.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

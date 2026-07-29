@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsTvertex" inherits="RefCounted">
+    <brief_description>A Vertex is a topological point in two or three dimensions.</brief_description>
+    <description>! A  Vertex is a topological  point in  two or three
+! dimensions.</description>
+    <methods>
+        <method name="ShapeType" qualifiers="const">
+            <description>Returns VERTEX.</description>
+        </method>
+    </methods>
+</class>

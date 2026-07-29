@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitivesegment" inherits="RefCounted">
+    <brief_description>A framework to define sensitive zones along a segment One gives the 3D start and end point</brief_description>
+    <description>! A framework to define sensitive zones along a segment
+!          One gives the 3D start and end point</description>
+    <methods>
+        <method name="SetStartPoint">
+            <description>changes the start Point of the Segment;</description>
+        </method>
+        <method name="SetEndPoint">
+            <description>changes the end point of the segment</description>
+        </method>
+        <method name="StartPoint_1" qualifiers="const">
+            <description>gives the 3D start Point of the Segment</description>
+        </method>
+        <method name="EndPoint_1" qualifiers="const">
+            <description>gives the 3D End Point of the Segment</description>
+        </method>
+        <method name="NbSubElements" qualifiers="const">
+            <description>Returns the amount of points</description>
+        </method>
+        <method name="CenterOfGeometry" qualifiers="const">
+            <description>Returns center of the segment. If location transformation is set, it will be applied</description>
+        </method>
+        <method name="StartPoint_2">
+            <description>changes the start Point of the Segment;</description>
+        </method>
+        <method name="EndPoint_2">
+            <description>changes the end point of the segment</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

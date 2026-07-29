@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFDelta" inherits="RefCounted">
+    <brief_description>A set of AttributeDelta for a given transaction number and reference time number. A delta set is available at &lt;aSourceTime&gt;. If applied, it restores the TDF_Data in the state it was at &lt;aTargetTime&gt;.</brief_description>
+    <description>! A set of AttributeDelta for a given transaction
+! number and reference time number.
+! A delta set is available at &lt;aSourceTime&gt;. If
+! applied, it restores the TDF_Data in the state it
+! was at &lt;aTargetTime&gt;.</description>
+    <methods>
+        <method name="TDF_Delta" qualifiers="static">
+            <description>Creates a delta.</description>
+        </method>
+        <method name="IsEmpty" qualifiers="const">
+            <description>Returns true if there is nothing to undo.</description>
+        </method>
+        <method name="IsApplicable" qualifiers="const">
+            <description>Returns true if the Undo action of &lt;me&gt; is applicable at &lt;aCurrentTime&gt;.</description>
+        </method>
+        <method name="BeginTime" qualifiers="const">
+            <description>Returns the field &lt;myBeginTime&gt;.</description>
+        </method>
+        <method name="EndTime" qualifiers="const">
+            <description>Returns the field &lt;myEndTime&gt;.</description>
+        </method>
+        <method name="Labels" qualifiers="const">
+            <description>Adds in &lt;aLabelList&gt; the labels of the attribute deltas. Caution: &lt;aLabelList&gt; is not cleared before use.</description>
+        </method>
+        <method name="AttributeDeltas" qualifiers="const">
+            <description>Returns the field &lt;myAttDeltaList&gt;.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

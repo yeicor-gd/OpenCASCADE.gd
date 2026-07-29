@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMaketrimmedcone" inherits="RefCounted">
+    <brief_description>Implements construction algorithms for a trimmed cone limited by two planes orthogonal to its axis. The result is a Geom_RectangularTrimmedSurface surface. A MakeTrimmedCone provides a framework for: - defining the construction of the trimmed cone, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed trimmed cone.</brief_description>
+    <description>! Implements construction algorithms for a trimmed
+! cone limited by two planes orthogonal to its axis. The
+! result is a Geom_RectangularTrimmedSurface surface.
+! A MakeTrimmedCone provides a framework for:
+! -   defining the construction of the trimmed cone,
+! -   implementing the construction algorithm, and
+! -   consulting the results. In particular, the Value
+! function returns the constructed trimmed cone.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Make a RectangularTrimmedSurface &lt;TheCone&gt; from Geom It is trimmed by P3 and P4. Its axis is &lt;P1P2&gt; and the radius of its base is the distance between &lt;P3&gt; and &lt;P1P2&gt;. The distance between &lt;P4&gt; and &lt;P1P2&gt; is the radius of the section passing through &lt;P4&gt;. An error iss raised if &lt;P1&gt;,&lt;P2&gt;,&lt;P3&gt;,&lt;P4&gt; are colinear or if &lt;P3P4&gt; is perpendicular to &lt;P1P2&gt; or &lt;P3P4&gt; is colinear to &lt;P1P2&gt;.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Make a RectangularTrimmedSurface from Geom &lt;TheCone&gt; from a cone and trimmed by two points P1 and P2 and the two radius &lt;R1&gt; and &lt;R2&gt; of the sections passing through &lt;P1&gt; an &lt;P2&gt;. Warning If an error occurs (that is, when IsDone returns false), the Status function returns: - gce_ConfusedPoints if points P1 and P2, or P3 and P4, are coincident; - gce_NullAngle if: - the lines joining P1 to P2 and P3 to P4 are parallel, or - R1 and R2 are equal (i.e. their difference is less than gp::Resolution()); - gce_NullRadius if: - the line joining P1 to P2 is perpendicular to the line joining P3 to P4, or - the points P1, P2, P3 and P4 are collinear; - gce_NegativeRadius if R1 or R2 is negative; or - gce_NullAxis if points P1 and P2 are coincident (2nd syntax only).</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed trimmed cone. StdFail_NotDone if no trimmed cone is constructed.</description>
+        </method>
+    </methods>
+</class>

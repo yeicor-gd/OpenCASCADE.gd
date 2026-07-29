@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIgescontrolActorwrite" inherits="RefCounted">
+    <brief_description>Actor to write Shape to IGES</brief_description>
+    <description>! Actor to write Shape to IGES</description>
+    <methods />
+</class>

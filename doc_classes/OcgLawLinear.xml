@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgLawLinear" inherits="RefCounted">
+    <brief_description>Describes an linear evolution law.</brief_description>
+    <description>! Describes an linear evolution law.</description>
+    <methods>
+        <method name="Law_Linear" qualifiers="static">
+            <description>Constructs an empty linear evolution law.</description>
+        </method>
+        <method name="Set">
+            <description>Defines this linear evolution law by assigning both: - the bounds Pdeb and Pfin of the parameter, and - the values Valdeb and Valfin of the function at these two parametric bounds.</description>
+        </method>
+        <method name="Continuity" qualifiers="const">
+            <description>Returns GeomAbs_CN</description>
+        </method>
+        <method name="NbIntervals" qualifiers="const">
+            <description>Returns 1</description>
+        </method>
+        <method name="Value">
+            <description>Returns the value of this function at the point of parameter X.</description>
+        </method>
+        <method name="D1">
+            <description>Returns the value F and the first derivative D of this function at the point of parameter X.</description>
+        </method>
+        <method name="D2">
+            <description>Returns the value, first and second derivatives at parameter X.</description>
+        </method>
+        <method name="Bounds">
+            <description>Returns the parametric bounds of the function.</description>
+        </method>
+    </methods>
+</class>

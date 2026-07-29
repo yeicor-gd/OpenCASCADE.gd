@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBopalgoArgumentanalyzer" inherits="RefCounted">
+    <brief_description>check the validity of argument(s) for Boolean Operations</brief_description>
+    <description>! check the validity of argument(s) for Boolean Operations</description>
+    <methods>
+        <method name="BOPAlgo_ArgumentAnalyzer" qualifiers="static">
+            <description>empty constructor</description>
+        </method>
+        <method name="SetShape1">
+            <description>sets object shape</description>
+        </method>
+        <method name="SetShape2">
+            <description>sets tool shape</description>
+        </method>
+        <method name="GetShape1" qualifiers="const">
+            <description>returns object shape;</description>
+        </method>
+        <method name="GetShape2" qualifiers="const">
+            <description>returns tool shape</description>
+        </method>
+        <method name="StopOnFirstFaulty">
+            <description>returns ref</description>
+        </method>
+        <method name="ArgumentTypeMode">
+            <description>Returns (modifiable) mode that means checking types of shapes.</description>
+        </method>
+        <method name="SelfInterMode">
+            <description>Returns (modifiable) mode that means checking of self-intersection of shapes.</description>
+        </method>
+        <method name="SmallEdgeMode">
+            <description>Returns (modifiable) mode that means checking of small edges.</description>
+        </method>
+        <method name="RebuildFaceMode">
+            <description>Returns (modifiable) mode that means checking of possibility to split or rebuild faces.</description>
+        </method>
+        <method name="TangentMode">
+            <description>Returns (modifiable) mode that means checking of tangency between subshapes.</description>
+        </method>
+        <method name="MergeVertexMode">
+            <description>Returns (modifiable) mode that means checking of problem of merging vertices.</description>
+        </method>
+        <method name="MergeEdgeMode">
+            <description>Returns (modifiable) mode that means checking of problem of merging edges.</description>
+        </method>
+        <method name="ContinuityMode">
+            <description>Returns (modifiable) mode that means checking of problem of continuity of the shape.</description>
+        </method>
+        <method name="CurveOnSurfaceMode">
+            <description>Returns (modifiable) mode that means checking of problem of invalid curve on surface.</description>
+        </method>
+        <method name="Perform">
+            <description>performs analysis</description>
+        </method>
+        <method name="HasFaulty" qualifiers="const">
+            <description>result of test</description>
+        </method>
+        <method name="GetCheckResult" qualifiers="const">
+            <description>returns a result of test</description>
+        </method>
+    </methods>
+</class>

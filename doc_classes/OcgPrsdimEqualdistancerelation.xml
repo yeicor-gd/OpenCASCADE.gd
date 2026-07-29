@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimEqualdistancerelation" inherits="RefCounted">
+    <brief_description>A framework to display equivalent distances between shapes and a given plane. The distance is the length of a projection from the shape to the plane. These distances are used to compare shapes by this vector alone.</brief_description>
+    <description>! A framework to display equivalent distances between
+! shapes and a given plane.
+! The distance is the length of a projection from the
+! shape to the plane.
+! These distances are used to compare shapes by this vector alone.</description>
+    <methods>
+        <method name="PrsDim_EqualDistanceRelation" qualifiers="static">
+            <description>Constructs a framework to display equivalent distances between the shapes aShape1, aShape2, aShape3, aShape4 and the plane aPlane. The distance is the length of a projection from the shape to the plane.</description>
+        </method>
+        <method name="SetShape3">
+            <description>Sets the shape aShape to be used as the shape aShape3 in the framework created at construction time.</description>
+        </method>
+        <method name="Shape3" qualifiers="const">
+            <description>Returns the shape aShape3 from the framework created at construction time.</description>
+        </method>
+        <method name="SetShape4">
+            <description>Sets the shape aShape to be used as the shape aShape4 in the framework created at construction time.</description>
+        </method>
+        <method name="Shape4" qualifiers="const">
+            <description>Returns the shape aShape4 from the framework created at construction time.</description>
+        </method>
+    </methods>
+</class>

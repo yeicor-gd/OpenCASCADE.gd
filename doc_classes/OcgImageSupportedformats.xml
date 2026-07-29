@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImageSupportedformats" inherits="RefCounted">
+    <brief_description>Structure holding information about supported texture formats.</brief_description>
+    <description>! Structure holding information about supported texture formats.</description>
+    <methods>
+        <method name="Image_SupportedFormats" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Add_1">
+            <description>Set if image format is supported or not.</description>
+        </method>
+        <method name="Add_2">
+            <description>Set if compressed image format is supported or not.</description>
+        </method>
+        <method name="Clear">
+            <description>Reset flags.</description>
+        </method>
+    </methods>
+</class>

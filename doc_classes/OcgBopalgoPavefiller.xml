@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBopalgoPavefiller" inherits="RefCounted">
+    <brief_description>The class represents the Intersection phase of the Boolean Operations algorithm. It performs the pairwise intersection of the sub-shapes of the arguments in the following order: 1. Vertex/Vertex; 2. Vertex/Edge; 3. Edge/Edge; 4. Vertex/Face; 5. Edge/Face; 6. Face/Face.</brief_description>
+    <description>!
+! The class represents the Intersection phase of the
+! Boolean Operations algorithm.&lt;br&gt;
+! It performs the pairwise intersection of the sub-shapes of
+! the arguments in the following order:&lt;br&gt;
+! 1. Vertex/Vertex;&lt;br&gt;
+! 2. Vertex/Edge;&lt;br&gt;
+! 3. Edge/Edge;&lt;br&gt;
+! 4. Vertex/Face;&lt;br&gt;
+! 5. Edge/Face;&lt;br&gt;
+! 6. Face/Face.&lt;br&gt;
+!
+! The results of intersection are stored into the Data Structure
+! of the algorithm.&lt;br&gt;
+!
+! Additionally to the options provided by the parent class,
+! the algorithm has the following options:&lt;br&gt;
+! - *Section attributes* - allows to customize the intersection of the faces
+!                          (avoid approximation or building 2d curves);&lt;br&gt;
+! - *Safe processing mode* - allows to avoid modification of the input
+!                            shapes during the operation (by default it is off);&lt;br&gt;
+! - *Gluing options* - allows to speed up the calculation on the special
+!                      cases, in which some sub-shapes are coincide.&lt;br&gt;
+!
+! The algorithm returns the following Warning statuses:
+! - *BOPAlgo_AlertSelfInterferingShape* - in case some of the argument shapes are self-interfering
+! shapes;
+! - *BOPAlgo_AlertTooSmallEdge* - in case some edges of the input shapes have no valid range;
+! - *BOPAlgo_AlertNotSplittableEdge* - in case some edges of the input shapes has such a small
+!                                      valid range so it cannot be split;
+! - *BOPAlgo_AlertBadPositioning* - in case the positioning of the input shapes leads to creation
+!                                   of small edges;
+! - *BOPAlgo_AlertIntersectionOfPairOfShapesFailed* - in case intersection of some of the
+!                                                     sub-shapes has failed;
+! - *BOPAlgo_AlertAcquiredSelfIntersection* - in case some sub-shapes of the argument become
+! connected
+!                                             through other shapes;
+! - *BOPAlgo_AlertBuildingPCurveFailed* - in case building 2D curve for some of the edges
+!                                         on the faces has failed.
+!
+! The algorithm returns the following Error alerts:
+! - *BOPAlgo_AlertTooFewArguments* - in case there are no enough arguments to
+!                      perform the operation;&lt;br&gt;
+! - *BOPAlgo_AlertIntersectionFailed* - in case some unexpected error occurred;&lt;br&gt;
+! - *BOPAlgo_AlertNullInputShapes* - in case some of the arguments are null shapes.&lt;br&gt;
+!</description>
+    <methods>
+        <method name="SetArguments">
+            <description>Sets the arguments for operation</description>
+        </method>
+        <method name="AddArgument">
+            <description>Adds the argument for operation</description>
+        </method>
+        <method name="Arguments" qualifiers="const">
+            <description>Returns the list of arguments</description>
+        </method>
+        <method name="SetNonDestructive">
+            <description>Sets the flag that defines the mode of treatment. In non-destructive mode the argument shapes are not modified. Instead a copy of a sub-shape is created in the result if it is needed to be updated.</description>
+        </method>
+        <method name="NonDestructive" qualifiers="const">
+            <description>Returns the flag that defines the mode of treatment. In non-destructive mode the argument shapes are not modified. Instead a copy of a sub-shape is created in the result if it is needed to be updated.</description>
+        </method>
+        <method name="SetGlue">
+            <description>Sets the glue option for the algorithm</description>
+        </method>
+        <method name="Glue" qualifiers="const">
+            <description>Returns the glue option of the algorithm</description>
+        </method>
+        <method name="SetAvoidBuildPCurve">
+            <description>Sets the flag to avoid building of p-curves of edges on faces</description>
+        </method>
+        <method name="IsAvoidBuildPCurve" qualifiers="const">
+            <description>Returns the flag to avoid building of p-curves of edges on faces</description>
+        </method>
+    </methods>
+</class>

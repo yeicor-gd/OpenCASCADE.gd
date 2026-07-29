@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXscontrolTransferwriter" inherits="RefCounted">
+    <brief_description>TransferWriter gives help to control transfer to write a file after having converted data from Cascade/Imagine</brief_description>
+    <description>! TransferWriter gives help to control transfer to write a file
+! after having converted data from Cascade/Imagine
+!
+! It works with a Controller (which itself can work with an
+! Actor to Write) and a FinderProcess. It records results and
+! checks</description>
+    <methods>
+        <method name="XSControl_TransferWriter" qualifiers="static">
+            <description>Creates a TransferWriter, empty, ready to run with an empty FinderProcess (but no controller, etc)</description>
+        </method>
+        <method name="FinderProcess" qualifiers="const">
+            <description>Returns the FinderProcess itself</description>
+        </method>
+        <method name="SetFinderProcess">
+            <description>Sets a new FinderProcess and forgets the former one</description>
+        </method>
+        <method name="Controller" qualifiers="const">
+            <description>Returns the currently used Controller</description>
+        </method>
+        <method name="SetController">
+            <description>Sets a new Controller, also sets a new FinderProcess</description>
+        </method>
+        <method name="Clear">
+            <description>Clears recorded data according a mode 0 clears FinderProcess (results, checks) -1 create a new FinderProcess</description>
+        </method>
+        <method name="TransferMode" qualifiers="const">
+            <description>Returns the current Transfer Mode (an Integer) It will be interpreted by the Controller to run Transfers This call form could be later replaced by more specific ones (parameters suited for each norm / transfer case)</description>
+        </method>
+        <method name="SetTransferMode">
+            <description>Changes the Transfer Mode</description>
+        </method>
+        <method name="PrintStats" qualifiers="const">
+            <description>Prints statistics on current Trace File, according what,mode See PrintStatsProcess for details</description>
+        </method>
+        <method name="RecognizeTransient">
+            <description>Tells if a transient object (from an application) is a valid candidate for a transfer to a model Asks the Controller (RecognizeWriteTransient) If &lt;obj&gt; is a HShape, calls RecognizeShape</description>
+        </method>
+        <method name="TransferWriteTransient">
+            <description>Transfers a Transient object (from an application) to a model of current norm, according to the last call to SetTransferMode Works by calling the Controller Returns status : =0 if OK, &gt;0 if error during transfer, &lt;0 if transfer badly initialised</description>
+        </method>
+        <method name="RecognizeShape">
+            <description>Tells if a Shape is valid for a transfer to a model Asks the Controller (RecognizeWriteShape)</description>
+        </method>
+        <method name="TransferWriteShape">
+            <description>Transfers a Shape from CasCade to a model of current norm, according to the last call to SetTransferMode Works by calling the Controller Returns status : =0 if OK, &gt;0 if error during transfer, &lt;0 if transfer badly initialised</description>
+        </method>
+        <method name="CheckList" qualifiers="const">
+            <description>Returns the check-list of last transfer (write), i.e. the check-list currently recorded in the FinderProcess</description>
+        </method>
+        <method name="ResultCheckList" qualifiers="const">
+            <description>Returns the check-list of last transfer (write), but tries to bind to each check, the resulting entity in the model instead of keeping the original Mapper, whenever known</description>
+        </method>
+    </methods>
+</class>

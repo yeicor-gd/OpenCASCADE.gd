@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStandardClocalesentry" inherits="RefCounted">
+    <brief_description>This class intended to temporary switch C locale and logically equivalent to setlocale(LC_ALL, "C"). It is intended to format text regardless of user locale settings (for import/export functionality). Thus following calls to Sprintf, atoi and other functions will use "C" locale. Destructor of this class will return original locale.</brief_description>
+    <description>! This class intended to temporary switch C locale and logically equivalent to setlocale(LC_ALL,
+! "C"). It is intended to format text regardless of user locale settings (for import/export
+! functionality). Thus following calls to Sprintf, atoi and other functions will use "C" locale.
+! Destructor of this class will return original locale.
+!
+! Notice that this functionality is platform dependent and intended only to workaround alien code
+! that doesn't setup locale correctly.
+!
+! Internally you should prefer more portable C++ locale interfaces
+! or OCCT wrappers to some C functions like Sprintf, Atof, Strtod.</description>
+    <methods>
+        <method name="Standard_CLocaleSentry" qualifiers="static">
+            <description>Setup current C locale to "C".</description>
+        </method>
+    </methods>
+</class>

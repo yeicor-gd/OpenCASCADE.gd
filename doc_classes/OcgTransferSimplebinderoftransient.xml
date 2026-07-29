@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferSimplebinderoftransient" inherits="RefCounted">
+    <brief_description>An adapted instantiation of SimpleBinder for Transient Result, i.e. ResultType can be computed from the Result itself, instead of being static</brief_description>
+    <description>! An adapted instantiation of SimpleBinder for Transient Result,
+! i.e. ResultType can be computed from the Result itself,
+! instead of being static</description>
+    <methods>
+        <method name="Transfer_SimpleBinderOfTransient" qualifiers="static">
+            <description>Creates an empty SimpleBinderOfTransient Returns True if a starting object is bound with SEVERAL results : Here, returns always False See Binder itself</description>
+        </method>
+        <method name="ResultType" qualifiers="const">
+            <description>Returns the Effective (Dynamic) Type of the Result (Standard_Transient if no Result is defined)</description>
+        </method>
+        <method name="ResultTypeName" qualifiers="const">
+            <description>Returns the Effective Name of (Dynamic) Type of the Result (void) if no result is defined</description>
+        </method>
+        <method name="SetResult">
+            <description>Defines the Result</description>
+        </method>
+        <method name="Result" qualifiers="const">
+            <description>Returns the defined Result, if there is one</description>
+        </method>
+        <method name="GetTypedResult" qualifiers="static">
+            <description>Returns a transient result according to its type (IsKind) i.e. the result itself if IsKind(atype), else searches in NextResult, until first found, then returns True If not found, returns False (res is NOT touched)</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGceMakeelips2d" inherits="RefCounted">
+    <brief_description>This class implements construction algorithms for `gp_Elips2d`. Supported constructions include: - ellipse from major axis (or local 2D coordinate system) and radii; - ellipse from center and two points.</brief_description>
+    <description>! This class implements construction algorithms for `gp_Elips2d`.
+! Supported constructions include:
+! - ellipse from major axis (or local 2D coordinate system) and radii;
+! - ellipse from center and two points.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Axis defines the Xaxis and Yaxis of the ellipse which defines the origin and the sense of parametrization. Creates an ellipse with the AxisPlacement the major and the minor radius. The location of Axis is the center of the ellipse. It is possible to create an ellipse with MajorRadius = MinorRadius.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an ellipse from center and two points.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates an ellipse with the major axis, the major and the minor radius. The location of the MajorAxis is the center of the ellipse. The sense of parametrization is given by Sense. It is possible to create an ellipse with MajorRadius = MinorRadius.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed ellipse. Exceptions StdFail_NotDone if no ellipse is constructed.</description>
+        </method>
+        <method name="Operator" qualifiers="const">
+            <description>Alias for Value() returning a copy.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapefixFaceconnect" inherits="RefCounted">
+    <brief_description>Rebuilds connectivity between faces in shell</brief_description>
+    <description>! Rebuilds connectivity between faces in shell</description>
+    <methods>
+        <method name="Clear">
+            <description>Clears internal data structure</description>
+        </method>
+    </methods>
+</class>

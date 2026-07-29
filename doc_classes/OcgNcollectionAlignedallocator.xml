@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgNcollectionAlignedallocator" inherits="RefCounted">
+    <brief_description>NCollection allocator with managed memory alignment capabilities.</brief_description>
+    <description>! NCollection allocator with managed memory alignment capabilities.</description>
+    <methods>
+        <method name="NCollection_AlignedAllocator" qualifiers="static">
+            <description>Constructor. The alignment should be specified explicitly: 16 bytes for SSE instructions 32 bytes for AVX instructions</description>
+        </method>
+        <method name="Allocate">
+            <description>Allocate memory with given size. Returns NULL on failure.</description>
+        </method>
+    </methods>
+</class>

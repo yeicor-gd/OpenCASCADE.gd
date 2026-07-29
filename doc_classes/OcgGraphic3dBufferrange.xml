@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dBufferrange" inherits="RefCounted">
+    <brief_description>Range of values defined as Start + Length pair.</brief_description>
+    <description>! Range of values defined as Start + Length pair.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="IsEmpty" qualifiers="const">
+            <description>Return TRUE if range is empty.</description>
+        </method>
+        <method name="Upper" qualifiers="const">
+            <description>Return the Upper element within the range</description>
+        </method>
+        <method name="Clear">
+            <description>Clear the range.</description>
+        </method>
+        <method name="Unite">
+            <description>Add another range to this one.</description>
+        </method>
+    </methods>
+</class>

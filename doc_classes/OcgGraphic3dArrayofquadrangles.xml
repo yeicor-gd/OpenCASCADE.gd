@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dArrayofquadrangles" inherits="RefCounted">
+    <brief_description>Contains quadrangles array definition. WARNING! Quadrangle primitives might be unsupported by graphics library. Triangulation should be used instead of quads for better compatibility.</brief_description>
+    <description>! Contains quadrangles array definition.
+! WARNING! Quadrangle primitives might be unsupported by graphics library.
+! Triangulation should be used instead of quads for better compatibility.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates an array of quadrangles (Graphic3d_TOPA_QUADRANGLES), a quadrangle can be filled as: 1) Creating a set of quadrangles defined with his vertexes, i.e: 2) Creating a set of indexed quadrangles defined with his vertex ans edges, i.e:</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an array of quadrangles (Graphic3d_TOPA_QUADRANGLES).</description>
+        </method>
+    </methods>
+</class>

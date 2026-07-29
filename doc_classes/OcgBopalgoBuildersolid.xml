@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBopalgoBuildersolid" inherits="RefCounted">
+    <brief_description>Solid Builder is the algorithm for building solids from set of faces. The given faces should be non-intersecting, i.e. all coinciding parts of the faces should be shared among them.</brief_description>
+    <description>! Solid Builder is the algorithm for building solids from set of faces.
+! The given faces should be non-intersecting, i.e. all coinciding parts
+! of the faces should be shared among them.
+!
+! The algorithm performs the following steps to build the solids:
+! 1. Find:
+!    - faces orientated INTERNAL;
+!    - alone faces given twice with different orientation;
+! 2. Build all possible closed shells from the rest of the faces
+!    (*BOPAlgo_ShellSplitter* is used for that);
+! 3. Classify the obtained shells on the Holes and Growths;
+! 4. Build solids from the Growth shells, put Hole shells into closest Growth solids;
+! 5. Classify all unused faces relatively created solids and put them as internal
+!    shells into the closest solids;
+! 6. Find all unclassified faces, i.e. faces outside of all created solids,
+!    make internal shells from them and put these shells into a warning.
+!
+! It is possible to avoid all internal shells in the resulting solids.
+! For that it is necessary to use the method SetAvoidInternalShapes(true)
+! of the base class. In this case the steps 5 and 6 will not be performed at all.
+!
+! The algorithm may return the following warnings:
+! - *BOPAlgo_AlertShellSplitterFailed* in case the ShellSplitter algorithm has failed;
+! - *BOPAlgo_AlertSolidBuilderUnusedFaces* in case there are some faces outside of
+!   created solids left.
+!
+! Example of usage of the algorithm:
+! ~~~~
+! const NCollection_List&lt;TopoDS_Shape&gt;&amp; aFaces = ...;     // Faces to build the solids
+! bool isAvoidInternals = ...;      // Flag which defines whether to create the
+! internal shells or not BOPAlgo_BuilderSolid aBS;                     // Solid Builder tool
+! aBS.SetShapes(aFaces);                        // Set the faces
+! aBS.SetAvoidInternalShapes(isAvoidInternals); // Set the AvoidInternalShapesFlag
+! aBS.Perform();                                // Perform the operation
+! if (!aBS.IsDone())                            // Check for the errors
+! {
+!   // error treatment
+!   Standard_SStream aSStream;
+!   aBS.DumpErrors(aSStream);
+!   return;
+! }
+! if (aBS.HasWarnings())                        // Check for the warnings
+! {
+!   // warnings treatment
+!   Standard_SStream aSStream;
+!   aBS.DumpWarnings(aSStream);
+! }
+!
+! const NCollection_List&lt;TopoDS_Shape&gt;&amp; aSolids = aBS.Areas(); // Obtaining the result solids
+! ~~~~
+!</description>
+    <methods>
+        <method name="BOPAlgo_BuilderSolid" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="Perform">
+            <description>Performs the construction of the solids from the given faces</description>
+        </method>
+    </methods>
+</class>

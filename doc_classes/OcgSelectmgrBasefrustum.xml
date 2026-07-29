@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrBasefrustum" inherits="RefCounted">
+    <brief_description>This class is an interface for different types of selecting frustums, defining different selection types, like point, box or polyline selection. It contains signatures of functions for detection of overlap by sensitive entity and initializes some data for building the selecting frustum</brief_description>
+    <description>! This class is an interface for different types of selecting frustums,
+! defining different selection types, like point, box or polyline
+! selection. It contains signatures of functions for detection of
+! overlap by sensitive entity and initializes some data for building
+! the selecting frustum</description>
+    <methods>
+        <method name="SelectMgr_BaseFrustum" qualifiers="static">
+            <description>Creates new selecting volume with pixel tolerance set to 2, orthographic camera and empty frustum builder</description>
+        </method>
+        <method name="SetBuilder">
+            <description>Nullifies the builder created in the constructor and copies the pointer given</description>
+        </method>
+        <method name="SetCamera">
+            <description>Saves camera definition and passes it to builder</description>
+        </method>
+        <method name="SetViewport">
+            <description>Passes viewport parameters to builder</description>
+        </method>
+        <method name="IsBoundaryIntersectSphere" qualifiers="const">
+            <description>Checks whether the boundary of the current volume selection intersects with a sphere or are there it's boundaries lying inside the sphere</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

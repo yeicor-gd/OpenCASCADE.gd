@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepPointrepresentation" inherits="RefCounted">
+    <brief_description>Root class for the points representations. Contains a location and a parameter.</brief_description>
+    <description>! Root  class     for   the points  representations.
+! Contains a location and a parameter.</description>
+    <methods>
+        <method name="IsPointOnCurve_1" qualifiers="const">
+            <description>A point on a 3d curve.</description>
+        </method>
+        <method name="IsPointOnCurveOnSurface_1" qualifiers="const">
+            <description>A point on a 2d curve on a surface.</description>
+        </method>
+        <method name="IsPointOnSurface_1" qualifiers="const">
+            <description>A point on a surface.</description>
+        </method>
+        <method name="IsPointOnCurve_2" qualifiers="const">
+            <description>A point on the curve &lt;C&gt;.</description>
+        </method>
+        <method name="IsPointOnCurveOnSurface_2" qualifiers="const">
+            <description>A point on the 2d curve &lt;PC&gt; on the surface &lt;S&gt;.</description>
+        </method>
+        <method name="IsPointOnSurface_2" qualifiers="const">
+            <description>A point on the surface &lt;S&gt;.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

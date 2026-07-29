@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafprsDriver" inherits="RefCounted">
+    <brief_description>Implements a driver for presentation of shapes in DECAF document. Its the only purpose is to initialize and return XCAFPrs_AISObject object on request</brief_description>
+    <description>! Implements a driver for presentation of shapes in DECAF
+! document. Its the only purpose is to initialize and return
+! XCAFPrs_AISObject object on request</description>
+    <methods>
+        <method name="GetID" qualifiers="static">
+            <description>returns GUID of the driver</description>
+        </method>
+    </methods>
+</class>

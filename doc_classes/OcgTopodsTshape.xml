@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsTshape" inherits="RefCounted">
+    <brief_description>A TShape is a topological structure describing a set of points in a 2D or 3D space.</brief_description>
+    <description>! A TShape  is a topological  structure describing a
+! set of points in a 2D or 3D space.
+!
+! A topological shape is a structure made from other
+! shapes.  This is a deferred class  used to support
+! topological objects.
+!
+! TShapes are   defined   by  their  optional domain
+! (geometry)  and  their  components  (other TShapes
+! with  Locations and Orientations).  The components
+! are stored in a List of Shapes.
+!
+! A   TShape contains  the   following boolean flags :
+!
+! - Free       : Free or Frozen.
+! - Modified   : Has been modified.
+! - Checked    : Has been checked.
+! - Orientable : Can be oriented.
+! - Closed     : Is closed (note that only Wires and Shells may be closed).
+! - Infinite   : Is infinite.
+! - Convex     : Is convex.
+!
+! Users have no direct access to the classes derived
+! from TShape.  They  handle them with   the classes
+! derived from Shape.</description>
+    <methods>
+        <method name="Free_1" qualifiers="const">
+            <description>Returns the free flag.</description>
+        </method>
+        <method name="Free_2">
+            <description>Sets the free flag.</description>
+        </method>
+        <method name="Locked_1" qualifiers="const">
+            <description>Returns the locked flag.</description>
+        </method>
+        <method name="Locked_2">
+            <description>Sets the locked flag.</description>
+        </method>
+        <method name="Modified_1" qualifiers="const">
+            <description>Returns the modification flag.</description>
+        </method>
+        <method name="Modified_2">
+            <description>Sets the modification flag.</description>
+        </method>
+        <method name="Checked_1" qualifiers="const">
+            <description>Returns the checked flag.</description>
+        </method>
+        <method name="Checked_2">
+            <description>Sets the checked flag.</description>
+        </method>
+        <method name="Orientable_1" qualifiers="const">
+            <description>Returns the orientability flag.</description>
+        </method>
+        <method name="Orientable_2">
+            <description>Sets the orientability flag.</description>
+        </method>
+        <method name="Closed_1" qualifiers="const">
+            <description>Returns the closedness flag.</description>
+        </method>
+        <method name="Closed_2">
+            <description>Sets the closedness flag.</description>
+        </method>
+        <method name="Infinite_1" qualifiers="const">
+            <description>Returns the infinity flag.</description>
+        </method>
+        <method name="Infinite_2">
+            <description>Sets the infinity flag.</description>
+        </method>
+        <method name="Convex_1" qualifiers="const">
+            <description>Returns the convexness flag.</description>
+        </method>
+        <method name="Convex_2">
+            <description>Sets the convexness flag.</description>
+        </method>
+        <method name="NbChildren" qualifiers="const">
+            <description>Returns the number of direct sub-shapes (children).</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

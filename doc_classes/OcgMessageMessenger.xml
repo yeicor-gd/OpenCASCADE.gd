@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageMessenger" inherits="RefCounted">
+    <brief_description>Messenger is API class providing general-purpose interface for libraries that may issue text messages without knowledge of how these messages will be further processed.</brief_description>
+    <description>! Messenger is API class providing general-purpose interface for
+! libraries that may issue text messages without knowledge
+! of how these messages will be further processed.
+!
+! The messenger contains a sequence of "printers" which can be
+! customized by the application, and dispatches every received
+! message to all the printers.
+!
+! For convenience, a set of methods Send...() returning a string
+! stream buffer is defined for use of stream-like syntax with operator &lt;&lt;
+!
+! Example:
+! ~~~~~
+! Messenger-&gt;SendFail() &lt;&lt; " Unknown fail at line " &lt;&lt; aLineNo &lt;&lt; " in file " &lt;&lt; aFile;
+! ~~~~~
+!
+! The message is sent to messenger on destruction of the stream buffer,
+! call to Flush(), or passing manipulator std::ends, std::endl, or std::flush.
+! Empty messages are not sent except if manipulator is used.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor; initializes by single printer directed to std::cout. Note: the default messenger is not empty but directed to cout in order to protect against possibility to forget defining printers. If printing to cout is not needed, clear messenger by GetPrinters().Clear()</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Create messenger with single printer</description>
+        </method>
+        <method name="AddPrinter">
+            <description>Add a printer to the messenger. The printer will be added only if it is not yet in the list. Returns True if printer has been added.</description>
+        </method>
+        <method name="RemovePrinter">
+            <description>Removes specified printer from the messenger. Returns True if this printer has been found in the list and removed.</description>
+        </method>
+        <method name="RemovePrinters">
+            <description>Removes printers of specified type (including derived classes) from the messenger. Returns number of removed printers.</description>
+        </method>
+        <method name="Printers" qualifiers="const">
+            <description>Returns current sequence of printers</description>
+        </method>
+        <method name="ChangePrinters">
+            <description>Returns sequence of printers The sequence can be modified.</description>
+        </method>
+        <method name="Send_2" qualifiers="const">
+            <description>Dispatch a message to all the printers in the list. Three versions of string representations are accepted for convenience, by default all are converted to ExtendedString.</description>
+        </method>
+        <method name="Send_6" qualifiers="const">
+            <description>See above</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

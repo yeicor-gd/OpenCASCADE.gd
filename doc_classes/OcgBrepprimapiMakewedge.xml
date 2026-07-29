@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepprimapiMakewedge" inherits="RefCounted">
+    <brief_description>Describes functions to build wedges, i.e. boxes with inclined faces. A MakeWedge object provides a framework for: - defining the construction of a wedge, - implementing the construction algorithm, and - consulting the result.</brief_description>
+    <description>! Describes functions to build wedges, i.e. boxes with inclined faces.
+! A MakeWedge object provides a framework for:
+! -   defining the construction of a wedge,
+! -   implementing the construction algorithm, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Make a STEP right angular wedge. (ltx &gt;= 0)</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Make a STEP right angular wedge. (ltx &gt;= 0)</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Make a wedge. The face at dy is xmin,zmin xmax,zmax</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Make a wedge. The face at dy is xmin,zmin xmax,zmax</description>
+        </method>
+        <method name="Build">
+            <description>Stores the solid in myShape.</description>
+        </method>
+        <method name="Shell">
+            <description>Returns the constructed box in the form of a shell.</description>
+        </method>
+        <method name="Solid">
+            <description>Returns the constructed box in the form of a solid.</description>
+        </method>
+    </methods>
+</class>

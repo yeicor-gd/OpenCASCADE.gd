@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepBuilder" inherits="RefCounted">
+    <brief_description>A framework providing advanced tolerance control. It is used to build Shapes. If tolerance control is required, you are advised to: 1. build a default precision for topology, using the classes provided in the BRepAPI package 2. update the tolerance of the resulting shape. Note that only vertices, edges and faces have meaningful tolerance control. The tolerance value must always comply with the condition that face tolerances are more restrictive than edge tolerances which are more restrictive than vertex tolerances. In other words: Tol(Vertex) &gt;= Tol(Edge) &gt;= Tol(Face). Other rules in setting tolerance include: - you can open up tolerance but should never restrict it - an edge cannot be included within the fusion of the tolerance spheres of two vertices</brief_description>
+    <description>! A framework providing advanced tolerance control.
+! It is used to build Shapes.
+! If tolerance control is required, you are advised to:
+! 1. build a default precision for topology, using the
+! classes provided in the BRepAPI package
+! 2. update the tolerance of the resulting shape.
+! Note that only vertices, edges and faces have
+! meaningful tolerance control. The tolerance value
+! must always comply with the condition that face
+! tolerances are more restrictive than edge tolerances
+! which are more restrictive than vertex tolerances. In
+! other words: Tol(Vertex) &gt;= Tol(Edge) &gt;= Tol(Face).
+! Other rules in setting tolerance include:
+! - you can open up tolerance but should never restrict it
+! - an edge cannot be included within the fusion of the
+! tolerance spheres of two vertices</description>
+    <methods>
+        <method name="MakeFace_1" qualifiers="const">
+            <description>Makes an undefined Face.</description>
+        </method>
+        <method name="MakeFace_3" qualifiers="const">
+            <description>Makes a Face with a surface.</description>
+        </method>
+        <method name="MakeFace_5" qualifiers="const">
+            <description>Makes a Face with a surface and a location.</description>
+        </method>
+        <method name="MakeFace_2" qualifiers="const">
+            <description>Makes a theFace with a single triangulation. The triangulation is in the same reference system than the TFace.</description>
+        </method>
+        <method name="MakeFace_4" qualifiers="const">
+            <description>Makes a Face with a list of triangulations and active one. Use NULL active triangulation to set the first triangulation in list as active. The triangulations is in the same reference system than the TFace.</description>
+        </method>
+        <method name="UpdateFace_3" qualifiers="const">
+            <description>Updates the face F using the tolerance value Tol, surface S and location Location.</description>
+        </method>
+        <method name="UpdateFace_2" qualifiers="const">
+            <description>Changes a face triangulation. A NULL theTriangulation removes face triangulations. If theToReset is TRUE face triangulations will be reset to new list with only one input triangulation that will be active. Else if theTriangulation is contained in internal triangulations list it will be made active, else the active triangulation will be replaced to theTriangulation one.</description>
+        </method>
+        <method name="UpdateFace_1" qualifiers="const">
+            <description>Updates the face Tolerance.</description>
+        </method>
+        <method name="NaturalRestriction" qualifiers="const">
+            <description>Sets the NaturalRestriction flag of the face.</description>
+        </method>
+        <method name="MakeEdge_1" qualifiers="const">
+            <description>Makes an undefined Edge (no geometry).</description>
+        </method>
+        <method name="MakeEdge_3" qualifiers="const">
+            <description>Makes an Edge with a curve.</description>
+        </method>
+        <method name="MakeEdge_5" qualifiers="const">
+            <description>Makes an Edge with a curve and a location.</description>
+        </method>
+        <method name="MakeEdge_2" qualifiers="const">
+            <description>Makes an Edge with a polygon 3d.</description>
+        </method>
+        <method name="MakeEdge_4" qualifiers="const">
+            <description>makes an Edge polygon on Triangulation.</description>
+        </method>
+        <method name="MakeEdge_6" qualifiers="const">
+            <description>makes an Edge polygon on Triangulation.</description>
+        </method>
+        <method name="UpdateEdge_3" qualifiers="const">
+            <description>Sets a 3D curve for the edge. If &lt;C&gt; is a null handle, remove any existing 3d curve.</description>
+        </method>
+        <method name="UpdateEdge_7" qualifiers="const">
+            <description>Sets a 3D curve for the edge. If &lt;C&gt; is a null handle, remove any existing 3d curve.</description>
+        </method>
+        <method name="UpdateEdge_8" qualifiers="const">
+            <description>Sets a pcurve for the edge on the face. If &lt;C&gt; is a null handle, remove any existing pcurve.</description>
+        </method>
+        <method name="UpdateEdge_13" qualifiers="const">
+            <description>Sets pcurves for the edge on the closed face. If &lt;C1&gt; or &lt;C2&gt; is a null handle, remove any existing pcurve.</description>
+        </method>
+        <method name="UpdateEdge_14" qualifiers="const">
+            <description>Sets a pcurve for the edge on the face. If &lt;C&gt; is a null handle, remove any existing pcurve.</description>
+        </method>
+        <method name="UpdateEdge_18" qualifiers="const">
+            <description>Sets a pcurve for the edge on the face. If &lt;C&gt; is a null handle, remove any existing pcurve. Sets UV bounds for curve repsentation</description>
+        </method>
+        <method name="UpdateEdge_17" qualifiers="const">
+            <description>Sets pcurves for the edge on the closed surface. &lt;C1&gt; or &lt;C2&gt; is a null handle, remove any existing pcurve.</description>
+        </method>
+        <method name="UpdateEdge_19" qualifiers="const">
+            <description>Sets pcurves for the edge on the closed surface. &lt;C1&gt; or &lt;C2&gt; is a null handle, remove any existing pcurve. Sets UV bounds for curve repsentation</description>
+        </method>
+        <method name="UpdateEdge_1" qualifiers="const">
+            <description>Changes an Edge 3D polygon. A null Polygon removes the 3d Polygon.</description>
+        </method>
+        <method name="UpdateEdge_4" qualifiers="const">
+            <description>Changes an Edge 3D polygon. A null Polygon removes the 3d Polygon.</description>
+        </method>
+        <method name="UpdateEdge_5" qualifiers="const">
+            <description>Changes an Edge polygon on Triangulation.</description>
+        </method>
+        <method name="UpdateEdge_9" qualifiers="const">
+            <description>Changes an Edge polygon on Triangulation.</description>
+        </method>
+        <method name="UpdateEdge_10" qualifiers="const">
+            <description>Changes an Edge polygon on Triangulation.</description>
+        </method>
+        <method name="UpdateEdge_15" qualifiers="const">
+            <description>Changes an Edge polygon on Triangulation.</description>
+        </method>
+        <method name="UpdateEdge_6" qualifiers="const">
+            <description>Changes Edge polygon on a face.</description>
+        </method>
+        <method name="UpdateEdge_11" qualifiers="const">
+            <description>Changes Edge polygon on a face.</description>
+        </method>
+        <method name="UpdateEdge_12" qualifiers="const">
+            <description>Changes Edge polygons on a face.</description>
+        </method>
+        <method name="UpdateEdge_16" qualifiers="const">
+            <description>Changes Edge polygons on a face.</description>
+        </method>
+        <method name="UpdateEdge_2" qualifiers="const">
+            <description>Updates the edge tolerance.</description>
+        </method>
+        <method name="Continuity_1" qualifiers="const">
+            <description>Sets the geometric continuity on the edge.</description>
+        </method>
+        <method name="Continuity_2" qualifiers="const">
+            <description>Sets the geometric continuity on the edge.</description>
+        </method>
+        <method name="SameParameter" qualifiers="const">
+            <description>Sets the same parameter flag for the edge &lt;E&gt;.</description>
+        </method>
+        <method name="SameRange" qualifiers="const">
+            <description>Sets the same range flag for the edge &lt;E&gt;.</description>
+        </method>
+        <method name="Degenerated" qualifiers="const">
+            <description>Sets the degenerated flag for the edge &lt;E&gt;.</description>
+        </method>
+        <method name="Range_1" qualifiers="const">
+            <description>Sets the range of the 3d curve if Only3d=TRUE, otherwise sets the range to all the representations</description>
+        </method>
+        <method name="Range_3" qualifiers="const">
+            <description>Sets the range of the edge on the pcurve on the surface.</description>
+        </method>
+        <method name="Range_2" qualifiers="const">
+            <description>Sets the range of the edge on the pcurve on the face.</description>
+        </method>
+        <method name="Transfert_1" qualifiers="const">
+            <description>Add to &lt;Eout&gt; the geometric representations of &lt;Ein&gt;.</description>
+        </method>
+        <method name="MakeVertex_1" qualifiers="const">
+            <description>Makes an udefined vertex without geometry.</description>
+        </method>
+        <method name="MakeVertex_2" qualifiers="const">
+            <description>Makes a vertex from a 3D point.</description>
+        </method>
+        <method name="UpdateVertex_2" qualifiers="const">
+            <description>Sets a 3D point on the vertex.</description>
+        </method>
+        <method name="UpdateVertex_3" qualifiers="const">
+            <description>Sets the parameter for the vertex on the edge curves.</description>
+        </method>
+        <method name="UpdateVertex_4" qualifiers="const">
+            <description>Sets the parameter for the vertex on the edge pcurve on the face.</description>
+        </method>
+        <method name="UpdateVertex_6" qualifiers="const">
+            <description>Sets the parameter for the vertex on the edge pcurve on the surface.</description>
+        </method>
+        <method name="UpdateVertex_5" qualifiers="const">
+            <description>Sets the parameters for the vertex on the face.</description>
+        </method>
+        <method name="UpdateVertex_1" qualifiers="const">
+            <description>Updates the vertex tolerance.</description>
+        </method>
+        <method name="Transfert_2" qualifiers="const">
+            <description>Transfert the parameters of Vin on Ein as the parameter of Vout on Eout.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapefixWiresegment" inherits="RefCounted">
+    <brief_description>This class is auxiliary class (data storage) used in ComposeShell. It is intended for representing segment of the wire (or whole wire). The segment itself is represented by ShapeExtend_WireData. In addition, some associated data necessary for computations are stored:</brief_description>
+    <description>! This class is auxiliary class (data storage) used in ComposeShell.
+! It is intended for representing segment of the wire
+! (or whole wire). The segment itself is represented by
+! ShapeExtend_WireData. In addition, some associated data
+! necessary for computations are stored:
+!
+! * Orientation flag - determines current use of the segment
+! and used for parity checking:
+!
+! TopAbs_FORWARD and TopAbs_REVERSED - says that segment was
+! traversed once in the corresponding direction, and hence
+! it should be traversed once more in opposite direction;
+!
+! TopAbs_EXTERNAL - the segment was not yet traversed in any
+! direction (i.e. not yet used as boundary)
+!
+! TopAbs_INTERNAL - the segment was traversed in both
+! directions and hence is out of further work.
+!
+! Segments of initial bounding wires are created with
+! orientation REVERSED (for outer wire) or FORWARD (for inner
+! wires), and segments of splitting seams - with orientation
+! EXTERNAL.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates empty segment.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates segment and initializes it with wire and orientation.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates segment and initializes it with wire and orientation.</description>
+        </method>
+        <method name="Clear">
+            <description>Clears all fields.</description>
+        </method>
+        <method name="Load">
+            <description>Loads wire.</description>
+        </method>
+        <method name="WireData" qualifiers="const">
+            <description>Returns wire.</description>
+        </method>
+        <method name="Orientation_2">
+            <description>Sets orientation flag.</description>
+        </method>
+        <method name="Orientation_1" qualifiers="const">
+            <description>Returns orientation flag.</description>
+        </method>
+        <method name="FirstVertex" qualifiers="const">
+            <description>Returns first vertex of the first edge in the wire (no dependence on Orientation()).</description>
+        </method>
+        <method name="LastVertex" qualifiers="const">
+            <description>Returns last vertex of the last edge in the wire (no dependence on Orientation()).</description>
+        </method>
+        <method name="IsClosed" qualifiers="const">
+            <description>Returns True if FirstVertex() == LastVertex()</description>
+        </method>
+        <method name="NbEdges" qualifiers="const">
+            <description>Returns Number of edges in the wire</description>
+        </method>
+        <method name="Edge" qualifiers="const">
+            <description>Returns edge by given index in the wire</description>
+        </method>
+        <method name="SetEdge">
+            <description>Replaces edge at index i by new one.</description>
+        </method>
+        <method name="AddEdge_1">
+            <description>Insert a new edge with index i and implicitly defined patch indices (indefinite patch). If i==0, edge is inserted at end of wire.</description>
+        </method>
+        <method name="AddEdge_2">
+            <description>Insert a new edge with index i and explicitly defined patch indices. If i==0, edge is inserted at end of wire.</description>
+        </method>
+        <method name="SetPatchIndex">
+            <description>Set patch indices for edge i.</description>
+        </method>
+        <method name="DefineIVMax">
+            <description>Modify minimal or maximal patch index for edge i. The corresponding patch index for that edge is modified so as to satisfy eq. iumin &lt;= myIUMin(i) &lt;= myIUMax(i) &lt;= iumax</description>
+        </method>
+        <method name="GetPatchIndex" qualifiers="const">
+            <description>Returns patch indices for edge i.</description>
+        </method>
+        <method name="CheckPatchIndex" qualifiers="const">
+            <description>Checks patch indices for edge i to satisfy equations IUMin(i) &lt;= IUMax(i) &lt;= IUMin(i)+1</description>
+        </method>
+    </methods>
+</class>

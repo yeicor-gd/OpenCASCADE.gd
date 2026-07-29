@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAspectXrsession" inherits="RefCounted">
+    <brief_description>Extended Reality (XR) Session interface.</brief_description>
+    <description>! Extended Reality (XR) Session interface.</description>
+    <methods>
+        <method name="UnitFactor" qualifiers="const">
+            <description>Return unit scale factor defined as scale factor for m (meters); 1.0 by default.</description>
+        </method>
+        <method name="SetUnitFactor">
+            <description>Set unit scale factor.</description>
+        </method>
+        <method name="Aspect" qualifiers="const">
+            <description>Return aspect ratio.</description>
+        </method>
+        <method name="FieldOfView" qualifiers="const">
+            <description>Return field of view.</description>
+        </method>
+        <method name="IOD" qualifiers="const">
+            <description>Return Intra-ocular Distance (IOD); also known as Interpupillary Distance (IPD). Defined in meters by default (</description>
+        </method>
+        <method name="DisplayFrequency" qualifiers="const">
+            <description>Return display frequency or 0 if unknown.</description>
+        </method>
+        <method name="HeadPose" qualifiers="const">
+            <description>Return head orientation in right-handed system: +y is up +x is to the right -z is forward Distance unit is meters by default (</description>
+        </method>
+        <method name="LeftHandPose" qualifiers="const">
+            <description>Return left hand orientation.</description>
+        </method>
+        <method name="RightHandPose" qualifiers="const">
+            <description>Return right hand orientation.</description>
+        </method>
+        <method name="HasTrackedPose" qualifiers="const">
+            <description>Return TRUE if device orientation is defined.</description>
+        </method>
+        <method name="LoadRenderModel_1">
+            <description>Load model for displaying device.</description>
+        </method>
+        <method name="LoadRenderModel_2">
+            <description>Load model for displaying device.</description>
+        </method>
+        <method name="TriggerHapticVibrationAction">
+            <description>Trigger vibration.</description>
+        </method>
+        <method name="AbortHapticVibrationAction">
+            <description>Abort vibration.</description>
+        </method>
+        <method name="GenericAction" qualifiers="const">
+            <description>Return generic action for specific hand or NULL if undefined.</description>
+        </method>
+    </methods>
+</class>

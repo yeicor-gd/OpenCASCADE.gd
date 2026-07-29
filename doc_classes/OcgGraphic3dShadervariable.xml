@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dShadervariable" inherits="RefCounted">
+    <brief_description>Describes custom uniform shader variable.</brief_description>
+    <description>! Describes custom uniform shader variable.</description>
+    <methods>
+        <method name="IsDone" qualifiers="const">
+            <description>Checks if the shader variable is valid or not.</description>
+        </method>
+    </methods>
+</class>

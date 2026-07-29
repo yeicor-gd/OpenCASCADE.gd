@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAspectXrdigitalactiondata" inherits="RefCounted">
+    <brief_description>Digital input XR action data.</brief_description>
+    <description>! Digital input XR action data.</description>
+    <methods>
+        <method name="Aspect_XRDigitalActionData" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+    </methods>
+</class>

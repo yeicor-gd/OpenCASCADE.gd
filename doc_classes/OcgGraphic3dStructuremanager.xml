@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dStructuremanager" inherits="RefCounted">
+    <brief_description>This class allows the definition of a manager to which the graphic objects are associated. It allows them to be globally manipulated. It defines the global attributes. Keywords: Structure, Structure Manager, Update Mode, Destroy, Highlight, Visible</brief_description>
+    <description>! This class allows the definition of a manager to
+! which the graphic objects are associated.
+! It allows them to be globally manipulated.
+! It defines the global attributes.
+! Keywords: Structure, Structure Manager, Update Mode,
+! Destroy, Highlight, Visible</description>
+    <methods>
+        <method name="Graphic3d_StructureManager" qualifiers="static">
+            <description>Initializes the ViewManager. Currently creating of more than 100 viewer instances is not supported and leads to InitializationError and initialization failure. This limitation might be addressed in some future OCCT releases. Warning: Raises InitialisationError if the initialization of the ViewManager failed.</description>
+        </method>
+        <method name="Update" qualifiers="const">
+            <description>Invalidates bounding box of specified ZLayerId.</description>
+        </method>
+        <method name="Remove">
+            <description>Deletes and erases the 3D structure manager.</description>
+        </method>
+        <method name="Erase_1">
+            <description>Erases all the structures.</description>
+        </method>
+        <method name="ReCompute_1">
+            <description>Forces a new construction of the structure. if &lt;theStructure&gt; is displayed and TOS_COMPUTED.</description>
+        </method>
+        <method name="ReCompute_2">
+            <description>Forces a new construction of the structure. if &lt;theStructure&gt; is displayed in &lt;theProjector&gt; and TOS_COMPUTED.</description>
+        </method>
+        <method name="Display">
+            <description>Display the structure.</description>
+        </method>
+        <method name="Erase_2">
+            <description>Erases the structure.</description>
+        </method>
+        <method name="Highlight">
+            <description>Highlights the structure.</description>
+        </method>
+        <method name="SetTransform">
+            <description>Transforms the structure.</description>
+        </method>
+        <method name="ChangeDisplayPriority">
+            <description>Changes the display priority of the structure &lt;AStructure&gt;.</description>
+        </method>
+        <method name="ChangeZLayer">
+            <description>Change Z layer for structure. The Z layer mechanism allows to display structures in higher layers in overlay of structures in lower layers.</description>
+        </method>
+        <method name="GraphicDriver" qualifiers="const">
+            <description>Returns the graphic driver of &lt;me&gt;.</description>
+        </method>
+        <method name="MaxNumOfViews" qualifiers="const">
+            <description>Returns the theoretical maximum number of definable views in the manager. Warning: It's not possible to accept an infinite number of definable views because each view must have an identification and we have different managers.</description>
+        </method>
+        <method name="Identification_2" qualifiers="const">
+            <description>Returns the structure with the identification number &lt;AId&gt;.</description>
+        </method>
+        <method name="UnHighlight_2">
+            <description>Suppress the highlighting on the structure &lt;AStructure&gt;.</description>
+        </method>
+        <method name="UnHighlight_1">
+            <description>Suppresses the highlighting on all the structures in &lt;me&gt;.</description>
+        </method>
+        <method name="RecomputeStructures">
+            <description>Recomputes all structures in the manager. Resets Device Lost flag.</description>
+        </method>
+        <method name="IsDeviceLost" qualifiers="const">
+            <description>Returns TRUE if Device Lost flag has been set and presentation data should be reuploaded onto graphics driver.</description>
+        </method>
+        <method name="SetDeviceLost">
+            <description>Sets Device Lost flag.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

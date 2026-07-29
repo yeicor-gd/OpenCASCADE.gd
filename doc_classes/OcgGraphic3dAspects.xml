@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dAspects" inherits="RefCounted">
+    <brief_description>This class defines graphic attributes.</brief_description>
+    <description>! This class defines graphic attributes.</description>
+    <methods>
+        <method name="Graphic3d_Aspects" qualifiers="static">
+            <description>Creates a context table for drawing primitives defined with the following default values:</description>
+        </method>
+        <method name="InteriorStyle" qualifiers="const">
+            <description>Return interior rendering style; Aspect_IS_SOLID by default.</description>
+        </method>
+        <method name="SetInteriorStyle">
+            <description>Modifies the interior type used for rendering</description>
+        </method>
+        <method name="ShadingModel" qualifiers="const">
+            <description>Returns shading model; Graphic3d_TypeOfShadingModel_DEFAULT by default. Graphic3d_TOSM_DEFAULT means that Shading Model set as default for entire Viewer will be used.</description>
+        </method>
+        <method name="SetShadingModel">
+            <description>Sets shading model</description>
+        </method>
+        <method name="AlphaMode" qualifiers="const">
+            <description>Returns the way how alpha value should be treated (Graphic3d_AlphaMode_BlendAuto by default, for backward compatibility).</description>
+        </method>
+        <method name="AlphaCutoff" qualifiers="const">
+            <description>Returns alpha cutoff threshold, for discarding fragments within Graphic3d_AlphaMode_Mask mode (0.5 by default). If the alpha value is greater than or equal to this value then it is rendered as fully opaque, otherwise, it is rendered as fully transparent.</description>
+        </method>
+        <method name="SetAlphaMode">
+            <description>Defines the way how alpha value should be treated.</description>
+        </method>
+        <method name="ColorRGBA" qualifiers="const">
+            <description>Return color</description>
+        </method>
+        <method name="Color" qualifiers="const">
+            <description>Return the color.</description>
+        </method>
+        <method name="SetColor">
+            <description>Modifies the color.</description>
+        </method>
+        <method name="InteriorColor" qualifiers="const">
+            <description>Return interior color.</description>
+        </method>
+        <method name="InteriorColorRGBA" qualifiers="const">
+            <description>Return interior color.</description>
+        </method>
+        <method name="SetInteriorColor_1">
+            <description>Modifies the color of the interior of the face</description>
+        </method>
+        <method name="SetInteriorColor_2">
+            <description>Modifies the color of the interior of the face</description>
+        </method>
+        <method name="BackInteriorColor" qualifiers="const">
+            <description>Return back interior color.</description>
+        </method>
+        <method name="BackInteriorColorRGBA" qualifiers="const">
+            <description>Return back interior color.</description>
+        </method>
+        <method name="SetBackInteriorColor_1">
+            <description>Modifies the color of the interior of the back face</description>
+        </method>
+        <method name="SetBackInteriorColor_2">
+            <description>Modifies the color of the interior of the back face</description>
+        </method>
+        <method name="FrontMaterial" qualifiers="const">
+            <description>Returns the surface material of external faces</description>
+        </method>
+        <method name="ChangeFrontMaterial">
+            <description>Returns the surface material of external faces</description>
+        </method>
+        <method name="SetFrontMaterial">
+            <description>Modifies the surface material of external faces</description>
+        </method>
+        <method name="BackMaterial" qualifiers="const">
+            <description>Returns the surface material of internal faces</description>
+        </method>
+        <method name="ChangeBackMaterial">
+            <description>Returns the surface material of internal faces</description>
+        </method>
+        <method name="SetBackMaterial">
+            <description>Modifies the surface material of internal faces</description>
+        </method>
+        <method name="FaceCulling" qualifiers="const">
+            <description>Return face culling mode; Graphic3d_FaceCulling_BackClosed by default. A back-facing polygon is defined as a polygon whose vertices are in a clockwise order with respect to screen coordinates.</description>
+        </method>
+        <method name="SetFaceCulling">
+            <description>Set face culling mode.</description>
+        </method>
+        <method name="Distinguish" qualifiers="const">
+            <description>Returns true if material properties should be distinguished for back and front faces (false by default).</description>
+        </method>
+        <method name="SetDistinguish">
+            <description>Set material distinction between front and back faces.</description>
+        </method>
+        <method name="SetDistinguishOn">
+            <description>Allows material distinction between front and back faces.</description>
+        </method>
+        <method name="SetDistinguishOff">
+            <description>Forbids material distinction between front and back faces.</description>
+        </method>
+        <method name="ShaderProgram" qualifiers="const">
+            <description>Return shader program.</description>
+        </method>
+        <method name="SetShaderProgram">
+            <description>Sets up OpenGL/GLSL shader program.</description>
+        </method>
+        <method name="TextureSet" qualifiers="const">
+            <description>Return texture array to be mapped.</description>
+        </method>
+        <method name="SetTextureSet">
+            <description>Setup texture array to be mapped.</description>
+        </method>
+        <method name="TextureMap" qualifiers="const">
+            <description>Return texture to be mapped.</description>
+        </method>
+        <method name="SetTextureMap">
+            <description>Assign texture to be mapped. See also SetTextureMapOn() to actually activate texture mapping.</description>
+        </method>
+        <method name="ToMapTexture" qualifiers="const">
+            <description>Return true if texture mapping is enabled (false by default).</description>
+        </method>
+        <method name="TextureMapState" qualifiers="const">
+            <description>Return true if texture mapping is enabled (false by default).</description>
+        </method>
+        <method name="SetTextureMapOn_2">
+            <description>Enable or disable texture mapping (has no effect if texture is not set).</description>
+        </method>
+        <method name="SetTextureMapOn_1">
+            <description>Enable texture mapping (has no effect if texture is not set).</description>
+        </method>
+        <method name="SetTextureMapOff">
+            <description>Disable texture mapping.</description>
+        </method>
+        <method name="PolygonOffset" qualifiers="const">
+            <description>Returns current polygon offsets settings.</description>
+        </method>
+        <method name="SetPolygonOffset">
+            <description>Sets polygon offsets settings.</description>
+        </method>
+        <method name="PolygonOffsets" qualifiers="const">
+            <description>Returns current polygon offsets settings.</description>
+        </method>
+        <method name="SetPolygonOffsets">
+            <description>Sets up OpenGL polygon offsets mechanism. &lt;aMode&gt; parameter can contain various combinations of Aspect_PolygonOffsetMode enumeration elements (Aspect_POM_None means that polygon offsets are not changed). If &lt;aMode&gt; is different from Aspect_POM_Off and Aspect_POM_None, then &lt;aFactor&gt; and &lt;aUnits&gt; arguments are used by graphic renderer to calculate a depth offset value:</description>
+        </method>
+        <method name="LineType" qualifiers="const">
+            <description>Return line type; Aspect_TOL_SOLID by default.</description>
+        </method>
+        <method name="SetLineType">
+            <description>Modifies the line type</description>
+        </method>
+        <method name="LinePattern" qualifiers="const">
+            <description>Return custom stipple line pattern; 0xFFFF by default.</description>
+        </method>
+        <method name="SetLinePattern">
+            <description>Modifies the stipple line pattern, and changes line type to Aspect_TOL_USERDEFINED for non-standard pattern.</description>
+        </method>
+        <method name="LineStippleFactor" qualifiers="const">
+            <description>Return a multiplier for each bit in the line stipple pattern within [1, 256] range; 1 by default.</description>
+        </method>
+        <method name="SetLineStippleFactor">
+            <description>Set a multiplier for each bit in the line stipple pattern.</description>
+        </method>
+        <method name="LineWidth" qualifiers="const">
+            <description>Return width for edges in pixels; 1.0 by default.</description>
+        </method>
+        <method name="SetLineWidth">
+            <description>Modifies the line thickness Warning: Raises Standard_OutOfRange if the width is a negative value.</description>
+        </method>
+        <method name="MarkerType" qualifiers="const">
+            <description>Return marker type; Aspect_TOM_POINT by default.</description>
+        </method>
+        <method name="SetMarkerType">
+            <description>Modifies the type of marker.</description>
+        </method>
+        <method name="MarkerScale" qualifiers="const">
+            <description>Return marker scale factor; 1.0 by default.</description>
+        </method>
+        <method name="SetMarkerScale">
+            <description>Modifies the scale factor. Marker type Aspect_TOM_POINT is not affected by the marker size scale factor. It is always the smallest displayable dot. Warning: Raises Standard_OutOfRange if the scale is a negative value.</description>
+        </method>
+        <method name="MarkerImage" qualifiers="const">
+            <description>Returns marker's image texture. Could be null handle if marker aspect has been initialized as default type of marker.</description>
+        </method>
+        <method name="SetMarkerImage">
+            <description>Set marker's image texture.</description>
+        </method>
+        <method name="IsMarkerSprite" qualifiers="const">
+            <description>Returns TRUE if marker should be drawn using marker sprite (either user-provided or generated).</description>
+        </method>
+        <method name="TextFont" qualifiers="const">
+            <description>Returns the font; NULL string by default.</description>
+        </method>
+        <method name="SetTextFont">
+            <description>Modifies the font.</description>
+        </method>
+        <method name="TextFontAspect" qualifiers="const">
+            <description>Returns text FontAspect</description>
+        </method>
+        <method name="SetTextFontAspect">
+            <description>Turns usage of Aspect text</description>
+        </method>
+        <method name="TextDisplayType" qualifiers="const">
+            <description>Returns display type; Aspect_TODT_NORMAL by default.</description>
+        </method>
+        <method name="SetTextDisplayType">
+            <description>Sets display type.</description>
+        </method>
+        <method name="ColorSubTitleRGBA" qualifiers="const">
+            <description>Returns text background/shadow color; equals to EdgeColor() property.</description>
+        </method>
+        <method name="ColorSubTitle" qualifiers="const">
+            <description>Return text background/shadow color; equals to EdgeColor() property.</description>
+        </method>
+        <method name="SetColorSubTitle_1">
+            <description>Modifies text background/shadow color; equals to EdgeColor() property.</description>
+        </method>
+        <method name="SetColorSubTitle_2">
+            <description>Modifies text background/shadow color; equals to EdgeColor() property.</description>
+        </method>
+        <method name="IsTextZoomable" qualifiers="const">
+            <description>Returns TRUE when the Text Zoomable is on.</description>
+        </method>
+        <method name="SetTextZoomable">
+            <description>Turns usage of text zoomable on/off</description>
+        </method>
+        <method name="TextStyle" qualifiers="const">
+            <description>Returns the text style; Aspect_TOST_NORMAL by default.</description>
+        </method>
+        <method name="SetTextStyle">
+            <description>Modifies the style of the text.</description>
+        </method>
+        <method name="TextAngle" qualifiers="const">
+            <description>Returns Angle of degree</description>
+        </method>
+        <method name="SetTextAngle">
+            <description>Turns usage of text rotated</description>
+        </method>
+        <method name="ToDrawEdges" qualifiers="const">
+            <description>Returns true if mesh edges should be drawn (false by default).</description>
+        </method>
+        <method name="SetDrawEdges">
+            <description>Set if mesh edges should be drawn or not.</description>
+        </method>
+        <method name="SetEdgeOn">
+            <description>The edges of FillAreas are drawn.</description>
+        </method>
+        <method name="SetEdgeOff">
+            <description>The edges of FillAreas are not drawn.</description>
+        </method>
+        <method name="EdgeColor" qualifiers="const">
+            <description>Return color of edges.</description>
+        </method>
+        <method name="EdgeColorRGBA" qualifiers="const">
+            <description>Return color of edges.</description>
+        </method>
+        <method name="SetEdgeColor_1">
+            <description>Modifies the color of the edge of the face</description>
+        </method>
+        <method name="SetEdgeColor_2">
+            <description>Modifies the color of the edge of the face</description>
+        </method>
+        <method name="EdgeLineType" qualifiers="const">
+            <description>Return edges line type (same as LineType()).</description>
+        </method>
+        <method name="SetEdgeLineType">
+            <description>Modifies the edge line type (same as SetLineType())</description>
+        </method>
+        <method name="EdgeWidth" qualifiers="const">
+            <description>Return width for edges in pixels (same as LineWidth()).</description>
+        </method>
+        <method name="SetEdgeWidth">
+            <description>Modifies the edge thickness (same as SetLineWidth())</description>
+        </method>
+        <method name="ToSkipFirstEdge" qualifiers="const">
+            <description>Returns TRUE if drawing element edges should discard first edge in triangle; FALSE by default. Graphics hardware works mostly with triangles, so that wireframe presentation will draw triangle edges by default. This flag allows rendering wireframe presentation of quad-only array split into triangles. For this, quads should be split in specific order, so that the quad diagonal (to be NOT rendered) goes first: 1------2 / / Triangle #1: 2-0-1; Triangle #2: 0-2-3 0------3</description>
+        </method>
+        <method name="SetSkipFirstEdge">
+            <description>Set skip first triangle edge flag for drawing wireframe presentation of quads array split into triangles.</description>
+        </method>
+        <method name="ToDrawSilhouette" qualifiers="const">
+            <description>Returns TRUE if silhouette (outline) should be drawn (with edge color and width); FALSE by default.</description>
+        </method>
+        <method name="SetDrawSilhouette">
+            <description>Enables/disables drawing silhouette (outline).</description>
+        </method>
+        <method name="HatchStyle" qualifiers="const">
+            <description>Returns the hatch type used when InteriorStyle is IS_HATCH</description>
+        </method>
+        <method name="SetHatchStyle_1">
+            <description>Modifies the hatch type used when InteriorStyle is IS_HATCH</description>
+        </method>
+        <method name="SetHatchStyle_2">
+            <description>Modifies the hatch type used when InteriorStyle is IS_HATCH</description>
+        </method>
+        <method name="IsEqual">
+            <description>Check for equality with another aspects.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="DefaultLinePatternForType" qualifiers="static">
+            <description>Return stipple line pattern for line type.</description>
+        </method>
+        <method name="DefaultLineTypeForPattern" qualifiers="static">
+            <description>Return line type for stipple line pattern.</description>
+        </method>
+    </methods>
+</class>

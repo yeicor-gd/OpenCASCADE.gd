@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepCurve3d" inherits="RefCounted">
+    <brief_description>Representation of a curve by a 3D curve.</brief_description>
+    <description>! Representation of a curve by a 3D curve.</description>
+    <methods>
+        <method name="D0" qualifiers="const">
+            <description>Computes the point at parameter U.</description>
+        </method>
+        <method name="IsCurve3D" qualifiers="const">
+            <description>Returns True.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Return a copy of this representation.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

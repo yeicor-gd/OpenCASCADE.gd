@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocArea" inherits="RefCounted">
+    <brief_description>attribute to store area</brief_description>
+    <description>! attribute to store area</description>
+    <methods>
+        <method name="XCAFDoc_Area" qualifiers="static">
+            <description>class methods =============</description>
+        </method>
+        <method name="Set">
+            <description>Sets a value of volume</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Get_2" qualifiers="static">
+            <description>Returns volume of area as argument and success status returns false if no such attribute at the &lt;label&gt;</description>
+        </method>
+    </methods>
+</class>

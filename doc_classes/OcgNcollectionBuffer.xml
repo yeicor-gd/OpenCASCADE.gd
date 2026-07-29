@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgNcollectionBuffer" inherits="RefCounted">
+    <brief_description>Low-level buffer object.</brief_description>
+    <description>! Low-level buffer object.</description>
+    <methods>
+        <method name="IsEmpty" qualifiers="const">
+            <description>Returns true if buffer is not allocated</description>
+        </method>
+        <method name="Size" qualifiers="const">
+            <description>Return buffer length in bytes.</description>
+        </method>
+        <method name="Allocator" qualifiers="const">
+            <description>Returns buffer allocator</description>
+        </method>
+        <method name="SetAllocator">
+            <description>Assign new buffer allocator with de-allocation of buffer.</description>
+        </method>
+        <method name="Allocate">
+            <description>Allocate the buffer.</description>
+        </method>
+        <method name="Free">
+            <description>De-allocate buffer.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgV3dAmbientlight" inherits="RefCounted">
+    <brief_description>Creation of an ambient light source in a viewer.</brief_description>
+    <description>! Creation of an ambient light source in a viewer.</description>
+    <methods>
+        <method name="V3d_AmbientLight" qualifiers="static">
+            <description>Constructs an ambient light source in the viewer. The default Color of this light source is WHITE.</description>
+        </method>
+    </methods>
+</class>

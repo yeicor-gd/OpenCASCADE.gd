@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdTreenode" inherits="RefCounted">
+    <brief_description>Allows you to define an explicit tree of labels which you can also edit. Without this class, the data structure cannot be fully edited. This service is required if for presentation purposes, you want to create an application with a tree which allows you to organize and link data as a function of application features.</brief_description>
+    <description>! Allows you to define an explicit tree of labels
+! which you can also edit.
+! Without this class, the data structure cannot be fully edited.
+! This service is required if for presentation
+! purposes, you want to create an application with
+! a tree which allows you to organize and link data
+! as a function of application features.</description>
+    <methods>
+        <method name="Append">
+            <description>Insert the TreeNode &lt;Child&gt; as last child of &lt;me&gt;. If the insertion is successful &lt;me&gt; becomes the Father of &lt;Child&gt;.</description>
+        </method>
+        <method name="Prepend">
+            <description>Insert the the TreeNode &lt;Child&gt; as first child of &lt;me&gt;. If the insertion is successful &lt;me&gt; becomes the Father of &lt;Child&gt;</description>
+        </method>
+        <method name="InsertBefore">
+            <description>Inserts the TreeNode &lt;Node&gt; before &lt;me&gt;. If insertion is successful &lt;me&gt; and &lt;Node&gt; belongs to the same Father.</description>
+        </method>
+        <method name="InsertAfter">
+            <description>Inserts the TreeNode &lt;Node&gt; after &lt;me&gt;. If insertion is successful &lt;me&gt; and &lt;Node&gt; belongs to the same Father.</description>
+        </method>
+        <method name="Remove">
+            <description>Removes this tree node attribute from its father node. The result is that this attribute becomes a root node.</description>
+        </method>
+        <method name="Depth" qualifiers="const">
+            <description>Returns the depth of this tree node in the overall tree node structure. In other words, the number of father tree nodes of this one is returned.</description>
+        </method>
+        <method name="NbChildren" qualifiers="const">
+            <description>Returns the number of child nodes. If &lt;allLevels&gt; is true, the method counts children of all levels (children of children ...)</description>
+        </method>
+        <method name="IsAscendant" qualifiers="const">
+            <description>Returns true if this tree node attribute is an ascendant of of. In other words, if it is a father or the father of a father of of.</description>
+        </method>
+        <method name="IsDescendant" qualifiers="const">
+            <description>Returns true if this tree node attribute is a descendant of of. In other words, if it is a child or the child of a child of of.</description>
+        </method>
+        <method name="IsRoot" qualifiers="const">
+            <description>Returns true if this tree node attribute is the ultimate father in the tree.</description>
+        </method>
+        <method name="Root" qualifiers="const">
+            <description>Returns the ultimate father of this tree node attribute.</description>
+        </method>
+        <method name="IsFather" qualifiers="const">
+            <description>Returns true if this tree node attribute is a father of of.</description>
+        </method>
+        <method name="IsChild" qualifiers="const">
+            <description>Returns true if this tree node attribute is a child of of.</description>
+        </method>
+        <method name="HasFather" qualifiers="const">
+            <description>Returns true if this tree node attribute has a father tree node.</description>
+        </method>
+        <method name="Father" qualifiers="const">
+            <description>Returns the father TreeNode of &lt;me&gt;. Null if root.</description>
+        </method>
+        <method name="HasNext" qualifiers="const">
+            <description>Returns true if this tree node attribute has a next tree node.</description>
+        </method>
+        <method name="Next" qualifiers="const">
+            <description>Returns the next tree node in this tree node attribute. Warning This tree node is null if it is the last one in this tree node attribute.Returns the next TreeNode of &lt;me&gt;. Null if last.</description>
+        </method>
+        <method name="HasPrevious" qualifiers="const">
+            <description>Returns true if this tree node attribute has a previous tree node.</description>
+        </method>
+        <method name="Previous" qualifiers="const">
+            <description>Returns the previous tree node of this tree node attribute. Warning This tree node is null if it is the first one in this tree node attribute.</description>
+        </method>
+        <method name="HasFirst" qualifiers="const">
+            <description>Returns true if this tree node attribute has a first child tree node.</description>
+        </method>
+        <method name="First" qualifiers="const">
+            <description>Returns the first child tree node in this tree node object.</description>
+        </method>
+        <method name="HasLast" qualifiers="const">
+            <description>Returns true if this tree node attribute has a last child tree node.</description>
+        </method>
+        <method name="Last">
+            <description>Returns the last child tree node in this tree node object.</description>
+        </method>
+        <method name="FindLast">
+            <description>Returns the last child tree node in this tree node object. to set fields =============</description>
+        </method>
+        <method name="SetLast">
+            <description>TreeNode callback: ==================</description>
+        </method>
+        <method name="AfterAddition">
+            <description>Connect the TreeNode to its father child list</description>
+        </method>
+        <method name="BeforeForget">
+            <description>Disconnect the TreeNode from its Father child list</description>
+        </method>
+        <method name="AfterResume">
+            <description>Reconnect the TreeNode to its father child list.</description>
+        </method>
+        <method name="BeforeUndo">
+            <description>Disconnect the TreeNode, if necessary.</description>
+        </method>
+        <method name="AfterUndo">
+            <description>Reconnect the TreeNode, if necessary. Implementation of Attribute methods: ===================================</description>
+        </method>
+        <method name="ID" qualifiers="const">
+            <description>Returns the tree ID (default or explicit one depending on the Set method used).</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Find" qualifiers="static">
+            <description>class methods working on the node =================================== Returns true if the tree node T is found on the label L. Otherwise, false is returned.</description>
+        </method>
+        <method name="Set_1" qualifiers="static">
+            <description>Finds or Creates a TreeNode attribute on the label &lt;L&gt; with the default tree ID, returned by the method &lt;GetDefaultTreeID&gt;. Returns the created/found TreeNode attribute.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds or Creates a TreeNode attribute on the label &lt;L&gt;, with an explicit tree ID. &lt;ExplicitTreeID&gt; is the ID returned by &lt;TDF_Attribute::ID&gt; method. Returns the found/created TreeNode attribute.</description>
+        </method>
+        <method name="GetDefaultTreeID" qualifiers="static">
+            <description>returns a default tree ID. this ID is used by the &lt;Set&gt; method without explicit tree ID. Instance methods: ================</description>
+        </method>
+    </methods>
+</class>

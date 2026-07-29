@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsmgrPresentableobject" inherits="RefCounted">
+    <brief_description>A framework to supply the Graphic3d structure of the object to be presented. On the first display request, this structure is created by calling the appropriate algorithm and retaining this framework for further display. This abstract framework is inherited in Application Interactive Services (AIS), notably by AIS_InteractiveObject. Consequently, 3D presentation should be handled by the relevant daughter classes and their member functions in AIS. This is particularly true in the creation of new interactive objects.</brief_description>
+    <description>! A framework to supply the Graphic3d structure of the object to be presented.
+! On the first display request, this structure is created by calling the appropriate algorithm and
+! retaining this framework for further display. This abstract framework is inherited in
+! Application Interactive Services (AIS), notably by AIS_InteractiveObject. Consequently, 3D
+! presentation should be handled by the relevant daughter classes and their member functions in
+! AIS. This is particularly true in the creation of new interactive objects.
+!
+! Key interface methods to be implemented by every Selectable Object:
+! - AcceptDisplayMode() accepting display modes implemented by this object;
+! - Compute() computing presentation for the given display mode index.
+!
+! Warning! Methods managing standard attributes (SetColor(), SetWidth(), SetMaterial()) have
+! different meaning for objects of different type (or no meaning at all). Sub-classes might
+! override these methods to modify Prs3d_Drawer or class properties providing a convenient
+! short-cut depending on application needs. For more sophisticated configuring, Prs3d_Drawer
+! should be modified directly, while short-cuts might be left unimplemented.</description>
+    <methods>
+        <method name="ZLayer" qualifiers="const">
+            <description>Get ID of Z layer for main presentation.</description>
+        </method>
+        <method name="SetZLayer">
+            <description>Set Z layer ID and update all presentations of the presentable object. The layers mechanism allows drawing objects in higher layers in overlay of objects in lower layers.</description>
+        </method>
+        <method name="IsMutable" qualifiers="const">
+            <description>Returns true if object has mutable nature (content or location are be changed regularly). Mutable object will be managed in different way than static onces (another optimizations).</description>
+        </method>
+        <method name="SetMutable">
+            <description>Sets if the object has mutable nature (content or location will be changed regularly). This method should be called before object displaying to take effect.</description>
+        </method>
+        <method name="ViewAffinity" qualifiers="const">
+            <description>Return view affinity mask.</description>
+        </method>
+        <method name="HasDisplayMode" qualifiers="const">
+            <description>Returns true if the Interactive Object has display mode setting overriding global setting (within Interactive Context).</description>
+        </method>
+        <method name="DisplayMode" qualifiers="const">
+            <description>Returns the display mode setting of the Interactive Object. The range of supported display mode indexes should be specified within object definition and filtered by AccepDisplayMode().</description>
+        </method>
+        <method name="SetDisplayMode">
+            <description>Sets the display mode for the interactive object. An object can have its own temporary display mode, which is different from that proposed by the interactive context.</description>
+        </method>
+        <method name="UnsetDisplayMode">
+            <description>Removes display mode settings from the interactive object.</description>
+        </method>
+        <method name="HasHilightMode" qualifiers="const">
+            <description>Returns true if the Interactive Object is in highlight mode.</description>
+        </method>
+        <method name="HilightMode" qualifiers="const">
+            <description>Returns highlight display mode. This is obsolete method for backward compatibility - use ::HilightAttributes() and ::DynamicHilightAttributes() instead.</description>
+        </method>
+        <method name="SetHilightMode">
+            <description>Sets highlight display mode. This is obsolete method for backward compatibility - use ::HilightAttributes() and ::DynamicHilightAttributes() instead.</description>
+        </method>
+        <method name="UnsetHilightMode">
+            <description>Unsets highlight display mode.</description>
+        </method>
+        <method name="AcceptDisplayMode" qualifiers="const">
+            <description>Returns true if the class of objects accepts specified display mode index. The interactive context can have a default mode of representation for the set of Interactive Objects. This mode may not be accepted by a given class of objects. Consequently, this virtual method allowing us to get information about the class in question must be implemented. At least one display mode index should be accepted by this method. Although subclass can leave default implementation, it is highly desired defining exact list of supported modes instead, which is usually an enumeration for one object or objects class sharing similar list of display modes.</description>
+        </method>
+        <method name="DefaultDisplayMode" qualifiers="const">
+            <description>Returns the default display mode.</description>
+        </method>
+        <method name="ToBeUpdated_1" qualifiers="const">
+            <description>Returns TRUE if any active presentation has invalidation flag.</description>
+        </method>
+        <method name="SetToUpdate_2">
+            <description>Flags presentation to be updated; UpdatePresentations() will recompute these presentations.</description>
+        </method>
+        <method name="SetToUpdate_1">
+            <description>flags all the Presentations to be Updated.</description>
+        </method>
+        <method name="IsInfinite" qualifiers="const">
+            <description>Returns true if the interactive object is infinite; FALSE by default. This flag affects various operations operating on bounding box of graphic presentations of this object. For instance, infinite objects are not taken in account for View FitAll. This does not necessarily means that object is actually infinite, auxiliary objects might be also marked with this flag to achieve desired behavior.</description>
+        </method>
+        <method name="SetInfiniteState">
+            <description>Sets if object should be considered as infinite.</description>
+        </method>
+        <method name="TypeOfPresentation3d" qualifiers="const">
+            <description>Returns information on whether the object accepts display in HLR mode or not.</description>
+        </method>
+        <method name="SetTypeOfPresentation">
+            <description>Set type of presentation.</description>
+        </method>
+        <method name="DisplayStatus" qualifiers="const">
+            <description>Return presentation display status; PrsMgr_DisplayStatus_None by default.</description>
+        </method>
+        <method name="Attributes" qualifiers="const">
+            <description>Returns the attributes settings.</description>
+        </method>
+        <method name="SetAttributes">
+            <description>Initializes the drawing tool theDrawer.</description>
+        </method>
+        <method name="HilightAttributes" qualifiers="const">
+            <description>Returns the hilight attributes settings. When not NULL, overrides both Prs3d_TypeOfHighlight_LocalSelected and Prs3d_TypeOfHighlight_Selected defined within AIS_InteractiveContext::HighlightStyle().</description>
+        </method>
+        <method name="SetHilightAttributes">
+            <description>Initializes the hilight drawing tool theDrawer.</description>
+        </method>
+        <method name="DynamicHilightAttributes" qualifiers="const">
+            <description>Returns the hilight attributes settings. When not NULL, overrides both Prs3d_TypeOfHighlight_LocalDynamic and Prs3d_TypeOfHighlight_Dynamic defined within AIS_InteractiveContext::HighlightStyle().</description>
+        </method>
+        <method name="SetDynamicHilightAttributes">
+            <description>Initializes the dynamic hilight drawing tool.</description>
+        </method>
+        <method name="UnsetHilightAttributes">
+            <description>Clears settings provided by the hilight drawing tool theDrawer.</description>
+        </method>
+        <method name="SynchronizeAspects">
+            <description>Synchronize presentation aspects after their modification.</description>
+        </method>
+        <method name="TransformPersistence" qualifiers="const">
+            <description>Returns Transformation Persistence defining a special Local Coordinate system where this presentable object is located or NULL handle if not defined. Position of the object having Transformation Persistence is mutable and depends on camera position. The same applies to a bounding box of the object.</description>
+        </method>
+        <method name="SetTransformPersistence">
+            <description>Sets up Transform Persistence defining a special Local Coordinate system where this object should be located. Note that management of Transform Persistence object is more expensive than of the normal one, because it requires its position being recomputed basing on camera position within each draw call / traverse.</description>
+        </method>
+        <method name="LocalTransformationGeom" qualifiers="const">
+            <description>Return the local transformation. Note that the local transformation of the object having Transformation Persistence is applied within Local Coordinate system defined by this Persistence.</description>
+        </method>
+        <method name="SetLocalTransformation_1">
+            <description>Sets local transformation to theTransformation. Note that the local transformation of the object having Transformation Persistence is applied within Local Coordinate system defined by this Persistence.</description>
+        </method>
+        <method name="SetLocalTransformation_2">
+            <description>Sets local transformation to theTransformation. Note that the local transformation of the object having Transformation Persistence is applied within Local Coordinate system defined by this Persistence.</description>
+        </method>
+        <method name="HasTransformation" qualifiers="const">
+            <description>Returns true if object has a transformation that is different from the identity.</description>
+        </method>
+        <method name="TransformationGeom" qualifiers="const">
+            <description>Return the transformation taking into account transformation of parent object(s). Note that the local transformation of the object having Transformation Persistence is applied within Local Coordinate system defined by this Persistence.</description>
+        </method>
+        <method name="LocalTransformation" qualifiers="const">
+            <description>Return the local transformation. Note that the local transformation of the object having Transformation Persistence is applied within Local Coordinate system defined by this Persistence.</description>
+        </method>
+        <method name="Transformation" qualifiers="const">
+            <description>Return the transformation taking into account transformation of parent object(s). Note that the local transformation of the object having Transformation Persistence is applied within Local Coordinate system defined by this Persistence.</description>
+        </method>
+        <method name="InversedTransformation" qualifiers="const">
+            <description>Return inversed transformation.</description>
+        </method>
+        <method name="CombinedParentTransformation" qualifiers="const">
+            <description>Return combined parent transformation.</description>
+        </method>
+        <method name="ResetTransformation">
+            <description>resets local transformation to identity.</description>
+        </method>
+        <method name="UpdateTransformation">
+            <description>Updates final transformation (parent + local) of presentable object and its presentations.</description>
+        </method>
+        <method name="RecomputeTransformation">
+            <description>Calculates object presentation for specific camera position. Each of the views in the viewer and every modification such as rotation, for example, entails recalculation.</description>
+        </method>
+        <method name="ClipPlanes" qualifiers="const">
+            <description>Get clip planes.</description>
+        </method>
+        <method name="SetClipPlanes">
+            <description>Set clip planes for graphical clipping for all display mode presentations. The composition of clip planes truncates the rendering space to convex volume. Please be aware that number of supported clip plane is limited. The planes which exceed the limit are ignored. Besides of this, some planes can be already set in view where the object is shown: the number of these planes should be subtracted from limit to predict the maximum possible number of object clipping planes.</description>
+        </method>
+        <method name="AddClipPlane">
+            <description>Adds clip plane for graphical clipping for all display mode presentations. The composition of clip planes truncates the rendering space to convex volume. Please be aware that number of supported clip plane is limited. The planes which exceed the limit are ignored. Besides of this, some planes can be already set in view where the object is shown: the number of these planes should be subtracted from limit to predict the maximum possible number of object clipping planes.</description>
+        </method>
+        <method name="RemoveClipPlane">
+            <description>Removes previously added clip plane.</description>
+        </method>
+        <method name="Children" qualifiers="const">
+            <description>Returns children of the current object.</description>
+        </method>
+        <method name="AddChild">
+            <description>Makes theObject child of current object in scene hierarchy.</description>
+        </method>
+        <method name="AddChildWithCurrentTransformation">
+            <description>Makes theObject child of current object in scene hierarchy with keeping the current global transformation So the object keeps the same position/orientation in the global CS.</description>
+        </method>
+        <method name="RemoveChild">
+            <description>Removes theObject from children of current object in scene hierarchy.</description>
+        </method>
+        <method name="RemoveChildWithRestoreTransformation">
+            <description>Removes theObject from children of current object in scene hierarchy with keeping the current global transformation. So the object keeps the same position/orientation in the global CS.</description>
+        </method>
+        <method name="HasOwnPresentations" qualifiers="const">
+            <description>Returns true if object should have own presentations.</description>
+        </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of object correspondingly to its current display mode. This method requires presentation to be already computed, since it relies on bounding box of presentation structures, which are supposed to be same/close amongst different display modes of this object.</description>
+        </method>
+        <method name="SetIsoOnTriangulation">
+            <description>Enables or disables on-triangulation build of isolines according to the flag given.</description>
+        </method>
+        <method name="CurrentFacingModel" qualifiers="const">
+            <description>Returns the current facing model which is in effect.</description>
+        </method>
+        <method name="SetCurrentFacingModel">
+            <description>change the current facing model apply on polygons for SetColor(), SetTransparency(), SetMaterial() methods default facing model is Aspect_TOFM_TWO_SIDE. This mean that attributes is applying both on the front and back face.</description>
+        </method>
+        <method name="HasColor" qualifiers="const">
+            <description>Returns true if the Interactive Object has color.</description>
+        </method>
+        <method name="Color" qualifiers="const">
+            <description>Returns the color setting of the Interactive Object.</description>
+        </method>
+        <method name="SetColor">
+            <description>Only the interactive object knowns which Drawer attribute is affected by the color, if any (ex: for a wire,it's the wireaspect field of the drawer, but for a vertex, only the point aspect field is affected by the color). WARNING : Do not forget to set the corresponding fields here (hasOwnColor and myDrawer-&gt;SetColor())</description>
+        </method>
+        <method name="UnsetColor">
+            <description>Removes color settings. Only the Interactive Object knows which Drawer attribute is affected by the color setting. For a wire, for example, wire aspect is the attribute affected. For a vertex, however, only point aspect is affected by the color setting.</description>
+        </method>
+        <method name="HasWidth" qualifiers="const">
+            <description>Returns true if the Interactive Object has width.</description>
+        </method>
+        <method name="Width" qualifiers="const">
+            <description>Returns the width setting of the Interactive Object.</description>
+        </method>
+        <method name="SetWidth">
+            <description>Allows you to provide the setting aValue for width. Only the Interactive Object knows which Drawer attribute is affected by the width setting.</description>
+        </method>
+        <method name="UnsetWidth">
+            <description>Reset width to default value.</description>
+        </method>
+        <method name="HasMaterial" qualifiers="const">
+            <description>Returns true if the Interactive Object has a setting for material.</description>
+        </method>
+        <method name="Material" qualifiers="const">
+            <description>Returns the current material setting as enumeration value.</description>
+        </method>
+        <method name="SetMaterial">
+            <description>Sets the material aMat defining this display attribute for the interactive object. Material aspect determines shading aspect, color and transparency of visible entities.</description>
+        </method>
+        <method name="UnsetMaterial">
+            <description>Removes the setting for material.</description>
+        </method>
+        <method name="IsTransparent" qualifiers="const">
+            <description>Returns true if there is a transparency setting.</description>
+        </method>
+        <method name="SetTransparency">
+            <description>Attributes a setting aValue for transparency. The transparency value should be between 0.0 and 1.0. At 0.0 an object will be totally opaque, and at 1.0, fully transparent. Warning At a value of 1.0, there may be nothing visible.</description>
+        </method>
+        <method name="UnsetTransparency">
+            <description>Removes the transparency setting. The object is opaque by default.</description>
+        </method>
+        <method name="HasPolygonOffsets" qualifiers="const">
+            <description>Returns Standard_True if &lt;myDrawer&gt; has non-null shading aspect</description>
+        </method>
+        <method name="PolygonOffsets" qualifiers="const">
+            <description>Retrieves current polygon offsets settings from &lt;myDrawer&gt;.</description>
+        </method>
+        <method name="SetPolygonOffsets">
+            <description>Sets up polygon offsets for this object.</description>
+        </method>
+        <method name="UnsetAttributes">
+            <description>Clears settings provided by the drawing tool aDrawer.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="ToBeUpdated_2" qualifiers="const">
+            <description>gives the list of modes which are flagged "to be updated".</description>
+        </method>
+        <method name="ToPropagateVisualState" qualifiers="const">
+            <description>Get value of the flag "propagate visual state" It means that the display/erase/color visual state is propagated automatically to all children; by default, the flag is true</description>
+        </method>
+        <method name="SetPropagateVisualState">
+            <description>Change the value of the flag "propagate visual state"</description>
+        </method>
+    </methods>
+</class>

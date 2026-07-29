@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImageDiff" inherits="RefCounted">
+    <brief_description>This class compares two images pixel-by-pixel. It uses the following methods to ignore the difference between images: - Black/White comparison. It makes the images 2-colored before the comparison. - Equality with tolerance. Colors of two pixels are considered the same if the difference of their color is less than a tolerance. - Border filter. The algorithm ignores alone independent pixels, which are different on both images, ignores the "border effect" - the difference caused by triangles located at angle about 0 or 90 degrees to the user.</brief_description>
+    <description>! This class compares two images pixel-by-pixel.
+! It uses the following methods to ignore the difference between images:
+!  - Black/White comparison. It makes the images 2-colored before the comparison.
+!  - Equality with tolerance. Colors of two pixels are considered the same if the
+!    difference of their color is less than a tolerance.
+!  - Border filter. The algorithm ignores alone independent pixels,
+!    which are different on both images, ignores the "border effect" -
+!    the difference caused by triangles located at angle about 0 or 90 degrees to the user.
+!
+! Border filter ignores a difference in implementation of
+! anti-aliasing and other effects on boundary of a shape.
+! The triangles of a boundary zone are usually located so that their normals point aside the user
+! (about 90 degree between the normal and the direction to the user's eye).
+! Deflection of the light for such a triangle depends on implementation of the video driver.
+! In order to skip this difference the following algorithm is used:
+!  a) "Different" pixels are grouped and checked on "one-pixel width line".
+!     indeed, the pixels may represent not a line, but any curve.
+!     But the width of this curve should be not more than a pixel.
+!     This group of pixels become a candidate to be ignored because of boundary effect.
+!  b) The group of pixels is checked on belonging to a "shape".
+!     Neighbour pixels are checked from the reference image.
+!     This test confirms a fact that the group of pixels belongs to a shape and
+!     represent a boundary of the shape.
+!     In this case the whole group of pixels is ignored (considered as same).
+!     Otherwise, the group of pixels may represent a geometrical curve in the viewer 3D
+!     and should be considered as "different".
+!
+! References:
+!     1. http://pdiff.sourceforge.net/ypg01.pdf
+!     2. http://pdiff.sourceforge.net/metric.html
+!     3. http://www.cs.ucf.edu/~sumant/publications/sig99.pdf
+!     4. http://www.worldscientific.com/worldscibooks/10.1142/2641#t=toc (there is a list of
+!     articles and books in PDF format)</description>
+    <methods>
+        <method name="Image_Diff" qualifiers="static">
+            <description>An empty constructor. Init() should be called for initialization.</description>
+        </method>
+        <method name="SetColorTolerance">
+            <description>Color tolerance for equality check. Should be within range 0..1: Corresponds to a difference between white and black colors (maximum difference). By default, the tolerance is equal to 0 thus equality check will return false for any different colors.</description>
+        </method>
+        <method name="SetBorderFilterOn">
+            <description>Sets taking into account (ignoring) a "border effect" on comparison of images. The border effect is caused by a border of shaded shapes in the viewer 3d. Triangles of this area are located at about 0 or 90 degrees to the user. Therefore, they deflect light differently according to implementation of a video card driver. This flag allows to detect such a "border" area and skip it from comparison of images. Filter turned OFF by default.</description>
+        </method>
+        <method name="Compare">
+            <description>Compares two images. It returns a number of different pixels (or groups of pixels). It returns -1 if algorithm not initialized before.</description>
+        </method>
+        <method name="SaveDiffImage_1" qualifiers="const">
+            <description>Saves a difference between two images as white pixels on black background.</description>
+        </method>
+    </methods>
+</class>

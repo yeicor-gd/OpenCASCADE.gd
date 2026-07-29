@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomCurve" inherits="RefCounted">
+    <brief_description>The abstract class Curve describes the common behavior of curves in 3D space. The Geom package provides numerous concrete classes of derived curves, including lines, circles, conics, Bezier or BSpline curves, etc. The main characteristic of these curves is that they are parameterized. The Geom_Curve class shows: - how to work with the parametric equation of a curve in order to calculate the point of parameter u, together with the vector tangent and the derivative vectors of order 2, 3,..., N at this point; - how to obtain general information about the curve (for example, level of continuity, closed characteristics, periodicity, bounds of the parameter field); - how the parameter changes when a geometric transformation is applied to the curve or when the orientation of the curve is inverted. All curves must have a geometric continuity: a curve is at least "C0". Generally, this property is checked at the time of construction or when the curve is edited. Where this is not the case, the documentation states so explicitly. Warning The Geom package does not prevent the construction of curves with null length or curves which self-intersect.</brief_description>
+    <description>! The abstract class Curve describes the common
+! behavior of curves in 3D space. The Geom package
+! provides numerous concrete classes of derived
+! curves, including lines, circles, conics, Bezier or
+! BSpline curves, etc.
+! The main characteristic of these curves is that they
+! are parameterized. The Geom_Curve class shows:
+! - how to work with the parametric equation of a curve
+! in order to calculate the point of parameter u,
+! together with the vector tangent and the derivative
+! vectors of order 2, 3,..., N at this point;
+! - how to obtain general information about the curve
+! (for example, level of continuity, closed
+! characteristics, periodicity, bounds of the parameter field);
+! - how the parameter changes when a geometric
+! transformation is applied to the curve or when the
+! orientation of the curve is inverted.
+! All curves must have a geometric continuity: a curve is
+! at least "C0". Generally, this property is checked at
+! the time of construction or when the curve is edited.
+! Where this is not the case, the documentation states so explicitly.
+! Warning
+! The Geom package does not prevent the
+! construction of curves with null length or curves which
+! self-intersect.</description>
+    <methods>
+        <method name="TransformedParameter" qualifiers="const">
+            <description>Returns the parameter on the transformed curve for the transform of the point of parameter U on &lt;me&gt;.</description>
+        </method>
+        <method name="ParametricTransformation" qualifiers="const">
+            <description>Returns a coefficient to compute the parameter on the transformed curve for the transform of the point on &lt;me&gt;.</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>Returns a copy of &lt;me&gt; reversed.</description>
+        </method>
+        <method name="Period" qualifiers="const">
+            <description>Returns the period of this curve. Exceptions Standard_NoSuchObject if this curve is not periodic.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Computes the point of parameter U on &lt;me&gt;. If the curve is periodic then the returned point is P(U) with U = Ustart + (U - Uend) where Ustart and Uend are the parametric bounds of the curve. it is implemented with D0.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

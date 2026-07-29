@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomLine" inherits="RefCounted">
+    <brief_description>Describes an infinite line. A line is defined and positioned in space with an axis (gp_Ax1 object) which gives it an origin and a unit vector. The Geom_Line line is parameterized: P (U) = O + U*Dir, where: - P is the point of parameter U, - O is the origin and Dir the unit vector of its positioning axis. The parameter range is ] -infinite, +infinite [. The orientation of the line is given by the unit vector of its positioning axis.</brief_description>
+    <description>! Describes an infinite line.
+! A line is defined and positioned in space with an axis
+! (gp_Ax1 object) which gives it an origin and a unit vector.
+! The Geom_Line line is parameterized:
+! P (U) = O + U*Dir, where:
+! - P is the point of parameter U,
+! - O is the origin and Dir the unit vector of its positioning axis.
+! The parameter range is ] -infinite, +infinite [.
+! The orientation of the line is given by the unit vector
+! of its positioning axis.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a line located in 3D space with the axis placement A1. The Location of A1 is the origin of the line.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a line from a non transient line from package gp.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs a line passing through point P and parallel to vector V (P and V are, respectively, the origin and the unit vector of the positioning axis of the line).</description>
+        </method>
+        <method name="SetLin">
+            <description>Set &lt;me&gt; so that &lt;me&gt; has the same geometric properties as L.</description>
+        </method>
+        <method name="SetDirection">
+            <description>changes the direction of the line.</description>
+        </method>
+        <method name="SetLocation">
+            <description>changes the "Location" point (origin) of the line.</description>
+        </method>
+        <method name="SetPosition">
+            <description>changes the "Location" and a the "Direction" of &lt;me&gt;.</description>
+        </method>
+        <method name="Lin" qualifiers="const">
+            <description>Returns non transient line from gp with the same geometric properties as &lt;me&gt;</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the positioning axis of this line; this is also its local coordinate system.</description>
+        </method>
+        <method name="Reverse">
+            <description>Changes the orientation of this line. As a result, the unit vector of the positioning axis of this line is reversed.</description>
+        </method>
+        <method name="ReversedParameter" qualifiers="const">
+            <description>Computes the parameter on the reversed line for the point of parameter U on this line. For a line, the returned value is -U.</description>
+        </method>
+        <method name="FirstParameter" qualifiers="const">
+            <description>Returns the value of the first parameter of this line. This is Standard_Real::RealFirst().</description>
+        </method>
+        <method name="LastParameter" qualifiers="const">
+            <description>Returns the value of the last parameter of this line. This is Standard_Real::RealLast().</description>
+        </method>
+        <method name="IsClosed" qualifiers="const">
+            <description>returns False</description>
+        </method>
+        <method name="IsPeriodic" qualifiers="const">
+            <description>returns False</description>
+        </method>
+        <method name="Continuity" qualifiers="const">
+            <description>Returns GeomAbs_CN, which is the global continuity of any line.</description>
+        </method>
+        <method name="IsCN" qualifiers="const">
+            <description>returns True. Raised if N &lt; 0.</description>
+        </method>
+        <method name="D0" qualifiers="const">
+            <description>Returns in P the point of parameter U. P (U) = O + U * Dir where O is the "Location" point of the line and Dir the direction of the line.</description>
+        </method>
+        <method name="D1" qualifiers="const">
+            <description>Returns the point P of parameter u and the first derivative V1.</description>
+        </method>
+        <method name="D2" qualifiers="const">
+            <description>Returns the point P of parameter U, the first and second derivatives V1 and V2. V2 is a vector with null magnitude for a line.</description>
+        </method>
+        <method name="D3" qualifiers="const">
+            <description>V2 and V3 are vectors with null magnitude for a line.</description>
+        </method>
+        <method name="DN" qualifiers="const">
+            <description>The returned vector gives the value of the derivative for the order of derivation N. Raised if N &lt; 1.</description>
+        </method>
+        <method name="Transform">
+            <description>Applies the transformation T to this line.</description>
+        </method>
+        <method name="TransformedParameter" qualifiers="const">
+            <description>Returns the parameter on the transformed curve for the transform of the point of parameter U on &lt;me&gt;.</description>
+        </method>
+        <method name="ParametricTransformation" qualifiers="const">
+            <description>Returns a coefficient to compute the parameter on the transformed curve for the transform of the point on &lt;me&gt;.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this line.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

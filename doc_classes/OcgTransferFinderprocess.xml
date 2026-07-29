@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferFinderprocess" inherits="RefCounted">
+    <brief_description>Adds specific features to the generic definition : PrintTrace is adapted</brief_description>
+    <description>! Adds specific features to the generic definition :
+! PrintTrace is adapted</description>
+    <methods>
+        <method name="Transfer_FinderProcess" qualifiers="static">
+            <description>Sets FinderProcess at initial state, with an initial size</description>
+        </method>
+        <method name="SetModel">
+            <description>Sets an InterfaceModel, which can be used during transfer for instance if a context must be managed, it is in the Model</description>
+        </method>
+        <method name="Model" qualifiers="const">
+            <description>Returns the Model which can be used for context</description>
+        </method>
+        <method name="NextMappedWithAttribute" qualifiers="const">
+            <description>In the list of mapped items (between 1 and NbMapped), searches for the first mapped item which follows &lt;num0&gt; (not included) and which has an attribute named &lt;name&gt; The considered Attributes are those brought by Finders,i.e. by Input data. While NextItemWithAttribute works on Result data (Binders)</description>
+        </method>
+        <method name="TransientMapper" qualifiers="const">
+            <description>Returns a TransientMapper for a given Transient Object Either &lt;obj&gt; is already mapped, then its Mapper is returned Or it is not, then a new one is created then returned, BUT it is not mapped here (use Bind or FindElseBind to do this)</description>
+        </method>
+        <method name="PrintTrace" qualifiers="const">
+            <description>Specific printing to trace a Finder (by its method ValueType)</description>
+        </method>
+        <method name="PrintStats" qualifiers="const">
+            <description>Prints statistics on a given output, according mode</description>
+        </method>
+    </methods>
+</class>

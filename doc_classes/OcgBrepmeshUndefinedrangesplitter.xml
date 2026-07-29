@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshUndefinedrangesplitter" inherits="RefCounted">
+    <brief_description>Auxiliary class provides safe value for surfaces that looks like NURBS but has no poles or other characteristics.</brief_description>
+    <description>! Auxiliary class provides safe value for surfaces that looks like NURBS
+! but has no poles or other characteristics.</description>
+    <methods>
+        <method name="BRepMesh_UndefinedRangeSplitter" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+    </methods>
+</class>

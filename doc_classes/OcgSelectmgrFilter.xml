@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrFilter" inherits="RefCounted">
+    <brief_description>The root class to define filter objects for selection. Advance handling of objects requires the services of filters. These only allow dynamic detection and selection of objects which correspond to the criteria defined in each. Eight standard filters inheriting SelectMgr_Filter are defined in Open CASCADE. You can create your own filters by defining new filter classes inheriting this framework. You use these filters by loading them into an AIS interactive context.</brief_description>
+    <description>! The root class to define filter objects for selection.
+! Advance handling of objects requires the services of
+! filters. These only allow dynamic detection and
+! selection of objects which correspond to the criteria defined in each.
+! Eight standard filters inheriting SelectMgr_Filter are
+! defined in Open CASCADE.
+! You can create your own filters by defining new filter
+! classes inheriting this framework. You use these
+! filters by loading them into an AIS interactive context.</description>
+    <methods>
+        <method name="ActsOn" qualifiers="const">
+            <description>Returns true in an AIS local context, if this filter operates on a type of subshape defined in a filter class inheriting this framework. This function completes IsOk in an AIS local context.</description>
+        </method>
+    </methods>
+</class>

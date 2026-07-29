@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISShape" inherits="RefCounted">
+    <brief_description>A framework to manage presentation and selection of shapes. AIS_Shape is the interactive object which is used the most by applications. There are standard functions available which allow you to prepare selection operations on the constituent elements of shapes - vertices, edges, faces etc - in an open local context. The selection modes specific to "Shape" type objects are referred to as Standard Activation Mode. These modes are only taken into account in open local context and only act on Interactive Objects which have redefined the virtual method AcceptShapeDecomposition so that it returns true. Several advanced functions are also available. These include functions to manage deviation angle and deviation coefficient - both HLR and non-HLR - of an inheriting shape class. These services allow you to select one type of shape interactive object for higher precision drawing. When you do this, the Prs3d_Drawer::IsOwn... functions corresponding to the above deviation angle and coefficient functions return true indicating that there is a local setting available for the specific object.</brief_description>
+    <description>! A framework to manage presentation and selection of shapes.
+! AIS_Shape is the interactive object which is used the
+! most by   applications. There are standard functions
+! available which allow you to prepare selection
+! operations on the constituent elements of shapes -
+! vertices, edges, faces etc - in an open local context.
+! The selection modes specific to "Shape" type objects
+! are referred to as Standard Activation Mode. These
+! modes are only taken into account in open local
+! context and only act on Interactive Objects which
+! have redefined the virtual method
+! AcceptShapeDecomposition so that it returns true.
+! Several advanced functions are also available. These
+! include functions to manage deviation angle and
+! deviation coefficient - both HLR and non-HLR - of
+! an inheriting shape class. These services allow you to
+! select one type of shape interactive object for higher
+! precision drawing. When you do this, the
+! Prs3d_Drawer::IsOwn... functions corresponding to the
+! above deviation angle and coefficient functions return
+! true indicating that there is a local setting available
+! for the specific object.
+!
+! This class allows to map textures on shapes using native UV parametric space of underlying
+! surface of each Face (this means that texture will be visually duplicated on all Faces). To
+! generate texture coordinates, appropriate shading attribute should be set before computing
+! presentation in AIS_Shaded display mode:
+! @code
+!   Handle(AIS_Shape) aPrs = new AIS_Shape();
+!   aPrs-&gt;Attributes()-&gt;SetupOwnShadingAspect();
+!   aPrs-&gt;Attributes()-&gt;ShadingAspect()-&gt;Aspect()-&gt;SetTextureMapOn();
+!   aPrs-&gt;Attributes()-&gt;ShadingAspect()-&gt;Aspect()-&gt;SetTextureMap (new Graphic3d_Texture2Dmanual
+!   (Graphic3d_NOT_2D_ALUMINUM));
+! @endcode
+! The texture itself is parametrized in (0,1)x(0,1).</description>
+    <methods>
+        <method name="AIS_Shape" qualifiers="static">
+            <description>Initializes construction of the shape shap from wires, edges and vertices.</description>
+        </method>
+        <method name="Signature" qualifiers="const">
+            <description>Returns index 0. This value refers to SHAPE from TopAbs_ShapeEnum</description>
+        </method>
+        <method name="Type" qualifiers="const">
+            <description>Returns Object as the type of Interactive Object.</description>
+        </method>
+        <method name="AcceptShapeDecomposition" qualifiers="const">
+            <description>Returns true if the Interactive Object accepts shape decomposition.</description>
+        </method>
+        <method name="Shape" qualifiers="const">
+            <description>Returns this shape object.</description>
+        </method>
+        <method name="SetShape">
+            <description>Constructs an instance of the shape object theShape.</description>
+        </method>
+        <method name="Set">
+            <description>Alias for ::SetShape().</description>
+        </method>
+        <method name="SetOwnDeviationCoefficient_1">
+            <description>Sets a local value for deviation coefficient for this specific shape.</description>
+        </method>
+        <method name="SetOwnDeviationAngle_1">
+            <description>Sets a local value for deviation angle for this specific shape.</description>
+        </method>
+        <method name="SetOwnDeviationCoefficient_2">
+            <description>Sets a local value for deviation coefficient for this specific shape.</description>
+        </method>
+        <method name="SetAngleAndDeviation">
+            <description>this compute a new angle and Deviation from the value anAngle and set the values stored in myDrawer with these that become local to the shape</description>
+        </method>
+        <method name="UserAngle" qualifiers="const">
+            <description>gives back the angle initial value put by the User.</description>
+        </method>
+        <method name="SetOwnDeviationAngle_2">
+            <description>sets myOwnDeviationAngle field in Prs3d_Drawer &amp; recomputes presentation</description>
+        </method>
+        <method name="OwnDeviationCoefficient" qualifiers="const">
+            <description>Returns true and the values of the deviation coefficient aCoefficient and the previous deviation coefficient aPreviousCoefficient. If these values are not already set, false is returned.</description>
+        </method>
+        <method name="OwnDeviationAngle" qualifiers="const">
+            <description>Returns true and the values of the deviation angle anAngle and the previous deviation angle aPreviousAngle. If these values are not already set, false is returned.</description>
+        </method>
+        <method name="SetTypeOfHLR">
+            <description>Sets the type of HLR algorithm used by the shape</description>
+        </method>
+        <method name="TypeOfHLR" qualifiers="const">
+            <description>Gets the type of HLR algorithm</description>
+        </method>
+        <method name="SetColor">
+            <description>Sets the color aColor in the reconstructed compound shape. Acts via the Drawer methods below on the appearance of: - free boundaries: Prs3d_Drawer_FreeBoundaryAspect, - isos: Prs3d_Drawer_UIsoAspect, Prs3dDrawer_VIsoAspect, - shared boundaries: Prs3d_Drawer_UnFreeBoundaryAspect, - shading: Prs3d_Drawer_ShadingAspect, - visible line color in hidden line mode: Prs3d_Drawer_SeenLineAspect - hidden line color in hidden line mode: Prs3d_Drawer_HiddenLineAspect.</description>
+        </method>
+        <method name="UnsetColor">
+            <description>Removes settings for color in the reconstructed compound shape.</description>
+        </method>
+        <method name="SetWidth">
+            <description>Sets the value aValue for line width in the reconstructed compound shape. Changes line aspects for lines presentation.</description>
+        </method>
+        <method name="UnsetWidth">
+            <description>Removes the setting for line width in the reconstructed compound shape.</description>
+        </method>
+        <method name="SetMaterial">
+            <description>Allows you to provide settings for the material aName in the reconstructed compound shape.</description>
+        </method>
+        <method name="UnsetMaterial">
+            <description>Removes settings for material in the reconstructed compound shape.</description>
+        </method>
+        <method name="SetTransparency">
+            <description>Sets the value aValue for transparency in the reconstructed compound shape.</description>
+        </method>
+        <method name="UnsetTransparency">
+            <description>Removes the setting for transparency in the reconstructed compound shape.</description>
+        </method>
+        <method name="BoundingBox">
+            <description>Constructs a bounding box with which to reconstruct compound topological shapes for presentation.</description>
+        </method>
+        <method name="Color" qualifiers="const">
+            <description>Returns the Color attributes of the shape accordingly to the current facing model;</description>
+        </method>
+        <method name="Material" qualifiers="const">
+            <description>Returns the NameOfMaterial attributes of the shape accordingly to the current facing model;</description>
+        </method>
+        <method name="Transparency" qualifiers="const">
+            <description>Returns the transparency attributes of the shape accordingly to the current facing model;</description>
+        </method>
+        <method name="TextureRepeatUV" qualifiers="const">
+            <description>Return texture repeat UV values; (1, 1) by default.</description>
+        </method>
+        <method name="SetTextureRepeatUV">
+            <description>Sets the number of occurrences of the texture on each face. The texture itself is parameterized in (0,1) by (0,1). Each face of the shape to be textured is parameterized in UV space (Umin,Umax) by (Vmin,Vmax).</description>
+        </method>
+        <method name="TextureOriginUV" qualifiers="const">
+            <description>Return texture origin UV position; (0, 0) by default.</description>
+        </method>
+        <method name="SetTextureOriginUV">
+            <description>Use this method to change the origin of the texture. The texel (0,0) will be mapped to the surface (myUVOrigin.X(), myUVOrigin.Y()).</description>
+        </method>
+        <method name="TextureScaleUV" qualifiers="const">
+            <description>Return scale factor for UV coordinates; (1, 1) by default.</description>
+        </method>
+        <method name="SetTextureScaleUV">
+            <description>Use this method to scale the texture (percent of the face). You can specify a scale factor for both U and V. Example: if you set ScaleU and ScaleV to 0.5 and you enable texture repeat, the texture will appear twice on the face in each direction.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="SelectionType" qualifiers="static">
+            <description>Return shape type for specified selection mode.</description>
+        </method>
+        <method name="SelectionMode" qualifiers="static">
+            <description>Return selection mode for specified shape type.</description>
+        </method>
+        <method name="computeHlrPresentation" qualifiers="static">
+            <description>Compute HLR presentation for specified shape.</description>
+        </method>
+    </methods>
+</class>

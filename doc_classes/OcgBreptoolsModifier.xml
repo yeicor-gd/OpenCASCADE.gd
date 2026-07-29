@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBreptoolsModifier" inherits="RefCounted">
+    <brief_description>Performs geometric modifications on a shape.</brief_description>
+    <description>! Performs geometric modifications on a shape.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates an empty Modifier.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a modifier on the shape &lt;S&gt;.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a modifier on the shape &lt;S&gt;, and performs the modifications described by &lt;M&gt;.</description>
+        </method>
+        <method name="Init">
+            <description>Initializes the modifier with the shape &lt;S&gt;.</description>
+        </method>
+        <method name="Perform">
+            <description>Performs the modifications described by &lt;M&gt;.</description>
+        </method>
+        <method name="IsDone" qualifiers="const">
+            <description>Returns Standard_True if the modification has been computed successfully.</description>
+        </method>
+        <method name="IsMutableInput" qualifiers="const">
+            <description>Returns the current mutable input state</description>
+        </method>
+        <method name="SetMutableInput">
+            <description>Sets the mutable input state If true then the input (original) shape can be modified during modification process</description>
+        </method>
+        <method name="ModifiedShape" qualifiers="const">
+            <description>Returns the modified shape corresponding to &lt;S&gt;.</description>
+        </method>
+    </methods>
+</class>

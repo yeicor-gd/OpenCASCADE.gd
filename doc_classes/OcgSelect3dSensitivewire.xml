@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitivewire" inherits="RefCounted">
+    <brief_description>A framework to define selection of a wire owner by an elastic wire band.</brief_description>
+    <description>! A framework to define selection of a wire owner by an
+! elastic wire band.</description>
+    <methods>
+        <method name="NbSubElements" qualifiers="const">
+            <description>Returns the amount of sub-entities</description>
+        </method>
+        <method name="CenterOfGeometry" qualifiers="const">
+            <description>Returns center of the wire. If location transformation is set, it will be applied</description>
+        </method>
+        <method name="Size" qualifiers="const">
+            <description>Returns the length of vector of sensitive entities</description>
+        </method>
+        <method name="Center" qualifiers="const">
+            <description>Returns geometry center of sensitive entity index theIdx in the vector along the given axis theAxis</description>
+        </method>
+        <method name="Swap">
+            <description>Swaps items with indexes theIdx1 and theIdx2 in the vector</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISManipulatorowner" inherits="RefCounted">
+    <brief_description>Entity owner for selection management of AIS_Manipulator object.</brief_description>
+    <description>! Entity owner for selection management of AIS_Manipulator object.</description>
+    <methods />
+</class>

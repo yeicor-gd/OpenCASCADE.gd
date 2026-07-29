@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgToptoolsShapemaphasher" inherits="RefCounted">
+    <brief_description>Hash tool, used for generating maps of shapes in topology.</brief_description>
+    <description>! Hash tool, used for generating maps of shapes in topology.</description>
+    <methods />
+</class>

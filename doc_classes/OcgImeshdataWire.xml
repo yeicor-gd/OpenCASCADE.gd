@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshdataWire" inherits="RefCounted">
+    <brief_description>Interface class representing discrete model of a wire. Wire should represent an ordered set of edges.</brief_description>
+    <description>! Interface class representing discrete model of a wire.
+! Wire should represent an ordered set of edges.</description>
+    <methods>
+        <method name="GetWire" qualifiers="const">
+            <description>Returns TopoDS_Face attached to model.</description>
+        </method>
+    </methods>
+</class>

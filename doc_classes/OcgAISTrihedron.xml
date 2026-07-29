@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISTrihedron" inherits="RefCounted">
+    <brief_description>Create a selectable trihedron The trihedron includes 1 origin, 3 axes and 3 labels. Default text of labels are "X", "Y", "Z". Color of origin and any axis, color of arrows and labels may be changed. Visual presentation might be shown in two, shaded and wireframe modes, wireframe by default). There are 4 modes of selection: - AIS_TrihedronSelectionMode_EntireObject to select trihedron, priority = 1 - AIS_TrihedronSelectionMode_Origin to select its origin, priority = 5 - AIS_TrihedronSelectionMode_Axes to select its axis, priority = 3 - AIS_TrihedronSelectionMode_MainPlanes to select its planes, priority = 2</brief_description>
+    <description>! Create a selectable trihedron
+! The trihedron includes 1 origin, 3 axes and 3 labels.
+! Default text of labels are "X", "Y", "Z".
+! Color of origin and any axis, color of arrows and labels may be changed.
+! Visual presentation might be shown in two, shaded and wireframe modes, wireframe by default).
+! There are 4 modes of selection:
+! - AIS_TrihedronSelectionMode_EntireObject to select trihedron,  priority = 1
+! - AIS_TrihedronSelectionMode_Origin       to select its origin, priority = 5
+! - AIS_TrihedronSelectionMode_Axes         to select its axis,   priority = 3
+! - AIS_TrihedronSelectionMode_MainPlanes   to select its planes, priority = 2
+!
+! Warning!
+! For the presentation of trihedron, the default unit of length is the millimetre,
+! and the default value for the representation of the axes is 100.
+! If you modify these dimensions, you must temporarily recover the Drawer.
+! From inside it, you take the aspect in which the values for length are stocked.
+! For trihedron, this is Prs3d_Drawer_LineAspect.
+! You change the values inside this Aspect and recalculate the presentation.</description>
+    <methods>
+        <method name="AIS_Trihedron" qualifiers="static">
+            <description>Initializes a trihedron entity.</description>
+        </method>
+        <method name="DatumDisplayMode" qualifiers="const">
+            <description>Returns datum display mode.</description>
+        </method>
+        <method name="SetDatumDisplayMode">
+            <description>Sets Shading or Wireframe display mode, triangle or segment graphic group is used relatively.</description>
+        </method>
+        <method name="Component" qualifiers="const">
+            <description>Returns the right-handed coordinate system set in SetComponent.</description>
+        </method>
+        <method name="SetComponent">
+            <description>Constructs the right-handed coordinate system aComponent.</description>
+        </method>
+        <method name="HasOwnSize" qualifiers="const">
+            <description>Returns true if the trihedron object has a size other than the default size of 100 mm. along each axis.</description>
+        </method>
+        <method name="Size" qualifiers="const">
+            <description>Returns the size of trihedron object; 100.0 by DEFAULT.</description>
+        </method>
+        <method name="SetSize">
+            <description>Sets the size of trihedron object.</description>
+        </method>
+        <method name="UnsetSize">
+            <description>Removes any non-default settings for size of this trihedron object. If the object has 1 color, the default size of the drawer is reproduced, otherwise DatumAspect becomes null.</description>
+        </method>
+        <method name="HasTextColor" qualifiers="const">
+            <description>Returns true if trihedron has own text color</description>
+        </method>
+        <method name="TextColor" qualifiers="const">
+            <description>Returns trihedron text color</description>
+        </method>
+        <method name="SetTextColor_1">
+            <description>Sets color of label of trihedron axes.</description>
+        </method>
+        <method name="SetTextColor_2">
+            <description>Sets color of label of trihedron axis.</description>
+        </method>
+        <method name="HasArrowColor" qualifiers="const">
+            <description>Returns true if trihedron has own arrow color</description>
+        </method>
+        <method name="ArrowColor" qualifiers="const">
+            <description>Returns trihedron arrow color</description>
+        </method>
+        <method name="SetArrowColor_1">
+            <description>Sets color of arrow of trihedron axes.</description>
+        </method>
+        <method name="SetArrowColor_2">
+            <description>Sets color of arrow of trihedron axes.</description>
+        </method>
+        <method name="DatumPartColor">
+            <description>Returns color of datum part: origin or some of trihedron axes.</description>
+        </method>
+        <method name="SetDatumPartColor">
+            <description>Sets color of datum part: origin or some of trihedron axes. If presentation is shading mode, this color is set for both sides of facing model</description>
+        </method>
+        <method name="SetOriginColor">
+            <description>Sets color of origin. Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")</description>
+        </method>
+        <method name="SetXAxisColor">
+            <description>Sets color of x-axis. Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")</description>
+        </method>
+        <method name="SetYAxisColor">
+            <description>Sets color of y-axis. Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")</description>
+        </method>
+        <method name="SetAxisColor">
+            <description>Sets color of z-axis. Standard_DEPRECATED("This method is deprecated - SetColor() should be called instead")</description>
+        </method>
+        <method name="ToDrawArrows" qualifiers="const">
+            <description>Returns true if arrows are to be drawn</description>
+        </method>
+        <method name="SetDrawArrows">
+            <description>Sets whether to draw the arrows in visualization</description>
+        </method>
+        <method name="SelectionPriority">
+            <description>Returns priority of selection for owner of the given type</description>
+        </method>
+        <method name="SetSelectionPriority">
+            <description>Sets priority of selection for owner of the given type</description>
+        </method>
+        <method name="SetColor">
+            <description>Sets the color theColor for this trihedron object, it changes color of axes.</description>
+        </method>
+        <method name="AcceptDisplayMode" qualifiers="const">
+            <description>Returns true if the display mode selected, aMode, is valid for trihedron datums.</description>
+        </method>
+        <method name="Signature" qualifiers="const">
+            <description>Returns index 3, selection of the planes XOY, YOZ, XOZ.</description>
+        </method>
+        <method name="Type" qualifiers="const">
+            <description>Indicates that the type of Interactive Object is datum.</description>
+        </method>
+        <method name="UnsetColor">
+            <description>Removes the settings for color.</description>
+        </method>
+        <method name="ClearSelected">
+            <description>Method which clear all selected owners belonging to this selectable object ( for fast presentation draw ).</description>
+        </method>
+        <method name="HilightOwnerWithColor">
+            <description>Method which hilight an owner belonging to this selectable object ( for fast presentation draw ).</description>
+        </method>
+    </methods>
+</class>

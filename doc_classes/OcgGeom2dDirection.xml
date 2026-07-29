@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeom2dDirection" inherits="RefCounted">
+    <brief_description>The class Direction specifies a vector that is never null. It is a unit vector.</brief_description>
+    <description>! The class Direction specifies a vector that is never null.
+! It is a unit vector.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a persistent copy of &lt;me&gt;.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a unit vector with it 2 cartesian coordinates.</description>
+        </method>
+        <method name="SetCoord">
+            <description>Assigns the coordinates X and Y to this unit vector, then normalizes it. Exceptions Standard_ConstructionError if Sqrt(X*X + Y*Y) is less than or equal to gp::Resolution().</description>
+        </method>
+        <method name="SetDir2d">
+            <description>Converts the gp_Dir2d unit vector V into this unit vector.</description>
+        </method>
+        <method name="SetX">
+            <description>Assigns a value to the X coordinate of this unit vector, then normalizes it. Exceptions Standard_ConstructionError if the value assigned causes the magnitude of the vector to become less than or equal to gp::Resolution().</description>
+        </method>
+        <method name="SetY">
+            <description>Assigns a value to the Y coordinate of this unit vector, then normalizes it. Exceptions Standard_ConstructionError if the value assigned causes the magnitude of the vector to become less than or equal to gp::Resolution().</description>
+        </method>
+        <method name="Dir2d" qualifiers="const">
+            <description>Converts this unit vector into a gp_Dir2d unit vector.</description>
+        </method>
+        <method name="Magnitude" qualifiers="const">
+            <description>returns 1.0</description>
+        </method>
+        <method name="SquareMagnitude" qualifiers="const">
+            <description>returns 1.0</description>
+        </method>
+        <method name="Crossed" qualifiers="const">
+            <description>Computes the cross product between &lt;me&gt; and &lt;Other&gt;.</description>
+        </method>
+        <method name="Transform">
+            <description>Applies the transformation T to this unit vector, then normalizes it.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this unit vector.</description>
+        </method>
+    </methods>
+</class>

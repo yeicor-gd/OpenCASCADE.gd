@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgToplocDatum3d" inherits="RefCounted">
+    <brief_description>Describes a coordinate transformation, i.e. a change to an elementary 3D coordinate system, or position in 3D space. A Datum3D is always described relative to the default datum. The default datum is described relative to itself: its origin is (0,0,0), and its axes are (1,0,0) (0,1,0) (0,0,1).</brief_description>
+    <description>! Describes a coordinate transformation, i.e. a change
+! to an elementary 3D coordinate system, or position in 3D space.
+! A Datum3D is always described relative to the default datum.
+! The default datum is described relative to itself: its
+! origin is (0,0,0), and its axes are (1,0,0) (0,1,0) (0,0,1).</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs a default Datum3D.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs a Datum3D form a Trsf from gp. An error is raised if the Trsf is not a rigid transformation.</description>
+        </method>
+        <method name="Transformation" qualifiers="const">
+            <description>Returns a gp_Trsf which, when applied to this datum, produces the default datum.</description>
+        </method>
+        <method name="Trsf" qualifiers="const">
+            <description>Returns a gp_Trsf which, when applied to this datum, produces the default datum.</description>
+        </method>
+        <method name="Form" qualifiers="const">
+            <description>Return transformation form.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

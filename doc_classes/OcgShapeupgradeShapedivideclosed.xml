@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeShapedivideclosed" inherits="RefCounted">
+    <brief_description>Divides all closed faces in the shape. Class ShapeUpgrade_ClosedFaceDivide is used as divide tool.</brief_description>
+    <description>! Divides all closed faces in the shape. Class
+! ShapeUpgrade_ClosedFaceDivide is used as divide tool.</description>
+    <methods>
+        <method name="ShapeUpgrade_ShapeDivideClosed" qualifiers="static">
+            <description>Initialises tool with shape and default parameter.</description>
+        </method>
+        <method name="SetNbSplitPoints">
+            <description>Sets the number of cuts applied to divide closed faces. The number of resulting faces will be num+1.</description>
+        </method>
+    </methods>
+</class>

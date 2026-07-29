@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrTolerancemap" inherits="RefCounted">
+    <brief_description>An internal class for calculation of current largest tolerance value which will be applied for creation of selecting frustum by default. Each time the selection set is deactivated, maximum tolerance value will be recalculated. If a user enables custom precision using StdSelect_ViewerSelector3d::SetPixelTolerance, it will be applied to all sensitive entities without any checks.</brief_description>
+    <description>! An internal class for calculation of current largest tolerance value which will be applied for
+! creation of selecting frustum by default. Each time the selection set is deactivated, maximum
+! tolerance value will be recalculated. If a user enables custom precision using
+! StdSelect_ViewerSelector3d::SetPixelTolerance, it will be applied to all sensitive entities
+! without any checks.</description>
+    <methods>
+        <method name="SelectMgr_ToleranceMap" qualifiers="static">
+            <description>Sets tolerance values to -1.0</description>
+        </method>
+        <method name="Add">
+            <description>Adds the value given to map, checks if the current tolerance value should be replaced by theTolerance</description>
+        </method>
+        <method name="Decrement">
+            <description>Decrements a counter of the tolerance given, checks if the current tolerance value should be recalculated</description>
+        </method>
+        <method name="SetCustomTolerance">
+            <description>Sets tolerance to the given one and disables adaptive checks</description>
+        </method>
+        <method name="ResetDefaults">
+            <description>Unsets a custom tolerance and enables adaptive checks</description>
+        </method>
+        <method name="CustomTolerance" qualifiers="const">
+            <description>Returns the value of custom tolerance regardless of it validity</description>
+        </method>
+        <method name="IsCustomTolSet" qualifiers="const">
+            <description>Returns true if custom tolerance value is greater than zero</description>
+        </method>
+    </methods>
+</class>

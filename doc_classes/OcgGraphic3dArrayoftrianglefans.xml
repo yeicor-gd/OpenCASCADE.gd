@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dArrayoftrianglefans" inherits="RefCounted">
+    <brief_description>Contains triangles fan array definition</brief_description>
+    <description>! Contains triangles fan array definition</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates an array of triangle fans (Graphic3d_TOPA_TRIANGLEFANS), a polygon can be filled as: 1) Creating a single fan defined with his vertexes, i.e: 2) creating separate fans defined with a predefined number of fans and the number of vertex per fan, i.e: The number of triangle really drawn is: VertexNumber() - 2 * std::min(1, BoundNumber())</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an array of triangle fans (Graphic3d_TOPA_TRIANGLEFANS).</description>
+        </method>
+    </methods>
+</class>

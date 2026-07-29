@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgQuantityPeriod" inherits="RefCounted">
+    <brief_description>Manages date intervals. For example, a Period object gives the interval between two dates. A period is expressed in seconds and microseconds.</brief_description>
+    <description>! Manages date intervals. For example, a Period object
+! gives the interval between two dates.
+! A period is expressed in seconds and microseconds.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a Period with a number of seconds and microseconds. Exceptions Quantity_PeriodDefinitionError: - if the number of seconds expressed either by: - dd days, hh hours, mn minutes and ss seconds, or - Ss is less than 0. - if the number of microseconds expressed either by: - mis milliseconds and mics microseconds, or - Mics is less than 0.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a Period With: 0 &lt;= dd 0 &lt;= hh 0 &lt;= mn 0 &lt;= ss 0 &lt;= mis 0 &lt;= mics</description>
+        </method>
+        <method name="Values_2" qualifiers="const">
+            <description>Decomposes this period into a number of days,hours, minutes,seconds,milliseconds and microseconds Example of return values: 2 days, 15 hours, 0 minute , 0 second 0 millisecond and 0 microsecond</description>
+        </method>
+        <method name="Values_1" qualifiers="const">
+            <description>Returns the number of seconds in Ss and the number of remainding microseconds in Mics of this period. Example of return values: 3600 seconds and 0 microseconds</description>
+        </method>
+        <method name="SetValues_2">
+            <description>Assigns to this period the time interval defined - with dd days, hh hours, mn minutes, ss seconds, mis (defaulted to 0) milliseconds and mics (defaulted to 0) microseconds; or</description>
+        </method>
+        <method name="SetValues_1">
+            <description>Assigns to this period the time interval defined - with Ss seconds and Mics (defaulted to 0) microseconds. Exceptions Quantity_PeriodDefinitionError: - if the number of seconds expressed either by: - dd days, hh hours, mn minutes and ss seconds, or - Ss is less than 0. - if the number of microseconds expressed either by: - mis milliseconds and mics microseconds, or - Mics is less than 0.</description>
+        </method>
+        <method name="Subtract" qualifiers="const">
+            <description>Subtracts one Period from another and returns the difference.</description>
+        </method>
+        <method name="Add" qualifiers="const">
+            <description>Adds one Period to another one.</description>
+        </method>
+        <method name="IsValid_2" qualifiers="static">
+            <description>Checks the validity of a Period in form (dd,hh,mn,ss,mil,mic) With: 0 &lt;= dd 0 &lt;= hh 0 &lt;= mn 0 &lt;= ss 0 &lt;= mis 0 &lt;= mics</description>
+        </method>
+        <method name="IsValid_1" qualifiers="static">
+            <description>Checks the validity of a Period in form (ss,mic) With: 0 &lt;= ss 0 &lt;= mics</description>
+        </method>
+    </methods>
+</class>

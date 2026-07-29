@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrCompositionfilter" inherits="RefCounted">
+    <brief_description>A framework to define a compound filter composed of two or more simple filters.</brief_description>
+    <description>! A framework to define a compound filter composed of
+! two or more simple filters.</description>
+    <methods>
+        <method name="Add">
+            <description>Adds the filter afilter to a filter object created by a filter class inheriting this framework.</description>
+        </method>
+        <method name="Remove">
+            <description>Removes the filter aFilter from this framework.</description>
+        </method>
+        <method name="IsEmpty" qualifiers="const">
+            <description>Returns true if this framework is empty.</description>
+        </method>
+        <method name="IsIn" qualifiers="const">
+            <description>Returns true if the filter aFilter is in this framework.</description>
+        </method>
+        <method name="StoredFilters" qualifiers="const">
+            <description>Returns the list of stored filters from this framework.</description>
+        </method>
+        <method name="Clear">
+            <description>Clears the filters used in this framework.</description>
+        </method>
+    </methods>
+</class>

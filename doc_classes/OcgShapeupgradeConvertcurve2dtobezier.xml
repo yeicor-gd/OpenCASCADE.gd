@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeConvertcurve2dtobezier" inherits="RefCounted">
+    <brief_description>converts/splits a 2d curve to a list of beziers</brief_description>
+    <description>! converts/splits a 2d curve to a list of beziers</description>
+    <methods>
+        <method name="ShapeUpgrade_ConvertCurve2dToBezier" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Compute">
+            <description>Converts curve into a list of beziers, and stores the splitting parameters on original curve.</description>
+        </method>
+        <method name="Build">
+            <description>Splits a list of beziers computed by Compute method according the split values and splitting parameters.</description>
+        </method>
+        <method name="SplitParams" qualifiers="const">
+            <description>Returns the list of split parameters in original curve parametrisation.</description>
+        </method>
+    </methods>
+</class>

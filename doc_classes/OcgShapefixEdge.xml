@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapefixEdge" inherits="RefCounted">
+    <brief_description>Fixing invalid edge. Geometrical and/or topological inconsistency: - no 3d curve or pcurve, - mismatching orientation of 3d curve and pcurve, - incorrect SameParameter flag (curve deviation is greater than edge tolerance), - not adjacent curves (3d or pcurve) to the vertices.</brief_description>
+    <description>! Fixing invalid edge.
+! Geometrical and/or topological inconsistency:
+! - no 3d curve or pcurve,
+! - mismatching orientation of 3d curve and pcurve,
+! - incorrect SameParameter flag (curve deviation is greater than
+! edge tolerance),
+! - not adjacent curves (3d or pcurve) to the vertices.</description>
+    <methods>
+        <method name="ShapeFix_Edge" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="FixRemoveCurve3d">
+            <description>Removes 3d curve of the edge if it does not match the vertices Returns: True, if does not match, removed (status DONE) False, (status OK) if matches or (status FAIL) if no 3d curve, nothing done</description>
+        </method>
+        <method name="FixAddPCurve">
+            <description>See method below for information</description>
+        </method>
+        <method name="FixAddCurve3d">
+            <description>Tries to build 3d curve of the edge if missing Use : It is to be called after FixRemoveCurve3d (if removed) or in any case when edge can have no 3d curve Returns: True if 3d curve was added, else False Status : OK : 3d curve exists FAIL1: BRepLib::BuildCurve3d() has failed DONE1: 3d curve was added</description>
+        </method>
+        <method name="FixVertexTolerance_1">
+            <description>Increases the tolerances of the edge vertices to comprise the ends of 3d curve and pcurve on the given face (first method) or all pcurves stored in an edge (second one) Returns: True, if tolerances have been increased, otherwise False Status: OK : the original tolerances have not been changed DONE1: the tolerance of first vertex has been increased DONE2: the tolerance of last vertex has been increased</description>
+        </method>
+        <method name="FixSameParameter_1">
+            <description>Tries to make edge SameParameter and sets corresponding tolerance and SameParameter flag. First, it makes edge same range if SameRange flag is not set.</description>
+        </method>
+        <method name="FixSameParameter_2">
+            <description>Tries to make edge SameParameter and sets corresponding tolerance and SameParameter flag. First, it makes edge same range if SameRange flag is not set.</description>
+        </method>
+        <method name="Status" qualifiers="const">
+            <description>Returns the status (in the form of True/False) of last Fix</description>
+        </method>
+    </methods>
+</class>

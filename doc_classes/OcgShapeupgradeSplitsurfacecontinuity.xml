@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeSplitsurfacecontinuity" inherits="RefCounted">
+    <brief_description>Splits a Surface with a continuity criterion. At the present moment C1 criterion is used only. This tool works with tolerance. If C0 surface can be corrected at a knot with given tolerance then the surface is corrected, otherwise it is spltted at that knot.</brief_description>
+    <description>! Splits a Surface with a continuity criterion.
+! At the present moment C1 criterion is used only.
+! This tool works with tolerance. If C0 surface can be corrected
+! at a knot with given tolerance then the surface is corrected,
+! otherwise it is spltted at that knot.</description>
+    <methods>
+        <method name="ShapeUpgrade_SplitSurfaceContinuity" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="SetCriterion">
+            <description>Sets criterion for splitting.</description>
+        </method>
+        <method name="SetTolerance">
+            <description>Sets tolerance.</description>
+        </method>
+    </methods>
+</class>

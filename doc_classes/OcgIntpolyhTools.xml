@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIntpolyhTools" inherits="RefCounted">
+    <brief_description>The class provides tools for surface sampling.</brief_description>
+    <description>! The class provides tools for surface sampling.</description>
+    <methods />
+</class>

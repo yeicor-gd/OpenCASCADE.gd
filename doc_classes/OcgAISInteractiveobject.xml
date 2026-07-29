@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISInteractiveobject" inherits="RefCounted">
+    <brief_description>Defines a class of objects with display and selection services. Entities which are visualized and selected are Interactive Objects. Specific attributes of entities such as arrow aspect for dimensions must be loaded in a Prs3d_Drawer.</brief_description>
+    <description>! Defines a class of objects with display and selection services.
+! Entities which are visualized and selected are Interactive Objects.
+! Specific attributes of entities such as arrow aspect for dimensions must be loaded in a
+! Prs3d_Drawer.
+!
+! You can make use of classes of standard Interactive Objects for which all necessary methods have
+! already been programmed, or you can implement your own classes of Interactive Objects. Key
+! interface methods to be implemented by every Interactive Object:
+! * Presentable Object (PrsMgr_PresentableObject)
+!   Consider defining an enumeration of supported Display Mode indexes for particular Interactive
+!   Object or class of Interactive Objects.
+!   - AcceptDisplayMode() accepting display modes implemented by this object;
+!   - Compute() computing presentation for the given display mode index;
+! * Selectable Object (SelectMgr_SelectableObject)
+!   Consider defining an enumeration of supported Selection Mode indexes for particular
+!   Interactive Object or class of Interactive Objects.
+!   - ComputeSelection() computing selectable entities for the given selection mode index.</description>
+    <methods>
+        <method name="Type" qualifiers="const">
+            <description>Returns the kind of Interactive Object; AIS_KindOfInteractive_None by default.</description>
+        </method>
+        <method name="Signature" qualifiers="const">
+            <description>Specifies additional characteristics of Interactive Object of Type(); -1 by default. Among the datums, this signature is attributed to the shape. The remaining datums have the following default signatures: - Point signature 1 - Axis signature 2 - Trihedron signature 3 - PlaneTrihedron signature 4 - Line signature 5 - Circle signature 6 - Plane signature 7.</description>
+        </method>
+        <method name="Redisplay">
+            <description>Updates the active presentation; if &lt;AllModes&gt; = Standard_True all the presentations inside are recomputed. IMPORTANT: It is preferable to call Redisplay method of corresponding AIS_InteractiveContext instance for cases when it is accessible. This method just redirects call to myCTXPtr, so this class field must be up to date for proper result.</description>
+        </method>
+        <method name="HasInteractiveContext" qualifiers="const">
+            <description>Indicates whether the Interactive Object has a pointer to an interactive context.</description>
+        </method>
+        <method name="SetContext">
+            <description>Sets the interactive context aCtx and provides a link to the default drawing tool or "Drawer" if there is none.</description>
+        </method>
+        <method name="HasOwner" qualifiers="const">
+            <description>Returns true if the object has an owner attributed to it. The owner can be a shape for a set of sub-shapes or a sub-shape for sub-shapes which it is composed of, and takes the form of a transient.</description>
+        </method>
+        <method name="GetOwner" qualifiers="const">
+            <description>Returns the owner of the Interactive Object. The owner can be a shape for a set of sub-shapes or a sub-shape for sub-shapes which it is composed of, and takes the form of a transient. There are two types of owners: - Direct owners, decomposition shapes such as edges, wires, and faces. - Users, presentable objects connecting to sensitive primitives, or a shape which has been decomposed.</description>
+        </method>
+        <method name="SetOwner">
+            <description>Allows you to attribute the owner theApplicativeEntity to an Interactive Object. This can be a shape for a set of sub-shapes or a sub-shape for sub-shapes which it is composed of. The owner takes the form of a transient.</description>
+        </method>
+        <method name="ClearOwner">
+            <description>Each Interactive Object has methods which allow us to attribute an Owner to it in the form of a Transient. This method removes the owner from the graphic entity.</description>
+        </method>
+        <method name="GetContext" qualifiers="const">
+            <description>Returns the context pointer to the interactive context.</description>
+        </method>
+        <method name="HasPresentation" qualifiers="const">
+            <description>Returns TRUE when this object has a presentation in the current DisplayMode()</description>
+        </method>
+        <method name="Presentation" qualifiers="const">
+            <description>Returns the current presentation of this object according to the current DisplayMode()</description>
+        </method>
+        <method name="SetAspect">
+            <description>Sets the graphic basic aspect to the current presentation.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

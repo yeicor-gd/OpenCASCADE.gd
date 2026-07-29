@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGceMakemirror" inherits="RefCounted">
+    <brief_description>This class implements elementary construction algorithms for a symmetrical transformation in 3D space about a point, axis or plane. The result is a gp_Trsf transformation. A MakeMirror object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.</brief_description>
+    <description>! This class implements elementary construction algorithms for a
+! symmetrical transformation in 3D space about a point,
+! axis or plane. The result is a gp_Trsf transformation.
+! A MakeMirror object provides a framework for:
+! -   defining the construction of the transformation,
+! -   implementing the construction algorithm, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs a central symmetry about a point.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs an axial symmetry about an axis.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs an axial symmetry about a line.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Constructs a planar symmetry about a plane.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Constructs a planar symmetry about a plane.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Constructs an axial symmetry about an axis defined by point and direction.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed transformation.</description>
+        </method>
+        <method name="Operator" qualifiers="const">
+            <description>Alias for Value() returning a copy.</description>
+        </method>
+    </methods>
+</class>

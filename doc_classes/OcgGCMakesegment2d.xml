@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakesegment2d" inherits="RefCounted">
+    <brief_description>This class implements construction algorithms for line segments in the plane. The result is a `Geom2d_TrimmedCurve`. A `GC_MakeSegment2d` object provides a framework for: - defining the construction parameters; - running the construction algorithm; - querying the construction status and the resulting segment via `Value()`.</brief_description>
+    <description>! This class implements construction algorithms for line segments in the plane.
+! The result is a `Geom2d_TrimmedCurve`.
+! A `GC_MakeSegment2d` object provides a framework for:
+! - defining the construction parameters;
+! - running the construction algorithm;
+! - querying the construction status and the resulting segment via `Value()`.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a segment between two points.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a segment on a line defined by point and direction. The segment starts at `theP1` and ends at the orthogonal projection of `theP2` onto that line.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a segment on a line between two parameter values.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a segment on a line between point parameter and target parameter.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Creates a segment on a line between projections of two points.</description>
+        </method>
+    </methods>
+</class>

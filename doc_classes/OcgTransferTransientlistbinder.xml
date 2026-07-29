@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferTransientlistbinder" inherits="RefCounted">
+    <brief_description>This binder binds several (a list of) Transients with a starting entity, when this entity itself corresponds to a simple list of Transients. Each part is not seen as a sub-result of an independent component, but as an item of a built-in list</brief_description>
+    <description>! This binder binds several (a list of) Transients with a starting
+! entity, when this entity itself corresponds to a simple list
+! of Transients. Each part is not seen as a sub-result of an
+! independent component, but as an item of a built-in list</description>
+    <methods />
+</class>

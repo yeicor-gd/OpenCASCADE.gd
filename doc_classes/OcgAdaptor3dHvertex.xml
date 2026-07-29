@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAdaptor3dHvertex" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class Adaptor3d_HVertex.</description>
+    <methods>
+        <method name="Resolution">
+            <description>Parametric resolution (2d).</description>
+        </method>
+    </methods>
+</class>

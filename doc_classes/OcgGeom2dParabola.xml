@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeom2dParabola" inherits="RefCounted">
+    <brief_description>Describes a parabola in the plane (2D space). A parabola is defined by its focal length (i.e. the distance between its focus and its apex) and is positioned in the plane with a coordinate system (gp_Ax22d object) where: - the origin is the apex of the parabola, and - the "X Axis" defines the axis of symmetry; the parabola is on the positive side of this axis. This coordinate system is the local coordinate system of the parabola. The orientation (direct or indirect) of the local coordinate system gives an explicit orientation to the parabola, determining the direction in which the parameter increases along the parabola. The Geom_Parabola parabola is parameterized as follows: P(U) = O + U*U/(4.*F)*XDir + U*YDir, where: - P is the point of parameter U, - O, XDir and YDir are respectively the origin, "X Direction" and "Y Direction" of its local coordinate system, - F is the focal length of the parabola. The parameter of the parabola is therefore its Y coordinate in the local coordinate system, with the "X Axis" of the local coordinate system defining the origin of the parameter. The parameter range is ] -infinite,+infinite [.</brief_description>
+    <description>! Describes a parabola in the plane (2D space).
+! A parabola is defined by its focal length (i.e. the
+! distance between its focus and its apex) and is
+! positioned in the plane with a coordinate system
+! (gp_Ax22d object) where:
+! - the origin is the apex of the parabola, and
+! - the "X Axis" defines the axis of symmetry; the
+! parabola is on the positive side of this axis.
+! This coordinate system is the local coordinate
+! system of the parabola.
+! The orientation (direct or indirect) of the local
+! coordinate system gives an explicit orientation to the
+! parabola, determining the direction in which the
+! parameter increases along the parabola.
+! The Geom_Parabola parabola is parameterized as follows:
+! P(U) = O + U*U/(4.*F)*XDir + U*YDir, where:
+! - P is the point of parameter U,
+! - O, XDir and YDir are respectively the origin, "X
+! Direction" and "Y Direction" of its local coordinate system,
+! - F is the focal length of the parabola.
+! The parameter of the parabola is therefore its Y
+! coordinate in the local coordinate system, with the "X
+! Axis" of the local coordinate system defining the
+! origin of the parameter.
+! The parameter range is ] -infinite,+infinite [.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a parabola from a non persistent one.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a parabola with its Axis and it's focal length "Focal". The XDirection of Axis is the axis of symmetry of the curve, it is the "XAxis". The "YAxis" is parallel to the directrix of the parabola. The "Location" point of "Axis" is the vertex of the parabola. Raised if Focal &lt; 0.0</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>D is the directrix of the parabola and F the focus point. The symmetry axis "XAxis" of the parabola is normal to the directrix and pass through the focus point F, but its "Location" point is the vertex of the parabola. The "YAxis" of the parabola is parallel to D and its "Location" point is the vertex of the parabola.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a parabola with its "MirrorAxis" and it's focal length "Focal". MirrorAxis is the axis of symmetry of the curve, it is the "XAxis". The "YAxis" is parallel to the directrix of the parabola and is in the direct sense if Sense is True. The "Location" point of "MirrorAxis" is the vertex of the parabola Raised if Focal &lt; 0.0</description>
+        </method>
+        <method name="SetFocal">
+            <description>Assigns the value Focal to the focal length of this parabola. Exceptions Standard_ConstructionError if Focal is negative.</description>
+        </method>
+        <method name="SetParab2d">
+            <description>Converts the gp_Parab2d parabola Prb into this parabola.</description>
+        </method>
+        <method name="Parab2d" qualifiers="const">
+            <description>Returns the non persistent parabola from gp with the same geometric properties as &lt;me&gt;.</description>
+        </method>
+        <method name="ReversedParameter" qualifiers="const">
+            <description>Computes the parameter on the reversed parabola for the point of parameter U on this parabola. For a parabola, the returned value is -U.</description>
+        </method>
+        <method name="FirstParameter" qualifiers="const">
+            <description>Returns RealFirst from Standard.</description>
+        </method>
+        <method name="LastParameter" qualifiers="const">
+            <description>Returns RealLast from Standard.</description>
+        </method>
+        <method name="IsClosed" qualifiers="const">
+            <description>Returns False</description>
+        </method>
+        <method name="IsPeriodic" qualifiers="const">
+            <description>Returns False</description>
+        </method>
+        <method name="Directrix" qualifiers="const">
+            <description>The directrix is parallel to the "YAxis" of the parabola. The "Location" point of the directrix is the intersection point between the directrix and the symmetry axis ("XAxis") of the parabola.</description>
+        </method>
+        <method name="Eccentricity" qualifiers="const">
+            <description>Returns the eccentricity e = 1.0</description>
+        </method>
+        <method name="Focus" qualifiers="const">
+            <description>Computes the focus of this parabola The focus is on the positive side of the "X Axis" of the local coordinate system of the parabola.</description>
+        </method>
+        <method name="Focal" qualifiers="const">
+            <description>Computes the focal length of this parabola. The focal length is the distance between the apex and the focus of the parabola.</description>
+        </method>
+        <method name="Parameter" qualifiers="const">
+            <description>Computes the parameter of this parabola, which is the distance between its focus and its directrix. This distance is twice the focal length. If P is the parameter of the parabola, the equation of the parabola in its local coordinate system is: Y**2 = 2.*P*X.</description>
+        </method>
+        <method name="EvalD0" qualifiers="const">
+            <description>Returns in P the point of parameter U. If U = 0 the returned point is the origin of the XAxis and the YAxis of the parabola and it is the vertex of the parabola. P = S + F * (U * U * XDir + * U * YDir) where S is the vertex of the parabola, XDir the XDirection and YDir the YDirection of the parabola's local coordinate system.</description>
+        </method>
+        <method name="EvalDN" qualifiers="const">
+            <description>For the point of parameter U of this parabola, computes the vector corresponding to the Nth derivative. Exceptions Standard_RangeError if N is less than 1.</description>
+        </method>
+        <method name="Transform">
+            <description>Applies the transformation T to this parabola.</description>
+        </method>
+        <method name="TransformedParameter" qualifiers="const">
+            <description>Computes the parameter on the transformed parabola, for the point of parameter U on this parabola. For a parabola, the returned value is equal to U multiplied by the scale factor of transformation T.</description>
+        </method>
+        <method name="ParametricTransformation" qualifiers="const">
+            <description>Returns a coefficient to compute the parameter on the transformed curve for the transform of the point on &lt;me&gt;.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

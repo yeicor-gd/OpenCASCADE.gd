@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepoffsetapiFindcontigousedges" inherits="RefCounted">
+    <brief_description>Provides methods to identify contiguous boundaries for continuity control (C0, C1, ...)</brief_description>
+    <description>! Provides methods to identify contiguous boundaries for continuity control (C0, C1, ...)
+!
+! Use this function as following:
+! - create an object
+! - default tolerance 1.E-06
+! - with analysis of degenerated faces on
+! - define if necessary a new tolerance
+! - set if necessary analysis of degenerated shapes off
+! - add shapes to be controlled -&gt; Add
+! - compute -&gt; Perform
+! - output couples of connected edges for control
+! - output the problems if any</description>
+    <methods>
+        <method name="BRepOffsetAPI_FindContigousEdges" qualifiers="static">
+            <description>Initializes an algorithm for identifying contiguous edges on shapes with tolerance as the tolerance of contiguity (defaulted to 1.0e-6). This tolerance value is used to determine whether two edges or sections of edges are coincident. Use the function Add to define the shapes to be checked. Set option to false. This argument (defaulted to true) will serve in subsequent software releases for performing an analysis of degenerated shapes.</description>
+        </method>
+        <method name="Init">
+            <description>Initializes this algorithm for identifying contiguous edges on shapes using the tolerance of contiguity tolerance. This tolerance value is used to determine whether two edges or sections of edges are coincident. Use the function Add to define the shapes to be checked. Sets &lt;option&gt; to false.</description>
+        </method>
+        <method name="Add">
+            <description>Adds the shape shape to the list of shapes to be checked by this algorithm. Once all the shapes to be checked have been added, use the function Perform to find the contiguous edges and the function ContigousEdge to return these edges.</description>
+        </method>
+        <method name="Perform">
+            <description>Finds coincident parts of edges of two or more shapes added to this algorithm and breaks down these edges into contiguous and non-contiguous sections on copies of the initial shapes. The function ContigousEdge returns contiguous edges. The function Modified can be used to return modified copies of the initial shapes where one or more edges were broken down into contiguous and non-contiguous sections. Warning This function must be used once all the shapes to be checked have been added. It is not possible to add further shapes subsequently and then to repeat the call to Perform.</description>
+        </method>
+        <method name="NbEdges" qualifiers="const">
+            <description>Gives the number of edges (free edges + contiguous edges + multiple edge)</description>
+        </method>
+        <method name="NbContigousEdges" qualifiers="const">
+            <description>Returns the number of contiguous edges found by the function Perform on the shapes added to this algorithm.</description>
+        </method>
+        <method name="ContigousEdge" qualifiers="const">
+            <description>Returns the contiguous edge of index index found by the function Perform on the shapes added to this algorithm. Exceptions Standard_OutOfRange if: - index is less than 1, or - index is greater than the number of contiguous edges found by the function Perform on the shapes added to this algorithm.</description>
+        </method>
+        <method name="SectionToBoundary" qualifiers="const">
+            <description>Returns the edge on the initial shape, of which the modified copy contains the edge section. section is coincident with a contiguous edge found by the function Perform. Use the function ContigousEdgeCouple to obtain a valid section. This information is useful for verification purposes, since it provides a means of determining the surface to which the contiguous edge belongs. Exceptions Standard_NoSuchObject if section is not coincident with a contiguous edge. Use the function ContigousEdgeCouple to obtain a valid section.</description>
+        </method>
+        <method name="NbDegeneratedShapes" qualifiers="const">
+            <description>Gives the number of degenerated shapes</description>
+        </method>
+        <method name="DegeneratedShape" qualifiers="const">
+            <description>Gives a degenerated shape</description>
+        </method>
+        <method name="IsDegenerated" qualifiers="const">
+            <description>Indicates if a input shape is degenerated</description>
+        </method>
+        <method name="IsModified" qualifiers="const">
+            <description>Returns true if the copy of the initial shape shape was modified by the function Perform (i.e. if one or more of its edges was broken down into contiguous and non-contiguous sections). Warning Returns false if shape is not one of the initial shapes added to this algorithm.</description>
+        </method>
+        <method name="Modified" qualifiers="const">
+            <description>Gives a modifieded shape Raises NoSuchObject if shape has not been modified</description>
+        </method>
+    </methods>
+</class>

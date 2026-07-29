@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeom2dEllipse" inherits="RefCounted">
+    <brief_description>Describes an ellipse in the plane (2D space). An ellipse is defined by its major and minor radii and, as with any conic curve, is positioned in the plane with a coordinate system (gp_Ax22d object) where: - the origin is the center of the ellipse, - the "X Direction" defines the major axis, and - the "Y Direction" defines the minor axis. This coordinate system is the local coordinate system of the ellipse. The orientation (direct or indirect) of the local coordinate system gives an explicit orientation to the ellipse, determining the direction in which the parameter increases along the ellipse. The Geom2d_Ellipse ellipse is parameterized by an angle: P(U) = O + MajorRad*std::cos(U)*XDir + MinorRad*Sin(U)*YDir where: - P is the point of parameter U, - O, XDir and YDir are respectively the origin, "X Direction" and "Y Direction" of its local coordinate system, - MajorRad and MinorRad are the major and minor radii of the ellipse. The "X Axis" of the local coordinate system therefore defines the origin of the parameter of the ellipse. An ellipse is a closed and periodic curve. The period is 2.*Pi and the parameter range is [ 0,2.*Pi [. See Also GCE2d_MakeEllipse which provides functions for more complex ellipse constructions gp_Ax22d gp_Elips2d for an equivalent, non-parameterized data structure</brief_description>
+    <description>! Describes an ellipse in the plane (2D space).
+! An ellipse is defined by its major and minor radii and,
+! as with any conic curve, is positioned in the plane
+! with a coordinate system (gp_Ax22d object) where:
+! - the origin is the center of the ellipse,
+! - the "X Direction" defines the major axis, and
+! - the "Y Direction" defines the minor axis.
+! This coordinate system is the local coordinate system of the ellipse.
+! The orientation (direct or indirect) of the local
+! coordinate system gives an explicit orientation to the
+! ellipse, determining the direction in which the
+! parameter increases along the ellipse.
+! The Geom2d_Ellipse ellipse is parameterized by an angle:
+! P(U) = O + MajorRad*std::cos(U)*XDir + MinorRad*Sin(U)*YDir
+! where:
+! - P is the point of parameter U,
+! - O, XDir and YDir are respectively the origin, "X
+! Direction" and "Y Direction" of its local coordinate system,
+! - MajorRad and MinorRad are the major and
+! minor radii of the ellipse.
+! The "X Axis" of the local coordinate system therefore
+! defines the origin of the parameter of the ellipse.
+! An ellipse is a closed and periodic curve. The period
+! is 2.*Pi and the parameter range is [ 0,2.*Pi [.
+! See Also
+! GCE2d_MakeEllipse which provides functions for
+! more complex ellipse constructions
+! gp_Ax22d
+! gp_Elips2d for an equivalent, non-parameterized data structure</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates an ellipse by conversion of the gp_Elips2d ellipse E.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an ellipse defined by its major and minor radii, MajorRadius and MinorRadius, where the coordinate system Axis locates the ellipse and defines its orientation in the plane such that: - the center of the ellipse is the origin of Axis, - the "X Direction" of Axis defines the major axis of the ellipse, - the "Y Direction" of Axis defines the minor axis of the ellipse, - the orientation of Axis (direct or indirect) gives the orientation of the ellipse. Warnings : It is not forbidden to create an ellipse with MajorRadius = MinorRadius. Exceptions Standard_ConstructionError if: - MajorRadius is less than MinorRadius, or - MinorRadius is less than 0.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates an ellipse defined by its major and minor radii, MajorRadius and MinorRadius, and positioned in the plane by its major axis MajorAxis; the center of the ellipse is the origin of MajorAxis and the unit vector of MajorAxis is the "X Direction" of the local coordinate system of the ellipse; this coordinate system is direct if Sense is true (default value) or indirect if Sense is false. Warnings : It is not forbidden to create an ellipse with MajorRadius = MinorRadius. Exceptions Standard_ConstructionError if: - MajorRadius is less than MinorRadius, or - MinorRadius is less than 0.</description>
+        </method>
+        <method name="SetElips2d">
+            <description>Converts the gp_Elips2d ellipse E into this ellipse.</description>
+        </method>
+        <method name="SetMajorRadius">
+            <description>Assigns a value to the major radius of this ellipse. Exceptions Standard_ConstructionError if: - the major radius of this ellipse becomes less than the minor radius, or - MinorRadius is less than 0.</description>
+        </method>
+        <method name="SetMinorRadius">
+            <description>Assigns a value to the minor radius of this ellipse. Exceptions Standard_ConstructionError if: - the major radius of this ellipse becomes less than the minor radius, or - MinorRadius is less than 0.</description>
+        </method>
+        <method name="Elips2d" qualifiers="const">
+            <description>Converts this ellipse into a gp_Elips2d ellipse.</description>
+        </method>
+        <method name="ReversedParameter" qualifiers="const">
+            <description>Computes the parameter on the reversed ellipse for the point of parameter U on this ellipse. For an ellipse, the returned value is: 2.*Pi - U.</description>
+        </method>
+        <method name="Directrix1" qualifiers="const">
+            <description>Computes the directrices of this ellipse. This directrix is the line normal to the XAxis of the ellipse in the local plane (Z = 0) at a distance d = MajorRadius / e from the center of the ellipse, where e is the eccentricity of the ellipse. This line is parallel to the "YAxis". The intersection point between directrix1 and the "XAxis" is the "Location" point of the directrix1. This point is on the positive side of the "XAxis". Raises ConstructionError if Eccentricity = 0.0. (The ellipse degenerates into a circle)</description>
+        </method>
+        <method name="Directrix2" qualifiers="const">
+            <description>This line is obtained by the symmetrical transformation of "Directrix1" with respect to the "YAxis" of the ellipse. Raises ConstructionError if Eccentricity = 0.0. (The ellipse degenerates into a circle).</description>
+        </method>
+        <method name="Eccentricity" qualifiers="const">
+            <description>Returns the eccentricity of the ellipse between 0.0 and 1.0 If f is the distance between the center of the ellipse and the Focus1 then the eccentricity e = f / MajorRadius. Returns 0 if MajorRadius = 0</description>
+        </method>
+        <method name="Focal" qualifiers="const">
+            <description>Computes the focal distance. The focal distance is the distance between the center and a focus of the ellipse.</description>
+        </method>
+        <method name="Focus1" qualifiers="const">
+            <description>Returns the first focus of the ellipse. This focus is on the positive side of the "XAxis" of the ellipse.</description>
+        </method>
+        <method name="Focus2" qualifiers="const">
+            <description>Returns the second focus of the ellipse. This focus is on the negative side of the "XAxis" of the ellipse.</description>
+        </method>
+        <method name="MajorRadius" qualifiers="const">
+            <description>Returns the major radius of this ellipse.</description>
+        </method>
+        <method name="MinorRadius" qualifiers="const">
+            <description>Returns the minor radius of this ellipse.</description>
+        </method>
+        <method name="Parameter" qualifiers="const">
+            <description>Computes the parameter of this ellipse. This value is given by the formula p = (1 - e * e) * MajorRadius where e is the eccentricity of the ellipse. Returns 0 if MajorRadius = 0</description>
+        </method>
+        <method name="FirstParameter" qualifiers="const">
+            <description>Returns the value of the first parameter of this ellipse. This is 0.0, which gives the start point of this ellipse. The start point and end point of an ellipse are coincident.</description>
+        </method>
+        <method name="LastParameter" qualifiers="const">
+            <description>Returns the value of the last parameter of this ellipse. This is 2.*Pi, which gives the end point of this ellipse. The start point and end point of an ellipse are coincident.</description>
+        </method>
+        <method name="IsClosed" qualifiers="const">
+            <description>return True.</description>
+        </method>
+        <method name="IsPeriodic" qualifiers="const">
+            <description>return True.</description>
+        </method>
+        <method name="EvalD0" qualifiers="const">
+            <description>Returns in P the point of parameter U. P = C + MajorRadius * Cos (U) * XDir + MinorRadius * Sin (U) * YDir where C is the center of the ellipse , XDir the direction of the "XAxis" and "YDir" the "YAxis" of the ellipse.</description>
+        </method>
+        <method name="EvalDN" qualifiers="const">
+            <description>For the point of parameter U of this ellipse, computes the vector corresponding to the Nth derivative. Exceptions Standard_RangeError if N is less than 1.</description>
+        </method>
+        <method name="Transform">
+            <description>Applies the transformation T to this ellipse.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

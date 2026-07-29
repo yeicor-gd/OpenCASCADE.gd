@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIntpolyhTriangle" inherits="RefCounted">
+    <brief_description>The class represents the triangle built from three IntPolyh points and three IntPolyh edges.</brief_description>
+    <description>! The class represents the triangle built from three IntPolyh points
+! and three IntPolyh edges.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor</description>
+        </method>
+        <method name="SetDeflection">
+            <description>Sets the deflection</description>
+        </method>
+        <method name="SetIntersectionPossible">
+            <description>Sets the flag of possibility of intersection</description>
+        </method>
+        <method name="SetIntersection">
+            <description>Sets the flag of intersection</description>
+        </method>
+        <method name="SetDegenerated">
+            <description>Sets the degenerated flag</description>
+        </method>
+        <method name="SetEdgeAndOrientation">
+            <description>Sets the appropriate edge and orientation for the triangle.</description>
+        </method>
+    </methods>
+</class>

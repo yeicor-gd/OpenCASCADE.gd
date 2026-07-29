@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakemirror2d" inherits="RefCounted">
+    <brief_description>This class implements elementary construction algorithms for symmetric transformations in 2D space about a point, axis, or line. The result is a `Geom2d_Transformation`. A `GC_MakeMirror2d` object provides a framework for: - defining the transformation parameters; - running the construction algorithm; - querying the resulting transformation via `Value()`.</brief_description>
+    <description>! This class implements elementary construction algorithms for
+! symmetric transformations in 2D space about a point, axis, or line.
+! The result is a `Geom2d_Transformation`.
+! A `GC_MakeMirror2d` object provides a framework for:
+! - defining the transformation parameters;
+! - running the construction algorithm;
+! - querying the resulting transformation via `Value()`.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs a central symmetry about a point.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs an axial symmetry about an axis.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs an axial symmetry about a line.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Constructs an axial symmetry about a line defined by point and direction.</description>
+        </method>
+    </methods>
+</class>

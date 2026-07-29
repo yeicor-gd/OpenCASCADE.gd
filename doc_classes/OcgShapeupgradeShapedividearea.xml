@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeShapedividearea" inherits="RefCounted">
+    <brief_description>Divides faces from sprcified shape by max area criterium.</brief_description>
+    <description>! Divides faces from sprcified shape  by max area criterium.</description>
+    <methods>
+        <method name="from_2" qualifiers="static">
+            <description>Initialize by a Shape.</description>
+        </method>
+        <method name="MaxArea">
+            <description>Set max area allowed for faces</description>
+        </method>
+        <method name="NbParts">
+            <description>Set number of parts expected for the case of splitting by number</description>
+        </method>
+        <method name="SetNumbersUVSplits">
+            <description>Set fixed numbers of splits in U and V directions. Only for "Splitting By Numbers" mode</description>
+        </method>
+        <method name="SetSplittingByNumber">
+            <description>Set splitting mode If the mode is "splitting by number", the face is splitted approximately into &lt;myNbParts&gt; parts, the parts are similar to squares in 2D.</description>
+        </method>
+    </methods>
+</class>

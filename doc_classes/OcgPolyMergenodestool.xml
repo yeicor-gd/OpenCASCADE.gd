@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPolyMergenodestool" inherits="RefCounted">
+    <brief_description>Auxiliary tool for merging triangulation nodes for visualization purposes. Tool tries to merge all nodes within input triangulation, but split the ones on sharp corners at specified angle.</brief_description>
+    <description>! Auxiliary tool for merging triangulation nodes for visualization purposes.
+! Tool tries to merge all nodes within input triangulation, but split the ones on sharp corners at
+! specified angle.</description>
+    <methods>
+        <method name="Poly_MergeNodesTool" qualifiers="static">
+            <description>Constructor</description>
+        </method>
+        <method name="PushLastElement">
+            <description>Add new triangle or quad with nodes specified by ChangeElementNode().</description>
+        </method>
+        <method name="PushLastTriangle">
+            <description>Add new triangle with nodes specified by ChangeElementNode().</description>
+        </method>
+        <method name="PushLastQuad">
+            <description>Add new quad with nodes specified by ChangeElementNode().</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeTool" inherits="RefCounted">
+    <brief_description>Tool is a root class for splitting classes Provides context for recording changes, basic precision value and limit (minimal and maximal) values for tolerances</brief_description>
+    <description>! Tool is a root class for splitting classes
+! Provides context for recording changes, basic
+! precision value and limit (minimal and maximal)
+! values for tolerances</description>
+    <methods>
+        <method name="ShapeUpgrade_Tool" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="Set">
+            <description>Copy all fields from another Root object</description>
+        </method>
+        <method name="SetContext">
+            <description>Sets context</description>
+        </method>
+        <method name="Context" qualifiers="const">
+            <description>Returns context</description>
+        </method>
+        <method name="SetPrecision">
+            <description>Sets basic precision value</description>
+        </method>
+        <method name="Precision" qualifiers="const">
+            <description>Returns basic precision value</description>
+        </method>
+        <method name="SetMinTolerance">
+            <description>Sets minimal allowed tolerance</description>
+        </method>
+        <method name="MinTolerance" qualifiers="const">
+            <description>Returns minimal allowed tolerance</description>
+        </method>
+        <method name="SetMaxTolerance">
+            <description>Sets maximal allowed tolerance</description>
+        </method>
+        <method name="MaxTolerance" qualifiers="const">
+            <description>Returns maximal allowed tolerance</description>
+        </method>
+        <method name="LimitTolerance" qualifiers="const">
+            <description>Returns tolerance limited by [myMinTol,myMaxTol]</description>
+        </method>
+    </methods>
+</class>

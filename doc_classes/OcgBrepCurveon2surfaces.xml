@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepCurveon2surfaces" inherits="RefCounted">
+    <brief_description>Defines a continuity between two surfaces.</brief_description>
+    <description>! Defines a continuity between two surfaces.</description>
+    <methods>
+        <method name="IsRegularity" qualifiers="const">
+            <description>Returns True.</description>
+        </method>
+        <method name="D0" qualifiers="const">
+            <description>Raises an error.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

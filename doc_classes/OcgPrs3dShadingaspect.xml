@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dShadingaspect" inherits="RefCounted">
+    <brief_description>A framework to define the display of shading. The attributes which make up this definition include: - fill aspect - color, and - material</brief_description>
+    <description>! A framework to define the display of shading.
+! The attributes which make up this definition include:
+! -   fill aspect
+! -   color, and
+! -   material</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty framework to display shading.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor with initialization.</description>
+        </method>
+        <method name="SetColor">
+            <description>Change the polygons interior color and material ambient color.</description>
+        </method>
+        <method name="SetMaterial">
+            <description>Change the polygons material aspect.</description>
+        </method>
+        <method name="SetTransparency">
+            <description>Change the polygons transparency value. Warning : aValue must be in the range 0,1. 0 is the default (NO transparent)</description>
+        </method>
+        <method name="Color" qualifiers="const">
+            <description>Returns the polygons color.</description>
+        </method>
+        <method name="Material" qualifiers="const">
+            <description>Returns the polygons material aspect.</description>
+        </method>
+        <method name="Transparency" qualifiers="const">
+            <description>Returns the polygons transparency value.</description>
+        </method>
+        <method name="Aspect" qualifiers="const">
+            <description>Returns the polygons aspect properties.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMediaFormatcontext" inherits="RefCounted">
+    <brief_description>AVFormatContext wrapper - the media input/output stream holder.</brief_description>
+    <description>! AVFormatContext wrapper - the media input/output stream holder.</description>
+    <methods>
+        <method name="Media_FormatContext" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="Close">
+            <description>Close input.</description>
+        </method>
+        <method name="NbSteams" qualifiers="const">
+            <description>Return amount of streams.</description>
+        </method>
+        <method name="SeekStream">
+            <description>Seek stream to specified position.</description>
+        </method>
+        <method name="Seek">
+            <description>Seek context to specified position.</description>
+        </method>
+        <method name="FormatUnitsToSeconds" qualifiers="static">
+            <description>Convert time units into seconds for context.</description>
+        </method>
+        <method name="SecondsToUnits_1" qualifiers="static">
+            <description>Convert seconds into time units for context.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessagePrintertoreport" inherits="RefCounted">
+    <brief_description>Implementation of a message printer associated with Message_Report Send will create a new alert of the report. If string is sent, an alert is created by Eol only. The alerts are sent into set report or default report of Message.</brief_description>
+    <description>! Implementation of a message printer associated with Message_Report
+! Send will create a new alert of the report. If string is sent, an alert is created by Eol only.
+! The alerts are sent into set report or default report of Message.</description>
+    <methods>
+        <method name="Message_PrinterToReport" qualifiers="static">
+            <description>Create printer for redirecting messages into report.</description>
+        </method>
+    </methods>
+</class>

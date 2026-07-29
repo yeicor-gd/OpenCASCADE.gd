@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGceMakecylinder" inherits="RefCounted">
+    <brief_description>This class implements construction algorithms for `gp_Cylinder`. Supported constructions include: - cylinder from axis placement and radius; - cylinder coaxial to another, through point or at signed offset; - cylinder from three points; - cylinder from axis and radius; - cylinder from circular base.</brief_description>
+    <description>! This class implements construction algorithms for `gp_Cylinder`.
+! Supported constructions include:
+! - cylinder from axis placement and radius;
+! - cylinder coaxial to another, through point or at signed offset;
+! - cylinder from three points;
+! - cylinder from axis and radius;
+! - cylinder from circular base.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a cylinder from circular base.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a cylinder from axis placement and radius.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a cylinder coaxial to input cylinder and passing through a point.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a cylinder coaxial to input cylinder at signed distance.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Makes a Cylinder by its axis &lt;Axis&gt; and radius &lt;Radius&gt;.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Creates a cylinder from three points.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed cylinder. Exceptions StdFail_NotDone if no cylinder is constructed.</description>
+        </method>
+        <method name="Operator" qualifiers="const">
+            <description>Alias for Value() returning a copy.</description>
+        </method>
+    </methods>
+</class>

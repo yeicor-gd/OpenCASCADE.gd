@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepPolygononclosedsurface" inherits="RefCounted">
+    <brief_description>Representation by two 2d polygons in the parametric space of a surface.</brief_description>
+    <description>! Representation by two 2d polygons in the parametric
+! space of a surface.</description>
+    <methods>
+        <method name="IsPolygonOnClosedSurface" qualifiers="const">
+            <description>returns True.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Return a copy of this representation.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

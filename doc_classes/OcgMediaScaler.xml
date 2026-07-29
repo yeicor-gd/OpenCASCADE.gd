@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMediaScaler" inherits="RefCounted">
+    <brief_description>SwsContext wrapper - tool performing image scaling and pixel format conversion.</brief_description>
+    <description>! SwsContext wrapper - tool performing image scaling and pixel format conversion.</description>
+    <methods>
+        <method name="Media_Scaler" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Release">
+            <description>sws_freeContext() wrapper.</description>
+        </method>
+    </methods>
+</class>

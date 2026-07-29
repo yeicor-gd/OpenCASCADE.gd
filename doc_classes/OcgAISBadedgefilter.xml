@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISBadedgefilter" inherits="RefCounted">
+    <brief_description>A Class</brief_description>
+    <description>! A Class</description>
+    <methods>
+        <method name="AIS_BadEdgeFilter" qualifiers="static">
+            <description>Constructs an empty filter object for bad edges.</description>
+        </method>
+        <method name="SetContour">
+            <description>sets &lt;myContour&gt; with current contour. used by IsOk.</description>
+        </method>
+        <method name="AddEdge">
+            <description>Adds an edge to the list of non-selectable edges.</description>
+        </method>
+        <method name="RemoveEdges">
+            <description>removes from the list of non-selectable edges all edges in the contour &lt;Index&gt;.</description>
+        </method>
+    </methods>
+</class>

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c7nshix38qqm4"]
 
 [ext_resource type="Script" uid="uid://gig31rsvuqq0" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cypwfo1ownwig" path="res://demo/demo.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dh0oj81pufivs" path="res://tests/tests.tscn" id="2_h2yge"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0e071"]
@@ -16,6 +17,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 vertical = true
 script = ExtResource("1_ig7tw")
+demo_scene = ExtResource("2_1bvp3")
 tests_scene = ExtResource("2_h2yge")
 
 [node name="Panel" type="VBoxContainer" parent="." unique_id=1861824163]
@@ -29,10 +31,16 @@ layout_mode = 2
 text = "OpenCASCADE GDExtension"
 label_settings = SubResource("LabelSettings_0e071")
 
+[node name="DemoButton" type="Button" parent="Panel" unique_id=182136981]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "DEMO"
+
 [node name="TestsButton" type="Button" parent="Panel" unique_id=947654445]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "TESTS
 "
 
+[connection signal="pressed" from="Panel/DemoButton" to="." method="_on_demo_button_pressed"]
 [connection signal="pressed" from="Panel/TestsButton" to="." method="_on_tests_button_pressed"]

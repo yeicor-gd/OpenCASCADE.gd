@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrSelectableobjectset" inherits="RefCounted">
+    <brief_description>The purpose of this class is to organize all selectable objects into data structure, allowing to build set of BVH trees for each transformation persistence subclass of selectable objects. This allow to minify number of updates for BVH trees - for example 2D persistent object subclass depends only on camera's projection and the corresponding BVH tree needs to be updated when camera's projection parameters change, while another tree for non-persistent objects can be left unchanged in this case.</brief_description>
+    <description>! The purpose of this class is to organize all selectable objects into data structure, allowing to
+! build set of BVH trees for each transformation persistence subclass of selectable objects. This
+! allow to minify number of updates for BVH trees - for example 2D persistent object subclass
+! depends only on camera's projection and the corresponding BVH tree needs to be updated when
+! camera's projection parameters change, while another tree for non-persistent objects can be left
+! unchanged in this case.</description>
+    <methods>
+        <method name="SelectMgr_SelectableObjectSet" qualifiers="static">
+            <description>Creates new empty objects set and initializes BVH tree builders for each subset.</description>
+        </method>
+        <method name="Append">
+            <description>Adds the new selectable object to the set. The selectable object is placed into one of the predefined subsets depending on its persistence type. After adding an object, this method marks the corresponding BVH tree for rebuild.</description>
+        </method>
+        <method name="Remove">
+            <description>Removes the selectable object from the set. The selectable object is removed from the subset it has been placed into. After removing an object, this method marks the corresponding BVH tree for rebuild.</description>
+        </method>
+        <method name="ChangeSubset">
+            <description>Performs necessary updates when object's persistence types changes. This method should be called right after changing transformation persistence flags of the objects and before updating BVH tree - to provide up-to-date state of the object set.</description>
+        </method>
+        <method name="MarkDirty">
+            <description>Marks every BVH subset for update.</description>
+        </method>
+        <method name="Contains" qualifiers="const">
+            <description>Returns true if this objects set contains theObject given.</description>
+        </method>
+        <method name="IsEmpty_1" qualifiers="const">
+            <description>Returns true if the object set does not contain any selectable objects.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

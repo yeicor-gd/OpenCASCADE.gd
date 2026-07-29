@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dTexture3d" inherits="RefCounted">
+    <brief_description>This abstract class for managing 3D textures.</brief_description>
+    <description>! This abstract class for managing 3D textures.</description>
+    <methods />
+</class>

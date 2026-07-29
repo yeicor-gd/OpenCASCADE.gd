@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBopalgoCheckersi" inherits="RefCounted">
+    <brief_description>Checks the shape on self-interference.</brief_description>
+    <description>! Checks the shape on self-interference.
+!
+! The algorithm can set the following errors:
+! - *BOPAlgo_AlertMultipleArguments* - The number of the input arguments is not one;
+! - *BOPALgo_ErrorIntersectionFailed* - The check has been aborted during intersection of
+! sub-shapes. In case the error has occurred during intersection of sub-shapes, i.e. in
+! BOPAlgo_PaveFiller::PerformInternal() method, the errors from this method directly will be
+! returned.</description>
+    <methods>
+        <method name="SetLevelOfCheck">
+            <description>Sets the level of checking shape on self-interference. It defines which interferences will be checked: 0 - only V/V; 1 - V/V and V/E; 2 - V/V, V/E and E/E; 3 - V/V, V/E, E/E and V/F; 4 - V/V, V/E, E/E, V/F and E/F; 5 - V/V, V/E, E/E, V/F, E/F and F/F; 6 - V/V, V/E, E/E, V/F, E/F, F/F and V/S; 7 - V/V, V/E, E/E, V/F, E/F, F/F, V/S and E/S; 8 - V/V, V/E, E/E, V/F, E/F, F/F, V/S, E/S and F/S; 9 - V/V, V/E, E/E, V/F, E/F, F/F, V/S, E/S, F/S and S/S - all interferences (Default value)</description>
+        </method>
+    </methods>
+</class>

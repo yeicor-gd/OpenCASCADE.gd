@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdNameddata" inherits="RefCounted">
+    <brief_description>Contains a named data.</brief_description>
+    <description>! Contains a named data.</description>
+    <methods>
+        <method name="TDataStd_NamedData" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="HasIntegers" qualifiers="const">
+            <description>Returns true if at least one named integer value is kept in the attribute.</description>
+        </method>
+        <method name="HasReals" qualifiers="const">
+            <description>Returns true if at least one named real value is kept in the attribute.</description>
+        </method>
+        <method name="HasStrings" qualifiers="const">
+            <description>Returns true if there are some named strings in the attribute.</description>
+        </method>
+        <method name="HasBytes" qualifiers="const">
+            <description>Returns true if there are some named bytes in the attribute.</description>
+        </method>
+        <method name="HasArraysOfIntegers" qualifiers="const">
+            <description>Returns true if there are some named arrays of integer values in the attribute.</description>
+        </method>
+        <method name="HasArraysOfReals" qualifiers="const">
+            <description>Returns true if there are some named arrays of real values in the attribute.</description>
+        </method>
+        <method name="Clear">
+            <description>Clear data.</description>
+        </method>
+        <method name="HasDeferredData" qualifiers="const">
+            <description>Returns TRUE if some data is not loaded from deferred storage and can be loaded using LoadDeferredData().</description>
+        </method>
+        <method name="LoadDeferredData">
+            <description>Load data from deferred storage, without calling Backup(). As result, the content of the object will be overridden by data from deferred storage (which is normally read-only).</description>
+        </method>
+        <method name="UnloadDeferredData">
+            <description>Releases data if object has connected deferred storage, without calling Backup(). WARNING! This operation does not unload modifications to deferred storage (normally it is read-only), so that modifications will be discarded (if any).</description>
+        </method>
+        <method name="clear">
+            <description>Clear data without calling Backup().</description>
+        </method>
+        <method name="ID" qualifiers="const">
+            <description>! @name TDF_Attribute interface</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>Returns the ID of the named data attribute.</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Finds or creates a named data attribute.</description>
+        </method>
+    </methods>
+</class>

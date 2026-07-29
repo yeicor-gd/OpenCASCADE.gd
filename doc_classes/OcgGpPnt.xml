@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpPnt" inherits="RefCounted">
+    <brief_description>Defines a 3D cartesian point.</brief_description>
+    <description>! Defines a 3D cartesian point.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates a point with zero coordinates.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a point from a XYZ object.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a point with its 3 cartesian's coordinates : theXp, theYp, theZp.</description>
+        </method>
+        <method name="SetCoord_1">
+            <description>Changes the coordinate of range theIndex : theIndex = 1 =&gt; X is modified theIndex = 2 =&gt; Y is modified theIndex = 3 =&gt; Z is modified Raised if theIndex != {1, 2, 3}.</description>
+        </method>
+        <method name="SetCoord_2">
+            <description>For this point, assigns the values theXp, theYp and theZp to its three coordinates.</description>
+        </method>
+        <method name="SetX">
+            <description>Assigns the given value to the X coordinate of this point.</description>
+        </method>
+        <method name="SetY">
+            <description>Assigns the given value to the Y coordinate of this point.</description>
+        </method>
+        <method name="SetZ">
+            <description>Assigns the given value to the Z coordinate of this point.</description>
+        </method>
+        <method name="SetXYZ">
+            <description>Assigns the three coordinates of theCoord to this point.</description>
+        </method>
+        <method name="Coord_2" qualifiers="const">
+            <description>Returns the coordinate of corresponding to the value of theIndex : theIndex = 1 =&gt; X is returned theIndex = 2 =&gt; Y is returned theIndex = 3 =&gt; Z is returned Raises OutOfRange if theIndex != {1, 2, 3}. Raised if theIndex != {1, 2, 3}.</description>
+        </method>
+        <method name="Coord_3" qualifiers="const">
+            <description>For this point gives its three coordinates theXp, theYp and theZp.</description>
+        </method>
+        <method name="X" qualifiers="const">
+            <description>For this point, returns its X coordinate.</description>
+        </method>
+        <method name="Y" qualifiers="const">
+            <description>For this point, returns its Y coordinate.</description>
+        </method>
+        <method name="Z" qualifiers="const">
+            <description>For this point, returns its Z coordinate.</description>
+        </method>
+        <method name="XYZ" qualifiers="const">
+            <description>For this point, returns its three coordinates as a XYZ object.</description>
+        </method>
+        <method name="Coord_1" qualifiers="const">
+            <description>For this point, returns its three coordinates as a XYZ object.</description>
+        </method>
+        <method name="ChangeCoord">
+            <description>Returns the coordinates of this point. Note: This syntax allows direct modification of the returned value.</description>
+        </method>
+        <method name="BaryCenter">
+            <description>Assigns the result of the following expression to this point (theAlpha*this + theBeta*theP) / (theAlpha + theBeta)</description>
+        </method>
+        <method name="Distance" qualifiers="const">
+            <description>Computes the distance between two points.</description>
+        </method>
+        <method name="SquareDistance" qualifiers="const">
+            <description>Computes the square distance between two points.</description>
+        </method>
+        <method name="Mirror_1">
+            <description>Performs the symmetrical transformation of a point with respect to the point theP which is the center of the symmetry.</description>
+        </method>
+        <method name="Mirrored_1" qualifiers="const">
+            <description>Performs the symmetrical transformation of a point with respect to an axis placement which is the axis of the symmetry.</description>
+        </method>
+        <method name="Mirrored_2" qualifiers="const">
+            <description>Performs the symmetrical transformation of a point with respect to a plane. The axis placement theA2 locates the plane of the symmetry : (Location, XDirection, YDirection).</description>
+        </method>
+        <method name="Mirrored_3" qualifiers="const">
+            <description>Rotates a point. theA1 is the axis of the rotation. theAng is the angular value of the rotation in radians.</description>
+        </method>
+        <method name="Scale">
+            <description>Scales a point. theS is the scaling value.</description>
+        </method>
+        <method name="Transform">
+            <description>Transforms a point with the transformation T.</description>
+        </method>
+        <method name="Translate_1">
+            <description>Translates a point in the direction of the vector theV. The magnitude of the translation is the vector's magnitude.</description>
+        </method>
+        <method name="Translate_2">
+            <description>Translates a point from the point theP1 to the point theP2.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

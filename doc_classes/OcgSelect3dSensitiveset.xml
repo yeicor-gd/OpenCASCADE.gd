@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitiveset" inherits="RefCounted">
+    <brief_description>This class is base class for handling overlap detection of complex sensitive entities. It provides an interface for building BVH tree for some set of entities. Thereby, each iteration of overlap detection is a traverse of BVH tree in fact. To use speed-up hierarchical structure in a custom complex sensitive entity, it is necessary to make that custom entity a descendant of this class and organize sub-entities in some container which allows referencing to elements by index. Note that methods taking index as a parameter are used for BVH build and the range of given index is [0; Size() - 1]. For example of usage see Select3D_SensitiveTriangulation.</brief_description>
+    <description>! This class is base class for handling overlap detection of complex sensitive
+! entities. It provides an interface for building BVH tree for some set of entities.
+! Thereby, each iteration of overlap detection is a traverse of BVH tree in fact.
+! To use speed-up hierarchical structure in a custom complex sensitive entity, it is
+! necessary to make that custom entity a descendant of this class and organize sub-entities
+! in some container which allows referencing to elements by index. Note that methods taking
+! index as a parameter are used for BVH build and the range of given index is [0; Size() - 1].
+! For example of usage see Select3D_SensitiveTriangulation.</description>
+    <methods>
+        <method name="Select3D_SensitiveSet" qualifiers="static">
+            <description>Creates new empty sensitive set and its content</description>
+        </method>
+        <method name="ToBuildBVH" qualifiers="const">
+            <description>Returns TRUE if BVH tree is in invalidated state</description>
+        </method>
+        <method name="SetBuilder">
+            <description>Sets the method (builder) used to construct BVH.</description>
+        </method>
+        <method name="MarkDirty">
+            <description>Marks BVH tree of the set as outdated. It will be rebuild at the next call of BVH()</description>
+        </method>
+        <method name="CenterOfGeometry" qualifiers="const">
+            <description>Returns center of the whole set. This method should be redefined in Select3D_SensitiveSet descendants</description>
+        </method>
+        <method name="Clear">
+            <description>Destroys cross-reference to avoid memory leak</description>
+        </method>
+        <method name="GetLeafNodeSize" qualifiers="const">
+            <description>Returns a number of nodes in 1 BVH leaf</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="DefaultBVHBuilder" qualifiers="static">
+            <description>Return global instance to default BVH builder.</description>
+        </method>
+        <method name="SetDefaultBVHBuilder" qualifiers="static">
+            <description>Assign new BVH builder to be used by default for new sensitive sets (assigning is NOT thread-safe!).</description>
+        </method>
+    </methods>
+</class>

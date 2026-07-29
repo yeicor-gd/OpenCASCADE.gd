@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshtoolsMeshalgofactory" inherits="RefCounted">
+    <brief_description>Base interface for factories producing instances of triangulation algorithms taking into account type of surface of target face.</brief_description>
+    <description>! Base interface for factories producing instances of triangulation
+! algorithms taking into account type of surface of target face.</description>
+    <methods />
+</class>

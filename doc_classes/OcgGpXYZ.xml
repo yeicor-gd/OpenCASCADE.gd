@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpXYZ" inherits="RefCounted">
+    <brief_description>This class describes a cartesian coordinate entity in 3D space {X,Y,Z}. This entity is used for algebraic calculation. This entity can be transformed with a "Trsf" or a "GTrsf" from package "gp". It is used in vectorial computations or for holding this type of information in data structures.</brief_description>
+    <description>! This class describes a cartesian coordinate entity in
+! 3D space {X,Y,Z}. This entity is used for algebraic
+! calculation. This entity can be transformed
+! with a "Trsf" or a  "GTrsf" from package "gp".
+! It is used in vectorial computations or for holding this type
+! of information in data structures.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates an XYZ object with zero coordinates (0,0,0)</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>creates an XYZ with given coordinates</description>
+        </method>
+        <method name="SetCoord_2">
+            <description>For this XYZ object, assigns the values theX, theY and theZ to its three coordinates</description>
+        </method>
+        <method name="SetCoord_1">
+            <description>modifies the coordinate of range theIndex theIndex = 1 =&gt; X is modified theIndex = 2 =&gt; Y is modified theIndex = 3 =&gt; Z is modified Raises OutOfRange if theIndex != {1, 2, 3}.</description>
+        </method>
+        <method name="SetX">
+            <description>Assigns the given value to the X coordinate</description>
+        </method>
+        <method name="SetY">
+            <description>Assigns the given value to the Y coordinate</description>
+        </method>
+        <method name="SetZ">
+            <description>Assigns the given value to the Z coordinate</description>
+        </method>
+        <method name="X" qualifiers="const">
+            <description>Returns the X coordinate</description>
+        </method>
+        <method name="Y" qualifiers="const">
+            <description>Returns the Y coordinate</description>
+        </method>
+        <method name="Z" qualifiers="const">
+            <description>Returns the Z coordinate</description>
+        </method>
+        <method name="Modulus" qualifiers="const">
+            <description>computes Sqrt (X*X + Y*Y + Z*Z) where X, Y and Z are the three coordinates of this XYZ object.</description>
+        </method>
+        <method name="SquareModulus" qualifiers="const">
+            <description>Computes X*X + Y*Y + Z*Z where X, Y and Z are the three coordinates of this XYZ object.</description>
+        </method>
+        <method name="IsEqual" qualifiers="const">
+            <description>Returns True if he coordinates of this XYZ object are equal to the respective coordinates Other, within the specified tolerance theTolerance. I.e.: abs(&lt;me&gt;.X() - theOther.X()) &lt;= theTolerance and abs(&lt;me&gt;.Y() - theOther.Y()) &lt;= theTolerance and abs(&lt;me&gt;.Z() - theOther.Z()) &lt;= theTolerance.</description>
+        </method>
+        <method name="Add">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.X() + theOther.X()
+! &lt;me&gt;.Y() = &lt;me&gt;.Y() + theOther.Y()
+! &lt;me&gt;.Z() = &lt;me&gt;.Z() + theOther.Z()
+! @endcode</description>
+        </method>
+        <method name="Added" qualifiers="const">
+            <description>! @code
+! new.X() = &lt;me&gt;.X() + theOther.X()
+! new.Y() = &lt;me&gt;.Y() + theOther.Y()
+! new.Z() = &lt;me&gt;.Z() + theOther.Z()
+! @endcode</description>
+        </method>
+        <method name="Cross">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.Y() * theOther.Z() - &lt;me&gt;.Z() * theOther.Y()
+! &lt;me&gt;.Y() = &lt;me&gt;.Z() * theOther.X() - &lt;me&gt;.X() * theOther.Z()
+! &lt;me&gt;.Z() = &lt;me&gt;.X() * theOther.Y() - &lt;me&gt;.Y() * theOther.X()
+! @endcode</description>
+        </method>
+        <method name="Crossed" qualifiers="const">
+            <description>! @code
+! new.X() = &lt;me&gt;.Y() * theOther.Z() - &lt;me&gt;.Z() * theOther.Y()
+! new.Y() = &lt;me&gt;.Z() * theOther.X() - &lt;me&gt;.X() * theOther.Z()
+! new.Z() = &lt;me&gt;.X() * theOther.Y() - &lt;me&gt;.Y() * theOther.X()
+! @endcode</description>
+        </method>
+        <method name="CrossMagnitude" qualifiers="const">
+            <description>Computes the magnitude of the cross product between &lt;me&gt; and theRight. Returns || &lt;me&gt; ^ theRight ||</description>
+        </method>
+        <method name="CrossSquareMagnitude" qualifiers="const">
+            <description>Computes the square magnitude of the cross product between &lt;me&gt; and theRight. Returns || &lt;me&gt; ^ theRight ||**2</description>
+        </method>
+        <method name="CrossCross">
+            <description>Triple vector product Computes &lt;me&gt; = &lt;me&gt;.Cross(theCoord1.Cross(theCoord2))</description>
+        </method>
+        <method name="CrossCrossed" qualifiers="const">
+            <description>Triple vector product computes New = &lt;me&gt;.Cross(theCoord1.Cross(theCoord2))</description>
+        </method>
+        <method name="Divide">
+            <description>divides &lt;me&gt; by a real.</description>
+        </method>
+        <method name="Divided" qualifiers="const">
+            <description>divides &lt;me&gt; by a real.</description>
+        </method>
+        <method name="Dot" qualifiers="const">
+            <description>computes the scalar product between &lt;me&gt; and theOther</description>
+        </method>
+        <method name="DotCross" qualifiers="const">
+            <description>computes the triple scalar product</description>
+        </method>
+        <method name="Multiply_1">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.X() * theScalar;
+! &lt;me&gt;.Y() = &lt;me&gt;.Y() * theScalar;
+! &lt;me&gt;.Z() = &lt;me&gt;.Z() * theScalar;
+! @endcode</description>
+        </method>
+        <method name="Multiply_2">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.X() * theOther.X();
+! &lt;me&gt;.Y() = &lt;me&gt;.Y() * theOther.Y();
+! &lt;me&gt;.Z() = &lt;me&gt;.Z() * theOther.Z();
+! @endcode</description>
+        </method>
+        <method name="Multiply_3">
+            <description>&lt;me&gt; = theMatrix * &lt;me&gt;</description>
+        </method>
+        <method name="Multiplied_1" qualifiers="const">
+            <description>! @code
+! New.X() = &lt;me&gt;.X() * theScalar;
+! New.Y() = &lt;me&gt;.Y() * theScalar;
+! New.Z() = &lt;me&gt;.Z() * theScalar;
+! @endcode</description>
+        </method>
+        <method name="Multiplied_2" qualifiers="const">
+            <description>! @code
+! new.X() = &lt;me&gt;.X() * theOther.X();
+! new.Y() = &lt;me&gt;.Y() * theOther.Y();
+! new.Z() = &lt;me&gt;.Z() * theOther.Z();
+! @endcode</description>
+        </method>
+        <method name="Multiplied_3" qualifiers="const">
+            <description>New = theMatrix * &lt;me&gt;</description>
+        </method>
+        <method name="Normalize">
+            <description>Raised if &lt;me&gt;.Modulus() &lt;= Resolution from gp</description>
+        </method>
+        <method name="Normalized" qualifiers="const">
+            <description>Raised if &lt;me&gt;.Modulus() &lt;= Resolution from gp</description>
+        </method>
+        <method name="Reverse">
+            <description>! @code
+! &lt;me&gt;.X() = -&lt;me&gt;.X()
+! &lt;me&gt;.Y() = -&lt;me&gt;.Y()
+! &lt;me&gt;.Z() = -&lt;me&gt;.Z()
+! @endcode</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>! @code
+! New.X() = -&lt;me&gt;.X()
+! New.Y() = -&lt;me&gt;.Y()
+! New.Z() = -&lt;me&gt;.Z()
+! @endcode</description>
+        </method>
+        <method name="Subtract">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.X() - theOther.X()
+! &lt;me&gt;.Y() = &lt;me&gt;.Y() - theOther.Y()
+! &lt;me&gt;.Z() = &lt;me&gt;.Z() - theOther.Z()
+! @endcode</description>
+        </method>
+        <method name="Subtracted" qualifiers="const">
+            <description>! @code
+! new.X() = &lt;me&gt;.X() - theOther.X()
+! new.Y() = &lt;me&gt;.Y() - theOther.Y()
+! new.Z() = &lt;me&gt;.Z() - theOther.Z()
+! @endcode</description>
+        </method>
+        <method name="SetLinearForm_6">
+            <description>&lt;me&gt; is set to the following linear form :</description>
+        </method>
+        <method name="SetLinearForm_5">
+            <description>&lt;me&gt; is set to the following linear form :</description>
+        </method>
+        <method name="SetLinearForm_4">
+            <description>&lt;me&gt; is set to the following linear form :</description>
+        </method>
+        <method name="SetLinearForm_3">
+            <description>&lt;me&gt; is set to the following linear form :</description>
+        </method>
+        <method name="SetLinearForm_2">
+            <description>&lt;me&gt; is set to the following linear form :</description>
+        </method>
+        <method name="SetLinearForm_1">
+            <description>&lt;me&gt; is set to the following linear form :</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

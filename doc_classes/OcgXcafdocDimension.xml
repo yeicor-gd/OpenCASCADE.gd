@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocDimension" inherits="RefCounted">
+    <brief_description>Attribute that identifies a dimension in the GD&amp;T table. Its parent label is used as a container to store data provided by XCAFDimTolObjects_DimensionObject.</brief_description>
+    <description>! Attribute that identifies a dimension in the GD&amp;T table.
+! Its parent label is used as a container to store data provided
+! by XCAFDimTolObjects_DimensionObject.</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

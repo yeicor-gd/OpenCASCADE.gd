@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapefixFixsmallface" inherits="RefCounted">
+    <brief_description>Fixing face with small size</brief_description>
+    <description>! Fixing face with small size</description>
+    <methods>
+        <method name="Perform">
+            <description>Fixing case of spot face</description>
+        </method>
+        <method name="FixSpotFace">
+            <description>Fixing case of spot face, if tol = -1 used local tolerance.</description>
+        </method>
+        <method name="ReplaceVerticesInCaseOfSpot" qualifiers="const">
+            <description>Compute average vertex and replacing vertices by new one.</description>
+        </method>
+        <method name="RemoveFacesInCaseOfSpot" qualifiers="const">
+            <description>Remove spot face from compound</description>
+        </method>
+        <method name="FixStripFace">
+            <description>Fixing case of strip face, if tol = -1 used local tolerance</description>
+        </method>
+        <method name="ReplaceInCaseOfStrip" qualifiers="const">
+            <description>Replace veretces and edges.</description>
+        </method>
+        <method name="RemoveFacesInCaseOfStrip" qualifiers="const">
+            <description>Remove strip face from compound.</description>
+        </method>
+        <method name="ComputeSharedEdgeForStripFace" qualifiers="const">
+            <description>Compute average edge for strip face</description>
+        </method>
+        <method name="SplitOneFace">
+            <description>Compute data for face splitting.</description>
+        </method>
+    </methods>
+</class>

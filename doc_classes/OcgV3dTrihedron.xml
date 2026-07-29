@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgV3dTrihedron" inherits="RefCounted">
+    <brief_description>Class for presentation of trihedron object.</brief_description>
+    <description>! Class for presentation of trihedron object.</description>
+    <methods>
+        <method name="V3d_Trihedron" qualifiers="static">
+            <description>Creates a default trihedron.</description>
+        </method>
+        <method name="IsWireframe" qualifiers="const">
+            <description>Return TRUE if wireframe presentation is set; FALSE by default.</description>
+        </method>
+        <method name="SetWireframe">
+            <description>Switch wireframe / shaded trihedron.</description>
+        </method>
+        <method name="TransformPersistence" qualifiers="const">
+            <description>Return trihedron position.</description>
+        </method>
+        <method name="SetPosition">
+            <description>Setup the corner to draw the trihedron.</description>
+        </method>
+        <method name="Scale" qualifiers="const">
+            <description>Return scale factor.</description>
+        </method>
+        <method name="SetScale">
+            <description>Setup the scale factor.</description>
+        </method>
+        <method name="SizeRatio" qualifiers="const">
+            <description>Return size ratio factor.</description>
+        </method>
+        <method name="SetSizeRatio">
+            <description>Setup the size ratio factor.</description>
+        </method>
+        <method name="ArrowDiameter" qualifiers="const">
+            <description>Return arrow diameter.</description>
+        </method>
+        <method name="SetArrowDiameter">
+            <description>Setup the arrow diameter.</description>
+        </method>
+        <method name="NbFacets" qualifiers="const">
+            <description>Return number of facets for tessellation.</description>
+        </method>
+        <method name="SetNbFacets">
+            <description>Setup the number of facets for tessellation.</description>
+        </method>
+        <method name="LabelAspect" qualifiers="const">
+            <description>Return text aspect for specified axis.</description>
+        </method>
+        <method name="SetLabelsColor_2">
+            <description>Setup per-label color.</description>
+        </method>
+        <method name="SetLabelsColor_1">
+            <description>Setup color of text labels.</description>
+        </method>
+        <method name="ArrowAspect" qualifiers="const">
+            <description>Return shading aspect for specified axis.</description>
+        </method>
+        <method name="SetArrowsColor">
+            <description>Setup colors of arrows.</description>
+        </method>
+        <method name="OriginAspect" qualifiers="const">
+            <description>Return shading aspect of origin sphere.</description>
+        </method>
+        <method name="Display_1">
+            <description>Display trihedron.</description>
+        </method>
+        <method name="Display_2">
+            <description>Display trihedron.</description>
+        </method>
+        <method name="Erase">
+            <description>Erase trihedron.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

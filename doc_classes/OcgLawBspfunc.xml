@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgLawBspfunc" inherits="RefCounted">
+    <brief_description>Law Function based on a BSpline curve 1d. Package methods and classes are implemented in package Law to construct the basis curve with several constraints.</brief_description>
+    <description>! Law Function based on a BSpline curve 1d.  Package
+! methods and classes are implemented in package Law
+! to    construct  the  basis    curve with  several
+! constraints.</description>
+    <methods>
+        <method name="NbIntervals" qualifiers="const">
+            <description>Returns the number of intervals for continuity &lt;S&gt;. May be one if Continuity(me) &gt;= &lt;S&gt;</description>
+        </method>
+        <method name="Intervals" qualifiers="const">
+            <description>Stores in &lt;T&gt; the parameters bounding the intervals of continuity &lt;S&gt;. The array must provide enough room to accommodate for the parameters, i.e. T.Length() &gt; NbIntervals()</description>
+        </method>
+        <method name="Trim" qualifiers="const">
+            <description>Returns a law equivalent of &lt;me&gt; between parameters &lt;First&gt; and &lt;Last&gt;. &lt;Tol&gt; is used to test for 3d points confusion. It is usfule to determines the derivatives in these values &lt;First&gt; and &lt;Last&gt; if the Law is not Cn.</description>
+        </method>
+    </methods>
+</class>

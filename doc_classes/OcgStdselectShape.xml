@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStdselectShape" inherits="RefCounted">
+    <brief_description>Presentable shape only for purpose of display for BRepOwner...</brief_description>
+    <description>! Presentable shape only for purpose of display for BRepOwner...</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

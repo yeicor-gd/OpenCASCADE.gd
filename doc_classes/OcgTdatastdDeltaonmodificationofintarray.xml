@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdDeltaonmodificationofintarray" inherits="RefCounted">
+    <brief_description>This class provides default services for an AttributeDelta on a MODIFICATION action.</brief_description>
+    <description>! This class provides default services for an
+! AttributeDelta on a MODIFICATION action.</description>
+    <methods>
+        <method name="Apply">
+            <description>Applies the delta to the attribute.</description>
+        </method>
+    </methods>
+</class>

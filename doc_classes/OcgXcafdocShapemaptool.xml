@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocShapemaptool" inherits="RefCounted">
+    <brief_description>attribute containing map of sub shapes</brief_description>
+    <description>! attribute containing map of sub shapes</description>
+    <methods>
+        <method name="XCAFDoc_ShapeMapTool" qualifiers="static">
+            <description>Creates an empty tool</description>
+        </method>
+        <method name="IsSubShape" qualifiers="const">
+            <description>Checks whether shape is subshape of shape stored on label shapeL</description>
+        </method>
+        <method name="SetShape">
+            <description>Sets representation (TopoDS_Shape) for top-level shape</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

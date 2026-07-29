@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dTransformpersscaledabove" inherits="RefCounted">
+    <brief_description>Transformation Zoom persistence with the above boundary of scale. This persistence works only when the camera scale value is below the scale value of this persistence. Otherwise, no persistence is applied.</brief_description>
+    <description>! Transformation Zoom persistence with the above boundary of scale.
+! This persistence works only when the camera scale value is below the scale value of this
+! persistence. Otherwise, no persistence is applied.</description>
+    <methods>
+        <method name="Graphic3d_TransformPersScaledAbove" qualifiers="static">
+            <description>Create a Zoom transformation persistence with an anchor 3D point and a scale value</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBndRange" inherits="RefCounted">
+    <brief_description>This class describes a range in 1D space restricted by two real values. A range can be void indicating there is no point included in the range.</brief_description>
+    <description>! This class describes a range in 1D space restricted
+! by two real values.
+! A range can be void indicating there is no point included in the range.</description>
+    <methods>
+        <method name="Bnd_Range" qualifiers="static">
+            <description>Default constructor. Creates VOID range.</description>
+        </method>
+        <method name="Common">
+            <description>Replaces &lt;this&gt; with common-part of &lt;this&gt; and theOther</description>
+        </method>
+        <method name="Union">
+            <description>Joins *this and theOther to one interval. Replaces *this to the result. Returns false if the operation cannot be done (e.g. input arguments are empty or separated).</description>
+        </method>
+        <method name="IsIntersected" qualifiers="const">
+            <description>Checks if &lt;this&gt; intersects values like theVal+k*thePeriod, where k is an integer number (k = 0, +/-1, +/-2, ...). Returns: 0 - if &lt;this&gt; does not intersect the theVal+k*thePeriod. 1 - if &lt;this&gt; intersects theVal+k*thePeriod. 2 - if myFirst or/and myLast are equal to theVal+k*thePeriod.</description>
+        </method>
+        <method name="Add_1">
+            <description>Extends &lt;this&gt; to include theParameter</description>
+        </method>
+        <method name="Add_2">
+            <description>Extends this range to include both ranges.</description>
+        </method>
+        <method name="GetMin" qualifiers="const">
+            <description>Obtain MIN boundary of &lt;this&gt;. If &lt;this&gt; is VOID the method returns false.</description>
+        </method>
+        <method name="GetMax" qualifiers="const">
+            <description>Obtain MAX boundary of &lt;this&gt;. If &lt;this&gt; is VOID the method returns false.</description>
+        </method>
+        <method name="GetBounds" qualifiers="const">
+            <description>Obtain first and last boundary of &lt;this&gt;. If &lt;this&gt; is VOID the method returns false.</description>
+        </method>
+        <method name="GetIntermediatePoint" qualifiers="const">
+            <description>Obtain theParameter satisfied to the equation (theParameter-MIN)/(MAX-MIN) == theLambda. * theLambda == 0 --&gt; MIN boundary will be returned; * theLambda == 0.5 --&gt; Middle point will be returned; * theLambda == 1 --&gt; MAX boundary will be returned; * theLambda &lt; 0 --&gt; the value less than MIN will be returned; * theLambda &gt; 1 --&gt; the value greater than MAX will be returned. If &lt;this&gt; is VOID the method returns false.</description>
+        </method>
+        <method name="Delta" qualifiers="const">
+            <description>Returns range value (MAX-MIN). Returns negative value for VOID range.</description>
+        </method>
+        <method name="SetVoid">
+            <description>Initializes &lt;this&gt; by default parameters. Makes &lt;this&gt; VOID.</description>
+        </method>
+        <method name="Enlarge">
+            <description>Extends this to the given value (in both side)</description>
+        </method>
+        <method name="Shifted" qualifiers="const">
+            <description>Returns the copy of &lt;*this&gt; shifted by theVal</description>
+        </method>
+        <method name="Shift">
+            <description>Shifts &lt;*this&gt; by theVal</description>
+        </method>
+        <method name="TrimFrom">
+            <description>Trims the First value in range by the given lower limit. Marks range as Void if the given Lower value is greater than range Max.</description>
+        </method>
+        <method name="TrimTo">
+            <description>Trim the Last value in range by the given Upper limit. Marks range as Void if the given Upper value is smaller than range Max.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="equal" qualifiers="const">
+            <description>Returns TRUE if theOther is equal to &lt;*this&gt;</description>
+        </method>
+    </methods>
+</class>

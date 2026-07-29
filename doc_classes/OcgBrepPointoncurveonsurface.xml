@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepPointoncurveonsurface" inherits="RefCounted">
+    <brief_description>Representation by a parameter on a curve on a surface.</brief_description>
+    <description>! Representation by   a parameter on  a curve   on a
+! surface.</description>
+    <methods>
+        <method name="IsPointOnCurveOnSurface_1" qualifiers="const">
+            <description>Returns True</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

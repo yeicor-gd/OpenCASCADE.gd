@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeConvertcurve3dtobezier" inherits="RefCounted">
+    <brief_description>converts/splits a 3d curve of any type to a list of beziers</brief_description>
+    <description>! converts/splits a 3d curve of any type to a list of beziers</description>
+    <methods>
+        <method name="ShapeUpgrade_ConvertCurve3dToBezier" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="SetLineMode">
+            <description>Sets mode for conversion Geom_Line to bezier.</description>
+        </method>
+        <method name="GetLineMode" qualifiers="const">
+            <description>Returns the Geom_Line conversion mode.</description>
+        </method>
+        <method name="SetCircleMode">
+            <description>Sets mode for conversion Geom_Circle to bezier.</description>
+        </method>
+        <method name="GetCircleMode" qualifiers="const">
+            <description>Returns the Geom_Circle conversion mode.</description>
+        </method>
+        <method name="SetConicMode">
+            <description>Returns the Geom_Conic conversion mode.</description>
+        </method>
+        <method name="GetConicMode" qualifiers="const">
+            <description>Performs converting and computes the resulting shape.</description>
+        </method>
+        <method name="Compute">
+            <description>Converts curve into a list of beziers, and stores the splitting parameters on original curve.</description>
+        </method>
+        <method name="Build">
+            <description>Splits a list of beziers computed by Compute method according the split values and splitting parameters.</description>
+        </method>
+        <method name="SplitParams" qualifiers="const">
+            <description>Returns the list of split parameters in original curve parametrisation.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISLightsource" inherits="RefCounted">
+    <brief_description>Interactive object for a light source. Each type of light source has it's own presentation: - Ambient light is displayed as a sphere at view corner; - Positional light is represented by a sphere or marker; - Spot light is represented by a cone; - Directional light is represented by a set of arrows at the corner of view. In addition, light source name could be displayed, and clicking on presentation will enable/disable light.</brief_description>
+    <description>! Interactive object for a light source.
+! Each type of light source has it's own presentation:
+! - Ambient light is displayed as a sphere at view corner;
+! - Positional light is represented by a sphere or marker;
+! - Spot light is represented by a cone;
+! - Directional light is represented by a set of arrows at the corner of view.
+! In addition, light source name could be displayed, and clicking on presentation will
+! enable/disable light.</description>
+    <methods>
+        <method name="Type" qualifiers="const">
+            <description>Returns kind of the object.</description>
+        </method>
+    </methods>
+</class>

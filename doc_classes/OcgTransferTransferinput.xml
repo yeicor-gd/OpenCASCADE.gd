@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferTransferinput" inherits="RefCounted">
+    <brief_description>A TransferInput is a Tool which fills an InterfaceModel with the result of the Transfer of CasCade Objects, once determined The Result comes from a TransferProcess, either from Transient (the Complete Result is considered, it must contain only Transient Objects)</brief_description>
+    <description>! A TransferInput is a Tool which fills an InterfaceModel with
+! the result of the Transfer of CasCade Objects, once determined
+! The Result comes from a TransferProcess, either from
+! Transient (the Complete Result is considered, it must contain
+! only Transient Objects)</description>
+    <methods>
+        <method name="Transfer_TransferInput" qualifiers="static">
+            <description>Creates a TransferInput ready to use</description>
+        </method>
+    </methods>
+</class>

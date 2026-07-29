@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsAlertattribute" inherits="RefCounted">
+    <brief_description>Alert attribute object storing TopoDS shape in its field</brief_description>
+    <description>! Alert attribute object storing TopoDS shape in its field</description>
+    <methods>
+        <method name="GetShape" qualifiers="const">
+            <description>Returns contained shape</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Send" qualifiers="static">
+            <description>Push shape information into messenger</description>
+        </method>
+    </methods>
+</class>

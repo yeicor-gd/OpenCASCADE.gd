@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBreptoolsModification" inherits="RefCounted">
+    <brief_description>Defines geometric modifications to a shape, i.e. changes to faces, edges and vertices.</brief_description>
+    <description>! Defines geometric modifications to a shape, i.e.
+! changes to faces, edges and vertices.</description>
+    <methods>
+        <method name="NewTriangulation">
+            <description>Returns true if the face has been modified according to changed triangulation. If the face has been modified: - T is a new triangulation on the face</description>
+        </method>
+        <method name="NewPolygon">
+            <description>Returns true if the edge has been modified according to changed polygon. If the edge has been modified: - P is a new polygon</description>
+        </method>
+        <method name="NewPolygonOnTriangulation">
+            <description>Returns true if the edge has been modified according to changed polygon on triangulation. If the edge has been modified: - P is a new polygon on triangulation</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageProgressindicator" inherits="RefCounted">
+    <brief_description>Defines abstract interface from program to the user. This includes progress indication and user break mechanisms.</brief_description>
+    <description>! Defines abstract interface from program to the user.
+! This includes progress indication and user break mechanisms.
+!
+! The progress indicator controls the progress scale with range from 0 to 1.
+!
+! Method Start() should be called once, at the top level of the call stack,
+! to reset progress indicator and get access to the root range:
+!
+! @code{.cpp}
+! Handle(Message_ProgressIndicator) aProgress = ...;
+! anAlgorithm.Perform (aProgress-&gt;Start());
+! @endcode
+!
+! To advance the progress indicator in the algorithm,
+! use the class Message_ProgressScope that provides iterator-like
+! interface for incrementing progress; see documentation of that
+! class for details.
+! The object of class Message_ProgressRange will automatically advance
+! the indicator if it is not passed to any Message_ProgressScope.
+!
+! The progress indicator supports concurrent processing and
+! can be used in multithreaded applications.
+!
+! The derived class should be created to connect this interface to
+! actual implementation of progress indicator, to take care of visualization
+! of the progress (e.g. show total position at the graphical bar,
+! print scopes in text mode, or else), and for implementation
+! of user break mechanism (if necessary).
+!
+! See details in documentation of methods Show() and UserBreak().</description>
+    <methods>
+        <method name="Start_1">
+            <description>Resets the indicator to zero, calls Reset(), and returns the range. This range refers to the scope that has no name and is initialized with max value 1 and step 1. Use this method to get the top level range for progress indication.</description>
+        </method>
+        <method name="GetPosition" qualifiers="const">
+            <description>Returns total progress position ranged from 0 to 1. Should not be called concurrently while the progress is advancing, except from implementation of method Show().</description>
+        </method>
+        <method name="Start_2" qualifiers="static">
+            <description>If argument is non-null handle, returns theProgress-&gt;Start(). Otherwise, returns dummy range that can be safely used in the algorithms but not bound to progress indicator.</description>
+        </method>
+    </methods>
+</class>

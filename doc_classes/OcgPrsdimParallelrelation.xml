@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimParallelrelation" inherits="RefCounted">
+    <brief_description>A framework to display constraints of parallelism between two or more Interactive Objects. These entities can be faces or edges.</brief_description>
+    <description>! A framework to display constraints of parallelism
+! between two or more Interactive Objects. These
+! entities can be faces or edges.</description>
+    <methods />
+</class>

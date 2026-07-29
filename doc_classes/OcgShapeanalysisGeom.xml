@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeanalysisGeom" inherits="RefCounted">
+    <brief_description>Analyzing tool aimed to work on primitive geometrical objects</brief_description>
+    <description>! Analyzing tool aimed to work on primitive geometrical objects</description>
+    <methods />
+</class>

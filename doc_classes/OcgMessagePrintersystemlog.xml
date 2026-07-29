@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessagePrintersystemlog" inherits="RefCounted">
+    <brief_description>Implementation of a message printer associated with system log. Implemented for the following systems: - Windows, through ReportEventW(). - Android, through __android_log_write(). - UNIX/Linux, through syslog().</brief_description>
+    <description>! Implementation of a message printer associated with system log.
+! Implemented for the following systems:
+! - Windows, through ReportEventW().
+! - Android, through __android_log_write().
+! - UNIX/Linux, through syslog().</description>
+    <methods />
+</class>

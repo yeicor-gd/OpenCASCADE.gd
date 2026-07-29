@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimTangentrelation" inherits="RefCounted">
+    <brief_description>A framework to display tangency constraints between two or more Interactive Objects of the datum type. The datums are normally faces or edges.</brief_description>
+    <description>! A framework to display tangency constraints between
+! two or more Interactive Objects of the datum type.
+! The datums are normally faces or edges.</description>
+    <methods />
+</class>

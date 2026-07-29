@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepbuilderapiSewing" inherits="RefCounted">
+    <brief_description>Provides methods to</brief_description>
+    <description>! Provides methods to
+!
+! - identify possible contiguous boundaries (for control
+! afterwards (of continuity: C0, C1, ...))
+!
+! - assemble contiguous shapes into one shape.
+! Only manifold shapes will be found. Sewing will not
+! be done in case of multiple edges.
+!
+! For sewing, use this function as following:
+! - create an empty object
+! - default tolerance 1.E-06
+! - with face analysis on
+! - with sewing operation on
+! - set the cutting option as you need (default True)
+! - define a tolerance
+! - add shapes to be sewed -&gt; Add
+! - compute -&gt; Perform
+! - output the resulted shapes
+! - output free edges if necessary
+! - output multiple edges if necessary
+! - output the problems if any</description>
+    <methods>
+        <method name="BRepBuilderAPI_Sewing" qualifiers="static">
+            <description>Creates an object with tolerance of connexity option for sewing (if false only control) option for analysis of degenerated shapes option for cutting of free edges. option for non manifold processing</description>
+        </method>
+        <method name="Init">
+            <description>initialize the parameters if necessary</description>
+        </method>
+        <method name="Load">
+            <description>Loads the context shape.</description>
+        </method>
+        <method name="Add">
+            <description>Defines the shapes to be sewed or controlled</description>
+        </method>
+        <method name="Perform">
+            <description>Computing theProgress - progress indicator of algorithm</description>
+        </method>
+        <method name="SewedShape" qualifiers="const">
+            <description>Gives the sewed shape a null shape if nothing constructed may be a face, a shell, a solid or a compound</description>
+        </method>
+        <method name="SetContext">
+            <description>set context</description>
+        </method>
+        <method name="GetContext" qualifiers="const">
+            <description>return context</description>
+        </method>
+        <method name="NbFreeEdges" qualifiers="const">
+            <description>Gives the number of free edges (edge shared by one face)</description>
+        </method>
+        <method name="FreeEdge" qualifiers="const">
+            <description>Gives each free edge</description>
+        </method>
+        <method name="NbMultipleEdges" qualifiers="const">
+            <description>Gives the number of multiple edges (edge shared by more than two faces)</description>
+        </method>
+        <method name="MultipleEdge" qualifiers="const">
+            <description>Gives each multiple edge</description>
+        </method>
+        <method name="NbContigousEdges" qualifiers="const">
+            <description>Gives the number of contiguous edges (edge shared by two faces)</description>
+        </method>
+        <method name="ContigousEdge" qualifiers="const">
+            <description>Gives each contiguous edge</description>
+        </method>
+        <method name="ContigousEdgeCouple" qualifiers="const">
+            <description>Gives the sections (edge) belonging to a contiguous edge</description>
+        </method>
+        <method name="IsSectionBound" qualifiers="const">
+            <description>Indicates if a section is bound (before use SectionToBoundary)</description>
+        </method>
+        <method name="SectionToBoundary" qualifiers="const">
+            <description>Gives the original edge (free boundary) which becomes the the section. Remember that sections constitute common edges. This information is important for control because with original edge we can find the surface to which the section is attached.</description>
+        </method>
+        <method name="NbDegeneratedShapes" qualifiers="const">
+            <description>Gives the number of degenerated shapes</description>
+        </method>
+        <method name="DegeneratedShape" qualifiers="const">
+            <description>Gives each degenerated shape</description>
+        </method>
+        <method name="IsDegenerated" qualifiers="const">
+            <description>Indicates if a input shape is degenerated</description>
+        </method>
+        <method name="IsModified" qualifiers="const">
+            <description>Indicates if a input shape has been modified</description>
+        </method>
+        <method name="Modified" qualifiers="const">
+            <description>Gives a modifieded shape</description>
+        </method>
+        <method name="IsModifiedSubShape" qualifiers="const">
+            <description>Indicates if a input subshape has been modified</description>
+        </method>
+        <method name="ModifiedSubShape" qualifiers="const">
+            <description>Gives a modifieded subshape</description>
+        </method>
+        <method name="NbDeletedFaces" qualifiers="const">
+            <description>Gives the number of deleted faces (faces smallest than tolerance)</description>
+        </method>
+        <method name="DeletedFace" qualifiers="const">
+            <description>Gives each deleted face</description>
+        </method>
+        <method name="WhichFace" qualifiers="const">
+            <description>Gives a modified shape</description>
+        </method>
+        <method name="SameParameterMode" qualifiers="const">
+            <description>Gets same parameter mode.</description>
+        </method>
+        <method name="SetSameParameterMode">
+            <description>Sets same parameter mode.</description>
+        </method>
+        <method name="Tolerance" qualifiers="const">
+            <description>Gives set tolerance.</description>
+        </method>
+        <method name="SetTolerance">
+            <description>Sets tolerance</description>
+        </method>
+        <method name="MinTolerance" qualifiers="const">
+            <description>Gives set min tolerance.</description>
+        </method>
+        <method name="SetMinTolerance">
+            <description>Sets min tolerance</description>
+        </method>
+        <method name="MaxTolerance" qualifiers="const">
+            <description>Gives set max tolerance</description>
+        </method>
+        <method name="SetMaxTolerance">
+            <description>Sets max tolerance.</description>
+        </method>
+        <method name="FaceMode" qualifiers="const">
+            <description>Returns mode for sewing faces By default - true.</description>
+        </method>
+        <method name="SetFaceMode">
+            <description>Sets mode for sewing faces By default - true.</description>
+        </method>
+        <method name="FloatingEdgesMode" qualifiers="const">
+            <description>Returns mode for sewing floating edges By default - false.</description>
+        </method>
+        <method name="SetFloatingEdgesMode">
+            <description>Sets mode for sewing floating edges By default - false. Returns mode for cutting floating edges By default - false. Sets mode for cutting floating edges By default - false.</description>
+        </method>
+        <method name="LocalTolerancesMode" qualifiers="const">
+            <description>Returns mode for accounting of local tolerances of edges and vertices during of merging.</description>
+        </method>
+        <method name="SetLocalTolerancesMode">
+            <description>Sets mode for accounting of local tolerances of edges and vertices during of merging in this case WorkTolerance = myTolerance + tolEdge1+ tolEdg2;</description>
+        </method>
+        <method name="SetNonManifoldMode">
+            <description>Sets mode for non-manifold sewing.</description>
+        </method>
+        <method name="NonManifoldMode" qualifiers="const">
+            <description>Gets mode for non-manifold sewing.</description>
+        </method>
+    </methods>
+</class>

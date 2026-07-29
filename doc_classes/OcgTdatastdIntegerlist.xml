@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdIntegerlist" inherits="RefCounted">
+    <brief_description>Contains a list of integers.</brief_description>
+    <description>! Contains a list of integers.</description>
+    <methods>
+        <method name="SetID_2">
+            <description>Sets the explicit GUID (user defined) for the attribute.</description>
+        </method>
+        <method name="SetID_1">
+            <description>Sets default GUID for the attribute.</description>
+        </method>
+        <method name="InsertBefore">
+            <description>Inserts the &lt;value&gt; before the first meet of &lt;before_value&gt;.</description>
+        </method>
+        <method name="InsertBeforeByIndex">
+            <description>Inserts the &lt;value&gt; before the &lt;index&gt; position. The indices start with 1 .. Extent().</description>
+        </method>
+        <method name="InsertAfter">
+            <description>Inserts the &lt;value&gt; after the first meet of &lt;after_value&gt;.</description>
+        </method>
+        <method name="InsertAfterByIndex">
+            <description>Inserts the &lt;value&gt; after the &lt;index&gt; position. The indices start with 1 .. Extent().</description>
+        </method>
+        <method name="Remove">
+            <description>Removes the first meet of the &lt;value&gt;.</description>
+        </method>
+        <method name="RemoveByIndex">
+            <description>Removes a value at &lt;index&gt; position.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>Static methods ============== Returns the ID of the list of integer attribute.</description>
+        </method>
+    </methods>
+</class>

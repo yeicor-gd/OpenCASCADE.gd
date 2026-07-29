@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepPointsonsurface" inherits="RefCounted">
+    <brief_description>Root for points on surface.</brief_description>
+    <description>! Root for points on surface.</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

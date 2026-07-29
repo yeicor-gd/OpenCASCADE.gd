@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferDispatchcontrol" inherits="RefCounted">
+    <brief_description>This is an auxiliary class for TransferDispatch, which allows to record simple copies, as CopyControl from Interface, but based on a TransientProcess. Hence, it allows in addition more actions (such as recording results of adaptations)</brief_description>
+    <description>! This is an auxiliary class for TransferDispatch, which allows
+! to record simple copies, as CopyControl from Interface, but
+! based on a TransientProcess. Hence, it allows in addition
+! more actions (such as recording results of adaptations)</description>
+    <methods>
+        <method name="Transfer_DispatchControl" qualifiers="static">
+            <description>Creates the DispatchControl, ready for use</description>
+        </method>
+        <method name="TransientProcess" qualifiers="const">
+            <description>Returns the content of the DispatchControl : it can be used for a direct call, if the basic methods do not suffice</description>
+        </method>
+        <method name="StartingModel" qualifiers="const">
+            <description>Returns the Model from which the transfer is to be done</description>
+        </method>
+        <method name="Clear">
+            <description>Clears the List of Copied Results</description>
+        </method>
+        <method name="Bind">
+            <description>Binds a (Transient) Result to a (Transient) Starting Entity</description>
+        </method>
+        <method name="Search" qualifiers="const">
+            <description>Searches for the Result bound to a Starting Entity If Found, returns True and fills &lt;res&gt; Else, returns False and nullifies &lt;res&gt;</description>
+        </method>
+    </methods>
+</class>

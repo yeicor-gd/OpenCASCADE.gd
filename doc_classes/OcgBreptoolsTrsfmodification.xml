@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBreptoolsTrsfmodification" inherits="RefCounted">
+    <brief_description>Describes a modification that uses a gp_Trsf to change the geometry of a shape. All functions return true and transform the geometry of the shape.</brief_description>
+    <description>! Describes a modification that uses a gp_Trsf to
+! change the geometry of a shape. All functions return
+! true and transform the geometry of the shape.</description>
+    <methods>
+        <method name="Trsf">
+            <description>Provides access to the gp_Trsf associated with this modification. The transformation can be changed.</description>
+        </method>
+        <method name="IsCopyMesh">
+            <description>Sets a flag to indicate the need to copy mesh.</description>
+        </method>
+        <method name="NewPoint">
+            <description>Returns true if the vertex V has been modified. If the vertex has been modified: - P is the new geometry of the vertex, and - Tol is the new tolerance. If the vertex has not been modified this function returns false, and the values of P and Tol are not significant.</description>
+        </method>
+        <method name="NewParameter">
+            <description>Returns true if the Vertex V has a new parameter on the edge E. If a new parameter exists: - P is the parameter, and - Tol is the new tolerance. If no new parameter exists, this function returns false, and the values of P and Tol are not significant.</description>
+        </method>
+        <method name="Continuity">
+            <description>Returns the continuity of &lt;NewE&gt; between &lt;NewF1&gt; and &lt;NewF2&gt;.</description>
+        </method>
+    </methods>
+</class>

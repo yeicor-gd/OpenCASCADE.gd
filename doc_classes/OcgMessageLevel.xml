@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageLevel" inherits="RefCounted">
+    <brief_description>This class is an instance of Sentry to create a level in a message report Constructor of the class add new (active) level in the report, destructor removes it While the level is active in the report, new alerts are added below the level root alert.</brief_description>
+    <description>! This class is an instance of Sentry to create a level in a message report
+! Constructor of the class add new (active) level in the report, destructor removes it
+! While the level is active in the report, new alerts are added below the level root alert.
+!
+! The first added alert is a root alert, other are added below the root alert
+!
+! If alert has Message_AttributeMeter attribute, active metrics of the default report are stored
+! in the attribute: start value of metric on adding alert, stop on adding another alert or closing
+! (delete) the level in the report.
+!
+! Processing of this class is implemented in Message_Report, it is used only inside it.
+! Levels using should be only through using OCCT_ADD_MESSAGE_LEVEL_SENTRY only. No other code is
+! required outside.</description>
+    <methods>
+        <method name="RootAlert" qualifiers="const">
+            <description>Returns root alert of the level</description>
+        </method>
+        <method name="SetRootAlert">
+            <description>Sets the root alert. Starts collects alert metrics if active.</description>
+        </method>
+        <method name="AddAlert">
+            <description>Adds new alert on the level. Stops the last alert metric, appends the alert and starts the alert metrics collecting. Sets root alert beforehand this method using, if the root is NULL, it does nothing.</description>
+        </method>
+    </methods>
+</class>

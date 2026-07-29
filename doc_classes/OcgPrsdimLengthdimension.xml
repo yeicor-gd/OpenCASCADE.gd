@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimLengthdimension" inherits="RefCounted">
+    <brief_description>Length dimension. Can be constructed: - Between two generic points. - Between two vertices. - Between two faces. - Between two parallel edges. - Between face and edge.</brief_description>
+    <description>! Length dimension. Can be constructed:
+! - Between two generic points.
+! - Between two vertices.
+! - Between two faces.
+! - Between two parallel edges.
+! - Between face and edge.
+!
+! In case of two points (vertices) or one linear edge the user-defined plane
+! that includes this geometry is necessary to be set.
+!
+! In case of face-edge, edge-vertex or face-face lengths the automatic plane
+! computing is allowed. For this plane the third point is found on the
+! edge or on the face.
+!
+! Please note that if the inappropriate geometry is defined
+! or the distance between measured points is less than
+! Precision::Confusion(), the dimension is invalid and its
+! presentation can not be computed.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Construct an empty length dimension.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Construct length dimension between face and edge. Here dimension can be built without user-defined plane.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Construct length dimension between two faces.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Construct length dimension of linear edge.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Construct length dimension between two points in the specified plane.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Construct length dimension between two arbitrary shapes in the specified plane.</description>
+        </method>
+        <method name="FirstPoint" qualifiers="const">
+            <description>Returns first attachment point.</description>
+        </method>
+        <method name="SecondPoint" qualifiers="const">
+            <description>Returns second attachment point.</description>
+        </method>
+        <method name="FirstShape" qualifiers="const">
+            <description>Returns first attachment shape.</description>
+        </method>
+        <method name="SecondShape" qualifiers="const">
+            <description>Returns second attachment shape.</description>
+        </method>
+        <method name="SetMeasuredGeometry_4">
+            <description>Measure distance between two points. The dimension will become invalid if the new distance between attachment points is less than Precision::Confusion().</description>
+        </method>
+        <method name="SetMeasuredGeometry_1">
+            <description>Measure length of edge. The dimension will become invalid if the new length of edge is less than Precision::Confusion().</description>
+        </method>
+        <method name="SetMeasuredGeometry_2">
+            <description>Measure distance between two faces. The dimension will become invalid if the distance can not be measured or it is less than Precision::Confusion().</description>
+        </method>
+        <method name="SetMeasuredGeometry_3">
+            <description>Measure distance between face and edge. The dimension will become invalid if the distance can not be measured or it is less than Precision::Confusion().</description>
+        </method>
+        <method name="SetMeasuredShapes">
+            <description>Measure distance between generic pair of shapes (edges, vertices, length), where measuring is applicable.</description>
+        </method>
+        <method name="SetDirection">
+            <description>Set custom direction for dimension. If it is not set, the direction is obtained from the measured geometry (e.g. line between points of dimension) The direction does not change flyout direction of dimension.</description>
+        </method>
+    </methods>
+</class>

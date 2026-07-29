@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdGenericextstring" inherits="RefCounted">
+    <brief_description>An ancestor attribute for all attributes which have TCollection_ExtendedString field. If an attribute inherits this one it should not have drivers for persistence. Also this attribute provides functionality to have on the same label same attributes with different IDs.</brief_description>
+    <description>! An ancestor attribute for all attributes which have TCollection_ExtendedString field.
+! If an attribute inherits this one it should not have drivers for persistence.
+! Also this attribute provides functionality to have on the same label same attributes with
+! different IDs.</description>
+    <methods>
+        <method name="SetID">
+            <description>Sets the explicit user defined GUID to the attribute.</description>
+        </method>
+        <method name="ID" qualifiers="const">
+            <description>Returns the ID of the attribute.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

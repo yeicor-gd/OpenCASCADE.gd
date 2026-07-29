@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomapiPointstobspline" inherits="RefCounted">
+    <brief_description>This class is used to approximate a BsplineCurve passing through an array of points, with a given Continuity. Describes functions for building a 3D BSpline curve which approximates a set of points. A PointsToBSpline object provides a framework for: - defining the data of the BSpline curve to be built, - implementing the approximation algorithm, and consulting the results.</brief_description>
+    <description>! This class is used to approximate a BsplineCurve
+! passing through an array of points, with a given Continuity.
+! Describes functions for building a 3D BSpline
+! curve which approximates a set of points.
+! A PointsToBSpline object provides a framework for:
+! -   defining the data of the BSpline curve to be built,
+! -   implementing the approximation algorithm, and consulting the results.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty approximation algorithm. Use an Init function to define and build the BSpline curve.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgLawConstant" inherits="RefCounted">
+    <brief_description>Loi constante</brief_description>
+    <description>! Loi constante</description>
+    <methods>
+        <method name="Set">
+            <description>Set the radius and the range of the constant Law.</description>
+        </method>
+        <method name="Continuity" qualifiers="const">
+            <description>Returns GeomAbs_CN</description>
+        </method>
+        <method name="NbIntervals" qualifiers="const">
+            <description>Returns 1</description>
+        </method>
+        <method name="Value">
+            <description>Returns the value at parameter X.</description>
+        </method>
+        <method name="D1">
+            <description>Returns the value and the first derivative at parameter X.</description>
+        </method>
+        <method name="D2">
+            <description>Returns the value, first and second derivatives at parameter X.</description>
+        </method>
+        <method name="Bounds">
+            <description>Returns the parametric bounds of the function.</description>
+        </method>
+    </methods>
+</class>

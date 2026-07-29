@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferFinder" inherits="RefCounted">
+    <brief_description>a Finder allows to map any kind of object as a Key for a Map. This works by defining, for a Hash Code, that of the real Key, not of the Finder which acts only as an intermediate. When a Map asks for the HashCode of a Finder, this one returns the code it has determined at creation time</brief_description>
+    <description>! a Finder allows to map any kind of object as a Key for a Map.
+! This works by defining, for a Hash Code, that of the real Key,
+! not of the Finder which acts only as an intermediate.
+! When a Map asks for the HashCode of a Finder, this one returns
+! the code it has determined at creation time</description>
+    <methods>
+        <method name="GetHashCode" qualifiers="const">
+            <description>Returns the HashCode which has been stored by SetHashCode (remark that HashCode could be deferred then be defined by sub-classes, the result is the same)</description>
+        </method>
+        <method name="ValueType" qualifiers="const">
+            <description>Returns the Type of the Value. By default, returns the DynamicType of &lt;me&gt;, but can be redefined</description>
+        </method>
+        <method name="ValueTypeName" qualifiers="const">
+            <description>Returns the name of the Type of the Value. Default is name of ValueType, unless it is for a non-handled object</description>
+        </method>
+        <method name="SetAttribute">
+            <description>Adds an attribute with a given name (replaces the former one with the same name if already exists)</description>
+        </method>
+        <method name="RemoveAttribute">
+            <description>Removes an attribute Returns True when done, False if this attribute did not exist</description>
+        </method>
+        <method name="GetAttribute" qualifiers="const">
+            <description>Returns an attribute from its name, filtered by a type If no attribute has this name, or if it is not kind of this type, &lt;val&gt; is Null and returned value is False Else, it is True</description>
+        </method>
+        <method name="Attribute" qualifiers="const">
+            <description>Returns an attribute from its name. Null Handle if not recorded (whatever Transient, Integer, Real ...)</description>
+        </method>
+        <method name="SetIntegerAttribute">
+            <description>Adds an integer value for an attribute</description>
+        </method>
+        <method name="GetIntegerAttribute" qualifiers="const">
+            <description>Returns an attribute from its name, as integer If no attribute has this name, or not an integer, &lt;val&gt; is 0 and returned value is False Else, it is True</description>
+        </method>
+        <method name="IntegerAttribute" qualifiers="const">
+            <description>Returns an integer attribute from its name. 0 if not recorded</description>
+        </method>
+        <method name="SetRealAttribute">
+            <description>Adds a real value for an attribute</description>
+        </method>
+        <method name="GetRealAttribute" qualifiers="const">
+            <description>Returns an attribute from its name, as real If no attribute has this name, or not a real &lt;val&gt; is 0.0 and returned value is False Else, it is True</description>
+        </method>
+        <method name="RealAttribute" qualifiers="const">
+            <description>Returns a real attribute from its name. 0.0 if not recorded</description>
+        </method>
+        <method name="SetStringAttribute">
+            <description>Adds a String value for an attribute</description>
+        </method>
+        <method name="StringAttribute" qualifiers="const">
+            <description>Returns a String attribute from its name. "" if not recorded</description>
+        </method>
+        <method name="SameAttributes">
+            <description>Gets the list of attributes from &lt;other&gt;, as such, i.e. not copied : attributes are shared, any attribute edited, added, or removed in &lt;other&gt; is also in &lt;me&gt; and vice versa The former list of attributes of &lt;me&gt; is dropped</description>
+        </method>
+        <method name="GetAttributes">
+            <description>Gets the list of attributes from &lt;other&gt;, by copying it By default, considers all the attributes from &lt;other&gt; If &lt;fromname&gt; is given, considers only the attributes with name beginning by &lt;fromname&gt;</description>
+        </method>
+    </methods>
+</class>

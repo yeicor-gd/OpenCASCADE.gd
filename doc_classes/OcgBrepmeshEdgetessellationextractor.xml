@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshEdgetessellationextractor" inherits="RefCounted">
+    <brief_description>Auxiliary class implements functionality retrieving tessellated representation of an edge stored in polygon.</brief_description>
+    <description>! Auxiliary class implements functionality retrieving tessellated
+! representation of an edge stored in polygon.</description>
+    <methods>
+        <method name="PointsNb" qualifiers="const">
+            <description>Returns number of tessellation points.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns parameters of solution with the given index.</description>
+        </method>
+    </methods>
+</class>

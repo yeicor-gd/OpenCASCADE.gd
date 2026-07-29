@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshTriangulator" inherits="RefCounted">
+    <brief_description>Auxiliary tool to generate triangulation</brief_description>
+    <description>! Auxiliary tool to generate triangulation</description>
+    <methods />
+</class>

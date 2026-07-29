@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrViewerselector" inherits="RefCounted">
+    <brief_description>A framework to define finding, sorting the sensitive primitives in a view. Services are also provided to define the return of the owners of those primitives selected. The primitives are sorted by criteria such as priority of the primitive or its depth in the view relative to that of other primitives. Note that in 3D, the inheriting framework StdSelect_ViewerSelector3d is only to be used if you do not want to use the services provided by AIS. Two tools are available to find and select objects found at a given position in the view. If you want to select the owners of all the objects detected at point x,y,z you use the Init - More - Next - Picked loop. If, on the other hand, you want to select only one object detected at that point, you use the Init - More - OnePicked loop. In this iteration, More is used to see if an object was picked and OnePicked, to get the object closest to the pick position. Viewer selectors are driven by SelectMgr_SelectionManager, and manipulate the SelectMgr_Selection objects given to them by the selection manager.</brief_description>
+    <description>! A framework to define finding, sorting the sensitive
+! primitives in a view. Services are also provided to
+! define the return of the owners of those primitives
+! selected. The primitives are sorted by criteria such
+! as priority of the primitive or its depth in the view
+! relative to that of other primitives.
+! Note that in 3D, the inheriting framework
+! StdSelect_ViewerSelector3d   is only to be used
+! if you do not want to use the services provided by
+! AIS.
+! Two tools are available to find and select objects
+! found at a given position in the view. If you want to
+! select the owners of all the objects detected at
+! point x,y,z you use the Init - More - Next - Picked
+! loop. If, on the other hand, you want to select only
+! one object detected at that point, you use the Init -
+! More - OnePicked loop. In this iteration, More is
+! used to see if an object was picked and
+! OnePicked, to get the object closest to the pick position.
+! Viewer selectors are driven by
+! SelectMgr_SelectionManager, and manipulate
+! the SelectMgr_Selection objects given to them by
+! the selection manager.
+!
+! Tolerances are applied to the entities in the following way:
+! 1. tolerance value stored in mytolerance will be used to calculate initial
+!    selecting frustum, which will be applied for intersection testing during
+!    BVH traverse;
+! 2. if tolerance of sensitive entity is less than mytolerance, the frustum for
+!    intersection detection will be resized according to its sensitivity.</description>
+    <methods>
+        <method name="SelectMgr_ViewerSelector" qualifiers="static">
+            <description>Constructs an empty selector object.</description>
+        </method>
+        <method name="CustomPixelTolerance" qualifiers="const">
+            <description>Returns custom pixel tolerance value.</description>
+        </method>
+        <method name="SetPixelTolerance">
+            <description>Sets the pixel tolerance &lt;theTolerance&gt;.</description>
+        </method>
+        <method name="Sensitivity" qualifiers="const">
+            <description>Returns the largest sensitivity of picking</description>
+        </method>
+        <method name="PixelTolerance" qualifiers="const">
+            <description>Returns the largest pixel tolerance.</description>
+        </method>
+        <method name="SortResult" qualifiers="const">
+            <description>Sorts the detected entities by priority and distance.</description>
+        </method>
+        <method name="OnePicked" qualifiers="const">
+            <description>Returns the picked element with the highest priority, and which is the closest to the last successful mouse position.</description>
+        </method>
+        <method name="ToPickClosest" qualifiers="const">
+            <description>Return the flag determining precedence of picked depth (distance from eye to entity) over entity priority in sorted results; TRUE by default. When flag is TRUE, priority will be considered only if entities have the same depth within the tolerance. When flag is FALSE, entities with higher priority will be in front regardless of their depth (like x-ray).</description>
+        </method>
+        <method name="SetPickClosest">
+            <description>Set flag determining precedence of picked depth over entity priority in sorted results.</description>
+        </method>
+        <method name="DepthToleranceType" qualifiers="const">
+            <description>Return the type of tolerance for considering two entities having a similar depth (distance from eye to entity); SelectMgr_TypeOfDepthTolerance_SensitivityFactor by default.</description>
+        </method>
+        <method name="DepthTolerance" qualifiers="const">
+            <description>Return the tolerance for considering two entities having a similar depth (distance from eye to entity).</description>
+        </method>
+        <method name="SetDepthTolerance">
+            <description>Set the tolerance for considering two entities having a similar depth (distance from eye to entity).</description>
+        </method>
+        <method name="NbPicked" qualifiers="const">
+            <description>Returns the number of detected owners.</description>
+        </method>
+        <method name="ClearPicked">
+            <description>Clears picking results.</description>
+        </method>
+        <method name="Clear">
+            <description>Empties all the tables, removes all selections...</description>
+        </method>
+        <method name="Picked" qualifiers="const">
+            <description>Returns the entity Owner for the object picked at specified position.</description>
+        </method>
+        <method name="PickedData" qualifiers="const">
+            <description>Returns the Entity for the object picked at specified position.</description>
+        </method>
+        <method name="PickedEntity" qualifiers="const">
+            <description>Returns the Entity for the object picked at specified position.</description>
+        </method>
+        <method name="PickedPoint" qualifiers="const">
+            <description>Returns the 3D point (intersection of picking axis with the object nearest to eye) for the object picked at specified position.</description>
+        </method>
+        <method name="RemovePicked">
+            <description>Remove picked entities associated with specified object.</description>
+        </method>
+        <method name="EntitySetBuilder">
+            <description>Returns the default builder used to construct BVH of entity set.</description>
+        </method>
+        <method name="SetEntitySetBuilder">
+            <description>Sets the default builder used to construct BVH of entity set. The new builder will be also assigned for already defined objects, but computed BVH trees will not be invalidated.</description>
+        </method>
+        <method name="Modes" qualifiers="const">
+            <description>Returns the list of selection modes ModeList found in this selector for the selectable object aSelectableObject. Returns true if aSelectableObject is referenced inside this selector; returns false if the object is not present in this selector.</description>
+        </method>
+        <method name="IsActive" qualifiers="const">
+            <description>Returns true if the selectable object aSelectableObject having the selection mode aMode is active in this selector.</description>
+        </method>
+        <method name="IsInside" qualifiers="const">
+            <description>Returns true if the selectable object aSelectableObject having the selection mode aMode is in this selector.</description>
+        </method>
+        <method name="Status_1" qualifiers="const">
+            <description>Returns the selection status Status of the selection aSelection.</description>
+        </method>
+        <method name="AddSelectableObject">
+            <description>Adds new object to the map of selectable objects</description>
+        </method>
+        <method name="AddSelectionToObject">
+            <description>Adds new selection to the object and builds its BVH tree</description>
+        </method>
+        <method name="MoveSelectableObject">
+            <description>Moves existing object from set of not transform persistence objects to set of transform persistence objects (or vice versa).</description>
+        </method>
+        <method name="RemoveSelectableObject">
+            <description>Removes selectable object from map of selectable ones</description>
+        </method>
+        <method name="RemoveSelectionOfObject">
+            <description>Removes selection of the object and marks its BVH tree for rebuild</description>
+        </method>
+        <method name="RebuildObjectsTree">
+            <description>Marks BVH of selectable objects for rebuild. Parameter theIsForce set as true guarantees that 1st level BVH for the viewer selector will be rebuilt during this call</description>
+        </method>
+        <method name="RebuildSensitivesTree">
+            <description>Marks BVH of sensitive entities of particular selectable object for rebuild. Parameter theIsForce set as true guarantees that 2nd level BVH for the object given will be rebuilt during this call</description>
+        </method>
+        <method name="GetManager">
+            <description>Returns instance of selecting volume manager of the viewer selector</description>
+        </method>
+        <method name="SelectableObjects" qualifiers="const">
+            <description>Return map of selectable objects.</description>
+        </method>
+        <method name="ResetSelectionActivationStatus">
+            <description>Marks all added sensitive entities of all objects as non-selectable</description>
+        </method>
+        <method name="AllowOverlapDetection">
+            <description>Is used for rectangular selection only If theIsToAllow is false, only fully included sensitives will be detected, otherwise the algorithm will mark both included and overlapped entities as matched</description>
+        </method>
+        <method name="Pick_3">
+            <description>Picks the sensitive entity at the pixel coordinates of the mouse &lt;theXPix&gt; and &lt;theYPix&gt;. The selector looks for touched areas and owners.</description>
+        </method>
+        <method name="Pick_4">
+            <description>Picks the sensitive entity according to the minimum and maximum pixel values &lt;theXPMin&gt;, &lt;theYPMin&gt;, &lt;theXPMax&gt; and &lt;theYPMax&gt; defining a 2D area for selection in the 3D view aView.</description>
+        </method>
+        <method name="Pick_1">
+            <description>pick action - input pixel values for polyline selection for selection.</description>
+        </method>
+        <method name="Pick_2">
+            <description>Picks the sensitive entity according to the input axis. This is geometric intersection 3D objects by axis (camera parameters are ignored and objects with transform persistence are skipped).</description>
+        </method>
+        <method name="ToPixMap">
+            <description>Dump of detection results into image. This method performs axis picking for each pixel in the image and generates a color depending on picking results and selection image type.</description>
+        </method>
+        <method name="DisplaySensitive_1">
+            <description>Displays sensitives in view &lt;theView&gt;.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="SetToPrebuildBVH">
+            <description>Enables/disables building BVH for sensitives in separate threads</description>
+        </method>
+        <method name="QueueBVHBuild">
+            <description>Queues a sensitive entity to build its BVH</description>
+        </method>
+        <method name="WaitForBVHBuild">
+            <description>Waits BVH threads finished building</description>
+        </method>
+        <method name="ToPrebuildBVH" qualifiers="const">
+            <description>Returns TRUE if building BVH for sensitives in separate threads is enabled</description>
+        </method>
+    </methods>
+</class>

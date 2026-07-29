@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dAspectfillarea3d" inherits="RefCounted">
+    <brief_description>This class defines graphic attributes for opaque 3d primitives (polygons, triangles, quadrilaterals).</brief_description>
+    <description>! This class defines graphic attributes for opaque 3d primitives (polygons, triangles,
+! quadrilaterals).</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates a context table for fill area primitives defined with the following default values:</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a context table for fill area primitives defined with the specified values. Display of back-facing filled polygons. No distinction between external and internal faces of FillAreas. The edges are not drawn. Polygon offset parameters: mode = Aspect_POM_None, factor = 1., units = 0.</description>
+        </method>
+    </methods>
+</class>

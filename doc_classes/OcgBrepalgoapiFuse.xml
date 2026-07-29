@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepalgoapiFuse" inherits="RefCounted">
+    <brief_description>The class provides Boolean fusion operation between arguments and tools (Boolean Union).</brief_description>
+    <description>! The class provides Boolean fusion operation
+! between arguments and tools (Boolean Union).</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructor with two shapes &lt;S1&gt; -argument &lt;S2&gt; -tool &lt;anOperation&gt; - the type of the operation Obsolete</description>
+        </method>
+    </methods>
+</class>

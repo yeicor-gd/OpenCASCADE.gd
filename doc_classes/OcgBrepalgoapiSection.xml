@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepalgoapiSection" inherits="RefCounted">
+    <brief_description>The algorithm is to build a Section operation between arguments and tools. The result of Section operation consists of vertices and edges. The result of Section operation contains: 1. new vertices that are subjects of V/V, E/E, E/F, F/F interferences 2. vertices that are subjects of V/E, V/F interferences 3. new edges that are subjects of F/F interferences 4. edges that are Common Blocks</brief_description>
+    <description>! The algorithm is to build a Section operation between arguments and tools.
+! The result of Section operation consists of vertices and edges.
+! The result of Section operation contains:
+! 1. new vertices that are subjects of V/V, E/E, E/F, F/F interferences
+! 2. vertices that are subjects of V/E, V/F interferences
+! 3. new edges that are subjects of F/F interferences
+! 4. edges that are Common Blocks</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructor with two shapes &lt;S1&gt; -argument &lt;S2&gt; -tool &lt;PerformNow&gt; - the flag: if &lt;PerformNow&gt;=True - the algorithm is performed immediately Obsolete</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Constructor with two shapes &lt;S1&gt; - argument &lt;Pl&gt; - tool &lt;PerformNow&gt; - the flag: if &lt;PerformNow&gt;=True - the algorithm is performed immediately Obsolete</description>
+        </method>
+        <method name="Init1_1">
+            <description>initialize the argument &lt;S1&gt; - argument Obsolete</description>
+        </method>
+        <method name="Init1_2">
+            <description>initialize the argument &lt;Pl&gt; - argument Obsolete</description>
+        </method>
+        <method name="Init2_1">
+            <description>initialize the tool &lt;S2&gt; - tool Obsolete</description>
+        </method>
+        <method name="Init2_2">
+            <description>initialize the tool &lt;Pl&gt; - tool Obsolete</description>
+        </method>
+        <method name="ComputePCurveOn1">
+            <description>Indicates whether the P-Curve should be (or not) performed on the argument. By default, no parametric 2D curve (pcurve) is defined for the edges of the result. If ComputePCurve1 equals true, further computations performed to attach an P-Curve in the parametric space of the argument to the constructed edges. Obsolete</description>
+        </method>
+        <method name="ComputePCurveOn2">
+            <description>Indicates whether the P-Curve should be (or not) performed on the tool. By default, no parametric 2D curve (pcurve) is defined for the edges of the result. If ComputePCurve1 equals true, further computations performed to attach an P-Curve in the parametric space of the tool to the constructed edges. Obsolete</description>
+        </method>
+        <method name="Build">
+            <description>Performs the algorithm Filling interference Data Structure (if it is necessary) Building the result of the operation.</description>
+        </method>
+        <method name="HasAncestorFaceOn1" qualifiers="const">
+            <description>get the face of the first part giving section edge &lt;E&gt;. Returns True on the 3 following conditions : 1/ &lt;E&gt; is an edge returned by the Shape() metwod. 2/ First part of section performed is a shape. 3/ &lt;E&gt; is built on a intersection curve (i.e &lt;E&gt; is not the result of common edges) When False, F remains untouched. Obsolete</description>
+        </method>
+        <method name="HasAncestorFaceOn2" qualifiers="const">
+            <description>Identifies the ancestor faces of the intersection edge E resulting from the last computation performed in this framework, that is, the faces of the two original shapes on which the edge E lies: - HasAncestorFaceOn1 gives the ancestor face in the first shape, and - HasAncestorFaceOn2 gives the ancestor face in the second shape. These functions return true if an ancestor face F is found, or false if not. An ancestor face is identifiable for the edge E if the following conditions are satisfied: - the first part on which this algorithm performed its last computation is a shape, that is, it was not given as a surface or a plane at the time of construction of this algorithm or at a later time by the Init1 function, - E is one of the elementary edges built by the last computation of this section algorithm. To use these functions properly, you have to test the returned Boolean value before using the ancestor face: F is significant only if the returned Boolean value equals true. Obsolete</description>
+        </method>
+    </methods>
+</class>

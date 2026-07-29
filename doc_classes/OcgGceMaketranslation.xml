@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGceMaketranslation" inherits="RefCounted">
+    <brief_description>This class implements elementary construction algorithms for a translation in 3D space. The result is a gp_Trsf transformation. A MakeTranslation object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.</brief_description>
+    <description>! This class implements elementary construction algorithms for a
+! translation in 3D space. The result is a gp_Trsf transformation.
+! A MakeTranslation object provides a framework for:
+! -   defining the construction of the transformation,
+! -   implementing the construction algorithm, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs a translation from a vector.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs a translation from two points.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed transformation.</description>
+        </method>
+        <method name="Operator" qualifiers="const">
+            <description>Alias for Value() returning a copy.</description>
+        </method>
+    </methods>
+</class>

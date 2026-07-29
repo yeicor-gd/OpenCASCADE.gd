@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferTransientmapper" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class Transfer_TransientMapper.</description>
+    <methods>
+        <method name="ValueTypeName" qualifiers="const">
+            <description>Returns the name of the Type of the Value. Default is name of ValueType, unless it is for a non-handled object</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIgescontrolController" inherits="RefCounted">
+    <brief_description>Controller for IGES-5.1</brief_description>
+    <description>! Controller for IGES-5.1</description>
+    <methods>
+        <method name="IGESControl_Controller" qualifiers="static">
+            <description>Initializes the use of IGES Norm (the first time) and returns a Controller for IGES-5.1 If &lt;modefnes&gt; is True, sets it to internal FNES format</description>
+        </method>
+        <method name="Init" qualifiers="static">
+            <description>Standard Initialisation. It creates a Controller for IGES and records it to various names, available to select it later Returns True when done, False if could not be done Also, it creates and records an Adaptor for FNES</description>
+        </method>
+    </methods>
+</class>

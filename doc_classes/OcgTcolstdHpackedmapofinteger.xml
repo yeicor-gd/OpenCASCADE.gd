@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTcolstdHpackedmapofinteger" inherits="RefCounted">
+    <brief_description>Extension of TColStd_PackedMapOfInteger class to be manipulated by handle.</brief_description>
+    <description>! Extension of TColStd_PackedMapOfInteger class to be manipulated by handle.</description>
+    <methods />
+</class>

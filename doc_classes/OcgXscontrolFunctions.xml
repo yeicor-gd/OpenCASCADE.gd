@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXscontrolFunctions" inherits="RefCounted">
+    <brief_description>Functions from XSControl gives access to actions which can be commanded with the resources provided by XSControl: especially Controller and Transfer</brief_description>
+    <description>! Functions from XSControl gives access to actions which can be
+! commanded with the resources provided by XSControl: especially
+! Controller and Transfer
+!
+! It works by adding functions by method Init</description>
+    <methods>
+        <method name="Init" qualifiers="static">
+            <description>Defines and loads all functions for XSControl (as ActFunc)</description>
+        </method>
+    </methods>
+</class>

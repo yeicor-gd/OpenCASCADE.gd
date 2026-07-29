@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISWalkdelta" inherits="RefCounted">
+    <brief_description>Walking values.</brief_description>
+    <description>! Walking values.</description>
+    <methods>
+        <method name="AIS_WalkDelta" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="IsJumping" qualifiers="const">
+            <description>Return jumping state.</description>
+        </method>
+        <method name="SetJumping">
+            <description>Set jumping state.</description>
+        </method>
+        <method name="IsCrouching" qualifiers="const">
+            <description>Return crouching state.</description>
+        </method>
+        <method name="SetCrouching">
+            <description>Set crouching state.</description>
+        </method>
+        <method name="IsRunning" qualifiers="const">
+            <description>Return running state.</description>
+        </method>
+        <method name="SetRunning">
+            <description>Set running state.</description>
+        </method>
+        <method name="IsDefined" qualifiers="const">
+            <description>Return TRUE if navigation keys are pressed even if delta from the previous frame is empty.</description>
+        </method>
+        <method name="SetDefined">
+            <description>Set if any navigation key is pressed.</description>
+        </method>
+        <method name="IsEmpty" qualifiers="const">
+            <description>Return TRUE when both Rotation and Translation deltas are empty.</description>
+        </method>
+        <method name="ToMove" qualifiers="const">
+            <description>Return TRUE if translation delta is defined.</description>
+        </method>
+        <method name="ToRotate" qualifiers="const">
+            <description>Return TRUE if rotation delta is defined.</description>
+        </method>
+    </methods>
+</class>

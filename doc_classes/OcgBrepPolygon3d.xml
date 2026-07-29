@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepPolygon3d" inherits="RefCounted">
+    <brief_description>Representation by a 3D polygon.</brief_description>
+    <description>! Representation by a 3D polygon.</description>
+    <methods>
+        <method name="IsPolygon3D" qualifiers="const">
+            <description>Returns True.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

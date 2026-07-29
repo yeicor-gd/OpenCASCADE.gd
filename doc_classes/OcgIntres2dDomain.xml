@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIntres2dDomain" inherits="RefCounted">
+    <brief_description>Definition of the domain of parameter on a 2d-curve. Most of the time, a domain is defined by two extremities. An extremity is made of : - a point in 2d-space (Pnt2d from gp), - a parameter on the curve, - a tolerance in the 2d-space. Sometimes, it can be made of 0 or 1 point ( for an infinite or semi-infinite line for example).</brief_description>
+    <description>! Definition of the domain of parameter on a 2d-curve.
+! Most of the time, a domain is defined by two extremities.
+! An extremity is made of :
+! - a point in 2d-space (Pnt2d from gp),
+! - a parameter on the curve,
+! - a tolerance in the 2d-space.
+! Sometimes, it can be made of 0 or 1 point ( for an infinite
+! or semi-infinite line for example).
+!
+! For Intersection algorithms, Ellipses and Circles
+! Domains must be closed.
+! So, SetEquivalentParameters(.,.) method must be called
+! after initializing the first and the last bounds.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates an infinite Domain (HasFirstPoint = False and HasLastPoint = False).</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a semi-infinite Domain. If First is set to True, the given point is the first point of the domain, otherwise it is the last point.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a bounded Domain.</description>
+        </method>
+        <method name="SetValues_3">
+            <description>Sets the values for a bounded domain.</description>
+        </method>
+        <method name="SetValues_1">
+            <description>Sets the values for an infinite domain.</description>
+        </method>
+        <method name="SetValues_2">
+            <description>Sets the values for a semi-infinite domain.</description>
+        </method>
+        <method name="SetEquivalentParameters">
+            <description>Defines a closed domain.</description>
+        </method>
+        <method name="HasFirstPoint" qualifiers="const">
+            <description>Returns True if the domain has a first point, i-e a point defining the lowest admitted parameter on the curve.</description>
+        </method>
+        <method name="FirstParameter" qualifiers="const">
+            <description>Returns the parameter of the first point of the domain The exception DomainError is raised if HasFirstPoint returns False.</description>
+        </method>
+        <method name="FirstPoint" qualifiers="const">
+            <description>Returns the first point of the domain. The exception DomainError is raised if HasFirstPoint returns False.</description>
+        </method>
+        <method name="FirstTolerance" qualifiers="const">
+            <description>Returns the tolerance of the first (left) bound. The exception DomainError is raised if HasFirstPoint returns False.</description>
+        </method>
+        <method name="HasLastPoint" qualifiers="const">
+            <description>Returns True if the domain has a last point, i-e a point defining the highest admitted parameter on the curve.</description>
+        </method>
+        <method name="LastParameter" qualifiers="const">
+            <description>Returns the parameter of the last point of the domain. The exception DomainError is raised if HasLastPoint returns False.</description>
+        </method>
+        <method name="LastPoint" qualifiers="const">
+            <description>Returns the last point of the domain. The exception DomainError is raised if HasLastPoint returns False.</description>
+        </method>
+        <method name="LastTolerance" qualifiers="const">
+            <description>Returns the tolerance of the last (right) bound. The exception DomainError is raised if HasLastPoint returns False.</description>
+        </method>
+        <method name="IsClosed" qualifiers="const">
+            <description>Returns True if the domain is closed.</description>
+        </method>
+        <method name="EquivalentParameters" qualifiers="const">
+            <description>Returns Equivalent parameters if the domain is closed. Otherwise, the exception DomainError is raised.</description>
+        </method>
+    </methods>
+</class>

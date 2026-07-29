@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFAttribute" inherits="RefCounted">
+    <brief_description>A class each application has to implement. It is used to contain the application data. This abstract class, alongwith Label, is one of the cornerstones of Model Editor. The groundwork is to define the root of information. This information is to be attached to a Label, and could be of any of the following types: - a feature - a constraint - a comment</brief_description>
+    <description>! A class each application has to implement. It is
+! used to contain the application data.
+! This abstract class, alongwith Label,
+! is one of the cornerstones of Model Editor.
+! The groundwork is to define the root of
+! information. This information is to be
+! attached to a Label, and could be of any of
+! the following types:
+! -   a feature
+! -   a constraint
+! -   a comment
+!
+! Contents:
+! ---------
+!
+! Each software component who'd like to attach its
+! own information to a label has to inherit from
+! this class and has to add its own information as
+! fields of this new class.
+!
+! Identification:
+! ---------------
+!
+! An attribute can be identified by its ID. Every
+! attributes used with the same meaning (for
+! example: Integer, String, Topology...) have the
+! same worldwide unique ID.
+!
+! Addition:
+! ---------
+!
+! An attribute can be added to a label only if there
+! is no attribute yet with the same ID. Call-back
+! methods are offered, called automatically before
+! and after the addition action.
+!
+! Removal:
+! --------
+!
+! An attribute can be removed from a label only if
+! there is an attribute yet with the same
+! ID. Call-back methods are offered, called
+! automatically before and after the removal
+! action. A removed attribute cannot be found
+! again. After a removal, only an addition of an
+! attribute with the sane ID is possible (no
+! backup...).
+!
+! Modification &amp; Transaction:
+! ---------------------------
+!
+! An attribute can be backuped before a
+! modification. Only one backup attribute by
+! transaction is possible. The modification can be
+! forgotten (abort transaction) or validated (commit
+! transaction).
+!
+! BackupCopy and restore are methods used by the backup or
+! abort transaction actions. BackupCopy is called by
+! Backup to generate an attribute with the same
+! contents as the current one. Restore is called
+! when aborting a transaction to transfer the
+! backuped contents into the current
+! attribute. These methods must be implemented by
+! end use inheriting classes.
+!
+! A standard implementation of BackupCopy is provided, but
+! it is not necessary a good one for any use.
+!
+! Copy use methods:
+! -----------------
+!
+! Paste and NewEmpty methods are used by the copy
+! algorithms. The goal of "Paste" is to transfer an
+! attribute new contents into another attribute. The
+! goal of "NewEmpty" is to create an attribute
+! without contents, to be further filled with the
+! new contents of another one. These 2 methods must
+! be implemented by end use inheriting classes.
+!
+! AttributeDelta:
+! ---------------
+!
+! An AttributeDelta is the difference between to
+! attribute values states.  These methods must be
+! implemented by end use inheriting classes, to
+! profit from the delta services.</description>
+    <methods>
+        <method name="SetID_2">
+            <description>Sets specific ID of the attribute (supports several attributes of one type at the same label feature).</description>
+        </method>
+        <method name="SetID_1">
+            <description>Sets default ID defined in nested class (to be used for attributes having User ID feature).</description>
+        </method>
+        <method name="Label" qualifiers="const">
+            <description>Returns the label to which the attribute is attached. If the label is not included in a DF, the label is null. See Label. Warning If the label is not included in a data framework, it is null. This function should not be redefined inline.</description>
+        </method>
+        <method name="Transaction" qualifiers="const">
+            <description>Returns the transaction index in which the attribute has been created or modified.</description>
+        </method>
+        <method name="UntilTransaction" qualifiers="const">
+            <description>Returns the upper transaction index until which the attribute is/was valid. This number may vary. A removed attribute validity range is reduced to its transaction index.</description>
+        </method>
+        <method name="IsValid" qualifiers="const">
+            <description>Returns true if the attribute is valid; i.e. not a backuped or removed one.</description>
+        </method>
+        <method name="IsNew" qualifiers="const">
+            <description>Returns true if the attribute has no backup</description>
+        </method>
+        <method name="IsForgotten" qualifiers="const">
+            <description>Returns true if the attribute forgotten status is set.</description>
+        </method>
+        <method name="IsAttribute" qualifiers="const">
+            <description>Returns true if it exists an associated attribute of &lt;me&gt; with &lt;anID&gt; as ID.</description>
+        </method>
+        <method name="FindAttribute" qualifiers="const">
+            <description>Finds an associated attribute of &lt;me&gt;, according to &lt;anID&gt;. the returned &lt;anAttribute&gt; is a valid one. The method returns True if found, False otherwise. A removed attribute cannot be found using this method.</description>
+        </method>
+        <method name="AddAttribute" qualifiers="const">
+            <description>Adds an Attribute &lt;other&gt; to the label of &lt;me&gt;.Raises if there is already one of the same GUID fhan &lt;other&gt;.</description>
+        </method>
+        <method name="ForgetAttribute" qualifiers="const">
+            <description>Forgets the Attribute of GUID &lt;aguid&gt; associated to the label of &lt;me&gt;. Be careful that if &lt;me&gt; is the attribute of &lt;guid&gt;, &lt;me&gt; will have a null label after this call. If the attribute doesn't exist returns False. Otherwise returns True.</description>
+        </method>
+        <method name="ForgetAllAttributes" qualifiers="const">
+            <description>Forgets all the attributes attached to the label of &lt;me&gt;. Does it on the sub-labels if &lt;clearChildren&gt; is set to true. Of course, this method is compatible with Transaction &amp; Delta mechanisms. Be careful that if &lt;me&gt; will have a null label after this call</description>
+        </method>
+        <method name="AfterAddition">
+            <description>Something to do after adding an Attribute to a label.</description>
+        </method>
+        <method name="BeforeRemoval">
+            <description>Something to do before removing an Attribute from a label.</description>
+        </method>
+        <method name="BeforeForget">
+            <description>Something to do before forgetting an Attribute to a label.</description>
+        </method>
+        <method name="AfterResume">
+            <description>Something to do after resuming an Attribute from a label.</description>
+        </method>
+        <method name="AfterRetrieval">
+            <description>Something to do AFTER creation of an attribute by persistent-transient translation. The returned status says if AfterUndo has been performed (true) or if this callback must be called once again further (false). If &lt;forceIt&gt; is set to true, the method MUST perform and return true. Does nothing by default and returns true.</description>
+        </method>
+        <method name="BeforeUndo">
+            <description>Something to do before applying &lt;anAttDelta&gt;. The returned status says if AfterUndo has been performed (true) or if this callback must be called once again further (false). If &lt;forceIt&gt; is set to true, the method MUST perform and return true. Does nothing by default and returns true.</description>
+        </method>
+        <method name="AfterUndo">
+            <description>Something to do after applying &lt;anAttDelta&gt;. The returned status says if AfterUndo has been performed (true) or if this callback must be called once again further (false). If &lt;forceIt&gt; is set to true, the method MUST perform and return true. Does nothing by default and returns true.</description>
+        </method>
+        <method name="BeforeCommitTransaction">
+            <description>A callback. By default does nothing. It is called by TDF_Data::CommitTransaction() method.</description>
+        </method>
+        <method name="Backup">
+            <description>Backups the attribute. The backuped attribute is flagged "Backuped" and not "Valid".</description>
+        </method>
+        <method name="IsBackuped" qualifiers="const">
+            <description>Returns true if the attribute backup status is set. This status is set/unset by the Backup() method.</description>
+        </method>
+        <method name="BackupCopy" qualifiers="const">
+            <description>Copies the attribute contents into a new other attribute. It is used by Backup().</description>
+        </method>
+        <method name="DeltaOnAddition" qualifiers="const">
+            <description>Makes an AttributeDelta because &lt;me&gt; appeared. The only known use of a redefinition of this method is to return a null handle (no delta).</description>
+        </method>
+        <method name="DeltaOnForget" qualifiers="const">
+            <description>Makes an AttributeDelta because &lt;me&gt; has been forgotten.</description>
+        </method>
+        <method name="DeltaOnResume" qualifiers="const">
+            <description>Makes an AttributeDelta because &lt;me&gt; has been resumed.</description>
+        </method>
+        <method name="DeltaOnModification_1" qualifiers="const">
+            <description>Makes a DeltaOnModification between &lt;me&gt; and &lt;anOldAttribute.</description>
+        </method>
+        <method name="DeltaOnModification_2">
+            <description>Applies a DeltaOnModification to &lt;me&gt;.</description>
+        </method>
+        <method name="DeltaOnRemoval" qualifiers="const">
+            <description>Makes a DeltaOnRemoval on &lt;me&gt; because &lt;me&gt; has disappeared from the DS.</description>
+        </method>
+        <method name="References" qualifiers="const">
+            <description>Adds the first level referenced attributes and labels to &lt;aDataSet&gt;.</description>
+        </method>
+        <method name="Forget">
+            <description>Forgets the attribute. &lt;aTransaction&gt; is the current transaction in which the forget is done. A forgotten attribute is also flagged not "Valid".</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

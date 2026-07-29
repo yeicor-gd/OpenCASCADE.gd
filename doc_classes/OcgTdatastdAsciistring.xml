@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdAsciistring" inherits="RefCounted">
+    <brief_description>Used to define an AsciiString attribute containing a TCollection_AsciiString</brief_description>
+    <description>! Used to define an AsciiString attribute containing a TCollection_AsciiString</description>
+    <methods>
+        <method name="SetID_2">
+            <description>Sets the explicit user defined GUID to the attribute.</description>
+        </method>
+        <method name="SetID_1">
+            <description>Sets default GUID for the attribute.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods ============= Returns the GUID of the attribute.</description>
+        </method>
+    </methods>
+</class>

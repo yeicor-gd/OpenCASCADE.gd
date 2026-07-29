@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgToptoolsShapeset" inherits="RefCounted">
+    <brief_description>A ShapeSets contains a Shape and all its sub-shapes and locations. It can be dump, write and read.</brief_description>
+    <description>! A ShapeSets    contains  a  Shape    and all   its
+! sub-shapes and locations.  It  can be dump,  write
+! and read.
+!
+! Methods to handle the geometry can be redefined.</description>
+    <methods>
+        <method name="TopTools_ShapeSet" qualifiers="static">
+            <description>Builds an empty ShapeSet.</description>
+        </method>
+        <method name="SetFormatNb">
+            <description>Sets the TopTools_FormatVersion</description>
+        </method>
+        <method name="FormatNb" qualifiers="const">
+            <description>Returns the TopTools_FormatVersion</description>
+        </method>
+        <method name="Clear">
+            <description>Clears the content of the set. This method can be redefined.</description>
+        </method>
+        <method name="Add">
+            <description>Stores &lt;S&gt; and its sub-shape. Returns the index of &lt;S&gt;. The method AddGeometry is called on each sub-shape.</description>
+        </method>
+        <method name="Shape" qualifiers="const">
+            <description>Returns the sub-shape of index &lt;I&gt;.</description>
+        </method>
+        <method name="Index" qualifiers="const">
+            <description>Returns the index of &lt;S&gt;.</description>
+        </method>
+        <method name="Write_1">
+            <description>Writes the content of me on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="Read_1">
+            <description>Reads the content of me from the stream &lt;IS&gt;. me is first cleared.</description>
+        </method>
+        <method name="Write_2" qualifiers="const">
+            <description>Writes on &lt;OS&gt; the shape &lt;S&gt;. Writes the orientation, the index of the TShape and the index of the Location.</description>
+        </method>
+        <method name="Read_2" qualifiers="const">
+            <description>Reads from &lt;IS&gt; a shape and returns it in S.</description>
+        </method>
+        <method name="AddGeometry">
+            <description>Stores the geometry of &lt;S&gt;.</description>
+        </method>
+        <method name="DumpGeometry_1" qualifiers="const">
+            <description>Dumps the geometry of me on the stream &lt;OS&gt;.</description>
+        </method>
+        <method name="WriteGeometry_1">
+            <description>Writes the geometry of me on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="ReadGeometry_1">
+            <description>Reads the geometry of me from the stream &lt;IS&gt;.</description>
+        </method>
+        <method name="DumpGeometry_2" qualifiers="const">
+            <description>Dumps the geometry of &lt;S&gt; on the stream &lt;OS&gt;.</description>
+        </method>
+        <method name="WriteGeometry_2" qualifiers="const">
+            <description>Writes the geometry of &lt;S&gt; on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="ReadGeometry_2">
+            <description>Reads the geometry of a shape of type &lt;T&gt; from the stream &lt;IS&gt; and returns it in &lt;S&gt;.</description>
+        </method>
+        <method name="AddShapes">
+            <description>Inserts the shape &lt;S2&gt; in the shape &lt;S1&gt;. This method must be redefined to use the correct builder.</description>
+        </method>
+        <method name="Check">
+            <description>This method is called after each new completed shape. &lt;T&gt; is the type. &lt;S&gt; is the shape. In this class it does nothing, but it gives the opportunity in derived classes to perform extra treatment on shapes.</description>
+        </method>
+        <method name="NbShapes" qualifiers="const">
+            <description>Returns number of shapes read from file.</description>
+        </method>
+    </methods>
+</class>

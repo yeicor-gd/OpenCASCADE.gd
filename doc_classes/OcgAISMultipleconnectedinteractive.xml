@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISMultipleconnectedinteractive" inherits="RefCounted">
+    <brief_description>Defines an Interactive Object by gathering together several object presentations. This is done through a list of interactive objects. These can also be Connected objects. That way memory-costly calculations of presentation are avoided.</brief_description>
+    <description>! Defines an Interactive Object by gathering together
+! several object presentations. This is done through a
+! list of interactive objects. These can also be
+! Connected objects. That way memory-costly
+! calculations of presentation are avoided.</description>
+    <methods>
+        <method name="AIS_MultipleConnectedInteractive" qualifiers="static">
+            <description>Initializes the Interactive Object with multiple connections to AIS_Interactive objects.</description>
+        </method>
+        <method name="HasConnection" qualifiers="const">
+            <description>Returns true if the object is connected to others.</description>
+        </method>
+        <method name="DisconnectAll">
+            <description>Clears all the connections to objects.</description>
+        </method>
+        <method name="AcceptShapeDecomposition" qualifiers="const">
+            <description>Informs the graphic context that the interactive Object may be decomposed into sub-shapes for dynamic selection.</description>
+        </method>
+    </methods>
+</class>

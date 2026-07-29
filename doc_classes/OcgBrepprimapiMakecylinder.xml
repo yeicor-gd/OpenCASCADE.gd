@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepprimapiMakecylinder" inherits="RefCounted">
+    <brief_description>Describes functions to build cylinders or portions of cylinders. A MakeCylinder object provides a framework for: - defining the construction of a cylinder, - implementing the construction algorithm, and - consulting the result.</brief_description>
+    <description>! Describes functions to build cylinders or portions of  cylinders.
+! A MakeCylinder object provides a framework for:
+! -   defining the construction of a cylinder,
+! -   implementing the construction algorithm, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Make a cylinder.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Make a cylinder (part cylinder).</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Make a cylinder of radius R and length H.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Make a cylinder of radius R and length H with angle H. Constructs - a cylinder of radius R and height H, or - a portion of cylinder of radius R and height H, and of the angle Angle defining the missing portion of the cylinder. The cylinder is constructed about the "Z Axis" of either: - the global coordinate system, or - the local coordinate system Axes. It is limited in this coordinate system as follows: - in the v parametric direction (the Z axis), by the two parameter values 0 and H, - and in the u parametric direction (the rotation angle around the Z Axis), in the case of a portion of a cylinder, by the two parameter values 0 and Angle. Angle is given in radians. The resulting shape is composed of: - a lateral cylindrical face, - two planar faces in the planes z = 0 and z = H (in the case of a complete cylinder, these faces are circles), and - in case of a portion of a cylinder, two additional planar faces to close the shape.(two rectangles in the planes u = 0 and u = Angle). Exceptions Standard_DomainError if: - R is less than or equal to Precision::Confusion(), or - H is less than or equal to Precision::Confusion().</description>
+        </method>
+    </methods>
+</class>

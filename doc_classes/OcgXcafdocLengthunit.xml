@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocLengthunit" inherits="RefCounted">
+    <brief_description>Used to define a Length Unit attribute containing a length unit info</brief_description>
+    <description>! Used to define a Length Unit attribute containing a length unit info</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>Returns the GUID of the attribute.</description>
+        </method>
+    </methods>
+</class>

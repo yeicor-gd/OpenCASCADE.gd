@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshDelabellameshalgofactory" inherits="RefCounted">
+    <brief_description>Implementation of IMeshTools_MeshAlgoFactory providing Delabella-based algorithms of different complexity depending on type of target surface.</brief_description>
+    <description>! Implementation of IMeshTools_MeshAlgoFactory providing Delabella-based
+! algorithms of different complexity depending on type of target surface.</description>
+    <methods>
+        <method name="BRepMesh_DelabellaMeshAlgoFactory" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="GetAlgo" qualifiers="const">
+            <description>Creates instance of meshing algorithm for the given type of surface.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStandardReadbuffer" inherits="RefCounted">
+    <brief_description>Auxiliary tool for buffered reading from input stream within chunks of constant size.</brief_description>
+    <description>! Auxiliary tool for buffered reading from input stream within chunks of constant size.</description>
+    <methods>
+        <method name="Standard_ReadBuffer" qualifiers="static">
+            <description>Constructor with initialization.</description>
+        </method>
+    </methods>
+</class>

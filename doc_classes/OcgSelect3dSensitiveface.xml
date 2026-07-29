@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitiveface" inherits="RefCounted">
+    <brief_description>Sensitive Entity to make a face selectable. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</brief_description>
+    <description>! Sensitive Entity to make a face selectable.
+! In some cases this class can raise Standard_ConstructionError and
+! Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</description>
+    <methods>
+        <method name="CenterOfGeometry" qualifiers="const">
+            <description>Returns center of the face. If location transformation is set, it will be applied</description>
+        </method>
+        <method name="NbSubElements" qualifiers="const">
+            <description>Returns the amount of sub-entities (points or planar convex polygons)</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

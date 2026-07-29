@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshdataTessellatedshape" inherits="RefCounted">
+    <brief_description>Interface class representing shaped model with deflection.</brief_description>
+    <description>! Interface class representing shaped model with deflection.</description>
+    <methods>
+        <method name="GetDeflection" qualifiers="const">
+            <description>Gets deflection value for the discrete model.</description>
+        </method>
+        <method name="SetDeflection">
+            <description>Sets deflection value for the discrete model.</description>
+        </method>
+    </methods>
+</class>

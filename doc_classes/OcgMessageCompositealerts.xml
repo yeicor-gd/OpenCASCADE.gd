@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageCompositealerts" inherits="RefCounted">
+    <brief_description>Class providing container of alerts</brief_description>
+    <description>! Class providing container of alerts</description>
+    <methods>
+        <method name="Message_CompositeAlerts" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="Alerts" qualifiers="const">
+            <description>Returns list of collected alerts with specified gravity</description>
+        </method>
+        <method name="AddAlert">
+            <description>Add alert with specified gravity. If the alert supports merge it will be merged.</description>
+        </method>
+        <method name="RemoveAlert">
+            <description>Removes alert with specified gravity.</description>
+        </method>
+        <method name="HasAlert_1">
+            <description>Returns true if the alert belong the list of the child alerts.</description>
+        </method>
+        <method name="HasAlert_2">
+            <description>Returns true if specific type of alert is recorded with specified gravity</description>
+        </method>
+        <method name="Clear_1">
+            <description>Clears all collected alerts</description>
+        </method>
+        <method name="Clear_2">
+            <description>Clears collected alerts with specified gravity</description>
+        </method>
+        <method name="Clear_3">
+            <description>Clears collected alerts with specified type</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

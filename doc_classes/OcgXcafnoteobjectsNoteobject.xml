@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafnoteobjectsNoteobject" inherits="RefCounted">
+    <brief_description>object to store note auxiliary data</brief_description>
+    <description>! object to store note auxiliary data</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty object</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Copy constructor.</description>
+        </method>
+        <method name="HasPlane" qualifiers="const">
+            <description>Returns True if plane is specified</description>
+        </method>
+        <method name="GetPlane" qualifiers="const">
+            <description>Returns a right-handed coordinate system of the plane</description>
+        </method>
+        <method name="SetPlane">
+            <description>Sets a right-handed coordinate system of the plane</description>
+        </method>
+        <method name="HasPoint" qualifiers="const">
+            <description>Returns True if the attachment point on the annotated object is specified</description>
+        </method>
+        <method name="GetPoint" qualifiers="const">
+            <description>Returns the attachment point on the annotated object</description>
+        </method>
+        <method name="SetPoint">
+            <description>Sets the anchor point on the annotated object</description>
+        </method>
+        <method name="HasPointText" qualifiers="const">
+            <description>Returns True if the text position is specified</description>
+        </method>
+        <method name="GetPointText" qualifiers="const">
+            <description>Returns the text position</description>
+        </method>
+        <method name="SetPointText">
+            <description>Sets the text position</description>
+        </method>
+        <method name="GetPresentation" qualifiers="const">
+            <description>Returns a tessellated annotation if specified</description>
+        </method>
+        <method name="SetPresentation">
+            <description>Sets a tessellated annotation</description>
+        </method>
+    </methods>
+</class>

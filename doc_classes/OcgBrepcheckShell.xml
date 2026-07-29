@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepcheckShell" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class BRepCheck_Shell.</description>
+    <methods>
+        <method name="Closed">
+            <description>Checks if the oriented faces of the shell give a closed shell. If the wire is closed, returns BRepCheck_NoError. If &lt;Update&gt; is set to true, registers the status in the list.</description>
+        </method>
+        <method name="Orientation">
+            <description>Checks if the oriented faces of the shell are correctly oriented. An internal call is made to the method Closed. If &lt;Update&gt; is set to true, registers the status in the list.</description>
+        </method>
+    </methods>
+</class>

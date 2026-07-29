@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshtoolsMeshbuilder" inherits="RefCounted">
+    <brief_description>Builds mesh for each face of shape without triangulation. In case if some faces of shape have already been triangulated checks deflection of existing polygonal model and re-uses it if deflection satisfies the specified parameter. Otherwise nullifies existing triangulation and build triangulation anew.</brief_description>
+    <description>! Builds mesh for each face of shape without triangulation.
+! In case if some faces of shape have already been triangulated
+! checks deflection of existing polygonal model and re-uses it
+! if deflection satisfies the specified parameter. Otherwise
+! nullifies existing triangulation and build triangulation anew.
+!
+! The following statuses are used:
+! Message_Done1 - algorithm has finished without errors.
+! Message_Fail1 - invalid context.
+! Message_Fail2 - algorithm has faced unexpected error.
+! Message_Fail3 - fail to discretize edges.
+! Message_Fail4 - can't heal discrete model.
+! Message_Fail5 - fail to pre-process model.
+! Message_Fail6 - fail to discretize faces.
+! Message_Fail7 - fail to post-process model.
+! Message_Warn1 - shape contains no objects to mesh.</description>
+    <methods>
+        <method name="IMeshTools_MeshBuilder" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="Perform">
+            <description>Performs meshing to the shape using current context.</description>
+        </method>
+    </methods>
+</class>

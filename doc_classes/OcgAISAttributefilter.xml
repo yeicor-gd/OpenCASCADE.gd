@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISAttributefilter" inherits="RefCounted">
+    <brief_description>Selects Interactive Objects, which have the desired width or color. The filter questions each Interactive Object in local context to determine whether it has an non-null owner, and if so, whether it has the required color and width attributes. If the object returns true in each case, it is kept. If not, it is rejected. This filter is used only in an open local context. In the Collector viewer, you can only locate Interactive Objects, which answer positively to the filters, which are in position when a local context is open.</brief_description>
+    <description>! Selects Interactive Objects, which have the desired width or color.
+! The filter questions each Interactive Object in local
+! context to determine whether it has an non-null
+! owner, and if so, whether it has the required color
+! and width attributes. If the object returns true in each
+! case, it is kept. If not, it is rejected.
+! This filter is used only in an open local context.
+! In the Collector viewer, you can only locate
+! Interactive Objects, which answer positively to the
+! filters, which are in position when a local context is open.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty attribute filter object. This filter object determines whether selectable interactive objects have a non-null owner.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs an attribute filter object defined by the color attribute aCol.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs an attribute filter object defined by the line width attribute aWidth.</description>
+        </method>
+        <method name="SetColor">
+            <description>Sets the color.</description>
+        </method>
+        <method name="SetWidth">
+            <description>Sets the line width.</description>
+        </method>
+        <method name="UnsetColor">
+            <description>Removes the setting for color from the filter.</description>
+        </method>
+        <method name="UnsetWidth">
+            <description>Removes the setting for width from the filter.</description>
+        </method>
+    </methods>
+</class>

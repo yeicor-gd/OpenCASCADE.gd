@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStandardErrorhandler" inherits="RefCounted">
+    <brief_description>Class implementing mechanics of conversion of signals to exceptions.</brief_description>
+    <description>! Class implementing mechanics of conversion of signals to exceptions.
+!
+! Each instance of it stores data for jump placement, thread id,
+! and callbacks to be called during jump (for proper resource release).
+!
+! The active handlers are stored in the global stack, which is used
+! to find appropriate handler when signal is raised.</description>
+    <methods>
+        <method name="Standard_ErrorHandler" qualifiers="static">
+            <description>Create a ErrorHandler (to be used with try{}catch(){}). It uses the "setjmp" and "longjmp" routines.</description>
+        </method>
+        <method name="Unlink">
+            <description>Removes handler from the handlers list</description>
+        </method>
+        <method name="Catches">
+            <description>Returns "True" if the caught exception has the same type or inherits from "aType"</description>
+        </method>
+        <method name="Error" qualifiers="const">
+            <description>Returns the current Error.</description>
+        </method>
+        <method name="LastCaughtError" qualifiers="static">
+            <description>Returns the caught exception.</description>
+        </method>
+        <method name="IsInTryBlock" qualifiers="static">
+            <description>Test if the code is currently running in a try block</description>
+        </method>
+    </methods>
+</class>

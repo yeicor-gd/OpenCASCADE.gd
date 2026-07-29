@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIgescontrolAlgocontainer" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class IGESControl_AlgoContainer.</description>
+    <methods>
+        <method name="IGESControl_AlgoContainer" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+    </methods>
+</class>

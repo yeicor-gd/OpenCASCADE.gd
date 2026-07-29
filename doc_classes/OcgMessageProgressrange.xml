@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageProgressrange" inherits="RefCounted">
+    <brief_description>Auxiliary class representing a part of the global progress scale allocated by a step of the progress scope, see Message_ProgressScope::Next().</brief_description>
+    <description>! Auxiliary class representing a part of the global progress scale allocated by
+! a step of the progress scope, see Message_ProgressScope::Next().
+!
+! A range object takes responsibility of advancing the progress by the size of
+! allocated step, which is then performed depending on how it is used:
+!
+! - If Message_ProgressScope object is created using this range as argument, then
+!   this respondibility is taken over by that scope.
+!
+! - Otherwise, a range advances progress directly upon destruction.
+!
+! A range object can be copied, the responsibility for progress advancement is
+! then taken by the copy.
+! The same range object may be used (either copied or used to create scope) only once.
+! Any consequent attempts to use range will give no result on the progress;
+! in debug mode, an assert message will be generated.
+!
+! @sa Message_ProgressScope for more details</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructor of the empty range</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Copy constructor disarms the source</description>
+        </method>
+        <method name="UserBreak" qualifiers="const">
+            <description>Returns true if ProgressIndicator signals UserBreak</description>
+        </method>
+        <method name="More" qualifiers="const">
+            <description>Returns false if ProgressIndicator signals UserBreak</description>
+        </method>
+        <method name="IsActive" qualifiers="const">
+            <description>Returns true if this progress range is attached to some indicator.</description>
+        </method>
+        <method name="Close">
+            <description>Closes the current range and advances indicator</description>
+        </method>
+    </methods>
+</class>

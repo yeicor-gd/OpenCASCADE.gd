@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepprimapiMakehalfspace" inherits="RefCounted">
+    <brief_description>Describes functions to build half-spaces. A half-space is an infinite solid, limited by a surface. It is built from a face or a shell, which bounds it, and with a reference point, which specifies the side of the surface where the matter of the half-space is located. A half-space is a tool commonly used in topological operations to cut another shape. A MakeHalfSpace object provides a framework for: - defining and implementing the construction of a half-space, and - consulting the result.</brief_description>
+    <description>! Describes functions to build half-spaces.
+! A half-space is an infinite solid, limited by a surface. It
+! is built from a face or a shell, which bounds it, and with
+! a reference point, which specifies the side of the
+! surface where the matter of the half-space is located.
+! A half-space is a tool commonly used in topological
+! operations to cut another shape.
+! A MakeHalfSpace object provides a framework for:
+! -   defining and implementing the construction of a half-space, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Make a HalfSpace defined with a Face and a Point.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Make a HalfSpace defined with a Shell and a Point.</description>
+        </method>
+        <method name="Solid" qualifiers="const">
+            <description>Returns the constructed half-space as a solid.</description>
+        </method>
+    </methods>
+</class>

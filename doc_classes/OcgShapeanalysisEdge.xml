@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeanalysisEdge" inherits="RefCounted">
+    <brief_description>Tool for analyzing the edge. Queries geometrical representations of the edge (3d curve, pcurve on the given face or surface) and topological sub-shapes (bounding vertices). Provides methods for analyzing geometry and topology consistency (3d and pcurve(s) consistency, their adjacency to the vertices).</brief_description>
+    <description>! Tool for analyzing the edge.
+! Queries geometrical representations of the edge (3d curve, pcurve
+! on the given face or surface) and topological sub-shapes (bounding
+! vertices).
+! Provides methods for analyzing geometry and topology consistency
+! (3d and pcurve(s) consistency, their adjacency to the vertices).</description>
+    <methods>
+        <method name="ShapeAnalysis_Edge" qualifiers="static">
+            <description>Empty constructor; initialises Status to OK</description>
+        </method>
+        <method name="HasCurve3d" qualifiers="const">
+            <description>Tells if the edge has a 3d curve</description>
+        </method>
+        <method name="IsClosed3d" qualifiers="const">
+            <description>Gives True if the edge has a 3d curve, this curve is closed, and the edge has the same vertex at start and end</description>
+        </method>
+        <method name="HasPCurve" qualifiers="const">
+            <description>Tells if the Edge has a pcurve on the face.</description>
+        </method>
+        <method name="FirstVertex" qualifiers="const">
+            <description>Returns start vertex of the edge (taking edge orientation into account).</description>
+        </method>
+        <method name="LastVertex" qualifiers="const">
+            <description>Returns end vertex of the edge (taking edge orientation into account).</description>
+        </method>
+        <method name="CheckVerticesWithCurve3d">
+            <description>Checks the start and/or end vertex of the edge for matching with 3d curve with the given precision. &lt;vtx&gt; = 1 : start vertex only &lt;vtx&gt; = 2 : end vertex only &lt;vtx&gt; = 0 : both (default) If preci &lt; 0 the vertices are considered with their own tolerances, else with the given &lt;preci&gt;.</description>
+        </method>
+        <method name="CheckVertexTolerance_1">
+            <description>Checks if it is necessary to increase tolerances of the edge vertices to comprise the ends of 3d curve and pcurve on the given face (first method) or all pcurves stored in an edge (second one) toler1 returns necessary tolerance for first vertex, toler2 returns necessary tolerance for last vertex.</description>
+        </method>
+        <method name="Status" qualifiers="const">
+            <description>Returns the status (in the form of True/False) of last Check</description>
+        </method>
+        <method name="CheckSameParameter_1">
+            <description>Checks the edge to be SameParameter. Calculates the maximal deviation between 3d curve and each pcurve of the edge on &lt;NbControl&gt; equidistant points (the same algorithm as in BRepCheck; default value is 23 as in BRepCheck). This deviation is returned in &lt;maxdev&gt; parameter. If deviation is greater than tolerance of the edge (i.e. incorrect flag) returns False, else returns True.</description>
+        </method>
+        <method name="CheckSameParameter_2">
+            <description>Checks the edge to be SameParameter. Calculates the maximal deviation between 3d curve and each pcurve of the edge on &lt;NbControl&gt; equidistant points (the same algorithm as in BRepCheck; default value is 23 as in BRepCheck). This deviation is returned in &lt;maxdev&gt; parameter. If deviation is greater than tolerance of the edge (i.e. incorrect flag) returns False, else returns True.</description>
+        </method>
+        <method name="CheckOverlapping">
+            <description>Checks the first edge is overlapped with second edge. If distance between two edges is less then theTolOverlap edges are overlapped. theDomainDis - length of part of edges on which edges are overlapped.</description>
+        </method>
+    </methods>
+</class>

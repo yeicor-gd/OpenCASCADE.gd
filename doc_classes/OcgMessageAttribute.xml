@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageAttribute" inherits="RefCounted">
+    <brief_description>Additional information of extended alert attribute To provide other custom attribute container, it might be redefined.</brief_description>
+    <description>! Additional information of extended alert attribute
+! To provide other custom attribute container, it might be redefined.</description>
+    <methods>
+        <method name="GetMessageKey" qualifiers="const">
+            <description>Return a C string to be used as a key for generating text user messages describing this alert. The messages are generated with help of Message_Msg class, in Message_Report::Dump(). Base implementation returns dynamic type name of the instance.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMaketranslation2d" inherits="RefCounted">
+    <brief_description>This class implements elementary construction algorithms for translations in 2D space. The result is a `Geom2d_Transformation`. A `GC_MakeTranslation2d` object provides a framework for: - defining the transformation parameters; - running the construction algorithm; - querying the resulting transformation via `Value()`.</brief_description>
+    <description>! This class implements elementary construction algorithms for
+! translations in 2D space.
+! The result is a `Geom2d_Transformation`.
+! A `GC_MakeTranslation2d` object provides a framework for:
+! - defining the transformation parameters;
+! - running the construction algorithm;
+! - querying the resulting transformation via `Value()`.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs a translation along a vector.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs a translation along the vector from one point to another.</description>
+        </method>
+    </methods>
+</class>

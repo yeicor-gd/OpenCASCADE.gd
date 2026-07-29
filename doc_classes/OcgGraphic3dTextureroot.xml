@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dTextureroot" inherits="RefCounted">
+    <brief_description>This is the texture root class enable the dialog with the GraphicDriver allows the loading of texture.</brief_description>
+    <description>! This is the texture root class enable the dialog with the GraphicDriver allows the loading of
+! texture.</description>
+    <methods>
+        <method name="IsDone" qualifiers="const">
+            <description>Checks if a texture class is valid or not.</description>
+        </method>
+        <method name="Type" qualifiers="const">
+            <description>Returns the texture type.</description>
+        </method>
+        <method name="Revision" qualifiers="const">
+            <description>Return image revision.</description>
+        </method>
+        <method name="UpdateRevision">
+            <description>Update image revision. Can be used for signaling changes in the texture source (e.g. file update, pixmap update) without re-creating texture source itself (since unique id should be never modified).</description>
+        </method>
+        <method name="GetCompressedImage">
+            <description>This method will be called by graphic driver each time when texture resource should be created. It is called in front of GetImage() for uploading compressed image formats natively supported by GPU.</description>
+        </method>
+        <method name="GetParams" qualifiers="const">
+            <description>Returns low-level texture parameters</description>
+        </method>
+        <method name="IsColorMap" qualifiers="const">
+            <description>Return flag indicating color nature of values within the texture; TRUE by default.</description>
+        </method>
+        <method name="SetColorMap">
+            <description>Set flag indicating color nature of values within the texture.</description>
+        </method>
+        <method name="HasMipmaps" qualifiers="const">
+            <description>Returns whether mipmaps should be generated or not.</description>
+        </method>
+        <method name="SetMipmapsGeneration">
+            <description>Sets whether to generate mipmaps or not.</description>
+        </method>
+        <method name="IsTopDown" qualifiers="const">
+            <description>Returns whether row's memory layout is top-down.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshCircleinspector" inherits="RefCounted">
+    <brief_description>Auxiliary class to find circles shot by the given point.</brief_description>
+    <description>! Auxiliary class to find circles shot by the given point.</description>
+    <methods>
+        <method name="BRepMesh_CircleInspector" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="Bind">
+            <description>Adds the circle to vector of circles at the given position.</description>
+        </method>
+        <method name="Circle">
+            <description>Returns circle with the given index.</description>
+        </method>
+        <method name="SetPoint">
+            <description>Set reference point to be checked.</description>
+        </method>
+        <method name="Inspect">
+            <description>Performs inspection of a circle with the given index.</description>
+        </method>
+        <method name="IsEqual" qualifiers="static">
+            <description>Checks indices for equality.</description>
+        </method>
+    </methods>
+</class>

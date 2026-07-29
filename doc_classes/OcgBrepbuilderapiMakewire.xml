@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepbuilderapiMakewire" inherits="RefCounted">
+    <brief_description>Describes functions to build wires from edges. A wire can be built from any number of edges. To build a wire you first initialize the construction, then add edges in sequence. An unlimited number of edges can be added. The initialization of construction is done with: - no edge (an empty wire), or - edges of an existing wire, or - up to four connectable edges. In order to be added to a wire under construction, an edge (unless it is the first one) must satisfy the following condition: one of its vertices must be geometrically coincident with one of the vertices of the wire (provided that the highest tolerance factor is assigned to the two vertices). It could also be the same vertex. - The given edge is shared by the wire if it contains: - two vertices, identical to two vertices of the wire under construction (a general case of the wire closure), or - one vertex, identical to a vertex of the wire under construction; the other vertex not being geometrically coincident with another vertex of the wire. - In other cases, when one of the vertices of the edge is simply geometrically coincident with a vertex of the wire under construction (provided that the highest tolerance factor is assigned to the two vertices), the given edge is first copied and the coincident vertex is replaced in this new edge, by the coincident vertex of the wire. Note: it is possible to build non manifold wires using this construction tool. A MakeWire object provides a framework for: - initializing the construction of a wire, - adding edges to the wire under construction, and - consulting the result.</brief_description>
+    <description>! Describes functions to build wires from edges. A wire can
+! be built from any number of edges.
+! To build a wire you first initialize the construction, then
+! add edges in sequence. An unlimited number of edges
+! can be added. The initialization of construction is done with:
+! -   no edge (an empty wire), or
+! -   edges of an existing wire, or
+! -   up to four connectable edges.
+! In order to be added to a wire under construction, an
+! edge (unless it is the first one) must satisfy the following
+! condition: one of its vertices must be geometrically
+! coincident with one of the vertices of the wire (provided
+! that the highest tolerance factor is assigned to the two
+! vertices). It could also be the same vertex.
+! -   The given edge is shared by the wire if it contains:
+! -   two vertices, identical to two vertices of the wire
+! under construction (a general case of the wire closure), or
+! -   one vertex, identical to a vertex of the wire under
+! construction; the other vertex not being
+! geometrically coincident with another vertex of the wire.
+! -   In other cases, when one of the vertices of the edge
+! is simply geometrically coincident with a vertex of the
+! wire under construction (provided that the highest
+! tolerance factor is assigned to the two vertices), the
+! given edge is first copied and the coincident vertex is
+! replaced in this new edge, by the coincident vertex of the wire.
+! Note: it is possible to build non manifold wires using this construction tool.
+! A MakeWire object provides a framework for:
+! -   initializing the construction of a wire,
+! -   adding edges to the wire under construction, and
+! -   consulting the result.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty wire framework, to which edges are added using the Add function. As soon as the wire contains one edge, it can return with the use of the function Wire. Warning The function Error will return BRepBuilderAPI_EmptyWire if it is called before at least one edge is added to the wire under construction.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Make a Wire from an edge.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Make a Wire from a Wire. useful for adding later.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Make a Wire from two edges.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Add an edge to a wire.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Make a Wire from three edges.</description>
+        </method>
+        <method name="from_7" qualifiers="static">
+            <description>Make a Wire from four edges. Constructs a wire - from the TopoDS_Wire W composed of the edge E, or - from edge E, or - from two edges E1 and E2, or - from three edges E1, E2 and E3, or - from four edges E1, E2, E3 and E4. Further edges can be added using the function Add. Given edges are added in a sequence. Each of them must be connectable to the wire under construction, and so must satisfy the following condition (unless it is the first edge of the wire): one of its vertices must be geometrically coincident with one of the vertices of the wire (provided that the highest tolerance factor is assigned to the two vertices). It could also be the same vertex. Warning If an edge is not connectable to the wire under construction it is not added. The function Error will return BRepBuilderAPI_DisconnectedWire, the function IsDone will return false and the function Wire will raise an error, until a new connectable edge is added.</description>
+        </method>
+        <method name="Add_1">
+            <description>Adds the edge E to the wire under construction. E must be connectable to the wire under construction, and, unless it is the first edge of the wire, must satisfy the following condition: one of its vertices must be geometrically coincident with one of the vertices of the wire (provided that the highest tolerance factor is assigned to the two vertices). It could also be the same vertex. Warning If E is not connectable to the wire under construction it is not added. The function Error will return BRepBuilderAPI_DisconnectedWire, the function IsDone will return false and the function Wire will raise an error, until a new connectable edge is added.</description>
+        </method>
+        <method name="Add_2">
+            <description>Add the edges of &lt;W&gt; to the current wire.</description>
+        </method>
+        <method name="Add_3">
+            <description>Adds the edges of &lt;L&gt; to the current wire. The edges are not to be consecutive. But they are to be all connected geometrically or topologically. If some of them are not connected the Status give DisconnectedWire but the "Maker" is Done() and you can get the partial result. (ie connected to the first edgeof the list &lt;L&gt;)</description>
+        </method>
+        <method name="IsDone" qualifiers="const">
+            <description>Returns true if this algorithm contains a valid wire. IsDone returns false if: - there are no edges in the wire, or - the last edge which you tried to add was not connectable.</description>
+        </method>
+        <method name="Error" qualifiers="const">
+            <description>Returns the construction status - BRepBuilderAPI_WireDone if the wire is built, or - another value of the BRepBuilderAPI_WireError enumeration indicating why the construction failed.</description>
+        </method>
+        <method name="Wire">
+            <description>Returns the constructed wire; or the part of the wire under construction already built. Exceptions StdFail_NotDone if a wire is not built.</description>
+        </method>
+        <method name="Edge" qualifiers="const">
+            <description>Returns the last edge added to the wire under construction. Warning - This edge can be different from the original one (the argument of the function Add, for instance,) - A null edge is returned if there are no edges in the wire under construction, or if the last edge which you tried to add was not connectable..</description>
+        </method>
+        <method name="Vertex" qualifiers="const">
+            <description>Returns the last vertex of the last edge added to the wire under construction. Warning A null vertex is returned if there are no edges in the wire under construction, or if the last edge which you tried to add was not connectableR</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimDiameterdimension" inherits="RefCounted">
+    <brief_description>Diameter dimension. Can be constructed: - On generic circle. - On generic circle with user-defined anchor point on that circle (dimension plane is oriented to follow the anchor point). - On generic circle in the specified plane. - On generic shape containing geometry that can be measured by diameter dimension: circle wire, circular face, etc. The anchor point is the location of the left attachment point of dimension on the circle. The anchor point computation is processed after dimension plane setting so that positive flyout direction stands with normal of the circle and the normal of the plane. If the plane is user-defined the anchor point was computed as intersection of the plane and the basis circle. Among two intersection points the one is selected so that positive flyout direction vector and the circle normal on the one side form the circle plane. (corner between positive flyout directio nand the circle normal is acute.) If the plane is computed automatically (by default it is the circle plane), the anchor point is the zero parameter point of the circle.</brief_description>
+    <description>! Diameter dimension. Can be constructed:
+! - On generic circle.
+! - On generic circle with user-defined anchor point on that circle
+!   (dimension plane is oriented to follow the anchor point).
+! - On generic circle in the specified plane.
+! - On generic shape containing geometry that can be measured
+!   by diameter dimension: circle wire, circular face, etc.
+! The anchor point is the location of the left attachment point of
+! dimension on the circle.
+! The anchor point computation is processed after dimension plane setting
+! so that positive flyout direction stands with normal of the circle and
+! the normal of the plane.
+! If the plane is user-defined the anchor point was computed as intersection
+! of the plane and the basis circle. Among two intersection points
+! the one is selected so that positive flyout direction vector and
+! the circle normal on the one side form the circle plane.
+! (corner between positive flyout directio nand the circle normal is acute.)
+! If the plane is computed automatically (by default it is the circle plane),
+! the anchor point is the zero parameter point of the circle.
+!
+! The dimension is considered as invalid if the user-defined plane
+! does not include th enachor point and th ecircle center,
+! if the diameter of the circle is less than Precision::Confusion().
+! In case if the dimension is built on the arbitrary shape, it can be considered
+! as invalid if the shape does not contain circle geometry.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Construct diameter dimension for the circle.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Construct diameter on the passed shape, if applicable.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Construct diameter dimension for the circle and orient it correspondingly to the passed plane.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Construct diameter on the passed shape, if applicable - and define the preferred plane to orient the dimension.</description>
+        </method>
+        <method name="Circle" qualifiers="const">
+            <description>Returns measured geometry circle.</description>
+        </method>
+        <method name="AnchorPoint">
+            <description>Returns anchor point on circle for diameter dimension.</description>
+        </method>
+        <method name="Shape" qualifiers="const">
+            <description>Returns the measured shape.</description>
+        </method>
+        <method name="SetMeasuredGeometry_1">
+            <description>Measure diameter of the circle. The actual dimension plane is used for determining anchor points on the circle to attach the dimension lines to. The dimension will become invalid if the diameter of the circle is less than Precision::Confusion().</description>
+        </method>
+        <method name="SetMeasuredGeometry_2">
+            <description>Measure diameter on the passed shape, if applicable. The dimension will become invalid if the passed shape is not measurable or if measured diameter value is less than Precision::Confusion().</description>
+        </method>
+    </methods>
+</class>

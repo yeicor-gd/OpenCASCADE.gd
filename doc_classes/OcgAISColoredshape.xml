@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISColoredshape" inherits="RefCounted">
+    <brief_description>Presentation of the shape with customizable sub-shapes properties.</brief_description>
+    <description>! Presentation of the shape with customizable sub-shapes properties.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Default constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Copy constructor</description>
+        </method>
+        <method name="CustomAspects">
+            <description>Customize properties of specified sub-shape. The shape will be stored in the map but ignored, if it is not sub-shape of main Shape! This method can be used to mark sub-shapes with customizable properties.</description>
+        </method>
+        <method name="ClearCustomAspects">
+            <description>Reset the map of custom sub-shape aspects.</description>
+        </method>
+        <method name="UnsetCustomAspects">
+            <description>Reset custom properties of specified sub-shape.</description>
+        </method>
+        <method name="SetCustomColor">
+            <description>Customize color of specified sub-shape</description>
+        </method>
+        <method name="SetCustomTransparency">
+            <description>Customize transparency of specified sub-shape</description>
+        </method>
+        <method name="SetCustomWidth">
+            <description>Customize line width of specified sub-shape</description>
+        </method>
+        <method name="CustomAspectsMap" qualifiers="const">
+            <description>Return the map of custom aspects.</description>
+        </method>
+        <method name="ChangeCustomAspectsMap">
+            <description>Return the map of custom aspects.</description>
+        </method>
+        <method name="SetColor">
+            <description>Setup color of entire shape.</description>
+        </method>
+        <method name="SetWidth">
+            <description>Setup line width of entire shape.</description>
+        </method>
+        <method name="SetTransparency">
+            <description>Sets transparency value.</description>
+        </method>
+        <method name="SetMaterial">
+            <description>Sets the material aspect.</description>
+        </method>
+        <method name="UnsetTransparency">
+            <description>Removes the setting for transparency in the reconstructed compound shape.</description>
+        </method>
+        <method name="UnsetWidth">
+            <description>Setup line width of entire shape.</description>
+        </method>
+    </methods>
+</class>

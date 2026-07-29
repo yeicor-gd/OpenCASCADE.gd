@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocGraphnode" inherits="RefCounted">
+    <brief_description>This attribute allow user multirelation tree of labels. This GraphNode is experimental Graph that not control looping and redundance. Attribute containing sequence of father's and child's labels. Provide create and work with Graph in XCAFDocument.</brief_description>
+    <description>! This attribute allow user multirelation tree of labels.
+! This GraphNode is experimental Graph that not control looping and redundance.
+! Attribute containing sequence of father's and child's labels.
+! Provide create and work with Graph in XCAFDocument.</description>
+    <methods>
+        <method name="UnSetFather">
+            <description>Remove Father GraphNode by index from Fathers GraphNodeSequence. and remove link between father and child.</description>
+        </method>
+        <method name="UnSetChild">
+            <description>Remove Child GraphNode by index from Children GraphNodeSequence. and remove link between father and child.</description>
+        </method>
+        <method name="NbFathers" qualifiers="const">
+            <description>return Number of Fathers GraphNodes.</description>
+        </method>
+        <method name="NbChildren" qualifiers="const">
+            <description>return Number of Childrens GraphNodes. Implementation of Attribute methods: ===================================</description>
+        </method>
+        <method name="ID" qualifiers="const">
+            <description>Returns the Graph ID (default or explicit one depending on the Set method used).</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetDefaultGraphID" qualifiers="static">
+            <description>returns a default Graph ID. this ID is used by the &lt;Set&gt; method without explicit tree ID. Instance methods: ================</description>
+        </method>
+    </methods>
+</class>

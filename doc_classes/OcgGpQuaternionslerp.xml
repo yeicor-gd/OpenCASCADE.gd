@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpQuaternionslerp" inherits="RefCounted">
+    <brief_description>Perform Spherical Linear Interpolation of the quaternions, return unit length quaternion.</brief_description>
+    <description>! Perform Spherical Linear Interpolation of the quaternions,
+! return unit length quaternion.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor,</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor with initialization.</description>
+        </method>
+        <method name="Init">
+            <description>Initialize the tool with Start and End values.</description>
+        </method>
+        <method name="InitFromUnit">
+            <description>Initialize the tool with Start and End unit quaternions.</description>
+        </method>
+        <method name="Interpolate" qualifiers="static">
+            <description>Compute interpolated quaternion between two quaternions.</description>
+        </method>
+    </methods>
+</class>

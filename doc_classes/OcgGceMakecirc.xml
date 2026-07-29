@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGceMakecirc" inherits="RefCounted">
+    <brief_description>This class implements the following algorithms used to create Circ from gp.</brief_description>
+    <description>! This class implements the following algorithms used
+! to create Circ from gp.
+!
+! * Create a Circ coaxial to another and passing
+! though a point.
+! * Create a Circ coaxial to another at the distance
+! Dist.
+! * Create a Circ passing through 3 points.
+! * Create a Circ with its center and the normal of its
+! plane and its radius.
+! * Create a Circ with its center and its plane and its
+! radius.
+! * Create a Circ with its axis and radius.
+! * Create a Circ with two points giving its axis and
+! its radius.
+! * Create a Circ with is Ax2 and its Radius.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>A2 locates the circle and gives its orientation in 3D space. Warnings : It is not forbidden to create a circle with Radius = 0.0 The status is "NegativeRadius" if Radius &lt; 0.0</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Makes a Circ from gp &lt;TheCirc&gt; coaxial to another Circ &lt;Circ&gt; at a distance &lt;Dist&gt;. If Dist is greater than zero the result is encloses the circle &lt;Circ&gt;, else the result is enclosed by the circle &lt;Circ&gt;.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Makes a Circ from gp &lt;TheCirc&gt; coaxial to another Circ &lt;Circ&gt; and passing through a Pnt2d &lt;Point&gt;.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Makes a Circ from gp &lt;TheCirc&gt; with its center &lt;Center&gt; and its radius &lt;Radius&gt;. Warning The MakeCirc class does not prevent the construction of a circle with a null radius. If an error occurs (that is, when IsDone returns false), the Status function returns: - gce_Negative Radius if: - Radius is less than 0.0, or - Dist is less than 0.0 and the absolute value of Dist is greater than the radius of Circ; - gce_IntersectionError if the points P1, P2 and P3 are collinear, and the three are not coincident; - gce_ConfusedPoints if two of the three points P1, P2 and P3 are coincident; or - gce_NullAxis if Center and Ptaxis are coincident.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Makes a Circ from gp &lt;TheCirc&gt; passing through 3 Pnt2d &lt;P1&gt;,&lt;P2&gt;,&lt;P3&gt;.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Makes a Circ from gp &lt;TheCirc&gt; with its center &lt;Center&gt; and the normal of its plane &lt;Norm&gt; and its radius &lt;Radius&gt;.</description>
+        </method>
+        <method name="from_7" qualifiers="static">
+            <description>Makes a Circ from gp &lt;TheCirc&gt; with its center &lt;Center&gt; and the normal of its plane &lt;Plane&gt; and its radius &lt;Radius&gt;.</description>
+        </method>
+        <method name="from_8" qualifiers="static">
+            <description>Makes a Circ from gp &lt;TheCirc&gt; with its center &lt;Center&gt; and a point &lt;Ptaxis&gt; giving the normal of its plane &lt;Plane&gt; and its radius &lt;Radius&gt;.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed circle. Exceptions StdFail_NotDone if no circle is constructed.</description>
+        </method>
+    </methods>
+</class>

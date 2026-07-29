@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImeshtoolsShapeexplorer" inherits="RefCounted">
+    <brief_description>Explores TopoDS_Shape for parts to be meshed - faces and free edges.</brief_description>
+    <description>! Explores TopoDS_Shape for parts to be meshed - faces and free edges.</description>
+    <methods>
+        <method name="IMeshTools_ShapeExplorer" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+    </methods>
+</class>

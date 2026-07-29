@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshDefaultrangesplitter" inherits="RefCounted">
+    <brief_description>Default tool to define range of discrete face model and obtain grid points distributed within this range.</brief_description>
+    <description>! Default tool to define range of discrete face model and
+! obtain grid points distributed within this range.</description>
+    <methods>
+        <method name="BRepMesh_DefaultRangeSplitter" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="AddPoint">
+            <description>Registers border point.</description>
+        </method>
+        <method name="AdjustRange">
+            <description>Updates discrete range of surface according to its geometric range.</description>
+        </method>
+        <method name="IsValid">
+            <description>Returns True if computed range is valid.</description>
+        </method>
+        <method name="Scale" qualifiers="const">
+            <description>Scales the given point from real parametric space to face basis and otherwise.</description>
+        </method>
+        <method name="Point" qualifiers="const">
+            <description>Returns point in 3d space corresponded to the given point defined in parametric space of surface.</description>
+        </method>
+        <method name="GetSurface" qualifiers="const">
+            <description>Returns surface.</description>
+        </method>
+    </methods>
+</class>

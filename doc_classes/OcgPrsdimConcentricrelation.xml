@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimConcentricrelation" inherits="RefCounted">
+    <brief_description>A framework to define a constraint by a relation of concentricity between two or more interactive datums. The display of this constraint is also defined. A plane is used to create an axis along which the relation of concentricity can be extended.</brief_description>
+    <description>! A framework to define a constraint by a relation of
+! concentricity between two or more interactive datums.
+! The display of this constraint is also defined.
+! A plane is used to create an axis along which the
+! relation of concentricity can be extended.</description>
+    <methods />
+</class>

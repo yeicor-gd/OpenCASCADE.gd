@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferMultiplebinder" inherits="RefCounted">
+    <brief_description>Allows direct binding between a starting Object and the Result of its transfer, when it can be made of several Transient Objects. Compared to a Transcriptor, it has no Transfer Action</brief_description>
+    <description>! Allows direct binding between a starting Object and the Result
+! of its transfer, when it can be made of several Transient
+! Objects. Compared to a Transcriptor, it has no Transfer Action
+!
+! Result is a list of Transient Results. Unique Result is not
+! available : SetResult is redefined to start the list on the
+! first call, and refuse the other times.
+!
+! rr
+!
+! Remark : MultipleBinder itself is intended to be created and
+! filled by TransferProcess itself (method Bind). In particular,
+! conflicts between Unique (Standard) result and Multiple result
+! are avoided through management made by TransferProcess.
+!
+! Also, a Transcriptor (with an effective Transfer Method) which
+! can produce a Multiple Result, may be defined as a sub-class
+! of MultipleBinder by redefining method Transfer.</description>
+    <methods>
+        <method name="Transfer_MultipleBinder" qualifiers="static">
+            <description>normal standard constructor, creates an empty MultipleBinder</description>
+        </method>
+        <method name="IsMultiple" qualifiers="const">
+            <description>Returns True if a starting object is bound with SEVERAL results : Here, returns always True</description>
+        </method>
+        <method name="ResultTypeName" qualifiers="const">
+            <description>Returns the Name of the Type which characterizes the Result Here, returns "(list)"</description>
+        </method>
+        <method name="NbResults" qualifiers="const">
+            <description>Returns the actual count of recorded (Transient) results</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgV3dImagedumpoptions" inherits="RefCounted">
+    <brief_description>The structure defines options for image dump functionality.</brief_description>
+    <description>! The structure defines options for image dump functionality.</description>
+    <methods>
+        <method name="V3d_ImageDumpOptions" qualifiers="static">
+            <description>Default constructor.</description>
+        </method>
+    </methods>
+</class>

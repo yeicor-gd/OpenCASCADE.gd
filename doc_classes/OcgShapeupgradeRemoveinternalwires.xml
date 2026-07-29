@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeRemoveinternalwires" inherits="RefCounted">
+    <brief_description>Removes all internal wires having area less than specified min area</brief_description>
+    <description>! Removes all internal wires having area less than specified min area</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates empty constructor.</description>
+        </method>
+        <method name="Init">
+            <description>Initialize by a Shape.</description>
+        </method>
+        <method name="Perform_1">
+            <description>Removes all internal wires having area less than area specified as minimal allowed area</description>
+        </method>
+        <method name="Perform_2">
+            <description>If specified sequence of shape contains - 1.wires then these wires will be removed if they have area less than allowed min area. 2.faces than internal wires from these faces will be removed if they have area less than allowed min area.</description>
+        </method>
+        <method name="GetResult" qualifiers="const">
+            <description>Get result shape</description>
+        </method>
+        <method name="MinArea">
+            <description>Set min area allowed for holes( all holes having area less than mi area will be removed)</description>
+        </method>
+        <method name="RemoveFaceMode">
+            <description>Set mode which manage removing faces which have outer wires consisting only from edges belonginig to removed internal wires. By default it is equal to true.</description>
+        </method>
+        <method name="RemovedFaces" qualifiers="const">
+            <description>Returns sequence of removed faces.</description>
+        </method>
+        <method name="RemovedWires" qualifiers="const">
+            <description>Returns sequence of removed faces.</description>
+        </method>
+        <method name="Status" qualifiers="const">
+            <description>Queries status of last call to Perform() : OK - nothing was done :DONE1 - internal wires were removed :DONE2 - small faces were removed. :FAIL1 - initial shape is not specified :FAIL2 - specified sub-shape is not belonged to inotial shape.</description>
+        </method>
+    </methods>
+</class>

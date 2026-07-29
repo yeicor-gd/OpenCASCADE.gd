@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakesegment" inherits="RefCounted">
+    <brief_description>Implements construction algorithms for line segments in 3D space. The result is a `Geom_TrimmedCurve`. A `GC_MakeSegment` object provides a framework for: - defining the construction parameters; - running the construction algorithm; - querying the construction status and resulting segment via `Value()`.</brief_description>
+    <description>! Implements construction algorithms for line segments in 3D space.
+! The result is a `Geom_TrimmedCurve`.
+! A `GC_MakeSegment` object provides a framework for:
+! - defining the construction parameters;
+! - running the construction algorithm;
+! - querying the construction status and resulting segment via `Value()`.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a segment of a line from two points.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a segment of the input line between two parameters.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a segment of the input line between a point and a parameter.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a segment of the input line between two points.</description>
+        </method>
+    </methods>
+</class>

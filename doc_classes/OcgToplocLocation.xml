@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgToplocLocation" inherits="RefCounted">
+    <brief_description>A Location is a composite transition. It comprises a series of elementary reference coordinates, i.e. objects of type TopLoc_Datum3D, and the powers to which these objects are raised.</brief_description>
+    <description>! A Location is a composite transition. It comprises a
+! series of elementary reference coordinates, i.e.
+! objects of type TopLoc_Datum3D, and the powers to
+! which these objects are raised.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs an empty local coordinate system object. Note: A Location constructed from a default datum is said to be "empty".</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs the local coordinate system object defined by the transformation T. T invokes in turn, a TopLoc_Datum3D object.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs the local coordinate system object defined by the 3D datum D. Exceptions Standard_ConstructionError if the transformation T does not represent a 3D coordinate system.</description>
+        </method>
+        <method name="IsIdentity" qualifiers="const">
+            <description>Returns true if this location is equal to the Identity transformation.</description>
+        </method>
+        <method name="Identity">
+            <description>Resets this location to the Identity transformation.</description>
+        </method>
+        <method name="FirstDatum" qualifiers="const">
+            <description>Returns the first elementary datum of the Location. Use the NextLocation function recursively to access the other data comprising this location. Exceptions Standard_NoSuchObject if this location is empty.</description>
+        </method>
+        <method name="FirstPower" qualifiers="const">
+            <description>Returns the power elevation of the first elementary datum. Exceptions Standard_NoSuchObject if this location is empty.</description>
+        </method>
+        <method name="NextLocation" qualifiers="const">
+            <description>Returns a Location representing &lt;me&gt; without the first datum. We have the relation :</description>
+        </method>
+        <method name="Transformation" qualifiers="const">
+            <description>Returns the transformation associated to the coordinate system.</description>
+        </method>
+        <method name="Inverted" qualifiers="const">
+            <description>Returns the inverse of &lt;me&gt;.</description>
+        </method>
+        <method name="Multiplied" qualifiers="const">
+            <description>Returns &lt;me&gt; * &lt;Other&gt;, the elementary datums are concatenated.</description>
+        </method>
+        <method name="Divided" qualifiers="const">
+            <description>Returns &lt;me&gt; / &lt;Other&gt;.</description>
+        </method>
+        <method name="Predivided" qualifiers="const">
+            <description>Returns &lt;Other&gt;.Inverted() * &lt;me&gt;.</description>
+        </method>
+        <method name="Powered" qualifiers="const">
+            <description>Returns me at the power &lt;pwr&gt;. If &lt;pwr&gt; is zero returns Identity. &lt;pwr&gt; can be lower than zero (usual meaning for powers).</description>
+        </method>
+        <method name="HashCode" qualifiers="const">
+            <description>Returns a hashed value for this local coordinate system. This value is used, with map tables, to store and retrieve the object easily</description>
+        </method>
+        <method name="IsEqual" qualifiers="const">
+            <description>Returns true if this location and the location Other have the same elementary data, i.e. contain the same series of TopLoc_Datum3D and respective powers. This method is an alias for operator ==.</description>
+        </method>
+        <method name="IsDifferent" qualifiers="const">
+            <description>Returns true if this location and the location Other do not have the same elementary data, i.e. do not contain the same series of TopLoc_Datum3D and respective powers. This method is an alias for operator !=.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Clear">
+            <description>Clear myItems</description>
+        </method>
+    </methods>
+</class>

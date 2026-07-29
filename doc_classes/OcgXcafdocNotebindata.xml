@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocNotebindata" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class XCAFDoc_NoteBinData.</description>
+    <methods>
+        <method name="XCAFDoc_NoteBinData" qualifiers="static">
+            <description>Creates an empty binary data note.</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>Returns default attribute GUID</description>
+        </method>
+    </methods>
+</class>

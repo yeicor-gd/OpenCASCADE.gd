@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakearcofparabola" inherits="RefCounted">
+    <brief_description>Implements construction algorithms for parabola arcs in 3D space. The result is a `Geom_TrimmedCurve`. A MakeArcOfParabola object provides a framework for: - defining the construction of the arc of parabola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of parabola.</brief_description>
+    <description>! Implements construction algorithms for parabola arcs in 3D space.
+! The result is a `Geom_TrimmedCurve`.
+! A MakeArcOfParabola object provides a framework for:
+! -   defining the construction of the arc of parabola,
+! -   implementing the construction algorithm, and
+! -   consulting the results. In particular, the
+! Value function returns the constructed arc of parabola.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs an arc from angular bounds on a parabola.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs an arc from a point and angle on a parabola.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs an arc between two points on a parabola.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXscontrolWorksession" inherits="RefCounted">
+    <brief_description>This WorkSession completes the basic one, by adding : - use of Controller, with norm selection... - management of transfers (both ways) with auxiliary classes TransferReader and TransferWriter -&gt; these transfers may work with a Context List : its items are given by the user, according to the transfer to be i.e. it is interpreted by the Actors Each item is accessed by a Name</brief_description>
+    <description>! This WorkSession completes the basic one, by adding :
+! - use of Controller, with norm selection...
+! - management of transfers (both ways) with auxiliary classes
+! TransferReader and TransferWriter
+! -&gt; these transfers may work with a Context List : its items
+! are given by the user, according to the transfer to be
+! i.e. it is interpreted by the Actors
+! Each item is accessed by a Name</description>
+    <methods>
+        <method name="ClearData">
+            <description>In addition to basic ClearData, clears Transfer and Management for interactive use, for mode = 0,1,2 and over 4 Plus : mode = 5 to clear Transfers (both ways) only mode = 6 to clear enforced results mode = 7 to clear transfers, results</description>
+        </method>
+        <method name="SelectNorm">
+            <description>Selects a Norm defined by its name. A Norm is described and handled by a Controller Returns True if done, False if &lt;normname&gt; is unknown</description>
+        </method>
+        <method name="SetController">
+            <description>Selects a Norm defined by its Controller itself</description>
+        </method>
+        <method name="SelectedNorm" qualifiers="const">
+            <description>Returns the name of the last Selected Norm. If none is defined, returns an empty string By default, returns the complete name of the norm If &lt;rsc&gt; is True, returns the short name used for resource</description>
+        </method>
+        <method name="NormAdaptor" qualifiers="const">
+            <description>Returns the norm controller itself</description>
+        </method>
+        <method name="Context" qualifiers="const">
+            <description>Returns the current Context List, Null if not defined The Context is given to the TransientProcess for TransferRead</description>
+        </method>
+        <method name="SetAllContext">
+            <description>Sets the current Context List, as a whole Sets it to the TransferReader</description>
+        </method>
+        <method name="ClearContext">
+            <description>Clears the whole current Context (nullifies it)</description>
+        </method>
+        <method name="PrintTransferStatus" qualifiers="const">
+            <description>Prints the transfer status of a transferred item, as being the Mapped n0 &lt;num&gt;, from MapWriter if &lt;wri&gt; is True, or from MapReader if &lt;wri&gt; is False Returns True when done, False else (i.e. num out of range)</description>
+        </method>
+        <method name="InitTransferReader">
+            <description>Sets a Transfer Reader, by internal ways, according mode : 0 recreates it clear, 1 clears it (does not recreate) 2 aligns Roots of TransientProcess from final Results 3 aligns final Results from Roots of TransientProcess 4 begins a new transfer (by BeginTransfer) 5 recreates TransferReader then begins a new transfer</description>
+        </method>
+        <method name="SetTransferReader">
+            <description>Sets a Transfer Reader, which manages transfers on reading</description>
+        </method>
+        <method name="TransferReader" qualifiers="const">
+            <description>Returns the Transfer Reader, Null if not set</description>
+        </method>
+        <method name="MapReader" qualifiers="const">
+            <description>Returns the TransientProcess(internal data for TransferReader)</description>
+        </method>
+        <method name="SetMapReader">
+            <description>Changes the Map Reader, i.e. considers that the new one defines the relevant read results (forgets the former ones) Returns True when done, False in case of bad definition, i.e. if Model from TP differs from that of Session</description>
+        </method>
+        <method name="Result" qualifiers="const">
+            <description>Returns the result attached to a starting entity If &lt;mode&gt; = 0, returns Final Result If &lt;mode&gt; = 1, considers Last Result If &lt;mode&gt; = 2, considers Final, else if absent, Last returns it as Transient, if result is not transient returns the Binder &lt;mode&gt; = 10,11,12 idem but returns the Binder itself (if it is not, e.g. Shape, returns the Binder) &lt;mode&gt; = 20, returns the ResultFromModel</description>
+        </method>
+        <method name="TransferReadOne">
+            <description>Commands the transfer of, either one entity, or a list I.E. calls the TransferReader after having analysed &lt;ents&gt; It is cumulated from the last BeginTransfer &lt;ents&gt; is processed by GiveList, hence : - &lt;ents&gt; a Selection : its SelectionResult - &lt;ents&gt; a HSequenceOfTransient : this list - &lt;ents&gt; the Model : in this specific case, all the roots, with no cumulation of former transfers (TransferReadRoots)</description>
+        </method>
+        <method name="TransferReadRoots">
+            <description>Commands the transfer of all the root entities of the model i.e. calls TransferRoot from the TransferReader with the Graph No cumulation with former calls to TransferReadOne</description>
+        </method>
+        <method name="NewModel">
+            <description>produces and returns a new Model well conditioned It is produced by the Norm Controller It can be Null (if this function is not implemented)</description>
+        </method>
+        <method name="TransferWriter" qualifiers="const">
+            <description>Returns the Transfer Reader, Null if not set</description>
+        </method>
+        <method name="SetMapWriter">
+            <description>Changes the Map Reader, i.e. considers that the new one defines the relevant read results (forgets the former ones) Returns True when done, False if &lt;FP&gt; is Null</description>
+        </method>
+        <method name="TransferWriteShape">
+            <description>Transfers a Shape from CasCade to a model of current norm, according to the last call to SetModeWriteShape Returns status :Done if OK, Fail if error during transfer, Error if transfer badly initialised</description>
+        </method>
+        <method name="TransferWriteCheckList" qualifiers="const">
+            <description>Returns the check-list of last transfer (write) It is recorded in the FinderProcess, but it must be bound with resulting entities (in the resulting file model) rather than with original objects (in fact, their mappers)</description>
+        </method>
+    </methods>
+</class>

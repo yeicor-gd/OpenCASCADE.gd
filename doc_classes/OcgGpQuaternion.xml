@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpQuaternion" inherits="RefCounted">
+    <brief_description>Represents operation of rotation in 3d space as quaternion and implements operations with rotations basing on quaternion mathematics.</brief_description>
+    <description>! Represents operation of rotation in 3d space as quaternion
+! and implements operations with rotations basing on
+! quaternion mathematics.
+!
+! In addition, provides methods for conversion to and from other
+! representations of rotation (3*3 matrix, vector and
+! angle, Euler angles)</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates an identity quaternion</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates quaternion from rotation matrix 3*3 (which should be orthonormal skew-symmetric matrix)</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates quaternion representing shortest-arc rotation operator producing vector theVecTo from vector theVecFrom.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates quaternion representing rotation on angle theAngle around vector theAxis</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Creates quaternion representing shortest-arc rotation operator producing vector theVecTo from vector theVecFrom. Additional vector theHelpCrossVec defines preferred direction for rotation and is used when theVecTo and theVecFrom are directed oppositely.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Creates quaternion directly from component values</description>
+        </method>
+        <method name="IsEqual" qualifiers="const">
+            <description>Simple equal test without precision</description>
+        </method>
+        <method name="SetRotation_1">
+            <description>Sets quaternion to shortest-arc rotation producing vector theVecTo from vector theVecFrom. If vectors theVecFrom and theVecTo are opposite then rotation axis is computed as theVecFrom ^ (1,0,0) or theVecFrom ^ (0,0,1).</description>
+        </method>
+        <method name="SetRotation_2">
+            <description>Sets quaternion to shortest-arc rotation producing vector theVecTo from vector theVecFrom. If vectors theVecFrom and theVecTo are opposite then rotation axis is computed as theVecFrom ^ theHelpCrossVec.</description>
+        </method>
+        <method name="SetVectorAndAngle">
+            <description>Create a unit quaternion from Axis+Angle representation</description>
+        </method>
+        <method name="GetVectorAndAngle" qualifiers="const">
+            <description>Convert a quaternion to Axis+Angle representation, preserve the axis direction and angle from -PI to +PI</description>
+        </method>
+        <method name="SetMatrix">
+            <description>Create a unit quaternion by rotation matrix matrix must contain only rotation (not scale or shear)</description>
+        </method>
+        <method name="GetMatrix" qualifiers="const">
+            <description>Returns rotation operation as 3*3 matrix</description>
+        </method>
+        <method name="SetEulerAngles">
+            <description>Create a unit quaternion representing rotation defined by generalized Euler angles</description>
+        </method>
+        <method name="GetEulerAngles" qualifiers="const">
+            <description>Returns Euler angles describing current rotation</description>
+        </method>
+        <method name="SetIdent">
+            <description>Make identity quaternion (zero-rotation)</description>
+        </method>
+        <method name="Reverse">
+            <description>Reverse direction of rotation (conjugate quaternion)</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>Return rotation with reversed direction (conjugated quaternion)</description>
+        </method>
+        <method name="Invert">
+            <description>Inverts quaternion (both rotation direction and norm)</description>
+        </method>
+        <method name="Inverted" qualifiers="const">
+            <description>Return inversed quaternion q^-1</description>
+        </method>
+        <method name="SquareNorm" qualifiers="const">
+            <description>Returns square norm of quaternion</description>
+        </method>
+        <method name="Norm" qualifiers="const">
+            <description>Returns norm of quaternion</description>
+        </method>
+        <method name="Scale">
+            <description>Scale all components by quaternion by theScale; note that rotation is not changed by this operation (except 0-scaling)</description>
+        </method>
+        <method name="Scaled" qualifiers="const">
+            <description>Returns scaled quaternion</description>
+        </method>
+        <method name="StabilizeLength">
+            <description>Stabilize quaternion length within 1 - 1/4. This operation is a lot faster than normalization and preserve length goes to 0 or infinity</description>
+        </method>
+        <method name="Normalize">
+            <description>Scale quaternion that its norm goes to 1. The appearing of 0 magnitude or near is a error, so we can be sure that can divide by magnitude</description>
+        </method>
+        <method name="Normalized" qualifiers="const">
+            <description>Returns quaternion scaled so that its norm goes to 1.</description>
+        </method>
+        <method name="Negated" qualifiers="const">
+            <description>Returns quaternion with all components negated. Note that this operation does not affect neither rotation operator defined by quaternion nor its norm.</description>
+        </method>
+        <method name="Added" qualifiers="const">
+            <description>Makes sum of quaternion components; result is "rotations mix"</description>
+        </method>
+        <method name="Subtracted" qualifiers="const">
+            <description>Makes difference of quaternion components; result is "rotations mix"</description>
+        </method>
+        <method name="Multiplied" qualifiers="const">
+            <description>Multiply function - work the same as Matrices multiplying. Result is rotation combination: q' than q (here q=this, q'=theQ). Notices that:</description>
+        </method>
+        <method name="Add">
+            <description>Adds components of other quaternion; result is "rotations mix"</description>
+        </method>
+        <method name="Subtract">
+            <description>Subtracts components of other quaternion; result is "rotations mix"</description>
+        </method>
+        <method name="Multiply_1">
+            <description>Adds rotation by multiplication</description>
+        </method>
+        <method name="Dot" qualifiers="const">
+            <description>Computes inner product / scalar product / Dot</description>
+        </method>
+        <method name="GetRotationAngle" qualifiers="const">
+            <description>Return rotation angle from -PI to PI</description>
+        </method>
+        <method name="Multiply_2" qualifiers="const">
+            <description>Rotates vector by quaternion as rotation operator</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrSelectableobject" inherits="RefCounted">
+    <brief_description>A framework to supply the structure of the object to be selected. At the first pick, this structure is created by calling the appropriate algorithm and retaining this framework for further picking. This abstract framework is inherited in Application Interactive Services (AIS), notably in AIS_InteractiveObject. Consequently, 3D selection should be handled by the relevant daughter classes and their member functions in AIS. This is particularly true in the creation of new interactive objects.</brief_description>
+    <description>! A framework to supply the structure of the object to be selected.
+! At the first pick, this structure is created by calling the appropriate algorithm and retaining
+! this framework for further picking. This abstract framework is inherited in Application
+! Interactive Services (AIS), notably in AIS_InteractiveObject. Consequently, 3D selection should
+! be handled by the relevant daughter classes and their member functions in AIS. This is
+! particularly true in the creation of new interactive objects.
+!
+! Key interface methods to be implemented by every Selectable Object:
+! * Presentable Object (PrsMgr_PresentableObject)
+!   Consider defining an enumeration of supported Display Mode indexes for particular Interactive
+!   Object or class of Interactive Objects.
+!   - AcceptDisplayMode() accepting display modes implemented by this object;
+!   - Compute() computing presentation for the given display mode index;
+! * Selectable Object (SelectMgr_SelectableObject)
+!   Consider defining an enumeration of supported Selection Mode indexes for particular
+!   Interactive Object or class of Interactive Objects.
+!   - ComputeSelection() computing selectable entities for the given selection mode index.</description>
+    <methods>
+        <method name="AcceptShapeDecomposition" qualifiers="const">
+            <description>Informs the graphic context that the interactive Object may be decomposed into sub-shapes for dynamic selection. The most used Interactive Object is AIS_Shape.</description>
+        </method>
+        <method name="RecomputePrimitives_1">
+            <description>Re-computes the sensitive primitives for all modes. IMPORTANT: Do not use this method to update selection primitives except implementing custom selection manager! This method does not take into account necessary BVH updates, but may invalidate the pointers it refers to. TO UPDATE SELECTION properly from outside classes, use method UpdateSelection.</description>
+        </method>
+        <method name="RecomputePrimitives_2">
+            <description>Re-computes the sensitive primitives which correspond to the &lt;theMode&gt;th selection mode. IMPORTANT: Do not use this method to update selection primitives except implementing custom selection manager! selection manager! This method does not take into account necessary BVH updates, but may invalidate the pointers it refers to. TO UPDATE SELECTION properly from outside classes, use method UpdateSelection.</description>
+        </method>
+        <method name="AddSelection">
+            <description>Adds the selection aSelection with the selection mode index aMode to this framework.</description>
+        </method>
+        <method name="ClearSelections">
+            <description>Empties all the selections in the SelectableObject &lt;update&gt; parameter defines whether all object's selections should be flagged for further update or not. This improved method can be used to recompute an object's selection (without redisplaying the object completely) when some selection mode is activated not for the first time.</description>
+        </method>
+        <method name="Selection" qualifiers="const">
+            <description>Returns the selection having specified selection mode or NULL.</description>
+        </method>
+        <method name="HasSelection" qualifiers="const">
+            <description>Returns true if a selection corresponding to the selection mode theMode was computed for this object.</description>
+        </method>
+        <method name="Selections" qualifiers="const">
+            <description>Return the sequence of selections.</description>
+        </method>
+        <method name="UpdateTransformation">
+            <description>Recomputes the location of the selection aSelection.</description>
+        </method>
+        <method name="UpdateTransformations">
+            <description>Updates locations in all sensitive entities from &lt;aSelection&gt; and in corresponding entity owners.</description>
+        </method>
+        <method name="ClearSelected">
+            <description>Method which clear all selected owners belonging to this selectable object ( for fast presentation draw )</description>
+        </method>
+        <method name="ClearDynamicHighlight">
+            <description>Method that needs to be implemented when the object manages selection and dynamic highlighting on its own. Clears or invalidates dynamic highlight presentation. By default it clears immediate draw of given presentation manager.</description>
+        </method>
+        <method name="HilightOwnerWithColor">
+            <description>Method which hilight an owner belonging to this selectable object ( for fast presentation draw )</description>
+        </method>
+        <method name="IsAutoHilight" qualifiers="const">
+            <description>If returns True, the old mechanism for highlighting selected objects is used (HilightSelected Method may be empty). If returns False, the HilightSelected method will be fully responsible for highlighting selected entity owners belonging to this selectable object.</description>
+        </method>
+        <method name="SetAutoHilight">
+            <description>Set AutoHilight property to true or false.</description>
+        </method>
+        <method name="GetHilightPresentation">
+            <description>Creates or returns existing presentation for highlighting detected object.</description>
+        </method>
+        <method name="GetSelectPresentation">
+            <description>Creates or returns existing presentation for highlighting selected object.</description>
+        </method>
+        <method name="ErasePresentations">
+            <description>Removes presentations returned by GetHilightPresentation() and GetSelectPresentation().</description>
+        </method>
+        <method name="SetZLayer">
+            <description>Set Z layer ID and update all presentations of the selectable object. The layers mechanism allows drawing objects in higher layers in overlay of objects in lower layers.</description>
+        </method>
+        <method name="UpdateSelection">
+            <description>Sets update status FULL to selections of the object. Must be used as the only method of UpdateSelection from outer classes to prevent BVH structures from being outdated.</description>
+        </method>
+        <method name="SetAssemblyOwner">
+            <description>Sets common entity owner for assembly sensitive object entities</description>
+        </method>
+        <method name="GlobalSelectionMode" qualifiers="const">
+            <description>Returns the mode for selection of object as a whole; 0 by default.</description>
+        </method>
+        <method name="GlobalSelOwner" qualifiers="const">
+            <description>Returns the owner of mode for selection of object as a whole</description>
+        </method>
+        <method name="GetAssemblyOwner" qualifiers="const">
+            <description>Returns common entity owner if the object is an assembly</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

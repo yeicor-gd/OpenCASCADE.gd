@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISPlane" inherits="RefCounted">
+    <brief_description>Constructs plane datums to be used in construction of composite shapes.</brief_description>
+    <description>! Constructs plane datums to be used in construction of
+! composite shapes.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>initializes the plane aComponent. If the mode aCurrentMode equals true, the drawing tool, "Drawer" is not initialized.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>initializes the plane aComponent and the point aCenter. If the mode aCurrentMode equals true, the drawing tool, "Drawer" is not initialized. aCurrentMode equals true, the drawing tool, "Drawer" is not initialized.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>initializes the plane aComponent, the point aCenter, and the minimum and maximum points, aPmin and aPmax. If the mode aCurrentMode equals true, the drawing tool, "Drawer" is not initialized.</description>
+        </method>
+        <method name="SetSize_1">
+            <description>Same value for x and y directions</description>
+        </method>
+        <method name="SetSize_2">
+            <description>Sets the size defined by the length along the X axis XVal and the length along the Y axis YVal.</description>
+        </method>
+        <method name="SetMinimumSize">
+            <description>Sets transform persistence for zoom with value of minimum size</description>
+        </method>
+        <method name="UnsetMinimumSize">
+            <description>Unsets transform persistence zoom</description>
+        </method>
+        <method name="HasMinimumSize" qualifiers="const">
+            <description>Returns true if transform persistence for zoom is set</description>
+        </method>
+        <method name="Component">
+            <description>Returns the component specified in SetComponent.</description>
+        </method>
+        <method name="SetComponent">
+            <description>Creates an instance of the plane aComponent.</description>
+        </method>
+        <method name="PlaneAttributes">
+            <description>Returns the settings for the selected plane aComponent, provided in SetPlaneAttributes. These include the points aCenter, aPmin, and aPmax</description>
+        </method>
+        <method name="SetPlaneAttributes">
+            <description>Allows you to provide settings other than default ones for the selected plane. These include: center point aCenter, maximum aPmax and minimum aPmin.</description>
+        </method>
+        <method name="Center" qualifiers="const">
+            <description>Returns the coordinates of the center point.</description>
+        </method>
+        <method name="SetCenter">
+            <description>Provides settings for the center theCenter other than (0, 0, 0).</description>
+        </method>
+        <method name="SetAxis2Placement">
+            <description>Allows you to provide settings for the position and direction of one of the plane's axes, aComponent, in 3D space. The coordinate system used is right-handed, and the type of plane aPlaneType is one of: - AIS_ TOPL_Unknown - AIS_ TOPL_XYPlane - AIS_ TOPL_XZPlane - AIS_ TOPL_YZPlane}.</description>
+        </method>
+        <method name="Axis2Placement">
+            <description>Returns the position of the plane's axis2 system identifying the x, y, or z axis and giving the plane a direction in 3D space. An axis2 system is a right-handed coordinate system.</description>
+        </method>
+        <method name="TypeOfPlane">
+            <description>Returns the type of plane - xy, yz, xz or unknown.</description>
+        </method>
+        <method name="IsXYZPlane">
+            <description>Returns the type of plane - xy, yz, or xz.</description>
+        </method>
+        <method name="CurrentMode">
+            <description>Returns the non-default current display mode set by SetCurrentMode.</description>
+        </method>
+        <method name="SetCurrentMode">
+            <description>Allows you to provide settings for a non-default current display mode.</description>
+        </method>
+        <method name="AcceptDisplayMode" qualifiers="const">
+            <description>Returns true if the display mode selected, aMode, is valid for planes.</description>
+        </method>
+        <method name="SetContext">
+            <description>connection to &lt;aCtx&gt; default drawer implies a recomputation of Frame values.</description>
+        </method>
+        <method name="TypeOfSensitivity" qualifiers="const">
+            <description>Returns the type of sensitivity for the plane;</description>
+        </method>
+        <method name="SetTypeOfSensitivity">
+            <description>Sets the type of sensitivity for the plane.</description>
+        </method>
+    </methods>
+</class>

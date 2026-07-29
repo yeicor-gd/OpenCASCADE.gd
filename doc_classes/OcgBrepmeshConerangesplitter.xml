@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshConerangesplitter" inherits="RefCounted">
+    <brief_description>Auxiliary class extending default range splitter in order to generate internal nodes for conical surface.</brief_description>
+    <description>! Auxiliary class extending default range splitter in
+! order to generate internal nodes for conical surface.</description>
+    <methods>
+        <method name="BRepMesh_ConeRangeSplitter" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+    </methods>
+</class>

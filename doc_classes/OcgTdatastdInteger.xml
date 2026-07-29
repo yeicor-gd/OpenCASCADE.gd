@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdInteger" inherits="RefCounted">
+    <brief_description>The basis to define an integer attribute.</brief_description>
+    <description>! The basis to define an integer attribute.</description>
+    <methods>
+        <method name="Set">
+            <description>Integer methods ===============</description>
+        </method>
+        <method name="SetID_2">
+            <description>Sets the explicit GUID (user defined) for the attribute.</description>
+        </method>
+        <method name="SetID_1">
+            <description>Sets default GUID for the attribute.</description>
+        </method>
+        <method name="Get" qualifiers="const">
+            <description>Returns the integer value contained in the attribute.</description>
+        </method>
+        <method name="IsCaptured" qualifiers="const">
+            <description>Returns True if there is a reference on the same label</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods ============= Returns the GUID for integers.</description>
+        </method>
+    </methods>
+</class>

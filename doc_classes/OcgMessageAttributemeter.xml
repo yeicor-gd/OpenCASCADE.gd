@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageAttributemeter" inherits="RefCounted">
+    <brief_description>Alert object storing alert metrics values. Start and stop values for each metric.</brief_description>
+    <description>! Alert object storing alert metrics values.
+! Start and stop values for each metric.</description>
+    <methods>
+        <method name="HasMetric" qualifiers="const">
+            <description>Checks whether the attribute has values for the metric</description>
+        </method>
+        <method name="IsMetricValid" qualifiers="const">
+            <description>Returns true when both values of the metric are set.</description>
+        </method>
+        <method name="StartValue" qualifiers="const">
+            <description>Returns start value for the metric</description>
+        </method>
+        <method name="SetStartValue">
+            <description>Sets start values for the metric</description>
+        </method>
+        <method name="StopValue" qualifiers="const">
+            <description>Returns stop value for the metric</description>
+        </method>
+        <method name="SetStopValue">
+            <description>Sets stop values for the metric</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="UndefinedMetricValue" qualifiers="static">
+            <description>Returns default value of the metric when it is not defined</description>
+        </method>
+    </methods>
+</class>

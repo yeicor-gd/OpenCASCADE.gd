@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdNotebook" inherits="RefCounted">
+    <brief_description>NoteBook Object attribute</brief_description>
+    <description>! NoteBook Object attribute</description>
+    <methods>
+        <method name="GetID" qualifiers="static">
+            <description>NoteBook methods ===============</description>
+        </method>
+    </methods>
+</class>

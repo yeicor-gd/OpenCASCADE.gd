@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dSensitivepoly" inherits="RefCounted">
+    <brief_description>Sensitive Entity to make a face selectable. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions from its member Select3D_PointData myPolyg.</brief_description>
+    <description>! Sensitive Entity to make a face selectable.
+! In some cases this class can raise Standard_ConstructionError and
+! Standard_OutOfRange exceptions from its member Select3D_PointData
+! myPolyg.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs a sensitive face object defined by the owner OwnerId, the array of points ThePoints, and the sensitivity type Sensitivity. The array of points is the outer polygon of the geometric face.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs a sensitive face object defined by the owner OwnerId, the array of points ThePoints, and the sensitivity type Sensitivity. The array of points is the outer polygon of the geometric face.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs a sensitive curve or arc object defined by the owner theOwnerId, the theIsBVHEnabled flag, and the maximum number of points on the curve: theNbPnts.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Constructs the sensitive arc object defined by the owner theOwnerId, the circle theCircle, the parameters theU1 and theU2, the boolean theIsFilled and the number of points theNbPnts. theU1 and theU2 define the first and last points of the arc on theCircle.</description>
+        </method>
+        <method name="NbSubElements" qualifiers="const">
+            <description>Returns the amount of segments in poly</description>
+        </method>
+        <method name="Points3D">
+            <description>Returns the 3D points of the array used at construction time.</description>
+        </method>
+        <method name="ArrayBounds" qualifiers="const">
+            <description>Return array bounds.</description>
+        </method>
+        <method name="GetPoint3d" qualifiers="const">
+            <description>Return point.</description>
+        </method>
+        <method name="CenterOfGeometry" qualifiers="const">
+            <description>Returns center of the point set. If location transformation is set, it will be applied</description>
+        </method>
+        <method name="Size" qualifiers="const">
+            <description>Returns the amount of segments of the poly</description>
+        </method>
+        <method name="Center" qualifiers="const">
+            <description>Returns geometry center of sensitive entity index theIdx in the vector along the given axis theAxis</description>
+        </method>
+        <method name="Swap">
+            <description>Swaps items with indexes theIdx1 and theIdx2 in the vector</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

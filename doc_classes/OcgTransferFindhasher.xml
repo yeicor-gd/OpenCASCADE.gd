@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTransferFindhasher" inherits="RefCounted">
+    <brief_description>FindHasher defines HashCode for Finder, which is : ask a Finder its HashCode ! Because this is the Finder itself which brings the HashCode for its Key</brief_description>
+    <description>! FindHasher defines HashCode for Finder, which is : ask a
+! Finder its HashCode !  Because this is the Finder itself which
+! brings the HashCode for its Key
+!
+! This class complies to the template given in TCollection by
+! MapHasher itself</description>
+    <methods>
+        <method name="call_2" qualifiers="const">
+            <description>Returns True if two keys are the same. The test does not work on the Finders themselves but by calling their methods Equates</description>
+        </method>
+    </methods>
+</class>

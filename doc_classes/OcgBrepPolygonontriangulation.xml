@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepPolygonontriangulation" inherits="RefCounted">
+    <brief_description>A representation by an array of nodes on a triangulation.</brief_description>
+    <description>! A representation by an array of nodes on a
+! triangulation.</description>
+    <methods>
+        <method name="IsPolygonOnTriangulation_1" qualifiers="const">
+            <description>returns True.</description>
+        </method>
+        <method name="IsPolygonOnTriangulation_2" qualifiers="const">
+            <description>Is it a polygon in the definition of &lt;T&gt; with location &lt;L&gt;.</description>
+        </method>
+        <method name="PolygonOnTriangulation_2">
+            <description>returns True.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Return a copy of this representation.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

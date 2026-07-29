@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrSelectionmanager" inherits="RefCounted">
+    <brief_description>A framework to manage selection from the point of view of viewer selectors. These can be added and removed, and selection modes can be activated and deactivated. In addition, objects may be known to all selectors or only to some.</brief_description>
+    <description>! A framework to manage selection from the point of view of viewer selectors.
+! These can be added and removed, and selection modes can be activated and deactivated.
+! In addition, objects may be known to all selectors or only to some.</description>
+    <methods>
+        <method name="SelectMgr_SelectionManager" qualifiers="static">
+            <description>Constructs an empty selection manager object.</description>
+        </method>
+        <method name="Selector" qualifiers="const">
+            <description>Return the Selector.</description>
+        </method>
+        <method name="Contains" qualifiers="const">
+            <description>Returns true if the manager contains the selectable object theObject.</description>
+        </method>
+        <method name="Load">
+            <description>Loads and computes selection mode theMode (if it is not equal to -1) in global context and adds selectable object to BVH tree. If the object theObject has an already calculated selection with mode theMode and it was removed, the selection will be recalculated.</description>
+        </method>
+        <method name="Remove">
+            <description>Removes selectable object theObject from all viewer selectors it was added to previously, removes it from all contexts and clears all computed selections of theObject.</description>
+        </method>
+        <method name="Activate">
+            <description>Activates the selection mode theMode in the selector theSelector for the selectable object anObject. By default, theMode is equal to 0. If theSelector is set to default (NULL), the selection with the mode theMode will be activated in all the viewers available.</description>
+        </method>
+        <method name="Deactivate">
+            <description>Deactivates mode theMode of theObject in theSelector. If theMode value is set to default (-1), all active selection modes will be deactivated. Likewise, if theSelector value is set to default (NULL), theMode will be deactivated in all viewer selectors.</description>
+        </method>
+        <method name="IsActivated" qualifiers="const">
+            <description>Returns true if the selection with theMode is active for the selectable object theObject and selector theSelector. If all parameters are set to default values, it returns it there is any active selection in any known viewer selector for object theObject.</description>
+        </method>
+        <method name="ClearSelectionStructures">
+            <description>Removes sensitive entities from all viewer selectors after method Clear() was called to the selection they belonged to or it was recomputed somehow.</description>
+        </method>
+        <method name="RestoreSelectionStructures">
+            <description>Re-adds newly calculated sensitive entities of recomputed selection defined by mode theMode to all viewer selectors contained that selection.</description>
+        </method>
+        <method name="RecomputeSelection">
+            <description>Recomputes activated selections of theObject for all known viewer selectors according to theMode specified. If theMode is set to default (-1), then all activated selections will be recomputed. If theIsForce is set to true, then selection mode theMode for object theObject will be recomputed regardless of its activation status.</description>
+        </method>
+        <method name="Update">
+            <description>Updates all selections of theObject in all viewer selectors according to its current update status. If theIsForce is set to true, the call is equal to recomputation.</description>
+        </method>
+        <method name="SetUpdateMode_1">
+            <description>Sets type of update of all selections of theObject to the given theType.</description>
+        </method>
+        <method name="SetUpdateMode_2">
+            <description>Sets type of update of selection with theMode of theObject to the given theType.</description>
+        </method>
+        <method name="SetSelectionSensitivity">
+            <description>Allows to manage sensitivity of a particular selection of interactive object theObject and changes previous sensitivity value of all sensitive entities in selection with theMode to the given theNewSensitivity.</description>
+        </method>
+        <method name="UpdateSelection">
+            <description>Re-adds selectable object in BVHs in all viewer selectors.</description>
+        </method>
+    </methods>
+</class>

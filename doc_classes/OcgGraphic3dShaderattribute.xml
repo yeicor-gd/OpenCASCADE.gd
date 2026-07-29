@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dShaderattribute" inherits="RefCounted">
+    <brief_description>Describes custom vertex shader attribute.</brief_description>
+    <description>! Describes custom vertex shader attribute.</description>
+    <methods>
+        <method name="Location" qualifiers="const">
+            <description>Returns attribute location to be bound on GLSL program linkage stage.</description>
+        </method>
+    </methods>
+</class>

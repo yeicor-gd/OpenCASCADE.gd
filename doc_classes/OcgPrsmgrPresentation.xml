@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsmgrPresentation" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class PrsMgr_Presentation.</description>
+    <methods>
+        <method name="PresentationManager" qualifiers="const">
+            <description>returns the PresentationManager in which the presentation has been created.</description>
+        </method>
+        <method name="Mode" qualifiers="const">
+            <description>Return display mode index.</description>
+        </method>
+        <method name="Display">
+            <description>Display structure.</description>
+        </method>
+        <method name="Erase">
+            <description>Remove structure.</description>
+        </method>
+        <method name="Highlight">
+            <description>Highlight structure.</description>
+        </method>
+        <method name="Unhighlight">
+            <description>Unhighlight structure.</description>
+        </method>
+        <method name="Clear">
+            <description>removes the whole content of the presentation. Does not remove the other connected presentations.</description>
+        </method>
+        <method name="Compute">
+            <description>Compute structure using presentation manager.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

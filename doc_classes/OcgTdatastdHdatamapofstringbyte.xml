@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdHdatamapofstringbyte" inherits="RefCounted">
+    <brief_description>Extension of NCollection_DataMap&lt;TCollection_ExtendedString, uint8_t&gt; class to be manipulated by handle.</brief_description>
+    <description>! Extension of NCollection_DataMap&lt;TCollection_ExtendedString, uint8_t&gt; class
+! to be manipulated by handle.</description>
+    <methods />
+</class>

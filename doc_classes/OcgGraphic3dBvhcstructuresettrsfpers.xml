@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dBvhcstructuresettrsfpers" inherits="RefCounted">
+    <brief_description>Set of transformation persistent OpenGl_Structure for building BVH tree. Provides built-in mechanism to invalidate tree when world view projection state changes. Due to frequent invalidation of BVH tree the choice of BVH tree builder is made in favor of BVH linear builder (quick rebuild).</brief_description>
+    <description>! Set of transformation persistent OpenGl_Structure for building BVH tree.
+! Provides built-in mechanism to invalidate tree when world view projection state changes.
+! Due to frequent invalidation of BVH tree the choice of BVH tree builder is made
+! in favor of BVH linear builder (quick rebuild).</description>
+    <methods>
+        <method name="Graphic3d_BvhCStructureSetTrsfPers" qualifiers="static">
+            <description>Creates an empty primitive set for BVH clipping.</description>
+        </method>
+        <method name="Size" qualifiers="const">
+            <description>Returns total number of structures.</description>
+        </method>
+        <method name="Center" qualifiers="const">
+            <description>Calculates center of the AABB along given axis.</description>
+        </method>
+        <method name="Swap">
+            <description>Swaps structures with the given indices.</description>
+        </method>
+        <method name="Clear">
+            <description>Cleans the whole primitive set.</description>
+        </method>
+        <method name="MarkDirty">
+            <description>Marks object state as outdated (needs BVH rebuilding).</description>
+        </method>
+        <method name="Builder" qualifiers="const">
+            <description>Returns builder for bottom-level BVH.</description>
+        </method>
+        <method name="SetBuilder">
+            <description>Assigns builder for bottom-level BVH.</description>
+        </method>
+    </methods>
+</class>

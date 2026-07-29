@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafdocLayertool" inherits="RefCounted">
+    <brief_description>Provides tools to store and retrieve attributes (Layers) of TopoDS_Shape in and from TDocStd_Document A Document is intended to hold different attributes of ONE shape and it's sub-shapes Provide tools for management of Layers section of document.</brief_description>
+    <description>! Provides tools to store and retrieve attributes (Layers)
+! of TopoDS_Shape in and from TDocStd_Document
+! A Document is intended to hold different
+! attributes of ONE shape and it's sub-shapes
+! Provide tools for management of Layers section of document.</description>
+    <methods>
+        <method name="BaseLabel" qualifiers="const">
+            <description>returns the label under which Layers are stored</description>
+        </method>
+        <method name="IsLayer" qualifiers="const">
+            <description>Returns True if label belongs to a Layertable and is a Layer definition</description>
+        </method>
+        <method name="RemoveLayer" qualifiers="const">
+            <description>Removes Layer from the Layertable</description>
+        </method>
+        <method name="SetLayer_1" qualifiers="const">
+            <description>Sets a link from label &lt;L&gt; to Layer defined by &lt;LayerL&gt; optional parameter &lt;shapeInOneLayer&gt; show could shape be in number of layers or only in one.</description>
+        </method>
+        <method name="UnSetLayers_1" qualifiers="const">
+            <description>Removes a link from label &lt;L&gt; to all layers</description>
+        </method>
+        <method name="UnSetOneLayer_2" qualifiers="const">
+            <description>Remove link from label &lt;L&gt; and Layer &lt;aLayerL&gt;. returns FALSE if &lt;aLayerL&gt; is not a layer label.</description>
+        </method>
+        <method name="IsSet_2" qualifiers="const">
+            <description>Returns True if label &lt;L&gt; has a Layer associated with the &lt;aLayerL&gt; label.</description>
+        </method>
+        <method name="IsVisible" qualifiers="const">
+            <description>Return TRUE if layer is visible, FALSE if invisible.</description>
+        </method>
+        <method name="SetVisibility" qualifiers="const">
+            <description>Set the visibility of layer. If layer is invisible when on it's layer will set UAttribute with corresponding GUID.</description>
+        </method>
+        <method name="SetLayer_3">
+            <description>Sets a link from label that containing shape &lt;Sh&gt; with layer that situated at label &lt;LayerL&gt;. optional parameter &lt;shapeInOneLayer&gt; show could shape be in number of layers or only in one. return FALSE if no such shape &lt;Sh&gt; or label &lt;LayerL&gt;</description>
+        </method>
+        <method name="UnSetLayers_2">
+            <description>Remove link between shape &lt;Sh&gt; and all Layers at LayerTable. return FALSE if no such shape &lt;Sh&gt; in XCAF Document.</description>
+        </method>
+        <method name="UnSetOneLayer_4">
+            <description>Remove link between shape &lt;Sh&gt; and layer &lt;aLayerL&gt;. returns FALSE if no such layer &lt;aLayerL&gt; or shape &lt;Sh&gt;.</description>
+        </method>
+        <method name="IsSet_4">
+            <description>Returns True if shape &lt;Sh&gt; has a Layer associated with the &lt;aLayerL&gt;.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

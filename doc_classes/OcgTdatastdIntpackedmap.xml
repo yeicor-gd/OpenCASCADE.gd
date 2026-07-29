@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdIntpackedmap" inherits="RefCounted">
+    <brief_description>Attribute for storing TColStd_PackedMapOfInteger</brief_description>
+    <description>! Attribute for storing TColStd_PackedMapOfInteger</description>
+    <methods>
+        <method name="SetDelta">
+            <description>for internal use only!</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods ============= Returns the GUID of the attribute.</description>
+        </method>
+    </methods>
+</class>

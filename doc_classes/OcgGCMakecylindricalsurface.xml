@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakecylindricalsurface" inherits="RefCounted">
+    <brief_description>This class implements the following algorithms used to create a CylindricalSurface from Geom. * Create a CylindricalSurface parallel to another and passing through a point. * Create a CylindricalSurface parallel to another at a distance &lt;Dist&gt;. * Create a CylindricalSurface passing through 3 points. * Create a CylindricalSurface by its axis and radius. * Create a cylindricalSurface by its circular base. The local coordinate system of the CylindricalSurface is defined with an axis placement (see class ElementarySurface).</brief_description>
+    <description>! This class implements the following algorithms used
+! to create a CylindricalSurface from Geom.
+! * Create a CylindricalSurface parallel to another and
+! passing through a point.
+! * Create a CylindricalSurface parallel to another at a
+! distance
+! &lt;Dist&gt;.
+! * Create a CylindricalSurface passing through 3 points.
+! * Create a CylindricalSurface by its axis and radius.
+! * Create a cylindricalSurface by its circular base.
+! The local coordinate system of the CylindricalSurface is defined
+! with an axis placement (see class ElementarySurface).
+!
+! The "ZAxis" is the symmetry axis of the CylindricalSurface,
+! it gives the direction of increasing parametric value V.
+!
+! The parametrization range is :
+! U [0, 2*PI],  V ]- infinite, + infinite[
+!
+! The "XAxis" and the "YAxis" define the placement plane of the
+! surface (Z = 0, and parametric value V = 0)  perpendicular to
+! the symmetry axis. The "XAxis" defines the origin of the
+! parameter U = 0.  The trigonometric sense gives the positive
+! orientation for the parameter U.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a CylindricalSurface from a non persistent Cylinder from package gp.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Make a CylindricalSurface by its circular base.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>A2 defines the local coordinate system of the cylindrical surface. The "ZDirection" of A2 defines the direction of the surface's axis of symmetry. At the creation the parametrization of the surface is defined such that the normal Vector (N = D1U ^ D1V) is oriented towards the "outside region" of the surface. Warnings : It is not forbidden to create a cylindrical surface with Radius = 0.0 Status is "NegativeRadius" if Radius &lt; 0.0</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Make a CylindricalSurface from Geom &lt;TheCylinder&gt; parallel to another CylindricalSurface &lt;Cylinder&gt; and passing through a Pnt &lt;Point&gt;.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Make a CylindricalSurface from Geom &lt;TheCylinder&gt; parallel to another CylindricalSurface &lt;Cylinder&gt; at the distance &lt;Dist&gt; which can be greater or lower than zero. The radius of the result is the absolute value of the radius of &lt;Cyl&gt; plus &lt;Dist&gt;</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Make a CylindricalSurface by its axis &lt;Axis&gt; and radius &lt;Radius&gt;.</description>
+        </method>
+        <method name="from_7" qualifiers="static">
+            <description>Make a CylindricalSurface from Geom &lt;TheCylinder&gt; passing through 3 Pnt &lt;P1&gt;,&lt;P2&gt;,&lt;P3&gt;. Its axis is &lt;P1P2&gt; and its radius is the distance between &lt;P3&gt; and &lt;P1P2&gt;</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed cylinder. Exceptions StdFail_NotDone if no cylinder is constructed.</description>
+        </method>
+    </methods>
+</class>

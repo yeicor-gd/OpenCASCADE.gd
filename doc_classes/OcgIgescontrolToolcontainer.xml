@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIgescontrolToolcontainer" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class IGESControl_ToolContainer.</description>
+    <methods>
+        <method name="IGESControl_ToolContainer" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="IGESBoundary" qualifiers="const">
+            <description>Returns IGESControl_IGESBoundary</description>
+        </method>
+    </methods>
+</class>

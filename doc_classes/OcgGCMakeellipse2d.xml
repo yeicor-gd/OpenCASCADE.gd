@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakeellipse2d" inherits="RefCounted">
+    <brief_description>This class implements construction algorithms for ellipses in the plane. The result is a `Geom2d_Ellipse`. A `GC_MakeEllipse2d` object provides a framework for: - defining the construction parameters; - running the construction algorithm; - querying the construction status and the resulting ellipse via `Value()`.</brief_description>
+    <description>! This class implements construction algorithms for ellipses in the plane.
+! The result is a `Geom2d_Ellipse`.
+! A `GC_MakeEllipse2d` object provides a framework for:
+! - defining the construction parameters;
+! - running the construction algorithm;
+! - querying the construction status and the resulting ellipse via `Value()`.
+! @note Ellipse parameterization range is [0, 2*PI].
+! @note The X axis of the local coordinate system is the major axis,
+!       and the Y axis is the minor axis.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates an ellipse from a non-persistent one from package gp.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an ellipse from a local coordinate system and radii.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates an ellipse from two apex points and center point.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates an ellipse from major axis placement and radii.</description>
+        </method>
+    </methods>
+</class>

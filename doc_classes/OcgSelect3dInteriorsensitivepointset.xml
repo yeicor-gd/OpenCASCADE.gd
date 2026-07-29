@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelect3dInteriorsensitivepointset" inherits="RefCounted">
+    <brief_description>This class handles the selection of arbitrary point set with internal type of sensitivity. The main principle is to split the point set given onto planar convex polygons and search for the overlap with one or more of them through traverse of BVH tree.</brief_description>
+    <description>! This class handles the selection of arbitrary point set with internal type of sensitivity.
+! The main principle is to split the point set given onto planar convex polygons and search
+! for the overlap with one or more of them through traverse of BVH tree.</description>
+    <methods>
+        <method name="Select3D_InteriorSensitivePointSet" qualifiers="static">
+            <description>Splits the given point set thePoints onto planar convex polygons</description>
+        </method>
+        <method name="GetPoints">
+            <description>Initializes the given array theHArrayOfPnt by 3d coordinates of vertices of the whole point set</description>
+        </method>
+        <method name="Size" qualifiers="const">
+            <description>Returns the length of vector of planar convex polygons</description>
+        </method>
+        <method name="Center" qualifiers="const">
+            <description>Returns geometry center of planar convex polygon with index theIdx in the vector along the given axis theAxis</description>
+        </method>
+        <method name="Swap">
+            <description>Swaps items with indexes theIdx1 and theIdx2 in the vector</description>
+        </method>
+        <method name="CenterOfGeometry" qualifiers="const">
+            <description>Returns center of the point set. If location transformation is set, it will be applied</description>
+        </method>
+        <method name="NbSubElements" qualifiers="const">
+            <description>Returns the amount of points in set</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

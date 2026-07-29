@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapefixEdgeconnect" inherits="RefCounted">
+    <brief_description>Rebuilds edges to connect with new vertices, was moved from ShapeBuild. Makes vertices to be shared to connect edges, updates positions and tolerances for shared vertices. Accepts edges bounded by two vertices each.</brief_description>
+    <description>! Rebuilds edges to connect with new vertices, was moved from ShapeBuild.
+! Makes vertices to be shared to connect edges,
+! updates positions and tolerances for shared vertices.
+! Accepts edges bounded by two vertices each.</description>
+    <methods>
+        <method name="Add_2">
+            <description>Adds information on connectivity between start vertex of second edge and end vertex of first edge, taking edges orientation into account</description>
+        </method>
+        <method name="Add_1">
+            <description>Adds connectivity information for the whole shape. Note: edges in wires must be well ordered Note: flag Closed should be set for closed wires</description>
+        </method>
+        <method name="Build">
+            <description>Builds shared vertices, updates their positions and tolerances</description>
+        </method>
+        <method name="Clear">
+            <description>Clears internal data structure</description>
+        </method>
+    </methods>
+</class>

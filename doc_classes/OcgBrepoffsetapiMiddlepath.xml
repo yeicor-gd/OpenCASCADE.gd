@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepoffsetapiMiddlepath" inherits="RefCounted">
+    <brief_description>Describes functions to build a middle path of a pipe-like shape</brief_description>
+    <description>! Describes functions to build a middle path of a
+! pipe-like shape</description>
+    <methods>
+        <method name="BRepOffsetAPI_MiddlePath" qualifiers="static">
+            <description>General constructor. StartShape and EndShape may be a wire or a face</description>
+        </method>
+    </methods>
+</class>

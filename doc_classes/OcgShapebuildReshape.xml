@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapebuildReshape" inherits="RefCounted">
+    <brief_description>Rebuilds a Shape by making pre-defined substitutions on some of its components</brief_description>
+    <description>! Rebuilds a Shape by making pre-defined substitutions on some
+! of its components
+!
+! In a first phase, it records requests to replace or remove
+! some individual shapes
+! For each shape, the last given request is recorded
+! Requests may be applied "Oriented" (i.e. only to an item with
+! the SAME orientation) or not (the orientation of replacing
+! shape is respectful of that of the original one)
+!
+! Then, these requests may be applied to any shape which may
+! contain one or more of these individual shapes</description>
+    <methods>
+        <method name="ShapeBuild_ReShape" qualifiers="static">
+            <description>Returns an empty Reshape</description>
+        </method>
+        <method name="Apply_2">
+            <description>Applies the substitutions requests to a shape</description>
+        </method>
+        <method name="Apply_1">
+            <description>Applies the substitutions requests to a shape.</description>
+        </method>
+        <method name="Status_2">
+            <description>Returns a complete substitution status for a shape 0 : not recorded, &lt;newsh&gt; = original &lt;shape&gt; &lt; 0: to be removed, &lt;newsh&gt; is NULL &gt; 0: to be replaced, &lt;newsh&gt; is a new item If &lt;last&gt; is False, returns status and new shape recorded in the map directly for the shape, if True and status &gt; 0 then recursively searches for the last status and new shape.</description>
+        </method>
+        <method name="Status_1" qualifiers="const">
+            <description>Queries the status of last call to Apply(shape,enum) OK : no (sub)shapes replaced or removed DONE1: source (starting) shape replaced DONE2: source (starting) shape removed DONE3: some subshapes replaced DONE4: some subshapes removed FAIL1: some replacements not done because of bad type of subshape</description>
+        </method>
+    </methods>
+</class>

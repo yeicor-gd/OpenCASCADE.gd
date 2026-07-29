@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dTransformpers" inherits="RefCounted">
+    <brief_description>Transformation Persistence definition.</brief_description>
+    <description>! Transformation Persistence definition.
+!
+! Transformation Persistence defines a mutable Local Coordinate system which depends on camera
+! position, so that visual appearance of the object becomes partially immutable while camera
+! moves. Object visually preserves particular property such as size, placement, rotation or their
+! combination.
+!
+! Graphic3d_TMF_ZoomPers, Graphic3d_TMF_RotatePers and Graphic3d_TMF_ZoomRotatePers define Local
+! Coordinate system having origin in specified anchor point defined in World Coordinate system,
+! while Graphic3d_TMF_TriedronPers and Graphic3d_TMF_2d define origin as 2D offset from screen
+! corner in pixels.
+!
+! Graphic3d_TMF_2d, Graphic3d_TMF_TriedronPers and Graphic3d_TMF_ZoomPers defines Local Coordinate
+! system where length units are pixels. Beware that Graphic3d_RenderingParams::ResolutionRatio()
+! will be ignored! For other Persistence flags, normal (world) length units will apply.
+!
+! Graphic3d_TMF_AxialPers and Graphic3d_TMF_AxialZoomPers defines persistence in the axial scale,
+! i.e., keeps the object visual coherence when the camera's axial scale is changed.
+! Meant to be used by objects such as Manipulators and trihedrons.
+! WARNING: Graphic3d_TMF_None is not permitted for defining instance of this class - NULL handle
+! should be used for this purpose!</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Set transformation persistence.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Set Zoom/Rotate transformation persistence with an anchor 3D point. Anchor point defines the origin of Local Coordinate system within World Coordinate system. Throws an exception if persistence mode is not Graphic3d_TMF_ZoomPers, Graphic3d_TMF_ZoomRotatePers or Graphic3d_TMF_RotatePers.</description>
+        </method>
+        <method name="IsZoomOrRotate_1" qualifiers="const">
+            <description>Return true for Graphic3d_TMF_ZoomPers, Graphic3d_TMF_ZoomRotatePers or Graphic3d_TMF_RotatePers modes.</description>
+        </method>
+        <method name="IsTrihedronOr2d_1" qualifiers="const">
+            <description>Return true for Graphic3d_TMF_TriedronPers and Graphic3d_TMF_2d modes.</description>
+        </method>
+        <method name="IsOrthoPers_1" qualifiers="const">
+            <description>Return true for Graphic3d_TMF_OrthoPers mode.</description>
+        </method>
+        <method name="IsAxial_1" qualifiers="const">
+            <description>Return true for Graphic3d_TMF_AxialScalePers modes.</description>
+        </method>
+        <method name="Mode" qualifiers="const">
+            <description>Transformation persistence mode flags.</description>
+        </method>
+        <method name="Flags" qualifiers="const">
+            <description>Transformation persistence mode flags.</description>
+        </method>
+        <method name="SetPersistence_1">
+            <description>Set Zoom/Rotate transformation persistence with an anchor 3D point. Throws an exception if persistence mode is not Graphic3d_TMF_ZoomPers, Graphic3d_TMF_ZoomRotatePers or Graphic3d_TMF_RotatePers.</description>
+        </method>
+        <method name="AnchorPoint" qualifiers="const">
+            <description>Return the anchor point for zoom/rotate transformation persistence.</description>
+        </method>
+        <method name="SetAnchorPoint">
+            <description>Set the anchor point for zoom/rotate transformation persistence.</description>
+        </method>
+        <method name="Corner2d" qualifiers="const">
+            <description>Return the corner for 2d/trihedron transformation persistence.</description>
+        </method>
+        <method name="SetCorner2d">
+            <description>Set the corner for 2d/trihedron transformation persistence.</description>
+        </method>
+        <method name="persistentScale" qualifiers="const">
+            <description>Find scale value based on the camera position and view dimensions</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="IsZoomOrRotate_2" qualifiers="static">
+            <description>Return true if specified mode is zoom/rotate transformation persistence.</description>
+        </method>
+        <method name="IsTrihedronOr2d_2" qualifiers="static">
+            <description>Return true if specified mode is 2d/trihedron transformation persistence.</description>
+        </method>
+        <method name="IsOrthoPers_2" qualifiers="static">
+            <description>Return true if specified mode is orthographic projection transformation persistence.</description>
+        </method>
+        <method name="IsAxial_2" qualifiers="static">
+            <description>Return true if specified mode is axial transformation persistence.</description>
+        </method>
+    </methods>
+</class>

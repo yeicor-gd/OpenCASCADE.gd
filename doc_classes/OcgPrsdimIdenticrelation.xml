@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimIdenticrelation" inherits="RefCounted">
+    <brief_description>Constructs a constraint by a relation of identity between two or more datums figuring in shape Interactive Objects.</brief_description>
+    <description>! Constructs a constraint by a relation of identity
+! between two or more datums figuring in shape
+! Interactive Objects.</description>
+    <methods />
+</class>

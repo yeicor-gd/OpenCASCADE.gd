@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomVectorwithmagnitude" inherits="RefCounted">
+    <brief_description>Defines a vector with magnitude. A vector with magnitude can have a zero length.</brief_description>
+    <description>! Defines a vector with magnitude.
+! A vector with magnitude can have a zero length.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a transient copy of V.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a vector from the point P1 to the point P2. The magnitude of the vector is the distance between P1 and P2</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a vector with three cartesian coordinates.</description>
+        </method>
+        <method name="SetCoord">
+            <description>Assigns the values X, Y and Z to the coordinates of this vector.</description>
+        </method>
+        <method name="SetVec">
+            <description>Converts the gp_Vec vector V into this vector.</description>
+        </method>
+        <method name="SetX">
+            <description>Changes the X coordinate of &lt;me&gt;.</description>
+        </method>
+        <method name="SetY">
+            <description>Changes the Y coordinate of &lt;me&gt;</description>
+        </method>
+        <method name="SetZ">
+            <description>Changes the Z coordinate of &lt;me&gt;.</description>
+        </method>
+        <method name="Magnitude" qualifiers="const">
+            <description>Returns the magnitude of &lt;me&gt;.</description>
+        </method>
+        <method name="SquareMagnitude" qualifiers="const">
+            <description>Returns the square magnitude of &lt;me&gt;.</description>
+        </method>
+        <method name="Divide">
+            <description>Divides &lt;me&gt; by a scalar.</description>
+        </method>
+        <method name="Multiply">
+            <description>Computes the product of the vector &lt;me&gt; by a scalar.</description>
+        </method>
+        <method name="Normalize">
+            <description>Normalizes &lt;me&gt;.</description>
+        </method>
+        <method name="Transform">
+            <description>Applies the transformation T to this vector.</description>
+        </method>
+    </methods>
+</class>

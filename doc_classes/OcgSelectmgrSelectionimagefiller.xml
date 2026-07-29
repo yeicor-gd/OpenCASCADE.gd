@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrSelectionimagefiller" inherits="RefCounted">
+    <brief_description>Abstract class for filling pixel with color. This is internal tool for SelectMgr_ViewerSelector::ToPixMap().</brief_description>
+    <description>! Abstract class for filling pixel with color.
+! This is internal tool for SelectMgr_ViewerSelector::ToPixMap().</description>
+    <methods>
+        <method name="Flush">
+            <description>Flush results into final image.</description>
+        </method>
+    </methods>
+</class>

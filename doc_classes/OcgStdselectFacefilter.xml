@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStdselectFacefilter" inherits="RefCounted">
+    <brief_description>A framework to define a filter to select a specific type of face. The types available include: - any face - a planar face - a cylindrical face - a spherical face - a toroidal face - a revol face.</brief_description>
+    <description>! A framework to define a filter to select a specific type of face.
+! The types available include:
+! -   any face
+! -   a planar face
+! -   a cylindrical face
+! -   a spherical face
+! -   a toroidal face
+! -   a revol face.</description>
+    <methods>
+        <method name="StdSelect_FaceFilter" qualifiers="static">
+            <description>Constructs a face filter object defined by the type of face aTypeOfFace.</description>
+        </method>
+        <method name="SetType">
+            <description>Sets the type of face aNewType. aNewType is to be highlighted in selection.</description>
+        </method>
+        <method name="Type" qualifiers="const">
+            <description>Returns the type of face to be highlighted in selection.</description>
+        </method>
+    </methods>
+</class>

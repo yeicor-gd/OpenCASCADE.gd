@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdTick" inherits="RefCounted">
+    <brief_description>Defines a boolean attribute. If it exists at a label - true, Otherwise - false.</brief_description>
+    <description>! Defines a boolean attribute.
+! If it exists at a label - true,
+! Otherwise - false.</description>
+    <methods>
+        <method name="GetID" qualifiers="static">
+            <description>Static methods ==============</description>
+        </method>
+    </methods>
+</class>

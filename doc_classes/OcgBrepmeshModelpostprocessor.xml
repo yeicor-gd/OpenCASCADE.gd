@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshModelpostprocessor" inherits="RefCounted">
+    <brief_description>Class implements functionality of model post-processing tool. Stores polygons on triangulations to TopoDS_Edge.</brief_description>
+    <description>! Class implements functionality of model post-processing tool.
+! Stores polygons on triangulations to TopoDS_Edge.</description>
+    <methods>
+        <method name="BRepMesh_ModelPostProcessor" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+    </methods>
+</class>

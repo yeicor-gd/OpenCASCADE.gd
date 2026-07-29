@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeom2dAxisplacement" inherits="RefCounted">
+    <brief_description>Describes an axis in 2D space. An axis is defined by: - its origin, also termed the "Location point" of the axis, - its unit vector, termed the "Direction" of the axis. Note: Geom2d_AxisPlacement axes provide the same kind of "geometric" services as gp_Ax2d axes but have more complex data structures. The geometric objects provided by the Geom2d package use gp_Ax2d objects to include axes in their data structures, or to define an axis of symmetry or axis of rotation. Geom2d_AxisPlacement axes are used in a context where they can be shared by several objects contained inside a common data structure.</brief_description>
+    <description>! Describes an axis in 2D space.
+! An axis is defined by:
+! - its origin, also termed the "Location point" of the axis,
+! - its unit vector, termed the "Direction" of the axis.
+! Note: Geom2d_AxisPlacement axes provide the
+! same kind of "geometric" services as gp_Ax2d axes
+! but have more complex data structures. The
+! geometric objects provided by the Geom2d package
+! use gp_Ax2d objects to include axes in their data
+! structures, or to define an axis of symmetry or axis of rotation.
+! Geom2d_AxisPlacement axes are used in a context
+! where they can be shared by several objects
+! contained inside a common data structure.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs an axis by conversion of the gp_Ax2d axis A.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs an axis from a given origin P and unit vector V.</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>Reverses the unit vector of this axis. Note: - Reverse assigns the result to this axis, while - Reversed creates a new one.</description>
+        </method>
+        <method name="SetAxis">
+            <description>Changes the complete definition of the axis placement.</description>
+        </method>
+        <method name="SetDirection">
+            <description>Changes the "Direction" of the axis placement.</description>
+        </method>
+        <method name="SetLocation">
+            <description>Changes the "Location" point (origin) of the axis placement.</description>
+        </method>
+        <method name="Angle" qualifiers="const">
+            <description>Computes the angle between the "Direction" of two axis placement in radians. The result is comprised between -Pi and Pi.</description>
+        </method>
+        <method name="Ax2d" qualifiers="const">
+            <description>Converts this axis into a gp_Ax2d axis.</description>
+        </method>
+        <method name="Direction" qualifiers="const">
+            <description>Returns the "Direction" of &lt;me&gt;. -C++: return const&amp;</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>Returns the "Location" point (origin) of the axis placement. -C++: return const&amp;</description>
+        </method>
+        <method name="Transform">
+            <description>Applies the transformation T to this axis.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this axis.</description>
+        </method>
+    </methods>
+</class>

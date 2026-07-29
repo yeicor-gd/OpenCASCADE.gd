@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dText" inherits="RefCounted">
+    <brief_description>A framework to define the display of texts.</brief_description>
+    <description>! A framework to define the display of texts.</description>
+    <methods />
+</class>

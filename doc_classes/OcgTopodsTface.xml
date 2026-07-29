@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsTface" inherits="RefCounted">
+    <brief_description>A topological part of a surface or of the 2D space. The boundary is a set of wires and vertices.</brief_description>
+    <description>! A  topological part  of a surface   or  of the  2D
+! space.  The  boundary  is  a   set of  wires   and
+! vertices.</description>
+    <methods>
+        <method name="TopoDS_TFace" qualifiers="static">
+            <description>Creates an empty TFace.</description>
+        </method>
+        <method name="ShapeType" qualifiers="const">
+            <description>returns FACE.</description>
+        </method>
+        <method name="EmptyCopy" qualifiers="const">
+            <description>Returns an empty TFace.</description>
+        </method>
+    </methods>
+</class>

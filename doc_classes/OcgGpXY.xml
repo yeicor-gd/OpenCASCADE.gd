@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpXY" inherits="RefCounted">
+    <brief_description>This class describes a cartesian coordinate entity in 2D space {X,Y}. This class is non persistent. This entity used for algebraic calculation. An XY can be transformed with a Trsf2d or a GTrsf2d from package gp. It is used in vectorial computations or for holding this type of information in data structures.</brief_description>
+    <description>! This class describes a cartesian coordinate entity in 2D
+! space {X,Y}. This class is non persistent. This entity used
+! for algebraic calculation. An XY can be transformed with a
+! Trsf2d or a  GTrsf2d from package gp.
+! It is used in vectorial computations or for holding this type
+! of information in data structures.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates XY object with zero coordinates (0,0).</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>a number pair defined by the XY coordinates</description>
+        </method>
+        <method name="SetCoord_1">
+            <description>modifies the coordinate of range theIndex theIndex = 1 =&gt; X is modified theIndex = 2 =&gt; Y is modified Raises OutOfRange if theIndex != {1, 2}.</description>
+        </method>
+        <method name="SetCoord_2">
+            <description>For this number pair, assigns the values theX and theY to its coordinates</description>
+        </method>
+        <method name="SetX">
+            <description>Assigns the given value to the X coordinate of this number pair.</description>
+        </method>
+        <method name="SetY">
+            <description>Assigns the given value to the Y coordinate of this number pair.</description>
+        </method>
+        <method name="Coord" qualifiers="const">
+            <description>For this number pair, returns its coordinates X and Y.</description>
+        </method>
+        <method name="X" qualifiers="const">
+            <description>Returns the X coordinate of this number pair.</description>
+        </method>
+        <method name="Y" qualifiers="const">
+            <description>Returns the Y coordinate of this number pair.</description>
+        </method>
+        <method name="Modulus" qualifiers="const">
+            <description>Computes Sqrt (X*X + Y*Y) where X and Y are the two coordinates of this number pair.</description>
+        </method>
+        <method name="SquareModulus" qualifiers="const">
+            <description>Computes X*X + Y*Y where X and Y are the two coordinates of this number pair.</description>
+        </method>
+        <method name="IsEqual" qualifiers="const">
+            <description>Returns true if the coordinates of this number pair are equal to the respective coordinates of the number pair theOther, within the specified tolerance theTolerance. I.e.: abs(&lt;me&gt;.X() - theOther.X()) &lt;= theTolerance and abs(&lt;me&gt;.Y() - theOther.Y()) &lt;= theTolerance and computations</description>
+        </method>
+        <method name="Add">
+            <description>Computes the sum of this number pair and number pair theOther</description>
+        </method>
+        <method name="Added" qualifiers="const">
+            <description>Computes the sum of this number pair and number pair theOther</description>
+        </method>
+        <method name="Crossed" qualifiers="const">
+            <description>! @code
+! double D = &lt;me&gt;.X() * theOther.Y() - &lt;me&gt;.Y() * theOther.X()
+! @endcode</description>
+        </method>
+        <method name="CrossSquareMagnitude" qualifiers="const">
+            <description>computes the square magnitude of the cross product between &lt;me&gt; and theRight. Returns || &lt;me&gt; ^ theRight ||**2</description>
+        </method>
+        <method name="Divide">
+            <description>divides &lt;me&gt; by a real.</description>
+        </method>
+        <method name="Divided" qualifiers="const">
+            <description>Divides &lt;me&gt; by a real.</description>
+        </method>
+        <method name="Dot" qualifiers="const">
+            <description>Computes the scalar product between &lt;me&gt; and theOther</description>
+        </method>
+        <method name="Multiply_1">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.X() * theScalar;
+! &lt;me&gt;.Y() = &lt;me&gt;.Y() * theScalar;
+! @endcode</description>
+        </method>
+        <method name="Multiply_2">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.X() * theOther.X();
+! &lt;me&gt;.Y() = &lt;me&gt;.Y() * theOther.Y();
+! @endcode</description>
+        </method>
+        <method name="Multiply_3">
+            <description>&lt;me&gt; = theMatrix * &lt;me&gt;</description>
+        </method>
+        <method name="Multiplied_1" qualifiers="const">
+            <description>! @code
+! New.X() = &lt;me&gt;.X() * theScalar;
+! New.Y() = &lt;me&gt;.Y() * theScalar;
+! @endcode</description>
+        </method>
+        <method name="Multiplied_2" qualifiers="const">
+            <description>! @code
+! new.X() = &lt;me&gt;.X() * theOther.X();
+! new.Y() = &lt;me&gt;.Y() * theOther.Y();
+! @endcode</description>
+        </method>
+        <method name="Multiplied_3" qualifiers="const">
+            <description>New = theMatrix * &lt;me&gt;</description>
+        </method>
+        <method name="Normalize">
+            <description>Raises ConstructionError if &lt;me&gt;.Modulus() &lt;= Resolution from gp</description>
+        </method>
+        <method name="Normalized" qualifiers="const">
+            <description>Raises ConstructionError if &lt;me&gt;.Modulus() &lt;= Resolution from gp</description>
+        </method>
+        <method name="Reverse">
+            <description>! @code
+! &lt;me&gt;.X() = -&lt;me&gt;.X()
+! &lt;me&gt;.Y() = -&lt;me&gt;.Y()</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>! @code
+! New.X() = -&lt;me&gt;.X()
+! New.Y() = -&lt;me&gt;.Y()
+! @endcode</description>
+        </method>
+        <method name="SetLinearForm_3">
+            <description>Computes the following linear combination and assigns the result to this number pair:</description>
+        </method>
+        <method name="SetLinearForm_4">
+            <description>-- Computes the following linear combination and assigns the result to this number pair:</description>
+        </method>
+        <method name="SetLinearForm_2">
+            <description>Computes the following linear combination and assigns the result to this number pair:</description>
+        </method>
+        <method name="SetLinearForm_1">
+            <description>Computes the following linear combination and assigns the result to this number pair:</description>
+        </method>
+        <method name="Subtract">
+            <description>! @code
+! &lt;me&gt;.X() = &lt;me&gt;.X() - theOther.X()
+! &lt;me&gt;.Y() = &lt;me&gt;.Y() - theOther.Y()
+! @endcode</description>
+        </method>
+        <method name="Subtracted" qualifiers="const">
+            <description>! @code
+! new.X() = &lt;me&gt;.X() - theOther.X()
+! new.Y() = &lt;me&gt;.Y() - theOther.Y()
+! @endcode</description>
+        </method>
+    </methods>
+</class>

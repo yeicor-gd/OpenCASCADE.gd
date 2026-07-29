@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImageTexture" inherits="RefCounted">
+    <brief_description>Texture image definition. The image can be stored as path to image file, as file path with the given offset and as a data buffer of encoded image.</brief_description>
+    <description>! Texture image definition.
+! The image can be stored as path to image file, as file path with the given offset and as a data
+! buffer of encoded image.</description>
+    <methods>
+        <method name="FileOffset" qualifiers="const">
+            <description>Return offset within file.</description>
+        </method>
+        <method name="FileLength" qualifiers="const">
+            <description>Return length of image data within the file after offset.</description>
+        </method>
+        <method name="DataBuffer" qualifiers="const">
+            <description>Return buffer holding encoded image content.</description>
+        </method>
+        <method name="ReadCompressedImage" qualifiers="const">
+            <description>Image reader without decoding data for formats supported natively by GPUs.</description>
+        </method>
+        <method name="ReadImage" qualifiers="const">
+            <description>Image reader.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapefixWireframe" inherits="RefCounted">
+    <brief_description>Provides methods for fixing wireframe of shape</brief_description>
+    <description>! Provides methods for fixing wireframe of shape</description>
+    <methods>
+        <method name="ClearStatuses">
+            <description>Clears all statuses</description>
+        </method>
+        <method name="Load">
+            <description>Loads a shape, resets statuses</description>
+        </method>
+        <method name="FixWireGaps">
+            <description>Fixes gaps between ends of curves of adjacent edges (both 3d and pcurves) in wires If precision is 0.0, uses Precision::Confusion().</description>
+        </method>
+        <method name="FixSmallEdges">
+            <description>Fixes small edges in shape by merging adjacent edges If precision is 0.0, uses Precision::Confusion().</description>
+        </method>
+        <method name="CheckSmallEdges">
+            <description>Auxiliary tool for FixSmallEdges which checks for small edges and fills the maps. Returns True if at least one small edge has been found.</description>
+        </method>
+        <method name="MergeSmallEdges">
+            <description>Auxiliary tool for FixSmallEdges which merges small edges. If theModeDrop is equal to Standard_True then small edges, which cannot be connected with adjacent edges are dropped. Otherwise they are kept. theLimitAngle specifies maximum allowed tangency discontinuity between adjacent edges. If theLimitAngle is equal to -1, this angle is not taken into account.</description>
+        </method>
+        <method name="StatusWireGaps" qualifiers="const">
+            <description>Decodes the status of the last FixWireGaps. OK - No gaps were found DONE1 - Some gaps in 3D were fixed DONE2 - Some gaps in 2D were fixed FAIL1 - Failed to fix some gaps in 3D FAIL2 - Failed to fix some gaps in 2D</description>
+        </method>
+        <method name="StatusSmallEdges" qualifiers="const">
+            <description>Decodes the status of the last FixSmallEdges. OK - No small edges were found DONE1 - Some small edges were fixed FAIL1 - Failed to fix some small edges</description>
+        </method>
+        <method name="ModeDropSmallEdges">
+            <description>Returns mode managing removing small edges.</description>
+        </method>
+        <method name="SetLimitAngle">
+            <description>Set limit angle for merging edges.</description>
+        </method>
+        <method name="LimitAngle" qualifiers="const">
+            <description>Get limit angle for merging edges.</description>
+        </method>
+    </methods>
+</class>

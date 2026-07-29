@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageExecstatus" inherits="RefCounted">
+    <brief_description>Tiny class for extended handling of error / execution status of algorithm in universal way.</brief_description>
+    <description>/**
+ * Tiny class for extended handling of error / execution
+ * status of algorithm in universal way.
+ *
+ * It is in fact a set of integers represented as a collection of bit flags
+ * for each of four types of status; each status flag has its own symbolic
+ * name and can be set/tested individually.
+ *
+ * The flags are grouped in semantic groups:
+ * - No flags means nothing done
+ * - Done flags correspond to some operation successfully completed
+ * - Warning flags correspond to warning messages on some
+ *   potentially wrong situation, not harming algorithm execution
+ * - Alarm flags correspond to more severe warnings about incorrect
+ *   user data, while not breaking algorithm execution
+ * - Fail flags correspond to cases when algorithm failed to complete
+ */</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Create empty execution status</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Initialise the execution status</description>
+        </method>
+        <method name="Set">
+            <description>Sets a status flag</description>
+        </method>
+        <method name="IsSet" qualifiers="const">
+            <description>Check status for being set</description>
+        </method>
+        <method name="Clear_2">
+            <description>Clear one status</description>
+        </method>
+        <method name="IsDone" qualifiers="const">
+            <description>Check if at least one status of each type is set</description>
+        </method>
+        <method name="SetAllDone">
+            <description>Set all statuses of each type</description>
+        </method>
+        <method name="ClearAllDone">
+            <description>Clear all statuses of each type</description>
+        </method>
+        <method name="Clear_1">
+            <description>Clear all statuses</description>
+        </method>
+        <method name="Add">
+            <description>Add statuses to me from theOther execution status</description>
+        </method>
+        <method name="And">
+            <description>Leave only the statuses common with theOther</description>
+        </method>
+        <method name="StatusIndex" qualifiers="static">
+            <description>Returns index of status in whole range [FirstStatus, LastStatus]</description>
+        </method>
+        <method name="LocalStatusIndex" qualifiers="static">
+            <description>Returns index of status inside type of status (Done or Warn or, etc) in range [1, StatusesPerType]</description>
+        </method>
+        <method name="TypeOfStatus" qualifiers="static">
+            <description>Returns status type (DONE, WARN, ALARM, or FAIL)</description>
+        </method>
+        <method name="StatusByIndex" qualifiers="static">
+            <description>Returns status with index theIndex in whole range [FirstStatus, LastStatus]</description>
+        </method>
+    </methods>
+</class>

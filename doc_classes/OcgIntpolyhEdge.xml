@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIntpolyhEdge" inherits="RefCounted">
+    <brief_description>The class represents the edge built between the two IntPolyh points. It is linked to two IntPolyh triangles.</brief_description>
+    <description>! The class represents the edge built between the two IntPolyh points.&lt;br&gt;
+! It is linked to two IntPolyh triangles.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor</description>
+        </method>
+        <method name="FirstPoint" qualifiers="const">
+            <description>Returns the first point</description>
+        </method>
+        <method name="SecondPoint" qualifiers="const">
+            <description>Returns the second point</description>
+        </method>
+        <method name="FirstTriangle" qualifiers="const">
+            <description>Returns the first triangle</description>
+        </method>
+        <method name="SecondTriangle" qualifiers="const">
+            <description>Returns the second triangle</description>
+        </method>
+        <method name="SetFirstPoint">
+            <description>Sets the first point</description>
+        </method>
+        <method name="SetSecondPoint">
+            <description>Sets the second point</description>
+        </method>
+        <method name="SetFirstTriangle">
+            <description>Sets the first triangle</description>
+        </method>
+        <method name="SetSecondTriangle">
+            <description>Sets the second triangle</description>
+        </method>
+    </methods>
+</class>

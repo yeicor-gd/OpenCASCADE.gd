@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXscontrolWriter" inherits="RefCounted">
+    <brief_description>This class gives a simple way to create then write a Model compliant to a given norm, from a Shape The model can then be edited by tools by other appropriate tools</brief_description>
+    <description>! This class gives a simple way to create then write a
+! Model compliant to a given norm, from a Shape
+! The model can then be edited by tools by other appropriate tools</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates a Writer from scratch</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a Writer from scratch, with a norm name which identifie a Controller</description>
+        </method>
+        <method name="SetNorm">
+            <description>Sets a specific norm to &lt;me&gt; Returns True if done, False if &lt;norm&gt; is not available</description>
+        </method>
+        <method name="TransferShape">
+            <description>Transfers a Shape according to the mode</description>
+        </method>
+        <method name="WriteFile">
+            <description>Writes the produced model</description>
+        </method>
+        <method name="PrintStatsTransfer" qualifiers="const">
+            <description>Prints Statistics about Transfer</description>
+        </method>
+    </methods>
+</class>

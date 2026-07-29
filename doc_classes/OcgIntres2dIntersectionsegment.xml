@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgIntres2dIntersectionsegment" inherits="RefCounted">
+    <brief_description>Definition of an intersection curve between two 2D curves.</brief_description>
+    <description>! Definition of an intersection curve between
+! two 2D curves.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an infinite segment of intersection.</description>
+        </method>
+        <method name="IsOpposite" qualifiers="const">
+            <description>Returns FALSE if the intersection segment has got the same orientation on both curves.</description>
+        </method>
+        <method name="HasFirstPoint" qualifiers="const">
+            <description>Returns True if the segment is limited by a first point. This point defines the lowest parameter admitted on the first curve for the segment. If IsOpposite returns False, it defines the lowest parameter on the second curve, otherwise, it is the highest parameter on the second curve.</description>
+        </method>
+        <method name="FirstPoint" qualifiers="const">
+            <description>Returns the first point of the segment as an IntersectionPoint (with a transition). The exception DomainError is raised if HasFirstPoint returns False.</description>
+        </method>
+        <method name="HasLastPoint" qualifiers="const">
+            <description>Returns True if the segment is limited by a last point. This point defines the highest parameter admitted on the first curve for the segment. If IsOpposite returns False, it defines the highest parameter on the second curve, otherwise, it is the lowest parameter on the second curve.</description>
+        </method>
+        <method name="LastPoint" qualifiers="const">
+            <description>Returns the last point of the segment as an IntersectionPoint (with a transition). The exception DomainError is raised if HasLastExtremity returns False.</description>
+        </method>
+    </methods>
+</class>

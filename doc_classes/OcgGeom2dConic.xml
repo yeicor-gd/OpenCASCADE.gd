@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeom2dConic" inherits="RefCounted">
+    <brief_description>The abstract class Conic describes the common behavior of conic curves in 2D space and, in particular, their general characteristics. The Geom2d package provides four specific classes of conics: Geom2d_Circle, Geom2d_Ellipse, Geom2d_Hyperbola and Geom2d_Parabola. A conic is positioned in the plane with a coordinate system (gp_Ax22d object), where the origin is the center of the conic (or the apex in case of a parabola). This coordinate system is the local coordinate system of the conic. It gives the conic an explicit orientation, determining the direction in which the parameter increases along the conic. The "X Axis" of the local coordinate system also defines the origin of the parameter of the conic.</brief_description>
+    <description>! The abstract class Conic describes the common
+! behavior of conic curves in 2D space and, in
+! particular, their general characteristics. The Geom2d
+! package provides four specific classes of conics:
+! Geom2d_Circle, Geom2d_Ellipse,
+! Geom2d_Hyperbola and Geom2d_Parabola.
+! A conic is positioned in the plane with a coordinate
+! system (gp_Ax22d object), where the origin is the
+! center of the conic (or the apex in case of a parabola).
+! This coordinate system is the local coordinate
+! system of the conic. It gives the conic an explicit
+! orientation, determining the direction in which the
+! parameter increases along the conic. The "X Axis" of
+! the local coordinate system also defines the origin of
+! the parameter of the conic.</description>
+    <methods>
+        <method name="SetAxis">
+            <description>Modifies this conic, redefining its local coordinate system partially, by assigning theA as its axis</description>
+        </method>
+        <method name="SetXAxis">
+            <description>Assigns the origin and unit vector of axis theA to the origin of the local coordinate system of this conic and X Direction. The other unit vector of the local coordinate system of this conic is recomputed normal to theA, without changing the orientation of the local coordinate system (right-handed or left-handed).</description>
+        </method>
+        <method name="SetYAxis">
+            <description>Assigns the origin and unit vector of axis theA to the origin of the local coordinate system of this conic and Y Direction. The other unit vector of the local coordinate system of this conic is recomputed normal to theA, without changing the orientation of the local coordinate system (right-handed or left-handed).</description>
+        </method>
+        <method name="SetLocation">
+            <description>Modifies this conic, redefining its local coordinate system partially, by assigning theP as its origin.</description>
+        </method>
+        <method name="XAxis" qualifiers="const">
+            <description>Returns the "XAxis" of the conic. This axis defines the origin of parametrization of the conic. This axis and the "Yaxis" define the local coordinate system of the conic. -C++: return const&amp;</description>
+        </method>
+        <method name="YAxis" qualifiers="const">
+            <description>Returns the "YAxis" of the conic. The "YAxis" is perpendicular to the "Xaxis".</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>Returns the location point of the conic. For the circle, the ellipse and the hyperbola it is the center of the conic. For the parabola it is the vertex of the parabola.</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the local coordinates system of the conic.</description>
+        </method>
+        <method name="Reverse">
+            <description>Reverses the direction of parameterization of &lt;me&gt;. The local coordinate system of the conic is modified.</description>
+        </method>
+        <method name="Continuity" qualifiers="const">
+            <description>Returns GeomAbs_CN which is the global continuity of any conic.</description>
+        </method>
+        <method name="IsCN" qualifiers="const">
+            <description>Returns True, the order of continuity of a conic is infinite.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

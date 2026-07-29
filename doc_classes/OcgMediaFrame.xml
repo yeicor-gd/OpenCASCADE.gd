@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMediaFrame" inherits="RefCounted">
+    <brief_description>AVFrame wrapper - the frame (decoded image/audio sample data) holder.</brief_description>
+    <description>! AVFrame wrapper - the frame (decoded image/audio sample data) holder.</description>
+    <methods>
+        <method name="Media_Frame" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="IsEmpty" qualifiers="const">
+            <description>Return true if frame does not contain any data.</description>
+        </method>
+        <method name="Unref">
+            <description>av_frame_unref() wrapper.</description>
+        </method>
+        <method name="SizeX" qualifiers="const">
+            <description>Return image width.</description>
+        </method>
+        <method name="SizeY" qualifiers="const">
+            <description>Return image height.</description>
+        </method>
+        <method name="Format" qualifiers="const">
+            <description>Return pixel format (AVPixelFormat).</description>
+        </method>
+        <method name="IsFullRangeYUV" qualifiers="const">
+            <description>Return TRUE if YUV range is full.</description>
+        </method>
+        <method name="LineSize" qualifiers="const">
+            <description>Returns linesize in bytes for specified data plane</description>
+        </method>
+        <method name="BestEffortTimestamp" qualifiers="const">
+            <description>Returns frame timestamp estimated using various heuristics, in stream time base</description>
+        </method>
+        <method name="Pts" qualifiers="const">
+            <description>Return presentation timestamp (PTS).</description>
+        </method>
+        <method name="SetPts">
+            <description>Set presentation timestamp (PTS).</description>
+        </method>
+        <method name="PixelAspectRatio" qualifiers="const">
+            <description>Return PAR.</description>
+        </method>
+        <method name="SetPixelAspectRatio">
+            <description>Set PAR.</description>
+        </method>
+        <method name="IsLocked" qualifiers="const">
+            <description>Return locked state.</description>
+        </method>
+        <method name="SetLocked">
+            <description>Lock/free frame for edition.</description>
+        </method>
+        <method name="InitWrapper">
+            <description>Wrap allocated image pixmap.</description>
+        </method>
+        <method name="FormatFFmpeg2Occt" qualifiers="static">
+            <description>Convert pixel format from FFmpeg (AVPixelFormat) to OCCT.</description>
+        </method>
+        <method name="FormatOcct2FFmpeg" qualifiers="static">
+            <description>Convert pixel format from OCCT to FFmpeg (AVPixelFormat). Returns -1 (AV_PIX_FMT_NONE) if undefined.</description>
+        </method>
+        <method name="Swap" qualifiers="static">
+            <description>Swap AVFrame* within two frames.</description>
+        </method>
+    </methods>
+</class>

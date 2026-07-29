@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshClassifier" inherits="RefCounted">
+    <brief_description>Auxiliary class intended for classification of points regarding internals of discrete face.</brief_description>
+    <description>! Auxiliary class intended for classification of points
+! regarding internals of discrete face.</description>
+    <methods>
+        <method name="BRepMesh_Classifier" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
+        <method name="Perform" qualifiers="const">
+            <description>Performs classification of the given point regarding to face internals.</description>
+        </method>
+    </methods>
+</class>

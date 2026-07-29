@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepcheckFace" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class BRepCheck_Face.</description>
+    <methods>
+        <method name="SetStatus">
+            <description>Sets status of Face;</description>
+        </method>
+    </methods>
+</class>

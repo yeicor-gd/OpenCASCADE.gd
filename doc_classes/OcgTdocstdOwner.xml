@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdocstdOwner" inherits="RefCounted">
+    <brief_description>This attribute located at the root label of the framework contains a back reference to the owner TDocStd_Document, providing access to the document from any label. private class Owner;</brief_description>
+    <description>! This attribute located at the root label of the
+! framework contains a back reference to the owner
+! TDocStd_Document, providing access to the document
+! from any label. private class Owner;</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods =============</description>
+        </method>
+    </methods>
+</class>

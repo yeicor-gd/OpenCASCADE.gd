@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBreptoolsShapeset" inherits="RefCounted">
+    <brief_description>Contains a Shape and all its subshapes, locations and geometries.</brief_description>
+    <description>! Contains a Shape and all  its subshapes, locations
+! and geometries.
+!
+! The topology is inherited from TopTools.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Builds an empty ShapeSet.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Builds an empty ShapeSet.</description>
+        </method>
+        <method name="IsWithTriangles" qualifiers="const">
+            <description>Return true if shape should be stored with triangles.</description>
+        </method>
+        <method name="IsWithNormals" qualifiers="const">
+            <description>Return true if shape should be stored triangulation with normals.</description>
+        </method>
+        <method name="SetWithTriangles">
+            <description>Define if shape will be stored with triangles. Ignored (always written) if face defines only triangulation (no surface).</description>
+        </method>
+        <method name="SetWithNormals">
+            <description>Define if shape will be stored triangulation with normals. Ignored (always written) if face defines only triangulation (no surface).</description>
+        </method>
+        <method name="Clear">
+            <description>Clears the content of the set.</description>
+        </method>
+        <method name="AddGeometry">
+            <description>Stores the geometry of &lt;S&gt;.</description>
+        </method>
+        <method name="DumpGeometry_1" qualifiers="const">
+            <description>Dumps the geometry of me on the stream &lt;OS&gt;.</description>
+        </method>
+        <method name="WriteGeometry_1">
+            <description>Writes the geometry of me on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="ReadGeometry_1">
+            <description>Reads the geometry of me from the stream &lt;IS&gt;.</description>
+        </method>
+        <method name="DumpGeometry_2" qualifiers="const">
+            <description>Dumps the geometry of &lt;S&gt; on the stream &lt;OS&gt;.</description>
+        </method>
+        <method name="WriteGeometry_2" qualifiers="const">
+            <description>Writes the geometry of &lt;S&gt; on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="ReadGeometry_2">
+            <description>Reads the geometry of a shape of type &lt;T&gt; from the stream &lt;IS&gt; and returns it in &lt;S&gt;.</description>
+        </method>
+        <method name="AddShapes">
+            <description>Inserts the shape &lt;S2&gt; in the shape &lt;S1&gt;. This method must be redefined to use the correct builder.</description>
+        </method>
+        <method name="ReadPolygon3D">
+            <description>Reads the 3d polygons of me from the stream &lt;IS&gt;.</description>
+        </method>
+        <method name="WritePolygon3D" qualifiers="const">
+            <description>Writes the 3d polygons on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="DumpPolygon3D" qualifiers="const">
+            <description>Dumps the 3d polygons on the stream &lt;OS&gt;.</description>
+        </method>
+        <method name="ReadTriangulation">
+            <description>Reads the triangulation of me from the stream &lt;IS&gt;.</description>
+        </method>
+        <method name="WriteTriangulation" qualifiers="const">
+            <description>Writes the triangulation on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="DumpTriangulation" qualifiers="const">
+            <description>Dumps the triangulation on the stream &lt;OS&gt;.</description>
+        </method>
+        <method name="ReadPolygonOnTriangulation">
+            <description>Reads the polygons on triangulation of me from the stream &lt;IS&gt;.</description>
+        </method>
+        <method name="WritePolygonOnTriangulation" qualifiers="const">
+            <description>Writes the polygons on triangulation on the stream &lt;OS&gt; in a format that can be read back by Read.</description>
+        </method>
+        <method name="DumpPolygonOnTriangulation" qualifiers="const">
+            <description>Dumps the polygons on triangulation on the stream &lt;OS&gt;.</description>
+        </method>
+    </methods>
+</class>

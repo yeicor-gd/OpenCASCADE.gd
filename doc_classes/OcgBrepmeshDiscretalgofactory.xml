@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshDiscretalgofactory" inherits="RefCounted">
+    <brief_description>Abstract factory for creating meshing algorithms. This class provides a registry-based factory pattern that allows multiple meshing algorithms to coexist without symbol collisions. It follows the pattern established by Graphic3d_GraphicDriverFactory.</brief_description>
+    <description>! Abstract factory for creating meshing algorithms.
+! This class provides a registry-based factory pattern that allows multiple
+! meshing algorithms to coexist without symbol collisions.
+! It follows the pattern established by Graphic3d_GraphicDriverFactory.</description>
+    <methods />
+</class>

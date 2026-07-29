@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGceMakecone" inherits="RefCounted">
+    <brief_description>This class implements construction algorithms for `gp_Cone`. Supported constructions include: - from axis placement, semi-angle and reference radius; - cone coaxial to another cone, through a point or at signed offset; - cone from four points; - cone from axis and two points; - cone from two axis points and two section radii.</brief_description>
+    <description>! This class implements construction algorithms for `gp_Cone`.
+! Supported constructions include:
+! - from axis placement, semi-angle and reference radius;
+! - cone coaxial to another cone, through a point or at signed offset;
+! - cone from four points;
+! - cone from axis and two points;
+! - cone from two axis points and two section radii.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a cone coaxial to input cone and passing through a point.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a cone coaxial to input cone at signed distance.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a cone from axis placement, semi-angle and reference radius.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a cone from axis and two points.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Creates a cone from line axis and two points.</description>
+        </method>
+        <method name="from_6" qualifiers="static">
+            <description>Creates a cone from four points.</description>
+        </method>
+        <method name="from_7" qualifiers="static">
+            <description>Creates a cone from two axis points and two section radii.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed cone. Exceptions StdFail_NotDone if no cone is constructed.</description>
+        </method>
+        <method name="Operator" qualifiers="const">
+            <description>Alias for Value() returning a copy.</description>
+        </method>
+    </methods>
+</class>

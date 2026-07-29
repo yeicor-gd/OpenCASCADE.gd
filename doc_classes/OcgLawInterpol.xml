@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgLawInterpol" inherits="RefCounted">
+    <brief_description>Provides an evolution law that interpolates a set of parameter and value pairs (wi, radi)</brief_description>
+    <description>! Provides an evolution law that interpolates a set
+! of parameter and value pairs (wi, radi)</description>
+    <methods>
+        <method name="Law_Interpol" qualifiers="static">
+            <description>Constructs an empty interpolative evolution law. The function Set is used to define the law.</description>
+        </method>
+    </methods>
+</class>

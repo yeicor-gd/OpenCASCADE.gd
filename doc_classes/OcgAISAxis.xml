@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISAxis" inherits="RefCounted">
+    <brief_description>Locates the x, y and z axes in an Interactive Object. These are used to orient it correctly in presentations from different viewpoints, or to construct a revolved shape, for example, from one of the axes. Conversely, an axis can be created to build a revolved shape and then situated relative to one of the axes of the view.</brief_description>
+    <description>! Locates the x, y and z axes in an Interactive Object.
+! These are used to orient it correctly in presentations
+! from different viewpoints, or to construct a revolved
+! shape, for example, from one of the axes. Conversely,
+! an axis can be created to build a revolved shape and
+! then situated relative to one of the axes of the view.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Initializes the line aComponent</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Initializes the axis1 position anAxis.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>initializes the axis2 position aComponent. The coordinate system used is right-handed.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Initializes the ray as axis with start point and direction</description>
+        </method>
+        <method name="Component" qualifiers="const">
+            <description>Returns the axis entity aComponent and identifies it as a component of a shape.</description>
+        </method>
+        <method name="SetComponent">
+            <description>Sets the coordinates of the lin aComponent.</description>
+        </method>
+        <method name="Axis2Placement" qualifiers="const">
+            <description>Returns the position of axis2 and positions it by identifying it as the x, y, or z axis and giving its direction in 3D space. The coordinate system used is right-handed.</description>
+        </method>
+        <method name="SetAxis2Placement">
+            <description>Allows you to provide settings for aComponent:the position and direction of an axis in 3D space. The coordinate system used is right-handed.</description>
+        </method>
+        <method name="SetAxis1Placement">
+            <description>Constructs a new line to serve as the axis anAxis in 3D space.</description>
+        </method>
+        <method name="TypeOfAxis" qualifiers="const">
+            <description>Returns the type of axis.</description>
+        </method>
+        <method name="SetTypeOfAxis">
+            <description>Constructs the entity theTypeAxis to stock information concerning type of axis.</description>
+        </method>
+        <method name="IsXYZAxis" qualifiers="const">
+            <description>Returns a signature of 2 for axis datums. When you activate mode 2 by a signature, you pick AIS objects of type AIS_Axis.</description>
+        </method>
+        <method name="AcceptDisplayMode" qualifiers="const">
+            <description>Returns true if the interactive object accepts the display mode aMode.</description>
+        </method>
+        <method name="SetDisplayAspect">
+            <description>Set required visualization parameters.</description>
+        </method>
+    </methods>
+</class>

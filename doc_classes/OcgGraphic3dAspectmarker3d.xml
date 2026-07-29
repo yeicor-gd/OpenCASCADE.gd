@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dAspectmarker3d" inherits="RefCounted">
+    <brief_description>Creates and updates an attribute group for marker type primitives. This group contains the type of marker, its color, and its scale factor.</brief_description>
+    <description>! Creates and updates an attribute group for marker type primitives.
+! This group contains the type of marker, its color, and its scale factor.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates a context table for marker primitives defined with the following default values:</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a context table for marker primitives defined with the specified values.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a context table for marker primitives defined with the specified values.</description>
+        </method>
+        <method name="Scale" qualifiers="const">
+            <description>Return scale factor.</description>
+        </method>
+        <method name="SetScale_1">
+            <description>Modifies the scale factor. Marker type Aspect_TOM_POINT is not affected by the marker size scale factor. It is always the smallest displayable dot. Warning: Raises Standard_OutOfRange if the scale is a negative value.</description>
+        </method>
+        <method name="SetScale_2">
+            <description>Assign scale factor.</description>
+        </method>
+        <method name="Type" qualifiers="const">
+            <description>Return marker type.</description>
+        </method>
+        <method name="SetType">
+            <description>Modifies the type of marker.</description>
+        </method>
+        <method name="GetTextureSize" qualifiers="const">
+            <description>Returns marker's texture size.</description>
+        </method>
+        <method name="GetMarkerImage" qualifiers="const">
+            <description>Returns marker's image texture. Could be null handle if marker aspect has been initialized as default type of marker.</description>
+        </method>
+    </methods>
+</class>

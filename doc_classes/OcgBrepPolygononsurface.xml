@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepPolygononsurface" inherits="RefCounted">
+    <brief_description>Representation of a 2D polygon in the parametric space of a surface.</brief_description>
+    <description>! Representation of a 2D polygon in the parametric
+! space of a surface.</description>
+    <methods>
+        <method name="IsPolygonOnSurface_1" qualifiers="const">
+            <description>A 2D polygon representation in the parametric space of a surface.</description>
+        </method>
+        <method name="IsPolygonOnSurface_2" qualifiers="const">
+            <description>A 2D polygon representation in the parametric space of a surface.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Return a copy of this representation.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

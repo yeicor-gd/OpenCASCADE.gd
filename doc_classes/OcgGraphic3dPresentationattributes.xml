@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dPresentationattributes" inherits="RefCounted">
+    <brief_description>Class defines presentation properties.</brief_description>
+    <description>! Class defines presentation properties.</description>
+    <methods>
+        <method name="Graphic3d_PresentationAttributes" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Method" qualifiers="const">
+            <description>Returns highlight method, Aspect_TOHM_COLOR by default.</description>
+        </method>
+        <method name="SetMethod">
+            <description>Changes highlight method to the given one.</description>
+        </method>
+        <method name="ColorRGBA" qualifiers="const">
+            <description>Returns basic presentation color (including alpha channel).</description>
+        </method>
+        <method name="Color" qualifiers="const">
+            <description>Returns basic presentation color, Quantity_NOC_WHITE by default.</description>
+        </method>
+        <method name="SetColor">
+            <description>Sets basic presentation color (RGB components, does not modifies transparency).</description>
+        </method>
+        <method name="Transparency" qualifiers="const">
+            <description>Returns basic presentation transparency (0 - opaque, 1 - fully transparent), 0 by default (opaque).</description>
+        </method>
+        <method name="SetTransparency">
+            <description>Sets basic presentation transparency (0 - opaque, 1 - fully transparent).</description>
+        </method>
+        <method name="ZLayer" qualifiers="const">
+            <description>Returns presentation Zlayer, Graphic3d_ZLayerId_Default by default. Graphic3d_ZLayerId_UNKNOWN means undefined (a layer of main presentation to be used).</description>
+        </method>
+        <method name="SetZLayer">
+            <description>Sets presentation Zlayer.</description>
+        </method>
+        <method name="DisplayMode" qualifiers="const">
+            <description>Returns display mode, 0 by default. -1 means undefined (main display mode of presentation to be used).</description>
+        </method>
+        <method name="SetDisplayMode">
+            <description>Sets display mode.</description>
+        </method>
+        <method name="BasicFillAreaAspect" qualifiers="const">
+            <description>Return basic presentation fill area aspect, NULL by default. When set, might be used instead of Color() property.</description>
+        </method>
+        <method name="SetBasicFillAreaAspect">
+            <description>Sets basic presentation fill area aspect.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeextendBasicmsgregistrator" inherits="RefCounted">
+    <brief_description>Abstract class that can be used for attaching messages to the objects (e.g. shapes). It is used by ShapeHealing algorithms to attach a message describing encountered case (e.g. removing small edge from a wire).</brief_description>
+    <description>! Abstract class that can be used for attaching messages
+! to the objects (e.g. shapes).
+! It is used by ShapeHealing algorithms to attach a message
+! describing encountered case (e.g. removing small edge from
+! a wire).
+!
+! The methods of this class are empty and redefined, for instance,
+! in the classes for Data Exchange processors for attaching
+! messages to interface file entities or CAS.CADE shapes.</description>
+    <methods>
+        <method name="ShapeExtend_BasicMsgRegistrator" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Send_2">
+            <description>Sends a message to be attached to the object. Object can be of any type interpreted by redefined MsgRegistrator.</description>
+        </method>
+        <method name="Send_3">
+            <description>Sends a message to be attached to the shape.</description>
+        </method>
+        <method name="Send_1">
+            <description>Calls Send method with Null Transient.</description>
+        </method>
+    </methods>
+</class>

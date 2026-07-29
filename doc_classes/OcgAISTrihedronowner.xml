@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISTrihedronowner" inherits="RefCounted">
+    <brief_description>Entity owner for selection management of AIS_Trihedron object.</brief_description>
+    <description>! Entity owner for selection management of AIS_Trihedron object.</description>
+    <methods>
+        <method name="DatumPart" qualifiers="const">
+            <description>Returns the datum part identifier.</description>
+        </method>
+    </methods>
+</class>

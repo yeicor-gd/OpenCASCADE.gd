@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgV3dDirectionallight" inherits="RefCounted">
+    <brief_description>Directional light source for a viewer.</brief_description>
+    <description>! Directional light source for a viewer.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a directional light source in the viewer.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a directional light source in the viewer.</description>
+        </method>
+        <method name="SetDirection">
+            <description>Defines the direction of the light source by a predefined orientation.</description>
+        </method>
+    </methods>
+</class>

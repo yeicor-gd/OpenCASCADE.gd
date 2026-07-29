@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshVertex" inherits="RefCounted">
+    <brief_description>Light weighted structure representing vertex of the mesh in parametric space. Vertex could be associated with 3d point stored in external map.</brief_description>
+    <description>! Light weighted structure representing vertex
+! of the mesh in parametric space. Vertex could be
+! associated with 3d point stored in external map.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Default constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates vertex associated with point in 3d space.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates vertex without association with point in 3d space.</description>
+        </method>
+        <method name="Initialize">
+            <description>Initializes vertex associated with point in 3d space.</description>
+        </method>
+        <method name="Coord" qualifiers="const">
+            <description>Returns position of the vertex in parametric space.</description>
+        </method>
+        <method name="ChangeCoord">
+            <description>Returns position of the vertex in parametric space for modification.</description>
+        </method>
+        <method name="Location3d" qualifiers="const">
+            <description>Returns index of 3d point associated with the vertex.</description>
+        </method>
+        <method name="Movability" qualifiers="const">
+            <description>Returns movability of the vertex.</description>
+        </method>
+        <method name="SetMovability">
+            <description>Sets movability of the vertex.</description>
+        </method>
+        <method name="equal" qualifiers="const">
+            <description>Alias for IsEqual.</description>
+        </method>
+    </methods>
+</class>

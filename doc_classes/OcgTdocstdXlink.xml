@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdocstdXlink" inherits="RefCounted">
+    <brief_description>An attribute to store the path and the entry of external links. These refer from one data structure to a data structure in another document.</brief_description>
+    <description>! An attribute to store the path and the entry of
+! external links.
+! These refer from one data structure to a data
+! structure in another document.</description>
+    <methods>
+        <method name="TDocStd_XLink" qualifiers="static">
+            <description>Initializes fields.</description>
+        </method>
+        <method name="Update">
+            <description>Updates the data referenced in this external link attribute.</description>
+        </method>
+        <method name="ID" qualifiers="const">
+            <description>Returns the ID of the attribute.</description>
+        </method>
+        <method name="LabelEntry_2">
+            <description>Sets the label entry for this external link attribute with the label aLabel. aLabel pilots the importation of data from the document entry.</description>
+        </method>
+        <method name="AfterAddition">
+            <description>Updates the XLinkRoot attribute by adding &lt;me&gt; to its list.</description>
+        </method>
+        <method name="BeforeRemoval">
+            <description>Updates the XLinkRoot attribute by removing &lt;me&gt; from its list.</description>
+        </method>
+        <method name="BeforeUndo">
+            <description>Something to do before applying &lt;anAttDelta&gt;.</description>
+        </method>
+        <method name="AfterUndo">
+            <description>Something to do after applying &lt;anAttDelta&gt;.</description>
+        </method>
+        <method name="BackupCopy" qualifiers="const">
+            <description>Returns a null handle. Raise always for it is nonsense to use this method.</description>
+        </method>
+        <method name="Restore">
+            <description>Does nothing.</description>
+        </method>
+        <method name="NewEmpty" qualifiers="const">
+            <description>Returns a null handle.</description>
+        </method>
+        <method name="Paste" qualifiers="const">
+            <description>Does nothing.</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Sets an empty external reference, at the label aLabel.</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>Returns the GUID for external links.</description>
+        </method>
+    </methods>
+</class>

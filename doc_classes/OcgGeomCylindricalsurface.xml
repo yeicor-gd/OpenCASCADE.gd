@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomCylindricalsurface" inherits="RefCounted">
+    <brief_description>This class defines the infinite cylindrical surface.</brief_description>
+    <description>! This class defines the infinite cylindrical surface.
+!
+! Every cylindrical surface is set by the following equation:
+! @code
+!   S(U,V) = Location + R*cos(U)*XAxis + R*sin(U)*YAxis + V*ZAxis,
+! @endcode
+! where R is cylinder radius.
+!
+! The local coordinate system of the CylindricalSurface is defined
+! with an axis placement (see class ElementarySurface).
+!
+! The "ZAxis" is the symmetry axis of the CylindricalSurface,
+! it gives the direction of increasing parametric value V.
+!
+! The parametrization range is :
+! @code
+!   U [0, 2*PI],  V ]- infinite, + infinite[
+! @endcode
+!
+! The "XAxis" and the "YAxis" define the placement plane of the
+! surface (Z = 0, and parametric value V = 0)  perpendicular to
+! the symmetry axis. The "XAxis" defines the origin of the
+! parameter U = 0.  The trigonometric sense gives the positive
+! orientation for the parameter U.
+!
+! When you create a CylindricalSurface the U and V directions of
+! parametrization are such that at each point of the surface the
+! normal is oriented towards the "outside region".
+!
+! The methods UReverse VReverse change the orientation of the
+! surface.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a CylindricalSurface from a non transient gp_Cylinder.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>A3 defines the local coordinate system of the cylindrical surface. The "ZDirection" of A3 defines the direction of the surface's axis of symmetry. At the creation the parametrization of the surface is defined such that the normal Vector (N = D1U ^ D1V) is oriented towards the "outside region" of the surface. Warnings: It is not forbidden to create a cylindrical surface with Radius = 0.0 Raised if Radius &lt; 0.0</description>
+        </method>
+        <method name="SetCylinder">
+            <description>Set &lt;me&gt; so that &lt;me&gt; has the same geometric properties as C.</description>
+        </method>
+        <method name="SetRadius">
+            <description>Changes the radius of the cylinder. Raised if R &lt; 0.0</description>
+        </method>
+        <method name="Cylinder" qualifiers="const">
+            <description>returns a non transient cylinder with the same geometric properties as &lt;me&gt;.</description>
+        </method>
+        <method name="UReversedParameter" qualifiers="const">
+            <description>Return the parameter on the Ureversed surface for the point of parameter U on &lt;me&gt;. Return 2.PI - U.</description>
+        </method>
+        <method name="VReversedParameter" qualifiers="const">
+            <description>Return the parameter on the Vreversed surface for the point of parameter V on &lt;me&gt;. Return -V</description>
+        </method>
+        <method name="TransformParameters" qualifiers="const">
+            <description>Computes the parameters on the transformed surface for the transform of the point of parameters U,V on &lt;me&gt;. is the same point as Where U',V' are the new values of U,V after calling This method multiplies V by T.ScaleFactor()</description>
+        </method>
+        <method name="ParametricTransformation" qualifiers="const">
+            <description>Returns a 2d transformation used to find the new parameters of a point on the transformed surface. is the same point as Where U',V' are obtained by transforming U,V with the 2d transformation returned by This method returns a scale centered on the U axis with T.ScaleFactor</description>
+        </method>
+        <method name="Bounds" qualifiers="const">
+            <description>The CylindricalSurface is infinite in the V direction so V1 = Realfirst, V2 = RealLast from package Standard. U1 = 0 and U2 = 2*PI.</description>
+        </method>
+        <method name="Coefficients" qualifiers="const">
+            <description>Returns the coefficients of the implicit equation of the quadric in the absolute cartesian coordinate system : These coefficients are normalized.</description>
+        </method>
+        <method name="Radius" qualifiers="const">
+            <description>Returns the radius of this cylinder.</description>
+        </method>
+        <method name="IsUClosed" qualifiers="const">
+            <description>Returns True.</description>
+        </method>
+        <method name="IsVClosed" qualifiers="const">
+            <description>Returns False.</description>
+        </method>
+        <method name="IsUPeriodic" qualifiers="const">
+            <description>Returns True.</description>
+        </method>
+        <method name="IsVPeriodic" qualifiers="const">
+            <description>Returns False.</description>
+        </method>
+        <method name="UIso" qualifiers="const">
+            <description>The UIso curve is a Line. The location point of this line is on the placement plane (XAxis, YAxis) of the surface. This line is parallel to the axis of symmetry of the surface.</description>
+        </method>
+        <method name="VIso" qualifiers="const">
+            <description>The VIso curve is a circle. The start point of this circle (U = 0) is defined with the "XAxis" of the surface. The center of the circle is on the symmetry axis.</description>
+        </method>
+        <method name="D0" qualifiers="const">
+            <description>Computes the point P (U, V) on the surface. P (U, V) = Loc + Radius * (cos (U) * XDir + sin (U) * YDir) + V * ZDir where Loc is the origin of the placement plane (XAxis, YAxis) XDir is the direction of the XAxis and YDir the direction of the YAxis.</description>
+        </method>
+        <method name="D1" qualifiers="const">
+            <description>Computes the current point and the first derivatives in the directions U and V.</description>
+        </method>
+        <method name="D2" qualifiers="const">
+            <description>Computes the current point, the first and the second derivatives in the directions U and V.</description>
+        </method>
+        <method name="D3" qualifiers="const">
+            <description>Computes the current point, the first, the second and the third derivatives in the directions U and V.</description>
+        </method>
+        <method name="DN" qualifiers="const">
+            <description>Computes the derivative of order Nu in the direction u and Nv in the direction v. Raised if Nu + Nv &lt; 1 or Nu &lt; 0 or Nv &lt; 0.</description>
+        </method>
+        <method name="Transform">
+            <description>Applies the transformation T to this cylinder.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this cylinder.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAISAnimation" inherits="RefCounted">
+    <brief_description>Class represents a basic animation class. AIS_Animation can be used as:</brief_description>
+    <description>! Class represents a basic animation class.
+! AIS_Animation can be used as:
+!
+! - Animation Implementor
+!   Sub-classes should override method AIS_Animation::update() to perform specific animation.
+!   AIS package provides limited number of such animation atoms - classes AIS_AnimationObject and
+!   AIS_AnimationCamera, which could be enough for defining a simple animation. In general case,
+!   application is expected defining own AIS_Animation sub-classes implementing
+!   application-specific animation logic (e.g. another interpolation or another kind of
+!   transformations - like color transition and others). The basic conception of
+!   AIS_Animation::update() is defining an exact scene state for the current presentation
+!   timestamp, providing a smooth and continuous animation well defined at any time step and in
+!   any direction. So that a time difference between two sequential drawn Viewer frames can vary
+!   from frame to frame without visual artifacts, increasing rendering framerate would not lead to
+!   animation being executed too fast and low framerate (on slow hardware) would not lead to
+!   animation played longer than defined duration. Hence, implementation should avoid usage of
+!   incremental step logic or should apply it very carefully.
+!
+! - Animation Container
+!   AIS_Animation (no sub-classing) can be used to aggregate a sequence of Animation items
+!   (children). Each children should be defined with its own duration and start time (presentation
+!   timestamp). It is possible defining collection of nested AIS_Animation items, so that within
+!   each container level children define start playback time relative to its holder.
+!
+! - Animation playback Controller
+!   It is suggested that application would define a single AIS_Animation instance (optional
+!   sub-classing) for controlling animation playback as whole. Such controller should be filled in
+!   by other AIS_Animation as children objects, and will be managed by application by calling
+!   StartTimer(), UpdateTimer() and IsStopped() methods.
+!
+! Note, that AIS_Animation::StartTimer() defines a timer calculating an elapsed time, not a
+! multimedia timer executing Viewer updates at specific intervals! Application should avoid using
+! implicit and immediate Viewer updates to ensure that AIS_Animation::UpdateTimer() is called
+! before each redrawing of a Viewer content. Redrawing logic should be also managed at application
+! level for managing a smooth animation (by defining a multimedia timer provided by used GUI
+! framework executing updates at desired framerate, or as continuous redraws in loop).</description>
+    <methods>
+        <method name="StartPts" qualifiers="const">
+            <description>Returns start time of the animation in the timeline</description>
+        </method>
+        <method name="SetStartPts">
+            <description>Sets time limits for animation in the animation timeline</description>
+        </method>
+        <method name="Duration" qualifiers="const">
+            <description>Returns duration of the animation in the timeline</description>
+        </method>
+        <method name="UpdateTotalDuration">
+            <description>Update total duration considering all animations on timeline.</description>
+        </method>
+        <method name="HasOwnDuration" qualifiers="const">
+            <description>Return true if duration is defined.</description>
+        </method>
+        <method name="OwnDuration" qualifiers="const">
+            <description>Returns own duration of the animation in the timeline</description>
+        </method>
+        <method name="SetOwnDuration">
+            <description>Defines duration of the animation.</description>
+        </method>
+        <method name="Add">
+            <description>Add single animation to the timeline.</description>
+        </method>
+        <method name="Clear">
+            <description>Clear animation timeline - remove all animations from it.</description>
+        </method>
+        <method name="Remove">
+            <description>Remove the child animation.</description>
+        </method>
+        <method name="Replace">
+            <description>Replace the child animation.</description>
+        </method>
+        <method name="CopyFrom">
+            <description>Clears own children and then copy child animations from another object. Copy also Start Time and Duration values.</description>
+        </method>
+        <method name="StartTimer">
+            <description>Start animation with internally defined timer instance. Calls ::Start() internally.</description>
+        </method>
+        <method name="UpdateTimer">
+            <description>Update single frame of animation, update timer state</description>
+        </method>
+        <method name="ElapsedTime" qualifiers="const">
+            <description>Return elapsed time.</description>
+        </method>
+        <method name="Timer" qualifiers="const">
+            <description>Return playback timer.</description>
+        </method>
+        <method name="SetTimer">
+            <description>Set playback timer.</description>
+        </method>
+        <method name="Start">
+            <description>Start animation. This method changes status of the animation to Started. This status defines whether animation is to be performed in the timeline or not.</description>
+        </method>
+        <method name="Pause">
+            <description>Pause the process timeline.</description>
+        </method>
+        <method name="Stop">
+            <description>Stop animation. This method changed status of the animation to Stopped. This status shows that animation will not be performed in the timeline or it is finished.</description>
+        </method>
+        <method name="IsStopped">
+            <description>Check if animation is to be performed in the animation timeline.</description>
+        </method>
+        <method name="Update">
+            <description>Update single frame of animation, update timer state</description>
+        </method>
+    </methods>
+</class>

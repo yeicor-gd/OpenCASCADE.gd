@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageAlert" inherits="RefCounted">
+    <brief_description>Base class of the hierarchy of classes describing various situations occurring during execution of some algorithm or procedure.</brief_description>
+    <description>! Base class of the hierarchy of classes describing various situations
+! occurring during execution of some algorithm or procedure.
+!
+! Alert should provide unique text identifier that can be used to distinguish
+! particular type of alerts, e.g. to get text message string describing it.
+! See method GetMessageKey(); by default, dynamic type name is used.
+!
+! Alert can contain some data. To avoid duplication of data, new alert
+! can be merged with another one of the same type. Method SupportsMerge()
+! should return true if merge is supported; method Merge() should do the
+! merge if possible and return true in that case and false otherwise.</description>
+    <methods>
+        <method name="GetMessageKey" qualifiers="const">
+            <description>Return a C string to be used as a key for generating text user messages describing this alert. The messages are generated with help of Message_Msg class, in Message_Report::Dump(). Base implementation returns dynamic type name of the instance.</description>
+        </method>
+        <method name="SupportsMerge" qualifiers="const">
+            <description>Return true if this type of alert can be merged with other of the same type to avoid duplication. Basis implementation returns true.</description>
+        </method>
+        <method name="Merge">
+            <description>If possible, merge data contained in this alert to theTarget.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpLin" inherits="RefCounted">
+    <brief_description>Describes a line in 3D space. A line is positioned in space with an axis (a gp_Ax1 object) which gives it an origin and a unit vector. A line and an axis are similar objects, thus, we can convert one into the other. A line provides direct access to the majority of the edit and query functions available on its positioning axis. In addition, however, a line has specific functions for computing distances and positions. See Also gce_MakeLin which provides functions for more complex line constructions Geom_Line which provides additional functions for constructing lines and works, in particular, with the parametric equations of lines</brief_description>
+    <description>! Describes a line in 3D space.
+! A line is positioned in space with an axis (a gp_Ax1
+! object) which gives it an origin and a unit vector.
+! A line and an axis are similar objects, thus, we can
+! convert one into the other. A line provides direct access
+! to the majority of the edit and query functions available
+! on its positioning axis. In addition, however, a line has
+! specific functions for computing distances and positions.
+! See Also
+! gce_MakeLin which provides functions for more complex
+! line constructions
+! Geom_Line which provides additional functions for
+! constructing lines and works, in particular, with the
+! parametric equations of lines</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates a Line corresponding to Z axis of the reference coordinate system.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a line defined by axis theA1.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a line passing through point theP and parallel to vector theV (theP and theV are, respectively, the origin and the unit vector of the positioning axis of the line).</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>Reverses the direction of the line. Note: - Reverse assigns the result to this line, while - Reversed creates a new one.</description>
+        </method>
+        <method name="SetDirection">
+            <description>Changes the direction of the line.</description>
+        </method>
+        <method name="SetLocation">
+            <description>Changes the location point (origin) of the line.</description>
+        </method>
+        <method name="SetPosition">
+            <description>Complete redefinition of the line. The "Location" point of &lt;theA1&gt; is the origin of the line. The "Direction" of &lt;theA1&gt; is the direction of the line.</description>
+        </method>
+        <method name="Direction" qualifiers="const">
+            <description>Returns the direction of the line.</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>Returns the location point (origin) of the line.</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the axis placement one axis with the same location and direction as &lt;me&gt;.</description>
+        </method>
+        <method name="Angle" qualifiers="const">
+            <description>Computes the angle between two lines in radians.</description>
+        </method>
+        <method name="Distance_1" qualifiers="const">
+            <description>Computes the distance between &lt;me&gt; and the point theP.</description>
+        </method>
+        <method name="Distance_2" qualifiers="const">
+            <description>Computes the distance between two lines.</description>
+        </method>
+        <method name="SquareDistance_1" qualifiers="const">
+            <description>Computes the square distance between &lt;me&gt; and the point theP.</description>
+        </method>
+        <method name="SquareDistance_2" qualifiers="const">
+            <description>Computes the square distance between two lines.</description>
+        </method>
+        <method name="Normal" qualifiers="const">
+            <description>Computes the line normal to the direction of &lt;me&gt;, passing through the point theP. Raises ConstructionError if the distance between &lt;me&gt; and the point theP is lower or equal to Resolution from gp because there is an infinity of solutions in 3D space.</description>
+        </method>
+        <method name="Mirrored_1" qualifiers="const">
+            <description>Performs the symmetrical transformation of a line with respect to the point theP which is the center of the symmetry.</description>
+        </method>
+        <method name="Mirrored_2" qualifiers="const">
+            <description>Performs the symmetrical transformation of a line with respect to an axis placement which is the axis of the symmetry.</description>
+        </method>
+        <method name="Mirrored_3" qualifiers="const">
+            <description>Performs the symmetrical transformation of a line with respect to a plane. The axis placement &lt;theA2&gt; locates the plane of the symmetry : (Location, XDirection, YDirection).</description>
+        </method>
+        <method name="Rotated" qualifiers="const">
+            <description>Rotates a line. A1 is the axis of the rotation. Ang is the angular value of the rotation in radians.</description>
+        </method>
+        <method name="Scaled" qualifiers="const">
+            <description>Scales a line. theS is the scaling value. The "Location" point (origin) of the line is modified. The "Direction" is reversed if the scale is negative.</description>
+        </method>
+        <method name="Transformed" qualifiers="const">
+            <description>Transforms a line with the transformation theT from class Trsf.</description>
+        </method>
+        <method name="Translated_1" qualifiers="const">
+            <description>Translates a line in the direction of the vector theV. The magnitude of the translation is the vector's magnitude.</description>
+        </method>
+        <method name="Translated_2" qualifiers="const">
+            <description>Translates a line from the point theP1 to the point theP2.</description>
+        </method>
+    </methods>
+</class>

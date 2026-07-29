@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dTexture1dmanual" inherits="RefCounted">
+    <brief_description>This class provides the implementation of a manual 1D texture. you MUST provide texture coordinates on your facets if you want to see your texture.</brief_description>
+    <description>! This class provides the implementation of a manual 1D texture.
+! you MUST provide texture coordinates on your facets if you want to see your texture.</description>
+    <methods>
+        <method name="from_2" qualifiers="static">
+            <description>Create a texture from a predefined texture name set.</description>
+        </method>
+    </methods>
+</class>

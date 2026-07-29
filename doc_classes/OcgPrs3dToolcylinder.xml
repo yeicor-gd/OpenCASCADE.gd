@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dToolcylinder" inherits="RefCounted">
+    <brief_description>Standard presentation algorithm that outputs graphical primitives for cylindrical surface.</brief_description>
+    <description>! Standard presentation algorithm that outputs graphical primitives for cylindrical surface.</description>
+    <methods>
+        <method name="Prs3d_ToolCylinder" qualifiers="static">
+            <description>Initializes the algorithm creating a cylinder.</description>
+        </method>
+        <method name="Create" qualifiers="static">
+            <description>Generate primitives for 3D quadric surface and return a filled array.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomVector" inherits="RefCounted">
+    <brief_description>The abstract class Vector describes the common behavior of vectors in 3D space. The Geom package provides two concrete classes of vectors: Geom_Direction (unit vector) and Geom_VectorWithMagnitude.</brief_description>
+    <description>! The abstract class Vector describes the common
+! behavior of vectors in 3D space.
+! The Geom package provides two concrete classes of
+! vectors: Geom_Direction (unit vector) and Geom_VectorWithMagnitude.</description>
+    <methods>
+        <method name="Reverse">
+            <description>Reverses the vector &lt;me&gt;.</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>Returns a copy of &lt;me&gt; reversed.</description>
+        </method>
+        <method name="Angle" qualifiers="const">
+            <description>Computes the angular value, in radians, between this vector and vector Other. The result is a value between 0 and Pi. Exceptions gp_VectorWithNullMagnitude if: - the magnitude of this vector is less than or equal to gp::Resolution(), or - the magnitude of vector Other is less than or equal to gp::Resolution().</description>
+        </method>
+        <method name="AngleWithRef" qualifiers="const">
+            <description>Computes the angular value, in radians, between this vector and vector Other. The result is a value between -Pi and Pi. The vector VRef defines the positive sense of rotation: the angular value is positive if the cross product this ^ Other has the same orientation as VRef (in relation to the plane defined by this vector and vector Other). Otherwise, it is negative. Exceptions Standard_DomainError if this vector, vector Other and vector VRef are coplanar, except if this vector and vector Other are parallel. gp_VectorWithNullMagnitude if the magnitude of this vector, vector Other or vector VRef is less than or equal to gp::Resolution().</description>
+        </method>
+        <method name="Coord" qualifiers="const">
+            <description>Returns the coordinates X, Y and Z of this vector.</description>
+        </method>
+        <method name="X" qualifiers="const">
+            <description>Returns the X coordinate of &lt;me&gt;.</description>
+        </method>
+        <method name="Y" qualifiers="const">
+            <description>Returns the Y coordinate of &lt;me&gt;.</description>
+        </method>
+        <method name="Z" qualifiers="const">
+            <description>Returns the Z coordinate of &lt;me&gt;.</description>
+        </method>
+        <method name="Dot" qualifiers="const">
+            <description>Computes the scalar product of this vector and vector Other.</description>
+        </method>
+        <method name="DotCross" qualifiers="const">
+            <description>Computes the triple scalar product. Returns me . (V1 ^ V2)</description>
+        </method>
+        <method name="Vec" qualifiers="const">
+            <description>Converts this vector into a gp_Vec vector.</description>
+        </method>
+    </methods>
+</class>

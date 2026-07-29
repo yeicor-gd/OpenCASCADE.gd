@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dZlayersettings" inherits="RefCounted">
+    <brief_description>Structure defines list of ZLayer properties.</brief_description>
+    <description>! Structure defines list of ZLayer properties.</description>
+    <methods>
+        <method name="Graphic3d_ZLayerSettings" qualifiers="static">
+            <description>Default settings.</description>
+        </method>
+        <method name="Lights" qualifiers="const">
+            <description>Return lights list to be used for rendering presentations within this Z-Layer; NULL by default. NULL list (but not empty list!) means that default lights assigned to the View should be used instead of per-layer lights.</description>
+        </method>
+        <method name="SetLights">
+            <description>Assign lights list to be used.</description>
+        </method>
+        <method name="Origin" qualifiers="const">
+            <description>Return the origin of all objects within the layer.</description>
+        </method>
+        <method name="OriginTransformation" qualifiers="const">
+            <description>Return the transformation to the origin.</description>
+        </method>
+        <method name="SetOrigin">
+            <description>Set the origin of all objects within the layer.</description>
+        </method>
+        <method name="CullingDistance" qualifiers="const">
+            <description>Return the distance to discard drawing of distant objects (distance from camera Eye point); by default it is Infinite (distance culling is disabled). Since camera eye definition has no strong meaning within orthographic projection, option is considered only within perspective projection. Note also that this option has effect only when frustum culling is enabled.</description>
+        </method>
+        <method name="SetCullingDistance">
+            <description>Set the distance to discard drawing objects.</description>
+        </method>
+        <method name="CullingSize" qualifiers="const">
+            <description>Return the size to discard drawing of small objects; by default it is Infinite (size culling is disabled). Current implementation checks the length of projected diagonal of bounding box in pixels for discarding. Note that this option has effect only when frustum culling is enabled.</description>
+        </method>
+        <method name="SetCullingSize">
+            <description>Set the distance to discard drawing objects.</description>
+        </method>
+        <method name="IsImmediate" qualifiers="const">
+            <description>Return true if this layer should be drawn after all normal (non-immediate) layers.</description>
+        </method>
+        <method name="SetImmediate">
+            <description>Set the flag indicating the immediate layer, which should be drawn after all normal (non-immediate) layers.</description>
+        </method>
+        <method name="IsRaytracable" qualifiers="const">
+            <description>Returns TRUE if layer should be processed by ray-tracing renderer; TRUE by default. Note that this flag is IGNORED for layers with IsImmediate() flag.</description>
+        </method>
+        <method name="SetRaytracable">
+            <description>Sets if layer should be processed by ray-tracing renderer.</description>
+        </method>
+        <method name="UseEnvironmentTexture" qualifiers="const">
+            <description>Return flag to allow/prevent environment texture mapping usage for specific layer.</description>
+        </method>
+        <method name="SetEnvironmentTexture">
+            <description>Set the flag to allow/prevent environment texture mapping usage for specific layer.</description>
+        </method>
+        <method name="ToEnableDepthTest" qualifiers="const">
+            <description>Return true if depth test should be enabled.</description>
+        </method>
+        <method name="SetEnableDepthTest">
+            <description>Set if depth test should be enabled.</description>
+        </method>
+        <method name="ToEnableDepthWrite" qualifiers="const">
+            <description>Return true depth values should be written during rendering.</description>
+        </method>
+        <method name="SetEnableDepthWrite">
+            <description>Set if depth values should be written during rendering.</description>
+        </method>
+        <method name="ToClearDepth" qualifiers="const">
+            <description>Return true if depth values should be cleared before drawing the layer.</description>
+        </method>
+        <method name="SetClearDepth">
+            <description>Set if depth values should be cleared before drawing the layer.</description>
+        </method>
+        <method name="ToRenderInDepthPrepass" qualifiers="const">
+            <description>Return TRUE if layer should be rendered within depth pre-pass; TRUE by default.</description>
+        </method>
+        <method name="SetRenderInDepthPrepass">
+            <description>Set if layer should be rendered within depth pre-pass.</description>
+        </method>
+        <method name="PolygonOffset" qualifiers="const">
+            <description>Return glPolygonOffset() arguments.</description>
+        </method>
+        <method name="SetPolygonOffset">
+            <description>Setup glPolygonOffset() arguments.</description>
+        </method>
+        <method name="ChangePolygonOffset">
+            <description>Modify glPolygonOffset() arguments.</description>
+        </method>
+        <method name="SetDepthOffsetPositive">
+            <description>Sets minimal possible positive depth offset.</description>
+        </method>
+        <method name="SetDepthOffsetNegative">
+            <description>Sets minimal possible negative depth offset.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

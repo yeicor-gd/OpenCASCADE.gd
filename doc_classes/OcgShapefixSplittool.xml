@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapefixSplittool" inherits="RefCounted">
+    <brief_description>Tool for splitting and cutting edges; includes methods used in OverlappingTool and IntersectionTool</brief_description>
+    <description>! Tool for splitting and cutting edges; includes methods
+! used in OverlappingTool and IntersectionTool</description>
+    <methods>
+        <method name="ShapeFix_SplitTool" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="SplitEdge_1" qualifiers="const">
+            <description>Split edge on two new edges using new vertex "vert" and "param" - parameter for splitting The "face" is necessary for pcurves and using TransferParameterProj</description>
+        </method>
+        <method name="SplitEdge_2" qualifiers="const">
+            <description>Split edge on two new edges using new vertex "vert" and "param1" and "param2" - parameter for splitting and cutting The "face" is necessary for pcurves and using TransferParameterProj</description>
+        </method>
+        <method name="CutEdge" qualifiers="const">
+            <description>Cut edge by parameters pend and cut</description>
+        </method>
+    </methods>
+</class>

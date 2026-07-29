@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeanalysisShapetolerance" inherits="RefCounted">
+    <brief_description>Tool for computing shape tolerances (minimal, maximal, average), finding shape with tolerance matching given criteria, setting or limitating tolerances.</brief_description>
+    <description>! Tool for computing shape tolerances (minimal, maximal, average),
+! finding shape with tolerance matching given criteria,
+! setting or limitating tolerances.</description>
+    <methods>
+        <method name="ShapeAnalysis_ShapeTolerance" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="Tolerance">
+            <description>Determines a tolerance from the ones stored in a shape Remark : calls InitTolerance and AddTolerance, hence, can be used to start a series for cumulating tolerance &lt;mode&gt; = 0 : returns the average value between sub-shapes, &lt;mode&gt; &gt; 0 : returns the maximal found, &lt;mode&gt; &lt; 0 : returns the minimal found. &lt;type&gt; defines what kinds of sub-shapes to consider: SHAPE (default) : all : VERTEX, EDGE, FACE, VERTEX : only vertices, EDGE : only edges, FACE : only faces, SHELL : combined SHELL + FACE, for each face (and containing shell), also checks EDGE and VERTEX</description>
+        </method>
+        <method name="InitTolerance">
+            <description>Initializes computation of cumulated tolerance</description>
+        </method>
+        <method name="AddTolerance">
+            <description>Adds data on new Shape to compute Cumulated Tolerance (prepares three computations : maximal, average, minimal)</description>
+        </method>
+        <method name="GlobalTolerance" qualifiers="const">
+            <description>Returns the computed tolerance according to the &lt;mode&gt; &lt;mode&gt; = 0 : average &lt;mode&gt; &gt; 0 : maximal &lt;mode&gt; &lt; 0 : minimal</description>
+        </method>
+    </methods>
+</class>

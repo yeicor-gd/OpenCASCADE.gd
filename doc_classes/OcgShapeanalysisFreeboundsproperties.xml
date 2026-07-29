@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeanalysisFreeboundsproperties" inherits="RefCounted">
+    <brief_description>This class is intended to calculate shape free bounds properties. This class provides the following functionalities: - calculates area of the contour, - calculates perimeter of the contour, - calculates ratio of average length to average width of the contour, - estimates average width of contour, - finds the notches (narrow 'V'-like sub-contour) on the contour.</brief_description>
+    <description>! This class is intended to calculate shape free bounds
+! properties.
+! This class provides the following functionalities:
+! - calculates area of the contour,
+! - calculates perimeter of the contour,
+! - calculates ratio of average length to average width of the
+! contour,
+! - estimates average width of contour,
+! - finds the notches (narrow 'V'-like sub-contour) on the
+! contour.
+!
+! For getting free bounds this class uses
+! ShapeAnalysis_FreeBounds class.
+!
+! For description of parameters used for initializing this
+! class refer to CDL of ShapeAnalysis_FreeBounds.
+!
+! Properties of each contour are stored in the data structure
+! ShapeAnalysis_FreeBoundData.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates the object and calls corresponding Init. &lt;shape&gt; should be a compound of shells.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates the object and calls corresponding Init. &lt;shape&gt; should be a compound of faces.</description>
+        </method>
+        <method name="Init_2">
+            <description>Initializes the object with given parameters. &lt;shape&gt; should be a compound of faces.</description>
+        </method>
+        <method name="Init_1">
+            <description>Initializes the object with given parameters. &lt;shape&gt; should be a compound of shells.</description>
+        </method>
+        <method name="Perform">
+            <description>Builds and analyzes free bounds of the shape. First calls ShapeAnalysis_FreeBounds for building free bounds. Then on each free bound computes its properties: - area of the contour, - perimeter of the contour, - ratio of average length to average width of the contour, - average width of contour, - notches on the contour and for each notch - maximum width of the notch.</description>
+        </method>
+        <method name="IsLoaded" qualifiers="const">
+            <description>Returns True if shape is loaded</description>
+        </method>
+        <method name="Shape" qualifiers="const">
+            <description>Returns shape</description>
+        </method>
+        <method name="Tolerance" qualifiers="const">
+            <description>Returns tolerance</description>
+        </method>
+        <method name="NbFreeBounds" qualifiers="const">
+            <description>Returns number of free bounds</description>
+        </method>
+        <method name="NbClosedFreeBounds" qualifiers="const">
+            <description>Returns number of closed free bounds</description>
+        </method>
+        <method name="NbOpenFreeBounds" qualifiers="const">
+            <description>Returns number of open free bounds</description>
+        </method>
+        <method name="ClosedFreeBounds" qualifiers="const">
+            <description>Returns all closed free bounds</description>
+        </method>
+        <method name="OpenFreeBounds" qualifiers="const">
+            <description>Returns all open free bounds</description>
+        </method>
+        <method name="ClosedFreeBound" qualifiers="const">
+            <description>Returns properties of closed free bound specified by its rank number</description>
+        </method>
+        <method name="OpenFreeBound" qualifiers="const">
+            <description>Returns properties of open free bound specified by its rank number</description>
+        </method>
+    </methods>
+</class>

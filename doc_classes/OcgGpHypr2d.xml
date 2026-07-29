@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpHypr2d" inherits="RefCounted">
+    <brief_description>Describes a branch of a hyperbola in the plane (2D space). A hyperbola is defined by its major and minor radii, and positioned in the plane with a coordinate system (a gp_Ax22d object) of which: - the origin is the center of the hyperbola, - the "X Direction" defines the major axis of the hyperbola, and - the "Y Direction" defines the minor axis of the hyperbola. This coordinate system is the "local coordinate system" of the hyperbola. The orientation of this coordinate system (direct or indirect) gives an implicit orientation to the hyperbola. In this coordinate system, the equation of the hyperbola is: X*X/(MajorRadius**2)-Y*Y/(MinorRadius**2) = 1.0 The branch of the hyperbola described is the one located on the positive side of the major axis. The following schema shows the plane of the hyperbola, and in it, the respective positions of the three branches of hyperbolas constructed with the functions OtherBranch, ConjugateBranch1, and ConjugateBranch2: Warning The major radius can be less than the minor radius. See Also gce_MakeHypr2d which provides functions for more complex hyperbola constructions Geom2d_Hyperbola which provides additional functions for constructing hyperbolas and works, in particular, with the parametric equations of hyperbolas</brief_description>
+    <description>! Describes a branch of a hyperbola in the plane (2D space).
+! A hyperbola is defined by its major and minor radii, and
+! positioned in the plane with a coordinate system (a
+! gp_Ax22d object) of which:
+! -   the origin is the center of the hyperbola,
+! -   the "X Direction" defines the major axis of the hyperbola, and
+! -   the "Y Direction" defines the minor axis of the hyperbola.
+! This coordinate system is the "local coordinate system"
+! of the hyperbola. The orientation of this coordinate
+! system (direct or indirect) gives an implicit orientation to
+! the hyperbola. In this coordinate system, the equation of
+! the hyperbola is:
+! X*X/(MajorRadius**2)-Y*Y/(MinorRadius**2) = 1.0
+! The branch of the hyperbola described is the one located
+! on the positive side of the major axis.
+! The following schema shows the plane of the hyperbola,
+! and in it, the respective positions of the three branches of
+! hyperbolas constructed with the functions OtherBranch,
+! ConjugateBranch1, and ConjugateBranch2:
+! @code
+! ^YAxis
+! |
+! FirstConjugateBranch
+! |
+! Other            |                Main
+! --------------------- C ------------------------------&gt;XAxis
+! Branch           |                Branch
+! |
+! |
+! SecondConjugateBranch
+! |
+! @endcode
+! Warning
+! The major radius can be less than the minor radius.
+! See Also
+! gce_MakeHypr2d which provides functions for more
+! complex hyperbola constructions
+! Geom2d_Hyperbola which provides additional functions
+! for constructing hyperbolas and works, in particular, with
+! the parametric equations of hyperbolas</description>
+    <methods>
+        <method name="gp_Hypr2d" qualifiers="static">
+            <description>Creates of an indefinite hyperbola.</description>
+        </method>
+        <method name="SetLocation">
+            <description>Modifies this hyperbola, by redefining its local coordinate system so that its origin becomes theP.</description>
+        </method>
+        <method name="SetMajorRadius">
+            <description>Modifies the major or minor radius of this hyperbola. Exceptions Standard_ConstructionError if theMajorRadius or MinorRadius is negative.</description>
+        </method>
+        <method name="SetMinorRadius">
+            <description>Modifies the major or minor radius of this hyperbola. Exceptions Standard_ConstructionError if MajorRadius or theMinorRadius is negative.</description>
+        </method>
+        <method name="SetAxis">
+            <description>Modifies this hyperbola, by redefining its local coordinate system so that it becomes theA.</description>
+        </method>
+        <method name="SetXAxis">
+            <description>Changes the major axis of the hyperbola. The minor axis is recomputed and the location of the hyperbola too.</description>
+        </method>
+        <method name="SetYAxis">
+            <description>Changes the minor axis of the hyperbola.The minor axis is recomputed and the location of the hyperbola too.</description>
+        </method>
+        <method name="Asymptote1" qualifiers="const">
+            <description>In the local coordinate system of the hyperbola the equation of the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the equation of the first asymptote is Y = (B/A)*X where A is the major radius of the hyperbola and B the minor radius of the hyperbola. Raises ConstructionError if MajorRadius = 0.0</description>
+        </method>
+        <method name="Asymptote2" qualifiers="const">
+            <description>In the local coordinate system of the hyperbola the equation of the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the equation of the first asymptote is Y = -(B/A)*X where A is the major radius of the hyperbola and B the minor radius of the hyperbola. Raises ConstructionError if MajorRadius = 0.0</description>
+        </method>
+        <method name="Coefficients" qualifiers="const">
+            <description>Computes the coefficients of the implicit equation of the hyperbola : theA * (X**2) + theB * (Y**2) + 2*theC*(X*Y) + 2*theD*X + 2*theE*Y + theF = 0.</description>
+        </method>
+        <method name="ConjugateBranch1" qualifiers="const">
+            <description>Computes the branch of hyperbola which is on the positive side of the "YAxis" of &lt;me&gt;.</description>
+        </method>
+        <method name="ConjugateBranch2" qualifiers="const">
+            <description>Computes the branch of hyperbola which is on the negative side of the "YAxis" of &lt;me&gt;.</description>
+        </method>
+        <method name="Directrix1" qualifiers="const">
+            <description>Computes the directrix which is the line normal to the XAxis of the hyperbola in the local plane (Z = 0) at a distance d = MajorRadius / e from the center of the hyperbola, where e is the eccentricity of the hyperbola. This line is parallel to the "YAxis". The intersection point between the "Directrix1" and the "XAxis" is the "Location" point of the "Directrix1". This point is on the positive side of the "XAxis".</description>
+        </method>
+        <method name="Directrix2" qualifiers="const">
+            <description>This line is obtained by the symmetrical transformation of "Directrix1" with respect to the "YAxis" of the hyperbola.</description>
+        </method>
+        <method name="Focal" qualifiers="const">
+            <description>Computes the focal distance. It is the distance between the "Location" of the hyperbola and "Focus1" or "Focus2".</description>
+        </method>
+        <method name="Focus1" qualifiers="const">
+            <description>Returns the first focus of the hyperbola. This focus is on the positive side of the "XAxis" of the hyperbola.</description>
+        </method>
+        <method name="Focus2" qualifiers="const">
+            <description>Returns the second focus of the hyperbola. This focus is on the negative side of the "XAxis" of the hyperbola.</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>Returns the location point of the hyperbola. It is the intersection point between the "XAxis" and the "YAxis".</description>
+        </method>
+        <method name="MajorRadius" qualifiers="const">
+            <description>Returns the major radius of the hyperbola (it is the radius corresponding to the "XAxis" of the hyperbola).</description>
+        </method>
+        <method name="MinorRadius" qualifiers="const">
+            <description>Returns the minor radius of the hyperbola (it is the radius corresponding to the "YAxis" of the hyperbola).</description>
+        </method>
+        <method name="OtherBranch" qualifiers="const">
+            <description>Returns the branch of hyperbola obtained by doing the symmetrical transformation of &lt;me&gt; with respect to the "YAxis" of &lt;me&gt;.</description>
+        </method>
+        <method name="Axis" qualifiers="const">
+            <description>Returns the axisplacement of the hyperbola.</description>
+        </method>
+        <method name="XAxis" qualifiers="const">
+            <description>Computes an axis whose - the origin is the center of this hyperbola, and - the unit vector is the "X Direction" or "Y Direction" respectively of the local coordinate system of this hyperbola Returns the major axis of the hyperbola.</description>
+        </method>
+        <method name="YAxis" qualifiers="const">
+            <description>Computes an axis whose - the origin is the center of this hyperbola, and - the unit vector is the "X Direction" or "Y Direction" respectively of the local coordinate system of this hyperbola Returns the minor axis of the hyperbola.</description>
+        </method>
+        <method name="Reversed" qualifiers="const">
+            <description>Reverses the orientation of the local coordinate system of this hyperbola (the "Y Axis" is reversed). Therefore, the implicit orientation of this hyperbola is reversed. Note: - Reverse assigns the result to this hyperbola, while - Reversed creates a new one.</description>
+        </method>
+        <method name="IsDirect" qualifiers="const">
+            <description>Returns true if the local coordinate system is direct and false in the other case.</description>
+        </method>
+        <method name="Mirrored_1" qualifiers="const">
+            <description>Performs the symmetrical transformation of an hyperbola with respect to the point theP which is the center of the symmetry.</description>
+        </method>
+        <method name="Mirrored_2" qualifiers="const">
+            <description>Performs the symmetrical transformation of an hyperbola with respect to an axis placement which is the axis of the symmetry.</description>
+        </method>
+        <method name="Rotated" qualifiers="const">
+            <description>Rotates an hyperbola. theP is the center of the rotation. theAng is the angular value of the rotation in radians.</description>
+        </method>
+        <method name="Scaled" qualifiers="const">
+            <description>Scales an hyperbola. &lt;theS&gt; is the scaling value. If &lt;theS&gt; is positive only the location point is modified. But if &lt;theS&gt; is negative the "XAxis" is reversed and the "YAxis" too.</description>
+        </method>
+        <method name="Transformed" qualifiers="const">
+            <description>Transforms an hyperbola with the transformation theT from class Trsf2d.</description>
+        </method>
+        <method name="Translated_1" qualifiers="const">
+            <description>Translates an hyperbola in the direction of the vector theV. The magnitude of the translation is the vector's magnitude.</description>
+        </method>
+        <method name="Translated_2" qualifiers="const">
+            <description>Translates an hyperbola from the point theP1 to the point theP2.</description>
+        </method>
+    </methods>
+</class>

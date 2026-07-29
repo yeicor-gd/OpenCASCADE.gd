@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrAxisintersector" inherits="RefCounted">
+    <brief_description>This class contains representation of selecting axis, created in case of point selection and algorithms for overlap detection between this axis and sensitive entities.</brief_description>
+    <description>! This class contains representation of selecting axis, created in case of point selection
+! and algorithms for overlap detection between this axis and sensitive entities.</description>
+    <methods>
+        <method name="SelectMgr_AxisIntersector" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="Init">
+            <description>Initializes selecting axis according to the input one</description>
+        </method>
+        <method name="Build">
+            <description>Builds axis according to internal parameters. NOTE: it should be called after Init() method</description>
+        </method>
+        <method name="SetCamera">
+            <description>Saves camera definition. Do nothing for axis intersector (not applicable to this volume).</description>
+        </method>
+        <method name="IsScalable" qualifiers="const">
+            <description>Returns FALSE (not applicable to this volume).</description>
+        </method>
+        <method name="ScaleAndTransform" qualifiers="const">
+            <description>IMPORTANT: Scaling doesn't make sense for this intersector. Returns a copy of the intersector transformed using the matrix given. Builder is an optional argument that represents corresponding settings for re-constructing transformed frustum from scratch. Can be null if reconstruction is not expected furthermore.</description>
+        </method>
+        <method name="CopyWithBuilder" qualifiers="const">
+            <description>Returns a copy of the intersector transformed using the builder configuration given. Builder is an argument that represents corresponding settings for re-constructing transformed frustum from scratch. In this class, builder is not used and theBuilder parameter is ignored.</description>
+        </method>
+        <method name="OverlapsPoint_1" qualifiers="const">
+            <description>Intersection test between defined axis and given point</description>
+        </method>
+        <method name="DistToGeometryCenter" qualifiers="const">
+            <description>Measures distance between start axis point and given point theCOG.</description>
+        </method>
+        <method name="DetectedPoint" qualifiers="const">
+            <description>Calculates the point on a axis ray that was detected during the run of selection algo by given depth</description>
+        </method>
+        <method name="GetNearPnt" qualifiers="const">
+            <description>Returns near point along axis.</description>
+        </method>
+        <method name="GetFarPnt" qualifiers="const">
+            <description>Returns far point along axis (infinite).</description>
+        </method>
+        <method name="GetViewRayDirection" qualifiers="const">
+            <description>Returns axis direction.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

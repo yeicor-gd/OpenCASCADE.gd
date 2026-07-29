@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepoffsetapiMakethicksolid" inherits="RefCounted">
+    <brief_description>Describes functions to build hollowed solids. A hollowed solid is built from an initial solid and a set of faces on this solid, which are to be removed. The remaining faces of the solid become the walls of the hollowed solid, their thickness defined at the time of construction. the solid is built from an initial solid &lt;S&gt; and a set of faces {Fi} from &lt;S&gt;, builds a solid composed by two shells closed by the {Fi}. First shell &lt;SS&gt; is composed by all the faces of &lt;S&gt; expected {Fi}. Second shell is the offset shell of &lt;SS&gt;. A MakeThickSolid object provides a framework for: - defining the cross-section of a hollowed solid, - implementing the construction algorithm, and - consulting the result.</brief_description>
+    <description>! Describes functions to build hollowed solids.
+! A hollowed solid is built from an initial solid and a set of
+! faces on this solid, which are to be removed. The
+! remaining faces of the solid become the walls of the
+! hollowed solid, their thickness defined at the time of construction.
+! the solid is built from an initial
+! solid &lt;S&gt; and a set of faces {Fi} from &lt;S&gt;,
+! builds a solid composed by two shells closed by
+! the {Fi}. First shell &lt;SS&gt; is composed by all
+! the faces of &lt;S&gt; expected {Fi}. Second shell is
+! the offset shell of &lt;SS&gt;.
+! A MakeThickSolid object provides a framework for:
+! - defining the cross-section of a hollowed solid,
+! - implementing the construction algorithm, and
+! - consulting the result.</description>
+    <methods>
+        <method name="BRepOffsetAPI_MakeThickSolid" qualifiers="static">
+            <description>Constructor does nothing.</description>
+        </method>
+        <method name="MakeThickSolidBySimple">
+            <description>Constructs solid using simple algorithm. According to its nature it is not possible to set list of the closing faces. This algorithm does not support faces removing. It is caused by fact that intersections are not computed during offset creation. Non-closed shell or face is expected as input.</description>
+        </method>
+    </methods>
+</class>

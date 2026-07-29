@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGCMakeparabola2d" inherits="RefCounted">
+    <brief_description>This class implements construction algorithms for parabolas in the plane. The result is a `Geom2d_Parabola`. A `GC_MakeParabola2d` object provides a framework for: - defining the construction parameters; - running the construction algorithm; - querying the construction status and the resulting parabola via `Value()`.</brief_description>
+    <description>! This class implements construction algorithms for parabolas in the plane.
+! The result is a `Geom2d_Parabola`.
+! A `GC_MakeParabola2d` object provides a framework for:
+! - defining the construction parameters;
+! - running the construction algorithm;
+! - querying the construction status and the resulting parabola via `Value()`.
+! @note Parabola parameterization range is ]-infinite, +infinite[.
+! @note In the local coordinate system, the parabola equation is
+!       Y**2 = (2*P) * X, where P is the parameter and F = P/2 is focal length.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a parabola from a non-persistent one from package gp.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a parabola from a local coordinate system and focal length.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Creates a parabola from focus and vertex points.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Creates a parabola from symmetry axis and focal length.</description>
+        </method>
+        <method name="from_5" qualifiers="static">
+            <description>Creates a parabola from directrix and focus point.</description>
+        </method>
+    </methods>
+</class>

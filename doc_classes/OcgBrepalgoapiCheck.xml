@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepalgoapiCheck" inherits="RefCounted">
+    <brief_description>The class Check provides a diagnostic tool for checking the validity of the single shape or couple of shapes. The shapes are checked on: - Topological validity; - Small edges; - Self-interference; - Validity for Boolean operation of certain type (for couple of shapes only).</brief_description>
+    <description>! The class Check provides a diagnostic tool for checking the validity
+! of the single shape or couple of shapes.
+! The shapes are checked on:
+! - Topological validity;
+! - Small edges;
+! - Self-interference;
+! - Validity for Boolean operation of certain type (for couple of shapes only).
+!
+! The class provides two ways of checking shape(-s)
+! 1. Constructors
+! BRepAlgoAPI_Check aCh(theS);
+! bool isValid = aCh.IsValid();
+! 2. Methods SetData and Perform
+! BRepAlgoAPI_Check aCh;
+! aCh.SetData(theS1, theS2, BOPAlgo_FUSE, false);
+! aCh.Perform();
+! bool isValid = aCh.IsValid();
+!</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor for checking single shape.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructor for checking the couple of shapes. Additionally to the validity checks of each given shape, the types of the given shapes will be checked on validity for Boolean operation of given type.</description>
+        </method>
+        <method name="SetData_1">
+            <description>Initializes the algorithm with single shape.</description>
+        </method>
+        <method name="SetData_2">
+            <description>Initializes the algorithm with couple of shapes. Additionally to the validity checks of each given shape, the types of the given shapes will be checked on validity for Boolean operation of given type.</description>
+        </method>
+        <method name="Perform">
+            <description>Performs the check.</description>
+        </method>
+    </methods>
+</class>

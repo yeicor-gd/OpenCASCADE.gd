@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgAspectXraction" inherits="RefCounted">
+    <brief_description>XR action definition.</brief_description>
+    <description>! XR action definition.</description>
+    <methods>
+        <method name="Type" qualifiers="const">
+            <description>Return action type.</description>
+        </method>
+        <method name="IsValid" qualifiers="const">
+            <description>Return TRUE if action is defined.</description>
+        </method>
+    </methods>
+</class>

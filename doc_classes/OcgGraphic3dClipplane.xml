@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dClipplane" inherits="RefCounted">
+    <brief_description>Container for properties describing either a Clipping halfspace (single Clipping Plane), or a chain of Clipping Planes defining logical AND (conjunction) operation. The plane equation is specified in "world" coordinate system.</brief_description>
+    <description>! Container for properties describing either a Clipping halfspace (single Clipping Plane),
+! or a chain of Clipping Planes defining logical AND (conjunction) operation.
+! The plane equation is specified in "world" coordinate system.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Default constructor. Initializes clip plane container with the following properties: - Equation (0.0, 0.0, 1.0, 0) - IsOn (True), - IsCapping (False), - Material (Graphic3d_NameOfMaterial_DEFAULT), - Texture (NULL), - HatchStyle (Aspect_HS_HORIZONTAL), - IsHatchOn (False)</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Copy constructor.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Construct clip plane from the passed geometrical definition. By default the plane is on, capping is turned off.</description>
+        </method>
+        <method name="SetEquation_1">
+            <description>Set plane equation by its geometrical definition. The equation is specified in "world" coordinate system.</description>
+        </method>
+        <method name="IsOn" qualifiers="const">
+            <description>Check that the clipping plane is turned on.</description>
+        </method>
+        <method name="SetOn">
+            <description>Change state of the clipping plane.</description>
+        </method>
+        <method name="SetCapping">
+            <description>Change state of capping surface rendering.</description>
+        </method>
+        <method name="IsCapping" qualifiers="const">
+            <description>Check state of capping surface rendering.</description>
+        </method>
+        <method name="ToPlane" qualifiers="const">
+            <description>Get geometrical definition.</description>
+        </method>
+        <method name="Clone" qualifiers="const">
+            <description>Clone plane. Virtual method to simplify copying procedure if plane class is redefined at application level to add specific fields to it e.g. id, name, etc.</description>
+        </method>
+        <method name="IsChain" qualifiers="const">
+            <description>Return TRUE if this item defines a conjunction (logical AND) between a set of Planes. Graphic3d_ClipPlane item defines either a Clipping halfspace (single Clipping Plane) or a Clipping volume defined by a logical AND (conjunction) operation between a set of Planes defined as a Chain (so that the volume cuts a space only in case if check fails for ALL Planes in the Chain).</description>
+        </method>
+        <method name="ChainPreviousPlane" qualifiers="const">
+            <description>Return the previous plane in a Chain of Planes defining logical AND operation, or NULL if there is no Chain or it is a first element in Chain. When clipping is defined by a Chain of Planes, it cuts a space only in case if check fails for all Planes in Chain.</description>
+        </method>
+        <method name="ChainNextPlane" qualifiers="const">
+            <description>Return the next plane in a Chain of Planes defining logical AND operation, or NULL if there is no chain or it is a last element in chain.</description>
+        </method>
+        <method name="NbChainNextPlanes" qualifiers="const">
+            <description>Return the number of chains in forward direction (including this item, so it is always &gt;= 1). For a head of Chain - returns the length of entire Chain.</description>
+        </method>
+        <method name="SetChainNextPlane">
+            <description>Set the next plane in a Chain of Planes. This operation also updates relationship between chains (Previous/Next items), so that the previously set Next plane is cut off.</description>
+        </method>
+        <method name="CappingColor" qualifiers="const">
+            <description>Return color for rendering capping surface.</description>
+        </method>
+        <method name="SetCappingColor">
+            <description>Set color for rendering capping surface.</description>
+        </method>
+        <method name="SetCappingMaterial">
+            <description>Set material for rendering capping surface.</description>
+        </method>
+        <method name="CappingMaterial" qualifiers="const">
+            <description>Returns capping material.</description>
+        </method>
+        <method name="SetCappingTexture">
+            <description>Set texture to be applied on capping surface.</description>
+        </method>
+        <method name="CappingTexture" qualifiers="const">
+            <description>Returns capping texture map.</description>
+        </method>
+        <method name="SetCappingHatch">
+            <description>Set hatch style (stipple) and turn hatching on.</description>
+        </method>
+        <method name="CappingHatch" qualifiers="const">
+            <description>Returns hatching style.</description>
+        </method>
+        <method name="SetCappingCustomHatch">
+            <description>Set custom hatch style (stipple) and turn hatching on.</description>
+        </method>
+        <method name="CappingCustomHatch" qualifiers="const">
+            <description>Returns hatching style.</description>
+        </method>
+        <method name="SetCappingHatchOn">
+            <description>Turn on hatching.</description>
+        </method>
+        <method name="SetCappingHatchOff">
+            <description>Turn off hatching.</description>
+        </method>
+        <method name="IsHatchOn" qualifiers="const">
+            <description>Returns True if hatching mask is turned on.</description>
+        </method>
+        <method name="CappingAspect" qualifiers="const">
+            <description>Return capping aspect.</description>
+        </method>
+        <method name="SetCappingAspect">
+            <description>Assign capping aspect.</description>
+        </method>
+        <method name="ToUseObjectMaterial" qualifiers="const">
+            <description>Flag indicating whether material for capping plane should be taken from object. Default value: FALSE (use dedicated capping plane material).</description>
+        </method>
+        <method name="SetUseObjectMaterial">
+            <description>Set flag for controlling the source of capping plane material.</description>
+        </method>
+        <method name="ToUseObjectTexture" qualifiers="const">
+            <description>Flag indicating whether texture for capping plane should be taken from object. Default value: FALSE.</description>
+        </method>
+        <method name="SetUseObjectTexture">
+            <description>Set flag for controlling the source of capping plane texture.</description>
+        </method>
+        <method name="ToUseObjectShader" qualifiers="const">
+            <description>Flag indicating whether shader program for capping plane should be taken from object. Default value: FALSE.</description>
+        </method>
+        <method name="SetUseObjectShader">
+            <description>Set flag for controlling the source of capping plane shader program.</description>
+        </method>
+        <method name="ToUseObjectProperties" qualifiers="const">
+            <description>Return true if some fill area aspect properties should be taken from object.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="MCountEquation" qualifiers="const">
+            <description>Returns modification counter for equation.</description>
+        </method>
+        <method name="MCountAspect" qualifiers="const">
+            <description>Returns modification counter for aspect.</description>
+        </method>
+    </methods>
+</class>

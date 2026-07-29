@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBndBox" inherits="RefCounted">
+    <brief_description>Describes a bounding box in 3D space. A bounding box is parallel to the axes of the coordinates system. If it is finite, it is defined by the three intervals: - [ Xmin,Xmax ], - [ Ymin,Ymax ], - [ Zmin,Zmax ]. A bounding box may be infinite (i.e. open) in one or more directions. It is said to be: - OpenXmin if it is infinite on the negative side of the "X Direction"; - OpenXmax if it is infinite on the positive side of the "X Direction"; - OpenYmin if it is infinite on the negative side of the "Y Direction"; - OpenYmax if it is infinite on the positive side of the "Y Direction"; - OpenZmin if it is infinite on the negative side of the "Z Direction"; - OpenZmax if it is infinite on the positive side of the "Z Direction"; - WholeSpace if it is infinite in all six directions. In this case, any point of the space is inside the box; - Void if it is empty. In this case, there is no point included in the box. A bounding box is defined by: - six bounds (Xmin, Xmax, Ymin, Ymax, Zmin and Zmax) which limit the bounding box if it is finite, - eight flags (OpenXmin, OpenXmax, OpenYmin, OpenYmax, OpenZmin, OpenZmax, WholeSpace and Void) which describe the bounding box if it is infinite or empty, and - a gap, which is included on both sides in any direction when consulting the finite bounds of the box.</brief_description>
+    <description>! Describes a bounding box in 3D space.
+! A bounding box is parallel to the axes of the coordinates
+! system. If it is finite, it is defined by the three intervals:
+! -   [ Xmin,Xmax ],
+! -   [ Ymin,Ymax ],
+! -   [ Zmin,Zmax ].
+! A bounding box may be infinite (i.e. open) in one or more
+! directions. It is said to be:
+! -   OpenXmin if it is infinite on the negative side of the   "X Direction";
+! -   OpenXmax if it is infinite on the positive side of the "X Direction";
+! -   OpenYmin if it is infinite on the negative side of the   "Y Direction";
+! -   OpenYmax if it is infinite on the positive side of the "Y Direction";
+! -   OpenZmin if it is infinite on the negative side of the   "Z Direction";
+! -   OpenZmax if it is infinite on the positive side of the "Z Direction";
+! -   WholeSpace if it is infinite in all six directions. In this
+! case, any point of the space is inside the box;
+! -   Void if it is empty. In this case, there is no point included in the box.
+! A bounding box is defined by:
+! -   six bounds (Xmin, Xmax, Ymin, Ymax, Zmin and
+! Zmax) which limit the bounding box if it is finite,
+! -   eight flags (OpenXmin, OpenXmax, OpenYmin,
+! OpenYmax, OpenZmin, OpenZmax,
+! WholeSpace and Void) which describe the
+! bounding box if it is infinite or empty, and
+! -   a gap, which is included on both sides in any direction
+! when consulting the finite bounds of the box.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates an empty Box. The constructed box is qualified Void. Its gap is null.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a bounding box, it contains: - minimum/maximum point of bounding box, The constructed box is qualified Void. Its gap is null.</description>
+        </method>
+        <method name="SetWhole">
+            <description>Sets this bounding box so that it covers the whole of 3D space. It is infinitely long in all directions.</description>
+        </method>
+        <method name="SetVoid">
+            <description>Sets this bounding box so that it is empty. All points are outside a void box.</description>
+        </method>
+        <method name="Set_1">
+            <description>Sets this bounding box so that it bounds - the point P. This involves first setting this bounding box to be void and then adding the point P.</description>
+        </method>
+        <method name="Set_2">
+            <description>Sets this bounding box so that it bounds the half-line defined by point P and direction D, i.e. all points M defined by M=P+u*D, where u is greater than or equal to 0, are inside the bounding volume. This involves first setting this box to be void and then adding the half-line.</description>
+        </method>
+        <method name="Update_2">
+            <description>Enlarges this bounding box, if required, so that it contains at least: - interval [ aXmin,aXmax ] in the "X Direction", - interval [ aYmin,aYmax ] in the "Y Direction", - interval [ aZmin,aZmax ] in the "Z Direction";</description>
+        </method>
+        <method name="Update_1">
+            <description>Adds a point of coordinates (X,Y,Z) to this bounding box.</description>
+        </method>
+        <method name="GetGap" qualifiers="const">
+            <description>Returns the gap of this bounding box.</description>
+        </method>
+        <method name="SetGap">
+            <description>Set the gap of this bounding box to abs(Tol).</description>
+        </method>
+        <method name="Enlarge">
+            <description>Enlarges the box with a tolerance value. (minvalues-Abs(&lt;tol&gt;) and maxvalues+Abs(&lt;tol&gt;)) This means that the minimum values of its X, Y and Z intervals of definition, when they are finite, are reduced by the absolute value of Tol, while the maximum values are increased by the same amount.</description>
+        </method>
+        <method name="Get" qualifiers="const">
+            <description>Returns the bounds of this bounding box. The gap is included. If this bounding box is infinite (i.e. "open"), returned values may be equal to +/- Precision::Infinite(). Standard_ConstructionError exception will be thrown if the box is void. if IsVoid()</description>
+        </method>
+        <method name="CornerMin" qualifiers="const">
+            <description>Returns the lower corner of this bounding box. The gap is included. If this bounding box is infinite (i.e. "open"), returned values may be equal to +/- Precision::Infinite(). Standard_ConstructionError exception will be thrown if the box is void. if IsVoid()</description>
+        </method>
+        <method name="CornerMax" qualifiers="const">
+            <description>Returns the upper corner of this bounding box. The gap is included. If this bounding box is infinite (i.e. "open"), returned values may be equal to +/- Precision::Infinite(). Standard_ConstructionError exception will be thrown if the box is void. if IsVoid()</description>
+        </method>
+        <method name="OpenXmin">
+            <description>The Box will be infinitely long in the Xmin direction.</description>
+        </method>
+        <method name="OpenXmax">
+            <description>The Box will be infinitely long in the Xmax direction.</description>
+        </method>
+        <method name="OpenYmin">
+            <description>The Box will be infinitely long in the Ymin direction.</description>
+        </method>
+        <method name="OpenYmax">
+            <description>The Box will be infinitely long in the Ymax direction.</description>
+        </method>
+        <method name="OpenZmin">
+            <description>The Box will be infinitely long in the Zmin direction.</description>
+        </method>
+        <method name="OpenZmax">
+            <description>The Box will be infinitely long in the Zmax direction.</description>
+        </method>
+        <method name="IsOpen" qualifiers="const">
+            <description>Returns true if this bounding box has at least one open direction.</description>
+        </method>
+        <method name="IsOpenXmin" qualifiers="const">
+            <description>Returns true if this bounding box is open in the Xmin direction.</description>
+        </method>
+        <method name="IsOpenXmax" qualifiers="const">
+            <description>Returns true if this bounding box is open in the Xmax direction.</description>
+        </method>
+        <method name="IsOpenYmin" qualifiers="const">
+            <description>Returns true if this bounding box is open in the Ymix direction.</description>
+        </method>
+        <method name="IsOpenYmax" qualifiers="const">
+            <description>Returns true if this bounding box is open in the Ymax direction.</description>
+        </method>
+        <method name="IsOpenZmin" qualifiers="const">
+            <description>Returns true if this bounding box is open in the Zmin direction.</description>
+        </method>
+        <method name="IsOpenZmax" qualifiers="const">
+            <description>Returns true if this bounding box is open in the Zmax direction.</description>
+        </method>
+        <method name="IsWhole" qualifiers="const">
+            <description>Returns true if this bounding box is infinite in all 6 directions (WholeSpace flag).</description>
+        </method>
+        <method name="IsVoid" qualifiers="const">
+            <description>Returns true if this bounding box is empty (Void flag).</description>
+        </method>
+        <method name="IsXThin" qualifiers="const">
+            <description>true if xmax-xmin &lt; tol.</description>
+        </method>
+        <method name="IsYThin" qualifiers="const">
+            <description>true if ymax-ymin &lt; tol.</description>
+        </method>
+        <method name="IsZThin" qualifiers="const">
+            <description>true if zmax-zmin &lt; tol.</description>
+        </method>
+        <method name="IsThin" qualifiers="const">
+            <description>Returns true if IsXThin, IsYThin and IsZThin are all true, i.e. if the box is thin in all three dimensions.</description>
+        </method>
+        <method name="Transformed" qualifiers="const">
+            <description>Returns a bounding box which is the result of applying the transformation T to this bounding box. Warning Applying a geometric transformation (for example, a rotation) to a bounding box generally increases its dimensions. This is not optimal for algorithms which use it.</description>
+        </method>
+        <method name="Add_1">
+            <description>Adds the box &lt;Other&gt; to &lt;me&gt;.</description>
+        </method>
+        <method name="Add_2">
+            <description>Adds a Pnt to the box.</description>
+        </method>
+        <method name="Add_4">
+            <description>Extends &lt;me&gt; from the Pnt &lt;P&gt; in the direction &lt;D&gt;.</description>
+        </method>
+        <method name="Add_3">
+            <description>Extends the Box in the given Direction, i.e. adds an half-line. The box may become infinite in 1,2 or 3 directions.</description>
+        </method>
+        <method name="IsOut_1" qualifiers="const">
+            <description>Returns True if the Pnt is out the box.</description>
+        </method>
+        <method name="IsOut_2" qualifiers="const">
+            <description>Returns False if the line intersects the box.</description>
+        </method>
+        <method name="IsOut_3" qualifiers="const">
+            <description>Returns False if the plane intersects the box.</description>
+        </method>
+        <method name="IsOut_4" qualifiers="const">
+            <description>Returns False if the &lt;Box&gt; intersects or is inside &lt;me&gt;.</description>
+        </method>
+        <method name="IsOut_5" qualifiers="const">
+            <description>Returns False if the transformed &lt;Box&gt; intersects or is inside &lt;me&gt;.</description>
+        </method>
+        <method name="IsOut_6" qualifiers="const">
+            <description>Returns False if the transformed &lt;Box&gt; intersects or is inside the transformed box &lt;me&gt;.</description>
+        </method>
+        <method name="IsOut_7" qualifiers="const">
+            <description>Returns False if the flat band lying between two parallel lines represented by their reference points &lt;P1&gt;, &lt;P2&gt; and direction &lt;D&gt; intersects the box.</description>
+        </method>
+        <method name="Distance" qualifiers="const">
+            <description>Computes the minimum distance between two boxes.</description>
+        </method>
+        <method name="SquareExtent" qualifiers="const">
+            <description>Computes the squared diagonal of me.</description>
+        </method>
+        <method name="FinitePart" qualifiers="const">
+            <description>Returns a finite part of an infinite bounding box (returns self if this is already finite box). This can be a Void box in case if its sides has been defined as infinite (Open) without adding any finite points. WARNING! This method relies on Open flags, the infinite points added using Add() method will be returned as is.</description>
+        </method>
+        <method name="HasFinitePart" qualifiers="const">
+            <description>Returns TRUE if this box has finite part.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

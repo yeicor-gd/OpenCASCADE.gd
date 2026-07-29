@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dCubemappacked" inherits="RefCounted">
+    <brief_description>Class is intended to process cubemap packed into single image plane.</brief_description>
+    <description>! Class is intended to process cubemap packed into single image plane.</description>
+    <methods />
+</class>

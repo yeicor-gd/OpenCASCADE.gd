@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStandardReadlinebuffer" inherits="RefCounted">
+    <brief_description>Auxiliary tool for buffered reading of lines from input stream.</brief_description>
+    <description>! Auxiliary tool for buffered reading of lines from input stream.</description>
+    <methods>
+        <method name="Standard_ReadLineBuffer" qualifiers="static">
+            <description>Constructor with initialization.</description>
+        </method>
+        <method name="Clear">
+            <description>Clear buffer and cached values.</description>
+        </method>
+    </methods>
+</class>

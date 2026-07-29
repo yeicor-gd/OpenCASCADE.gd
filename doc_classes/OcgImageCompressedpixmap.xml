@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgImageCompressedpixmap" inherits="RefCounted">
+    <brief_description>Compressed pixmap data definition. It is defined independently from Image_PixMap, which defines only uncompressed formats.</brief_description>
+    <description>! Compressed pixmap data definition.
+! It is defined independently from Image_PixMap, which defines only uncompressed formats.</description>
+    <methods>
+        <method name="Image_CompressedPixMap" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="BaseFormat" qualifiers="const">
+            <description>Return base (uncompressed) pixel format.</description>
+        </method>
+        <method name="SetBaseFormat">
+            <description>Set base (uncompressed) pixel format.</description>
+        </method>
+        <method name="CompressedFormat" qualifiers="const">
+            <description>Return compressed format.</description>
+        </method>
+        <method name="SetCompressedFormat">
+            <description>Set compressed format.</description>
+        </method>
+        <method name="FaceData" qualifiers="const">
+            <description>Return raw (compressed) data.</description>
+        </method>
+        <method name="SetFaceData">
+            <description>Set raw (compressed) data.</description>
+        </method>
+        <method name="IsCompleteMipMapSet" qualifiers="const">
+            <description>Return TRUE if complete mip map level set (up to 1x1 resolution).</description>
+        </method>
+        <method name="SetCompleteMipMapSet">
+            <description>Set if complete mip map level set (up to 1x1 resolution).</description>
+        </method>
+        <method name="FaceBytes" qualifiers="const">
+            <description>Return surface length in bytes.</description>
+        </method>
+        <method name="SetFaceBytes">
+            <description>Set surface length in bytes.</description>
+        </method>
+        <method name="SizeX" qualifiers="const">
+            <description>Return surface width.</description>
+        </method>
+        <method name="SizeY" qualifiers="const">
+            <description>Return surface height.</description>
+        </method>
+        <method name="SetSize">
+            <description>Set surface width x height.</description>
+        </method>
+        <method name="IsTopDown" qualifiers="const">
+            <description>Return TRUE if image layout is top-down (always true).</description>
+        </method>
+        <method name="NbFaces" qualifiers="const">
+            <description>Return number of faces in the file; should be 6 for cubemap.</description>
+        </method>
+        <method name="SetNbFaces">
+            <description>Set number of faces in the file.</description>
+        </method>
+    </methods>
+</class>

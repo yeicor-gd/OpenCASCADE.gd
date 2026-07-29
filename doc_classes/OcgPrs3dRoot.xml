@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dRoot" inherits="RefCounted">
+    <brief_description>A root class for the standard presentation algorithms of the StdPrs package.</brief_description>
+    <description>! A root class for the standard presentation algorithms of the StdPrs package.</description>
+    <methods />
+</class>

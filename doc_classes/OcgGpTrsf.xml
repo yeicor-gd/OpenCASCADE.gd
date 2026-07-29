@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpTrsf" inherits="RefCounted">
+    <brief_description>Defines a non-persistent transformation in 3D space. The following transformations are implemented : . Translation, Rotation, Scale . Symmetry with respect to a point, a line, a plane. Complex transformations can be obtained by combining the previous elementary transformations using the method Multiply. The transformations can be represented as follow : where {V1, V2, V3} defines the vectorial part of the transformation and T defines the translation part of the transformation. This transformation never change the nature of the objects.</brief_description>
+    <description>! Defines a non-persistent transformation in 3D space.
+! The following transformations are implemented :
+! . Translation, Rotation, Scale
+! . Symmetry with respect to a point, a line, a plane.
+! Complex transformations can be obtained by combining the
+! previous elementary transformations using the method
+! Multiply.
+! The transformations can be represented as follow :
+! @code
+!    V1   V2   V3    T       XYZ        XYZ
+! | a11  a12  a13   a14 |   | x |      | x'|
+! | a21  a22  a23   a24 |   | y |      | y'|
+! | a31  a32  a33   a34 |   | z |   =  | z'|
+! |  0    0    0     1  |   | 1 |      | 1 |
+! @endcode
+! where {V1, V2, V3} defines the vectorial part of the
+! transformation and T defines the translation part of the
+! transformation.
+! This transformation never change the nature of the objects.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Returns the identity transformation.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates a 3D transformation from the 2D transformation theT. The resulting transformation has a homogeneous vectorial part, V3, and a translation part, T3, built from theT: a11 a12 0 a13 V3 = a21 a22 0 T3 = a23 0 0 1. 0 It also has the same scale factor as theT. This guarantees (by projection) that the transformation which would be performed by theT in a plane (2D space) is performed by the resulting transformation in the xOy plane of the 3D space, (i.e. in the plane defined by the origin (0., 0., 0.) and the vectors DX (1., 0., 0.), and DY (0., 1., 0.)). The scale factor is applied to the entire space.</description>
+        </method>
+        <method name="SetMirror_1">
+            <description>Makes the transformation into a symmetrical transformation. theP is the center of the symmetry.</description>
+        </method>
+        <method name="SetMirror_2">
+            <description>Makes the transformation into a symmetrical transformation. theA1 is the center of the axial symmetry.</description>
+        </method>
+        <method name="SetMirror_3">
+            <description>Makes the transformation into a symmetrical transformation. theA2 is the center of the planar symmetry and defines the plane of symmetry by its origin, "X Direction" and "Y Direction".</description>
+        </method>
+        <method name="SetRotation_2">
+            <description>Changes the transformation into a rotation. theA1 is the rotation axis and theAng is the angular value of the rotation in radians.</description>
+        </method>
+        <method name="SetRotation_1">
+            <description>Changes the transformation into a rotation defined by quaternion. Note that rotation is performed around origin, i.e. no translation is involved.</description>
+        </method>
+        <method name="SetRotationPart">
+            <description>Replaces the rotation part with specified quaternion.</description>
+        </method>
+        <method name="SetScale">
+            <description>Changes the transformation into a scale. theP is the center of the scale and theS is the scaling value. Raises ConstructionError If &lt;theS&gt; is null.</description>
+        </method>
+        <method name="SetDisplacement">
+            <description>Modifies this transformation so that it transforms the coordinate system defined by theFromSystem1 into the one defined by theToSystem2. After this modification, this transformation transforms: - the origin of theFromSystem1 into the origin of theToSystem2, - the "X Direction" of theFromSystem1 into the "X Direction" of theToSystem2, - the "Y Direction" of theFromSystem1 into the "Y Direction" of theToSystem2, and - the "main Direction" of theFromSystem1 into the "main Direction" of theToSystem2. Warning When you know the coordinates of a point in one coordinate system and you want to express these coordinates in another one, do not use the transformation resulting from this function. Use the transformation that results from SetTransformation instead. SetDisplacement and SetTransformation create related transformations: the vectorial part of one is the inverse of the vectorial part of the other.</description>
+        </method>
+        <method name="SetTransformation_2">
+            <description>Modifies this transformation so that it transforms the coordinates of any point, (x, y, z), relative to a source coordinate system into the coordinates (x', y', z') which are relative to a target coordinate system, but which represent the same point The transformation is from the coordinate system "theFromSystem1" to the coordinate system "theToSystem2". Example :</description>
+        </method>
+        <method name="SetTransformation_1">
+            <description>Modifies this transformation so that it transforms the coordinates of any point, (x, y, z), relative to a source coordinate system into the coordinates (x', y', z') which are relative to a target coordinate system, but which represent the same point The transformation is from the default coordinate system to the local coordinate system defined with the Ax3 theToSystem. Use in the same way as the previous method. FromSystem1 is defaulted to the absolute coordinate system.</description>
+        </method>
+        <method name="SetTransformation_3">
+            <description>Sets transformation by directly specified rotation and translation.</description>
+        </method>
+        <method name="SetTranslation_1">
+            <description>Changes the transformation into a translation. theV is the vector of the translation.</description>
+        </method>
+        <method name="SetTranslation_2">
+            <description>Makes the transformation into a translation where the translation vector is the vector (theP1, theP2) defined from point theP1 to point theP2.</description>
+        </method>
+        <method name="SetTranslationPart">
+            <description>Replaces the translation vector with the vector theV.</description>
+        </method>
+        <method name="SetScaleFactor">
+            <description>Modifies the scale factor. Raises ConstructionError If theS is null.</description>
+        </method>
+        <method name="SetValues">
+            <description>Sets the coefficients of the transformation. The transformation of the point x,y,z is the point x',y',z' with : The method Value(i,j) will return aij. Raises ConstructionError if the determinant of the aij is null. The matrix is orthogonalized before future using.</description>
+        </method>
+        <method name="Form" qualifiers="const">
+            <description>Returns the nature of the transformation. It can be: an identity transformation, a rotation, a translation, a mirror transformation (relative to a point, an axis or a plane), a scaling transformation, or a compound transformation.</description>
+        </method>
+        <method name="ScaleFactor" qualifiers="const">
+            <description>Returns the scale factor.</description>
+        </method>
+        <method name="TranslationPart" qualifiers="const">
+            <description>Returns the translation part of the transformation's matrix</description>
+        </method>
+        <method name="GetRotation_2" qualifiers="const">
+            <description>Returns the boolean True if there is non-zero rotation. In the presence of rotation, the output parameters store the axis and the angle of rotation. The method always returns positive value "theAngle", i.e., 0. &lt; theAngle &lt;= PI. Note that this rotation is defined only by the vectorial part of the transformation; generally you would need to check also the translational part to obtain the axis (gp_Ax1) of rotation.</description>
+        </method>
+        <method name="GetRotation_1" qualifiers="const">
+            <description>Returns quaternion representing rotational part of the transformation.</description>
+        </method>
+        <method name="VectorialPart" qualifiers="const">
+            <description>Returns the vectorial part of the transformation. It is a 3*3 matrix which includes the scale factor.</description>
+        </method>
+        <method name="HVectorialPart" qualifiers="const">
+            <description>Computes the homogeneous vectorial part of the transformation. It is a 3*3 matrix which doesn't include the scale factor. In other words, the vectorial part of this transformation is equal to its homogeneous vectorial part, multiplied by the scale factor. The coefficients of this matrix must be multiplied by the scale factor to obtain the coefficients of the transformation.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the coefficients of the transformation's matrix. It is a 3 rows * 4 columns matrix. This coefficient includes the scale factor. Raises OutOfRanged if theRow &lt; 1 or theRow &gt; 3 or theCol &lt; 1 or theCol &gt; 4</description>
+        </method>
+        <method name="Inverted" qualifiers="const">
+            <description>Computes the reverse transformation Raises an exception if the matrix of the transformation is not inversible, it means that the scale factor is lower or equal to Resolution from package gp. Computes the transformation composed with T and &lt;me&gt;. In a C++ implementation you can also write Tcomposed = &lt;me&gt; * T. Example :</description>
+        </method>
+        <method name="Multiply">
+            <description>Computes the transformation composed with &lt;me&gt; and theT. &lt;me&gt; = &lt;me&gt; * theT</description>
+        </method>
+        <method name="PreMultiply">
+            <description>Computes the transformation composed with &lt;me&gt; and T. &lt;me&gt; = theT * &lt;me&gt;</description>
+        </method>
+        <method name="Powered" qualifiers="const">
+            <description>Computes the following composition of transformations &lt;me&gt; * &lt;me&gt; * .......* &lt;me&gt;, theN time. if theN = 0 &lt;me&gt; = Identity if theN &lt; 0 &lt;me&gt; = &lt;me&gt;.Inverse() *...........* &lt;me&gt;.Inverse().</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

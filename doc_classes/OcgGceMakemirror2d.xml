@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGceMakemirror2d" inherits="RefCounted">
+    <brief_description>This class implements elementary construction algorithms for a symmetrical transformation in 2D space about a point or axis. The result is a gp_Trsf2d transformation. A MakeMirror2d object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and consulting the result.</brief_description>
+    <description>! This class implements elementary construction algorithms for a
+! symmetrical transformation in 2D space about a point
+! or axis. The result is a gp_Trsf2d transformation.
+! A MakeMirror2d object provides a framework for:
+! -   defining the construction of the transformation,
+! -   implementing the construction algorithm, and consulting the result.</description>
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Constructs a central symmetry about a point.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs an axial symmetry about an axis.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructs an axial symmetry about a line.</description>
+        </method>
+        <method name="from_4" qualifiers="static">
+            <description>Constructs an axial symmetry about an axis defined by point and direction.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed transformation.</description>
+        </method>
+        <method name="Operator" qualifiers="const">
+            <description>Alias for Value() returning a copy.</description>
+        </method>
+    </methods>
+</class>

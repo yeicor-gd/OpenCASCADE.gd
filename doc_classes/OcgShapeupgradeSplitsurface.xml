@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeSplitsurface" inherits="RefCounted">
+    <brief_description>Splits a Surface with a criterion.</brief_description>
+    <description>! Splits a Surface with a criterion.</description>
+    <methods>
+        <method name="ShapeUpgrade_SplitSurface" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="Init_1">
+            <description>Initializes with single supporting surface.</description>
+        </method>
+        <method name="Init_2">
+            <description>Initializes with single supporting surface with bounding parameters.</description>
+        </method>
+        <method name="SetUSplitValues">
+            <description>Sets U parameters where splitting has to be done</description>
+        </method>
+        <method name="SetVSplitValues">
+            <description>Sets V parameters where splitting has to be done</description>
+        </method>
+        <method name="Build">
+            <description>Performs splitting of the supporting surface. If resulting surface is B-Spline and Segment is True, the result is composed with segments of the surface bounded by the U and V SplitValues (method Geom_BSplineSurface::Segment is used). If Segment is False, the result is composed with Geom_RectangularTrimmedSurface all based on the same complete surface. Fields myNbResultingRow and myNbResultingCol must be set to specify the size of resulting grid of surfaces.</description>
+        </method>
+        <method name="Compute">
+            <description>Calculates points for correction/splitting of the surface.</description>
+        </method>
+        <method name="Perform">
+            <description>Performs correction/splitting of the surface. First defines splitting values by method Compute(), then calls method Build().</description>
+        </method>
+        <method name="USplitValues" qualifiers="const">
+            <description>returns all the U splitting values including the First and Last parameters of the input surface</description>
+        </method>
+        <method name="VSplitValues" qualifiers="const">
+            <description>returns all the splitting V values including the First and Last parameters of the input surface</description>
+        </method>
+        <method name="Status" qualifiers="const">
+            <description>Returns the status OK - no splitting is needed DONE1 - splitting required and gives more than one patch DONE2 - splitting is required, but gives only single patch (initial) DONE3 - geometric form of the surface or parametrisation is modified</description>
+        </method>
+        <method name="ResSurfaces" qualifiers="const">
+            <description>Returns obtained surfaces after splitting as CompositeSurface</description>
+        </method>
+    </methods>
+</class>

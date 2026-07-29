@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dBuffer" inherits="RefCounted">
+    <brief_description>Buffer of vertex attributes.</brief_description>
+    <description>! Buffer of vertex attributes.</description>
+    <methods>
+        <method name="Graphic3d_Buffer" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="NbMaxElements" qualifiers="const">
+            <description>Return number of initially allocated elements which can fit into this buffer, while NbElements can be overwritten to smaller value.</description>
+        </method>
+        <method name="release">
+            <description>Release buffer.</description>
+        </method>
+        <method name="IsInterleaved" qualifiers="const">
+            <description>Flag indicating that attributes in the buffer are interleaved; TRUE by default. Requires sub-classing for creating a non-interleaved buffer (advanced usage).</description>
+        </method>
+        <method name="IsMutable" qualifiers="const">
+            <description>Return TRUE if data can be invalidated; FALSE by default. Requires sub-classing for creating a mutable buffer (advanced usage).</description>
+        </method>
+        <method name="InvalidatedRange" qualifiers="const">
+            <description>Return invalidated range; EMPTY by default. Requires sub-classing for creating a mutable buffer (advanced usage).</description>
+        </method>
+        <method name="Validate">
+            <description>Reset invalidated range. Requires sub-classing for creating a mutable buffer (advanced usage).</description>
+        </method>
+        <method name="Invalidate">
+            <description>Invalidate entire buffer.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="DefaultAllocator" qualifiers="static">
+            <description>Return default vertex data allocator.</description>
+        </method>
+    </methods>
+</class>

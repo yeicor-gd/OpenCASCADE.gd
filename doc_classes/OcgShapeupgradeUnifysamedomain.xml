@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeUnifysamedomain" inherits="RefCounted">
+    <brief_description>This tool tries to unify faces and edges of the shape which lie on the same geometry. Faces/edges are considering as 'same-domain' if a group of neighbouring faces/edges are lying on coincident surfaces/curves. In this case these faces/edges can be unified into one face/edge. ShapeUpgrade_UnifySameDomain is initialized by a shape and the next optional parameters: UnifyFaces - tries to unify all possible faces UnifyEdges - tries to unify all possible edges ConcatBSplines - if this flag is set to true then all neighbouring edges, which lay on BSpline or Bezier curves with C1 continuity on their common vertices, will be merged into one common edge.</brief_description>
+    <description>! This tool tries to unify faces and edges of the shape which lie on the same geometry.
+! Faces/edges are considering as 'same-domain' if a group of neighbouring faces/edges
+! are lying on coincident surfaces/curves.
+! In this case these faces/edges can be unified into one face/edge.
+! ShapeUpgrade_UnifySameDomain is initialized by a shape and the next optional parameters:
+! UnifyFaces - tries to unify all possible faces
+! UnifyEdges - tries to unify all possible edges
+! ConcatBSplines - if this flag is set to true then all neighbouring edges, which lay
+! on BSpline or Bezier curves with C1 continuity on their common vertices,
+! will be merged into one common edge.
+!
+! The input shape can be of any type containing faces or edges - compsolid, solid, shell,
+! wire, compound of any kind of shapes. The algorithm preserves the structure of compsolids,
+! solids, shells and wires. E.g., if two shells have a common edge and the faces sharing
+! this edge lie on the same surface the algorithm will not unify these faces, otherwise
+! the structure of shells would be broken. However, if such faces belong to different
+! compounds of faces they will be unified.
+!
+! The output result of the tool is the unified shape.
+!
+! All the modifications of initial shape are recorded during unifying.
+! Methods History are intended to:
+! - set a place holder for the history of modifications of sub-shapes of
+!   the initial shape;
+! - get the collected history.
+! The algorithm provides a place holder for the history and collects the
+! history by default.
+! To avoid collecting of the history the place holder should be set to null handle.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor defining input shape and necessary flags. It does not perform unification.</description>
+        </method>
+        <method name="Initialize">
+            <description>Initializes with a shape and necessary flags. It does not perform unification. If you intend to nullify the History place holder do it after initialization.</description>
+        </method>
+        <method name="AllowInternalEdges">
+            <description>Sets the flag defining whether it is allowed to create internal edges inside merged faces in the case of non-manifold topology. Without this flag merging through multi connected edge is forbidden. Default value is false.</description>
+        </method>
+        <method name="KeepShape">
+            <description>Sets the shape for avoid merging of the faces/edges. This shape can be vertex or edge. If the shape is a vertex it forbids merging of connected edges. If the shape is a edge it forbids merging of connected faces. This method can be called several times to keep several shapes.</description>
+        </method>
+        <method name="SetSafeInputMode">
+            <description>Sets the flag defining the behavior of the algorithm regarding modification of input shape. If this flag is equal to True then the input (original) shape can't be modified during modification process. Default value is true.</description>
+        </method>
+        <method name="SetLinearTolerance">
+            <description>Sets the linear tolerance. It plays the role of chord error when taking decision about merging of shapes. Default value is Precision::Confusion().</description>
+        </method>
+        <method name="SetAngularTolerance">
+            <description>Sets the angular tolerance. If two shapes form a connection angle greater than this value they will not be merged. Default value is Precision::Angular().</description>
+        </method>
+        <method name="Build">
+            <description>Performs unification and builds the resulting shape.</description>
+        </method>
+        <method name="Shape" qualifiers="const">
+            <description>Gives the resulting shape</description>
+        </method>
+    </methods>
+</class>

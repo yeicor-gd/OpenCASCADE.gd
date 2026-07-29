@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshIncrementalmeshfactory" inherits="RefCounted">
+    <brief_description>Factory for creating BRepMesh_IncrementalMesh instances. This factory is registered under the name "FastDiscret" and provides the default built-in meshing algorithm.</brief_description>
+    <description>! Factory for creating BRepMesh_IncrementalMesh instances.
+! This factory is registered under the name "FastDiscret" and provides
+! the default built-in meshing algorithm.</description>
+    <methods>
+        <method name="BRepMesh_IncrementalMeshFactory" qualifiers="static">
+            <description>Constructor. Registers this factory under the name "FastDiscret".</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrAndfilter" inherits="RefCounted">
+    <brief_description>A framework to define a selection filter for two or more types of entity.</brief_description>
+    <description>! A framework to define a selection filter for two or
+! more types of entity.</description>
+    <methods>
+        <method name="SelectMgr_AndFilter" qualifiers="static">
+            <description>Constructs an empty selection filter object for two or more types of entity.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgNcollectionWinheapallocator" inherits="RefCounted">
+    <brief_description>This memory allocator creates dedicated heap for allocations. This technics available only on Windows platform (no alternative on Unix systems). It may be used to take control over memory fragmentation because on destruction ALL allocated memory will be released to the system.</brief_description>
+    <description>! This memory allocator creates dedicated heap for allocations.
+! This technics available only on Windows platform
+! (no alternative on Unix systems).
+! It may be used to take control over memory fragmentation
+! because on destruction ALL allocated memory will be released
+! to the system.
+!
+! This allocator can also be created per each working thread
+! however its real multi-threading performance is dubious.
+!
+! Notice that this also means that existing pointers will be broken
+! and you should control that allocator is alive along all objects
+! allocated with him.</description>
+    <methods>
+        <method name="NCollection_WinHeapAllocator" qualifiers="static">
+            <description>Main constructor</description>
+        </method>
+        <method name="Allocate">
+            <description>Allocate memory</description>
+        </method>
+    </methods>
+</class>

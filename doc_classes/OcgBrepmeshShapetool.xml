@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshShapetool" inherits="RefCounted">
+    <brief_description>Auxiliary class providing functionality to compute, retrieve and store data to TopoDS and model shape.</brief_description>
+    <description>! Auxiliary class providing functionality to compute,
+! retrieve and store data to TopoDS and model shape.</description>
+    <methods>
+        <method name="MaxFaceTolerance" qualifiers="static">
+            <description>Returns maximum tolerance of the given face. Considers tolerances of edges and vertices contained in the given face.</description>
+        </method>
+        <method name="BoxMaxDimension" qualifiers="static">
+            <description>Gets the maximum dimension of the given bounding box. If the given bounding box is void leaves the resulting value unchanged.</description>
+        </method>
+        <method name="NullifyFace" qualifiers="static">
+            <description>Nullifies triangulation stored in the face.</description>
+        </method>
+        <method name="NullifyEdge" qualifiers="static">
+            <description>Nullifies 3d polygon stored in the edge.</description>
+        </method>
+        <method name="UseLocation" qualifiers="static">
+            <description>Applies location to the given point and return result.</description>
+        </method>
+        <method name="UVPoints" qualifiers="static">
+            <description>Gets the strict UV locations of the extremities of the edge using pcurve.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrs3dBndbox" inherits="RefCounted">
+    <brief_description>Tool for computing bounding box presentation.</brief_description>
+    <description>! Tool for computing bounding box presentation.</description>
+    <methods>
+        <method name="Add_1" qualifiers="static">
+            <description>Computes presentation of a bounding box.</description>
+        </method>
+        <method name="Add_2" qualifiers="static">
+            <description>Computes presentation of a bounding box.</description>
+        </method>
+        <method name="FillSegments_1" qualifiers="static">
+            <description>Create primitive array with line segments for displaying a box.</description>
+        </method>
+        <method name="FillSegments_2" qualifiers="static">
+            <description>Create primitive array with line segments for displaying a box.</description>
+        </method>
+        <method name="FillSegments_3" qualifiers="static">
+            <description>Create primitive array with line segments for displaying a box.</description>
+        </method>
+        <method name="FillSegments_4" qualifiers="static">
+            <description>Create primitive array with line segments for displaying a box.</description>
+        </method>
+    </methods>
+</class>

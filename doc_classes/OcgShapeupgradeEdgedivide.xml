@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeEdgedivide" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class ShapeUpgrade_EdgeDivide.</description>
+    <methods>
+        <method name="ShapeUpgrade_EdgeDivide" qualifiers="static">
+            <description>Empty constructor</description>
+        </method>
+        <method name="SetFace">
+            <description>Sets supporting surface by face</description>
+        </method>
+        <method name="SetSplitCurve2dTool">
+            <description>Sets the tool for splitting pcurves.</description>
+        </method>
+        <method name="SetSplitCurve3dTool">
+            <description>Sets the tool for splitting 3D curves.</description>
+        </method>
+        <method name="GetSplitCurve2dTool" qualifiers="const">
+            <description>Returns the tool for splitting pcurves.</description>
+        </method>
+        <method name="GetSplitCurve3dTool" qualifiers="const">
+            <description>Returns the tool for splitting 3D curves.</description>
+        </method>
+    </methods>
+</class>

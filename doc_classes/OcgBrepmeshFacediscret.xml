@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshFacediscret" inherits="RefCounted">
+    <brief_description>Class implements functionality starting triangulation of model's faces. Each face is processed separately and can be executed in parallel mode. Uses mesh algo factory passed as initializer to create instance of triangulation algorithm according to type of surface of target face.</brief_description>
+    <description>! Class implements functionality starting triangulation of model's faces.
+! Each face is processed separately and can be executed in parallel mode.
+! Uses mesh algo factory passed as initializer to create instance of triangulation
+! algorithm according to type of surface of target face.</description>
+    <methods />
+</class>

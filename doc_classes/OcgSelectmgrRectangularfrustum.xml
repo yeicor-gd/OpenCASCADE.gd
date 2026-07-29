@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgSelectmgrRectangularfrustum" inherits="RefCounted">
+    <brief_description>This class contains representation of rectangular selecting frustum, created in case of point and box selection, and algorithms for overlap detection between selecting frustum and sensitive entities. The principle of frustum calculation: - for point selection: on a near view frustum plane rectangular neighborhood of user-picked point is created according to the pixel tolerance given and then this rectangle is projected onto far view frustum plane. This rectangles define the parallel bases of selecting frustum; - for box selection: box points are projected onto near and far view frustum planes. These 2 projected rectangles define parallel bases of selecting frustum. Overlap detection tests are implemented according to the terms of separating axis theorem (SAT).</brief_description>
+    <description>! This class contains representation of rectangular selecting frustum, created in case
+! of point and box selection, and algorithms for overlap detection between selecting
+! frustum and sensitive entities. The principle of frustum calculation:
+! - for point selection: on a near view frustum plane rectangular neighborhood of
+!                        user-picked point is created according to the pixel tolerance
+!                        given and then this rectangle is projected onto far view frustum
+!                        plane. This rectangles define the parallel bases of selecting frustum;
+! - for box selection: box points are projected onto near and far view frustum planes.
+!                      These 2 projected rectangles define parallel bases of selecting frustum.
+! Overlap detection tests are implemented according to the terms of separating axis
+! theorem (SAT).</description>
+    <methods>
+        <method name="SelectMgr_RectangularFrustum" qualifiers="static">
+            <description>Creates rectangular selecting frustum.</description>
+        </method>
+        <method name="Init_1">
+            <description>Initializes volume according to the point and given pixel tolerance</description>
+        </method>
+        <method name="Init_2">
+            <description>Initializes volume according to the selected rectangle</description>
+        </method>
+        <method name="isSegmentsIntersect" qualifiers="const">
+            <description>Returns True if Seg1 (thePnt1Seg1, thePnt2Seg1) and Seg2 (thePnt1Seg2, thePnt2Seg2) intersect.</description>
+        </method>
+        <method name="Build">
+            <description>Builds volume according to internal parameters. NOTE: it should be called after Init() method</description>
+        </method>
+        <method name="IsScalable" qualifiers="const">
+            <description>Checks if it is possible to scale this frustum. It is true for frustum built on a single point.</description>
+        </method>
+        <method name="OverlapsPoint_1" qualifiers="const">
+            <description>Intersection test between defined volume and given point</description>
+        </method>
+        <method name="DistToGeometryCenter" qualifiers="const">
+            <description>Measures distance between 3d projection of user-picked screen point and given point theCOG. It makes sense only for frustums built on a single point.</description>
+        </method>
+        <method name="DetectedPoint" qualifiers="const">
+            <description>Calculates the point on a view ray that was detected during the run of selection algo by given depth</description>
+        </method>
+        <method name="GetNearPnt" qualifiers="const">
+            <description>Returns projection of 2d mouse picked point or projection of center of 2d rectangle (for point and rectangular selection correspondingly) onto near view frustum plane</description>
+        </method>
+        <method name="GetFarPnt" qualifiers="const">
+            <description>Returns projection of 2d mouse picked point or projection of center of 2d rectangle (for point and rectangular selection correspondingly) onto far view frustum plane</description>
+        </method>
+        <method name="GetViewRayDirection" qualifiers="const">
+            <description>Returns view ray direction.</description>
+        </method>
+        <method name="GetMousePosition" qualifiers="const">
+            <description>Returns current mouse coordinates.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

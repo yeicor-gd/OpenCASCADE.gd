@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgLawComposite" inherits="RefCounted">
+    <brief_description>Loi composite constituee d une liste de lois de ranges consecutifs. Cette implementation un peu lourde permet de reunir en une seule loi des portions de loi construites de facon independantes (par exemple en interactif) et de lancer le walking d un coup a l echelle d une ElSpine. CET OBJET REPOND DONC A UN PROBLEME D IMPLEMENTATION SPECIFIQUE AUX CONGES!!!</brief_description>
+    <description>! Loi composite constituee d une liste de lois de
+! ranges consecutifs.
+! Cette implementation un peu lourde permet de reunir
+! en une seule loi des portions de loi construites de
+! facon independantes (par exemple en interactif) et
+! de lancer le walking d un coup a l echelle d une
+! ElSpine.
+! CET OBJET REPOND DONC A UN PROBLEME D IMPLEMENTATION
+! SPECIFIQUE AUX CONGES!!!</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Construct an empty Law</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Construct an empty, trimmed Law</description>
+        </method>
+        <method name="NbIntervals" qualifiers="const">
+            <description>Returns the number of intervals for continuity &lt;S&gt;. May be one if Continuity(me) &gt;= &lt;S&gt;</description>
+        </method>
+        <method name="Value">
+            <description>Returns the value at parameter X.</description>
+        </method>
+        <method name="D1">
+            <description>Returns the value and the first derivative at parameter X.</description>
+        </method>
+        <method name="D2">
+            <description>Returns the value, first and second derivatives at parameter X.</description>
+        </method>
+        <method name="Bounds">
+            <description>Returns the parametric bounds of the function.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXcafprsDocumentexplorer" inherits="RefCounted">
+    <brief_description>Document iterator through shape nodes.</brief_description>
+    <description>! Document iterator through shape nodes.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructor for exploring the whole document.</description>
+        </method>
+        <method name="from_3" qualifiers="static">
+            <description>Constructor for exploring specified list of root shapes in the document.</description>
+        </method>
+        <method name="Init_1">
+            <description>Initialize the iterator from a single root shape in the document.</description>
+        </method>
+        <method name="Init_2">
+            <description>Initialize the iterator from the list of root shapes in the document.</description>
+        </method>
+        <method name="More" qualifiers="const">
+            <description>Return TRUE if iterator points to the valid node.</description>
+        </method>
+        <method name="Current_1" qualifiers="const">
+            <description>Return current position.</description>
+        </method>
+        <method name="ChangeCurrent">
+            <description>Return current position.</description>
+        </method>
+        <method name="Current_2" qualifiers="const">
+            <description>Return current position within specified assembly depth.</description>
+        </method>
+        <method name="CurrentDepth" qualifiers="const">
+            <description>Return depth of the current node in hierarchy, starting from 0. Zero means Root label.</description>
+        </method>
+        <method name="Next">
+            <description>Go to the next node.</description>
+        </method>
+        <method name="ColorTool" qualifiers="const">
+            <description>Return color tool.</description>
+        </method>
+        <method name="VisMaterialTool" qualifiers="const">
+            <description>Return material tool.</description>
+        </method>
+    </methods>
+</class>

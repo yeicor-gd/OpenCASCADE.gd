@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgXscontrolUtils" inherits="RefCounted">
+    <brief_description>This class provides various useful utility routines, to facilitate handling of most common data structures : transients (type, type name ...), strings (ascii or extended, pointed or handled or ...), shapes (reading, writing, testing ...), sequences &amp; arrays (of strings, of transients, of shapes ...), ...</brief_description>
+    <description>! This class provides various useful utility routines, to
+! facilitate handling of most common data structures :
+! transients (type, type name ...),
+! strings (ascii or extended, pointed or handled or ...),
+! shapes (reading, writing, testing ...),
+! sequences &amp; arrays (of strings, of transients, of shapes ...),
+! ...
+!
+! Also it gives some helps on some data structures from XSTEP,
+! such as printing on standard trace file, recignizing most
+! currently used auxiliary types (Binder,Mapper ...)</description>
+    <methods>
+        <method name="XSControl_Utils" qualifiers="static">
+            <description>the only use of this, is to allow a frontal to get one distinct "Utils" set per separate engine</description>
+        </method>
+        <method name="TraceLine" qualifiers="const">
+            <description>Just prints a line into the current Trace File. This allows to better characterise the various trace outputs, as desired.</description>
+        </method>
+        <method name="ShapeType" qualifiers="const">
+            <description>Returns the type of a Shape : true type if &lt;compound&gt; is False If &lt;compound&gt; is True and &lt;shape&gt; is a Compound, iterates on its items. If all are of the same type, returns this type. Else, returns COMPOUND. If it is empty, returns SHAPE For a Null Shape, returns SHAPE</description>
+        </method>
+        <method name="SortedCompound" qualifiers="const">
+            <description>From a Shape, builds a Compound as follows : explores it level by level If &lt;explore&gt; is False, only COMPOUND items. Else, all items Adds to the result, shapes which comply to &lt;type&gt; + if &lt;type&gt; is WIRE, considers free edges (and makes wires) + if &lt;type&gt; is SHELL, considers free faces (and makes shells) If &lt;compound&gt; is True, gathers items in compounds which correspond to starting COMPOUND,SOLID or SHELL containers, or items directly contained in a Compound</description>
+        </method>
+    </methods>
+</class>

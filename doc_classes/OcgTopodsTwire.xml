@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTopodsTwire" inherits="RefCounted">
+    <brief_description>A set of edges connected by their vertices.</brief_description>
+    <description>! A set of edges connected by their vertices.</description>
+    <methods>
+        <method name="TopoDS_TWire" qualifiers="static">
+            <description>Creates an empty TWire.</description>
+        </method>
+        <method name="ShapeType" qualifiers="const">
+            <description>Returns WIRE.</description>
+        </method>
+        <method name="EmptyCopy" qualifiers="const">
+            <description>Returns an empty TWire.</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTdatastdCurrent" inherits="RefCounted">
+    <brief_description>this attribute, located at root label, manage an access to a current label.</brief_description>
+    <description>! this attribute, located at root label, manage an
+! access to a current label.</description>
+    <methods>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="GetID" qualifiers="static">
+            <description>class methods =============</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Set &lt;L&gt; as current of &lt;L&gt; Framework.</description>
+        </method>
+        <method name="Get" qualifiers="static">
+            <description>returns current of &lt;acces&gt; Framework. raise if (!Has)</description>
+        </method>
+        <method name="Has" qualifiers="static">
+            <description>returns True if a current label is managed in &lt;acces&gt; Framework. class methods =============</description>
+        </method>
+    </methods>
+</class>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dAttribbuffer" inherits="RefCounted">
+    <brief_description>Buffer of vertex attributes. This class is intended for advanced usage allowing invalidation of entire buffer content or its sub-part.</brief_description>
+    <description>! Buffer of vertex attributes.
+! This class is intended for advanced usage allowing invalidation of entire buffer content or its
+! sub-part.</description>
+    <methods>
+        <method name="SetMutable">
+            <description>Set if data can be invalidated.</description>
+        </method>
+        <method name="SetInterleaved">
+            <description>Setup interleaved/non-interleaved array. WARNING! Filling non-interleaved buffer should be implemented on user side without Graphic3d_Buffer auxiliary methods designed for interleaved data.</description>
+        </method>
+        <method name="InvalidatedRange" qualifiers="const">
+            <description>Return invalidated range.</description>
+        </method>
+        <method name="Validate">
+            <description>Reset invalidated range.</description>
+        </method>
+        <method name="Invalidate_1">
+            <description>Invalidate the entire buffer data.</description>
+        </method>
+        <method name="Invalidate_2">
+            <description>Invalidate the entire attribute data.</description>
+        </method>
+        <method name="Invalidate_4">
+            <description>Invalidate attribute data within specified sub-range (starting from 0).</description>
+        </method>
+        <method name="Invalidate_3">
+            <description>Invalidate all attribute data within specified vertex sub-range (starting from 0).</description>
+        </method>
+        <method name="invalidate">
+            <description>Invalidate specified sub-range of data (as byte offsets).</description>
+        </method>
+    </methods>
+</class>

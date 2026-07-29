@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dTextureparams" inherits="RefCounted">
+    <brief_description>This class describes texture parameters.</brief_description>
+    <description>! This class describes texture parameters.</description>
+    <methods>
+        <method name="Graphic3d_TextureParams" qualifiers="static">
+            <description>Default constructor.</description>
+        </method>
+        <method name="TextureUnit" qualifiers="const">
+            <description>Default texture unit to be used, default is Graphic3d_TextureUnit_BaseColor.</description>
+        </method>
+        <method name="SetTextureUnit">
+            <description>Setup default texture unit.</description>
+        </method>
+        <method name="IsModulate" qualifiers="const">
+            <description>Returns TRUE if the texture is modulate. Default value is FALSE.</description>
+        </method>
+        <method name="SetModulate">
+            <description>! @param theToModulate turn modulation on/off.</description>
+        </method>
+        <method name="IsRepeat" qualifiers="const">
+            <description>Returns TRUE if the texture repeat is enabled. Default value is FALSE.</description>
+        </method>
+        <method name="SetRepeat">
+            <description>! @param theToRepeat turn texture repeat mode ON or OFF (clamping).</description>
+        </method>
+        <method name="Filter" qualifiers="const">
+            <description>Returns texture interpolation filter. Default value is Graphic3d_TOTF_NEAREST.</description>
+        </method>
+        <method name="SetFilter">
+            <description>! @param theFilter texture interpolation filter.</description>
+        </method>
+        <method name="AnisoFilter" qualifiers="const">
+            <description>Returns level of anisontropy texture filter. Default value is Graphic3d_LOTA_OFF.</description>
+        </method>
+        <method name="SetAnisoFilter">
+            <description>! @param theLevel level of anisontropy texture filter.</description>
+        </method>
+        <method name="Rotation" qualifiers="const">
+            <description>Return rotation angle in degrees; 0 by default. Complete transformation matrix: Rotation -&gt; Translation -&gt; Scale.</description>
+        </method>
+        <method name="SetRotation">
+            <description>! @param theAngleDegrees rotation angle.</description>
+        </method>
+        <method name="GenMode" qualifiers="const">
+            <description>Returns texture coordinates generation mode. Default value is Graphic3d_TOTM_MANUAL.</description>
+        </method>
+        <method name="BaseLevel" qualifiers="const">
+            <description>Returns base texture mipmap level; 0 by default.</description>
+        </method>
+        <method name="MaxLevel" qualifiers="const">
+            <description>Return maximum texture mipmap array level; 1000 by default. Real rendering limit will take into account mipmap generation flags and presence of mipmaps in loaded image.</description>
+        </method>
+        <method name="SetLevelsRange">
+            <description>Setups texture mipmap array levels range. The lowest value will be the base level. The remaining one will be the maximum level.</description>
+        </method>
+        <method name="SamplerRevision" qualifiers="const">
+            <description>Return modification counter of parameters related to sampler state.</description>
+        </method>
+    </methods>
+</class>

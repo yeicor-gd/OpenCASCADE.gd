@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGraphic3dGraphicdriverfactory" inherits="RefCounted">
+    <brief_description>This class for creation of Graphic3d_GraphicDriver.</brief_description>
+    <description>! This class for creation of Graphic3d_GraphicDriver.</description>
+    <methods />
+</class>

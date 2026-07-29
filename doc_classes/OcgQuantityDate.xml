@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgQuantityDate" inherits="RefCounted">
+    <brief_description>This class provides services to manage date information. A date represents the following time intervals: year, month, day, hour, minute, second, millisecond and microsecond. Current time is expressed in elapsed seconds and microseconds beginning from 00:00 GMT, January 1, 1979 (zero hour). The valid date can only be later than this one. Note: a Period object gives the interval between two dates.</brief_description>
+    <description>! This class provides services to manage date information.
+! A date represents the following time intervals:
+! year, month, day, hour, minute, second,
+! millisecond and microsecond.
+! Current time is expressed in elapsed seconds
+! and microseconds beginning from 00:00 GMT,
+! January 1, 1979 (zero hour). The valid date can
+! only be later than this one.
+! Note: a Period object gives the interval between two dates.</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Constructs a default date (00:00 GMT, January 1, 1979 (zero hour)); use the function SetValues to define the required date; or</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Constructs a date from the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0). With: 1 &lt;= mm &lt;= 12 1 &lt;= dd &lt;= max number of days of &lt;mm&gt; 1979 &lt;= yyyy 0 &lt;= hh &lt;= 23 0 &lt;= mn &lt;= 59 0 &lt;= ss &lt;= 59 0 &lt;= mis &lt;= 999 0 &lt;= mics &lt;= 999 Exceptions Quantity_DateDefinitionError if mm, dd, hh, mn, ss, mis and mics are not the components of the valid date.</description>
+        </method>
+        <method name="Values" qualifiers="const">
+            <description>Gets a complete Date. - in mm - the month, - in dd - the day, - in yyyy - the year, - in hh - the hour, - in mn - the minute, - in ss - the second, - in mis - the millisecond, and - in mics - the microsecond</description>
+        </method>
+        <method name="SetValues">
+            <description>Assigns to this date the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0). Exceptions Quantity_DateDefinitionError if mm, dd, hh, mn, ss, mis and mics are not components of a valid date.</description>
+        </method>
+        <method name="Difference">
+            <description>Subtracts one Date from another one to find the period between and returns the value. The result is the absolute value between the difference of two dates.</description>
+        </method>
+        <method name="Subtract">
+            <description>Subtracts a period from a Date and returns the new Date. Raises an exception if the result date is anterior to Jan 1, 1979.</description>
+        </method>
+        <method name="Add">
+            <description>Adds a Period to a Date and returns the new Date.</description>
+        </method>
+        <method name="Year">
+            <description>Returns year of a Date.</description>
+        </method>
+        <method name="Month">
+            <description>Returns month of a Date.</description>
+        </method>
+        <method name="Day">
+            <description>Returns Day of a Date.</description>
+        </method>
+        <method name="Hour">
+            <description>Returns Hour of a Date.</description>
+        </method>
+        <method name="Minute">
+            <description>Returns minute of a Date.</description>
+        </method>
+        <method name="Second">
+            <description>Returns second of a Date.</description>
+        </method>
+        <method name="MilliSecond">
+            <description>Returns millisecond of a Date.</description>
+        </method>
+        <method name="MicroSecond">
+            <description>Returns microsecond of a Date.</description>
+        </method>
+        <method name="IsValid" qualifiers="static">
+            <description>Checks the validity of a date - returns true if a date defined from the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0) is valid. A date must satisfy the conditions above: - yyyy is greater than or equal to 1979, - mm lies within the range [1, 12] (with 1 corresponding to January and 12 to December), - dd lies within a valid range for the month mm (from 1 to 28, 29, 30 or 31 depending on mm and whether yyyy is a leap year or not), - hh lies within the range [0, 23], - mn lies within the range [0, 59], - ss lies within the range [0, 59], - mis lies within the range [0, 999], - mics lies within the range [0, 999].C</description>
+        </method>
+        <method name="IsLeap" qualifiers="static">
+            <description>Returns true if a year is a leap year. The leap years are divisible by 4 and not by 100 except the years divisible by 400.</description>
+        </method>
+    </methods>
+</class>

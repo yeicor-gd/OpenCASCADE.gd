@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgStlapiReader" inherits="RefCounted">
+    <brief_description>Reading from stereolithography format. Reads STL file and creates a shape composed of triangular faces, one per facet. IMPORTANT: This approach is very inefficient, especially for large files. IMPORTANT: Consider reading STL file to Poly_Triangulation object instead (see class RWStl).</brief_description>
+    <description>! Reading from stereolithography format.
+! Reads STL file and creates a shape composed of triangular faces, one per facet.
+! IMPORTANT: This approach is very inefficient, especially for large files.
+! IMPORTANT: Consider reading STL file to Poly_Triangulation object instead (see class RWStl).</description>
+    <methods>
+        <method name="Read_1">
+            <description>Reads STL file to the TopoDS_Shape (each triangle is converted to the face).</description>
+        </method>
+        <method name="Read_2">
+            <description>Reads STL data from stream to the TopoDS_Shape (each triangle is converted to the face).</description>
+        </method>
+    </methods>
+</class>

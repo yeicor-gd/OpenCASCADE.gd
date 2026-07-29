@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGpCone" inherits="RefCounted">
+    <brief_description>Defines an infinite conical surface. A cone is defined by its half-angle (can be negative) at the apex and positioned in space with a coordinate system (a gp_Ax3 object) and a "reference radius" where: - the "main Axis" of the coordinate system is the axis of revolution of the cone, - the plane defined by the origin, the "X Direction" and the "Y Direction" of the coordinate system is the reference plane of the cone; the intersection of the cone with this reference plane is a circle of radius equal to the reference radius, if the half-angle is positive, the apex of the cone is on the negative side of the "main Axis" of the coordinate system. If the half-angle is negative, the apex is on the positive side. This coordinate system is the "local coordinate system" of the cone. Note: when a gp_Cone cone is converted into a Geom_ConicalSurface cone, some implicit properties of its local coordinate system are used explicitly: - its origin, "X Direction", "Y Direction" and "main Direction" are used directly to define the parametric directions on the cone and the origin of the parameters, - its implicit orientation (right-handed or left-handed) gives the orientation (direct or indirect) of the Geom_ConicalSurface cone. See Also gce_MakeCone which provides functions for more complex cone constructions Geom_ConicalSurface which provides additional functions for constructing cones and works, in particular, with the parametric equations of cones gp_Ax3</brief_description>
+    <description>! Defines an infinite conical surface.
+! A cone is defined by its half-angle (can be negative) at the apex and
+! positioned in space with a coordinate system (a gp_Ax3
+! object) and a "reference radius" where:
+! -   the "main Axis" of the coordinate system is the axis of   revolution of the cone,
+! -   the plane defined by the origin, the "X Direction" and
+! the "Y Direction" of the coordinate system is the
+! reference plane of the cone; the intersection of the
+! cone with this reference plane is a circle of radius
+! equal to the reference radius,
+! if the half-angle is positive, the apex of the cone is on
+! the negative side of the "main Axis" of the coordinate
+! system. If the half-angle is negative, the apex is on the   positive side.
+! This coordinate system is the "local coordinate system" of the cone.
+! Note: when a gp_Cone cone is converted into a
+! Geom_ConicalSurface cone, some implicit properties of
+! its local coordinate system are used explicitly:
+! -   its origin, "X Direction", "Y Direction" and "main
+! Direction" are used directly to define the parametric
+! directions on the cone and the origin of the parameters,
+! -   its implicit orientation (right-handed or left-handed)
+! gives the orientation (direct or indirect) of the
+! Geom_ConicalSurface cone.
+! See Also
+! gce_MakeCone which provides functions for more
+! complex cone constructions
+! Geom_ConicalSurface which provides additional
+! functions for constructing cones and works, in particular,
+! with the parametric equations of cones gp_Ax3</description>
+    <methods>
+        <method name="default" qualifiers="static">
+            <description>Creates an indefinite Cone.</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Creates an infinite conical surface. theA3 locates the cone in the space and defines the reference plane of the surface. Ang is the conical surface semi-angle. Its absolute value is in range ]0, PI/2[. theRadius is the radius of the circle in the reference plane of the cone. theRaises ConstructionError * if theRadius is lower than 0.0 * Abs(theAng) &lt; Resolution from gp or Abs(theAng) &gt;= (PI/2) - Resolution.</description>
+        </method>
+        <method name="SetAxis">
+            <description>Changes the symmetry axis of the cone. Raises ConstructionError the direction of theA1 is parallel to the "XDirection" of the coordinate system of the cone.</description>
+        </method>
+        <method name="SetLocation">
+            <description>Changes the location of the cone.</description>
+        </method>
+        <method name="SetPosition">
+            <description>Changes the local coordinate system of the cone. This coordinate system defines the reference plane of the cone.</description>
+        </method>
+        <method name="SetRadius">
+            <description>Changes the radius of the cone in the reference plane of the cone. Raised if theR &lt; 0.0</description>
+        </method>
+        <method name="SetSemiAngle">
+            <description>Changes the semi-angle of the cone. Semi-angle can be negative. Its absolute value Abs(theAng) is in range ]0,PI/2[. Raises ConstructionError if Abs(theAng) &lt; Resolution from gp or Abs(theAng) &gt;= PI/2 - Resolution</description>
+        </method>
+        <method name="Apex" qualifiers="const">
+            <description>Computes the cone's top. The Apex of the cone is on the negative side of the symmetry axis of the cone.</description>
+        </method>
+        <method name="UReverse">
+            <description>Reverses the U parametrization of the cone reversing the YAxis.</description>
+        </method>
+        <method name="VReverse">
+            <description>Reverses the V parametrization of the cone reversing the ZAxis.</description>
+        </method>
+        <method name="Direct" qualifiers="const">
+            <description>Returns true if the local coordinate system of this cone is right-handed.</description>
+        </method>
+        <method name="Axis" qualifiers="const">
+            <description>returns the symmetry axis of the cone.</description>
+        </method>
+        <method name="Coefficients" qualifiers="const">
+            <description>Computes the coefficients of the implicit equation of the quadric in the absolute cartesian coordinates system : theA1.X**2 + theA2.Y**2 + theA3.Z**2 + 2.(theB1.X.Y + theB2.X.Z + theB3.Y.Z) + 2.(theC1.X + theC2.Y + theC3.Z) + theD = 0.0</description>
+        </method>
+        <method name="Location" qualifiers="const">
+            <description>returns the "Location" point of the cone.</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the local coordinates system of the cone.</description>
+        </method>
+        <method name="RefRadius" qualifiers="const">
+            <description>Returns the radius of the cone in the reference plane.</description>
+        </method>
+        <method name="SemiAngle" qualifiers="const">
+            <description>Returns the half-angle at the apex of this cone. Attention! Semi-angle can be negative.</description>
+        </method>
+        <method name="XAxis" qualifiers="const">
+            <description>Returns the XAxis of the reference plane.</description>
+        </method>
+        <method name="YAxis" qualifiers="const">
+            <description>Returns the YAxis of the reference plane.</description>
+        </method>
+        <method name="Mirrored_1" qualifiers="const">
+            <description>Performs the symmetrical transformation of a cone with respect to the point theP which is the center of the symmetry.</description>
+        </method>
+        <method name="Mirrored_2" qualifiers="const">
+            <description>Performs the symmetrical transformation of a cone with respect to an axis placement which is the axis of the symmetry.</description>
+        </method>
+        <method name="Mirrored_3" qualifiers="const">
+            <description>Performs the symmetrical transformation of a cone with respect to a plane. The axis placement theA2 locates the plane of the of the symmetry : (Location, XDirection, YDirection).</description>
+        </method>
+        <method name="Rotated" qualifiers="const">
+            <description>Rotates a cone. theA1 is the axis of the rotation. Ang is the angular value of the rotation in radians.</description>
+        </method>
+        <method name="Scaled" qualifiers="const">
+            <description>Scales a cone. theS is the scaling value. The absolute value of theS is used to scale the cone</description>
+        </method>
+        <method name="Transformed" qualifiers="const">
+            <description>Transforms a cone with the transformation theT from class Trsf.</description>
+        </method>
+        <method name="Translated_1" qualifiers="const">
+            <description>Translates a cone in the direction of the vector theV. The magnitude of the translation is the vector's magnitude.</description>
+        </method>
+        <method name="Translated_2" qualifiers="const">
+            <description>Translates a cone from the point P1 to the point P2.</description>
+        </method>
+    </methods>
+</class>

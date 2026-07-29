@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgPrsdimOffsetdimension" inherits="RefCounted">
+    <brief_description>A framework to display dimensions of offsets. The relation between the offset and the basis shape is indicated. This relation is displayed with arrows and text. The text gives the dsitance between the offset and the basis shape.</brief_description>
+    <description>! A framework to display dimensions of offsets.
+! The relation between the offset and the basis shape
+! is indicated. This relation is displayed with arrows and
+! text. The text gives the dsitance between the offset
+! and the basis shape.</description>
+    <methods>
+        <method name="KindOfDimension" qualifiers="const">
+            <description>Indicates that the dimension we are concerned with is an offset.</description>
+        </method>
+        <method name="SetRelativePos">
+            <description>Sets a transformation aTrsf for presentation and selection to a relative position.</description>
+        </method>
+    </methods>
+</class>

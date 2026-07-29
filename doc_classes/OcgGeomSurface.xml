@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgGeomSurface" inherits="RefCounted">
+    <brief_description>Describes the common behavior of surfaces in 3D space. The Geom package provides many implementations of concrete derived surfaces, such as planes, cylinders, cones, spheres and tori, surfaces of linear extrusion, surfaces of revolution, Bezier and BSpline surfaces, and so on. The key characteristic of these surfaces is that they are parameterized. Geom_Surface demonstrates: - how to work with the parametric equation of a surface to compute the point of parameters (u, v), and, at this point, the 1st, 2nd ... Nth derivative; - how to find global information about a surface in each parametric direction (for example, level of continuity, whether the surface is closed, its periodicity, the bounds of the parameters and so on); - how the parameters change when geometric transformations are applied to the surface, or the orientation is modified.</brief_description>
+    <description>! Describes the common behavior of surfaces in 3D space.
+! The Geom package provides many implementations of concrete derived surfaces,
+! such as planes, cylinders, cones, spheres and tori, surfaces of linear extrusion,
+! surfaces of revolution, Bezier and BSpline surfaces, and so on.
+! The key characteristic of these surfaces is that they are parameterized.
+! Geom_Surface demonstrates:
+! - how to work with the parametric equation of a surface
+!   to compute the point of parameters (u, v), and, at this point, the 1st, 2nd ... Nth
+!   derivative;
+! - how to find global information about a surface in
+!   each parametric direction (for example, level of continuity, whether the surface is closed,
+!   its periodicity, the bounds of the parameters and so on);
+! - how the parameters change when geometric transformations are applied to the surface,
+!   or the orientation is modified.
+!
+! Note that all surfaces must have a geometric continuity, and any surface is at least "C0".
+! Generally, continuity is checked at construction time or when the curve is edited.
+! Where this is not the case, the documentation makes this explicit.
+!
+! Warning
+! The Geom package does not prevent the construction of
+! surfaces with null areas, or surfaces which self-intersect.</description>
+    <methods>
+        <method name="UReversed" qualifiers="const">
+            <description>Reverses the U direction of parametrization of &lt;me&gt;. The bounds of the surface are not modified. A copy of &lt;me&gt; is returned.</description>
+        </method>
+        <method name="VReversed" qualifiers="const">
+            <description>Reverses the V direction of parametrization of &lt;me&gt;. The bounds of the surface are not modified. A copy of &lt;me&gt; is returned.</description>
+        </method>
+        <method name="TransformParameters" qualifiers="const">
+            <description>Computes the parameters on the transformed surface for the transform of the point of parameters U,V on &lt;me&gt;. is the same point as Where U',V' are the new values of U,V after calling This method does not change &lt;U&gt; and &lt;V&gt;</description>
+        </method>
+        <method name="ParametricTransformation" qualifiers="const">
+            <description>Returns a 2d transformation used to find the new parameters of a point on the transformed surface. is the same point as Where U',V' are obtained by transforming U,V with the 2d transformation returned by This method returns an identity transformation</description>
+        </method>
+        <method name="UPeriod" qualifiers="const">
+            <description>Returns the period of this surface in the u parametric direction. Raises if the surface is not uperiodic.</description>
+        </method>
+        <method name="VPeriod" qualifiers="const">
+            <description>Returns the period of this surface in the v parametric direction. raises if the surface is not vperiodic.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Computes the point of parameter (U, V) on the surface.</description>
+        </method>
+        <method name="DumpJson" qualifiers="const">
+            <description>Dumps the content of me into the stream</description>
+        </method>
+    </methods>
+</class>

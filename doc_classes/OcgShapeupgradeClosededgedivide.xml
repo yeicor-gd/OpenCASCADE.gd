@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeupgradeClosededgedivide" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class ShapeUpgrade_ClosedEdgeDivide.</description>
+    <methods>
+        <method name="ShapeUpgrade_ClosedEdgeDivide" qualifiers="static">
+            <description>Empty constructor.</description>
+        </method>
+    </methods>
+</class>

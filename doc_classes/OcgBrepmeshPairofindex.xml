@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgBrepmeshPairofindex" inherits="RefCounted">
+    <brief_description>This class represents a pair of integer indices to store element indices connected to link. It is restricted to store more than two indices in it.</brief_description>
+    <description>! This class represents a pair of integer indices to store
+! element indices connected to link. It is restricted to
+! store more than two indices in it.</description>
+    <methods>
+        <method name="BRepMesh_PairOfIndex" qualifiers="static">
+            <description>Default constructor</description>
+        </method>
+        <method name="Clear">
+            <description>Clears indices.</description>
+        </method>
+        <method name="Append">
+            <description>Appends index to the pair.</description>
+        </method>
+        <method name="Prepend">
+            <description>Prepends index to the pair.</description>
+        </method>
+        <method name="FirstIndex" qualifiers="const">
+            <description>Returns first index of pair.</description>
+        </method>
+        <method name="SetIndex">
+            <description>Sets index corresponding to the given position in the pair.</description>
+        </method>
+        <method name="RemoveIndex">
+            <description>Remove index from the given position.</description>
+        </method>
+    </methods>
+</class>

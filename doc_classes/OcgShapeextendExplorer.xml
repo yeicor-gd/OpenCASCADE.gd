@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgShapeextendExplorer" inherits="RefCounted">
+    <brief_description>This class is intended to explore shapes and convert different representations (list, sequence, compound) of complex shapes. It provides tools for: - obtaining type of the shapes in context of TopoDS_Compound, - exploring shapes in context of TopoDS_Compound, - converting different representations of shapes (list, sequence, compound).</brief_description>
+    <description>! This class is intended to
+! explore shapes and convert different representations
+! (list, sequence, compound) of complex shapes. It provides tools for:
+! - obtaining type of the shapes in context of TopoDS_Compound,
+! - exploring shapes in context of TopoDS_Compound,
+! - converting different representations of shapes (list, sequence, compound).</description>
+    <methods>
+        <method name="ShapeExtend_Explorer" qualifiers="static">
+            <description>Creates an object Explorer</description>
+        </method>
+        <method name="ShapeType" qualifiers="const">
+            <description>Returns the type of a Shape: true type if &lt;compound&gt; is False If &lt;compound&gt; is True and &lt;shape&gt; is a Compound, iterates on its items. If all are of the same type, returns this type. Else, returns COMPOUND. If it is empty, returns SHAPE For a Null Shape, returns SHAPE</description>
+        </method>
+        <method name="SortedCompound" qualifiers="const">
+            <description>Builds a COMPOUND from the given shape. It explores the shape level by level, according to the &lt;explore&gt; argument. If &lt;explore&gt; is False, only COMPOUND items are explored, else all items are. The following shapes are added to resulting compound: - shapes which comply to &lt;type&gt; - if &lt;type&gt; is WIRE, considers also free edges (and makes wires) - if &lt;type&gt; is SHELL, considers also free faces (and makes shells) If &lt;compound&gt; is True, gathers items in compounds which correspond to starting COMPOUND,SOLID or SHELL containers, or items directly contained in a Compound</description>
+        </method>
+    </methods>
+</class>
