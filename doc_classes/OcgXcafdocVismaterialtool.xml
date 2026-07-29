@@ -21,6 +21,9 @@
         <method name="BaseLabel" qualifiers="const">
             <description>returns the label under which colors are stored</description>
         </method>
+        <method name="AddMaterial" qualifiers="const">
+            <description>Adds Material definition to a Material Table and returns its Label.</description>
+        </method>
         <method name="RemoveMaterial" qualifiers="const">
             <description>Removes Material from the Material Table</description>
         </method>

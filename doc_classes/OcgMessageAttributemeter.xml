@@ -4,6 +4,9 @@
     <description>! Alert object storing alert metrics values.
 ! Start and stop values for each metric.</description>
     <methods>
+        <method name="Message_AttributeMeter" qualifiers="static">
+            <description>Constructor with string argument</description>
+        </method>
         <method name="HasMetric" qualifiers="const">
             <description>Checks whether the attribute has values for the metric</description>
         </method>

@@ -38,6 +38,9 @@
         <method name="Image_Diff" qualifiers="static">
             <description>An empty constructor. Init() should be called for initialization.</description>
         </method>
+        <method name="Init">
+            <description>Initialize algorithm by two images (will be loaded from files).</description>
+        </method>
         <method name="SetColorTolerance">
             <description>Color tolerance for equality check. Should be within range 0..1: Corresponds to a difference between white and black colors (maximum difference). By default, the tolerance is equal to 0 thus equality check will return false for any different colors.</description>
         </method>
@@ -48,6 +51,9 @@
             <description>Compares two images. It returns a number of different pixels (or groups of pixels). It returns -1 if algorithm not initialized before.</description>
         </method>
         <method name="SaveDiffImage_1" qualifiers="const">
+            <description>Saves a difference between two images as white pixels on black background.</description>
+        </method>
+        <method name="SaveDiffImage_2" qualifiers="const">
             <description>Saves a difference between two images as white pixels on black background.</description>
         </method>
     </methods>

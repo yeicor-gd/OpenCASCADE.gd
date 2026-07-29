@@ -51,6 +51,9 @@
         <method name="Position" qualifiers="const">
             <description>Returns position.</description>
         </method>
+        <method name="FontName" qualifiers="const">
+            <description>Returns the font of the label text.</description>
+        </method>
         <method name="FontAspect" qualifiers="const">
             <description>Returns the font aspect of the label text.</description>
         </method>

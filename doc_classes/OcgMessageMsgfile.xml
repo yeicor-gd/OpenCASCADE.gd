@@ -39,5 +39,8 @@
         <method name="LoadFromString" qualifiers="static">
             <description>Loads the messages from the given text buffer.</description>
         </method>
+        <method name="HasMsg" qualifiers="static">
+            <description>Returns True if message with specified keyword is registered</description>
+        </method>
     </methods>
 </class>

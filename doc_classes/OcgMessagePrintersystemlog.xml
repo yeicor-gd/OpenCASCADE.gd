@@ -6,5 +6,9 @@
 ! - Windows, through ReportEventW().
 ! - Android, through __android_log_write().
 ! - UNIX/Linux, through syslog().</description>
-    <methods />
+    <methods>
+        <method name="Message_PrinterSystemLog" qualifiers="static">
+            <description>Main constructor.</description>
+        </method>
+    </methods>
 </class>

@@ -46,5 +46,11 @@
         <method name="SetMeasuredGeometry_4">
             <description>Measure radius on the passed shape, if applicable. The dimension will become invalid if the passed shape is not measurable or if measured diameter value is less than Precision::Confusion().</description>
         </method>
+        <method name="GetDisplayUnits" qualifiers="const">
+            <description>Returns the display units string.</description>
+        </method>
+        <method name="GetModelUnits" qualifiers="const">
+            <description>Returns the model units string.</description>
+        </method>
     </methods>
 </class>

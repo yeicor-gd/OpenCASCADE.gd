@@ -65,6 +65,12 @@
         <method name="SetMeasuredShapes">
             <description>Measure distance between generic pair of shapes (edges, vertices, length), where measuring is applicable.</description>
         </method>
+        <method name="GetDisplayUnits" qualifiers="const">
+            <description>Returns the display units string.</description>
+        </method>
+        <method name="GetModelUnits" qualifiers="const">
+            <description>Returns the model units string.</description>
+        </method>
         <method name="SetDirection">
             <description>Set custom direction for dimension. If it is not set, the direction is obtained from the measured geometry (e.g. line between points of dimension) The direction does not change flyout direction of dimension.</description>
         </method>

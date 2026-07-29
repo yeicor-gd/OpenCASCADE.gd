@@ -6,6 +6,9 @@
         <method name="AIS_MediaPlayer" qualifiers="static">
             <description>Empty constructor.</description>
         </method>
+        <method name="OpenInput">
+            <description>Open specified file.</description>
+        </method>
         <method name="PlayPause">
             <description>Switch playback state.</description>
         </method>

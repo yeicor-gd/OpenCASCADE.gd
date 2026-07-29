@@ -3,6 +3,12 @@
     <brief_description>Auxiliary tool for iterating through Path identification string.</brief_description>
     <description>! Auxiliary tool for iterating through Path identification string.</description>
     <methods>
+        <method name="XCAFPrs_DocumentIdIterator" qualifiers="static">
+            <description>Main constructor.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Return current value.</description>
+        </method>
         <method name="Next">
             <description>Find the next value.</description>
         </method>

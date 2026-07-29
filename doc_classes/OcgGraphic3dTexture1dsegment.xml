@@ -6,6 +6,9 @@
 ! You might use the SetSegment() method
 ! to set the way the texture is "stretched" on facets.</description>
     <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Creates a texture from a file</description>
+        </method>
         <method name="from_2" qualifiers="static">
             <description>Creates a texture from a predefined texture name set.</description>
         </method>

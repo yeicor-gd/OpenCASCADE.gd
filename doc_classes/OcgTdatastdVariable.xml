@@ -38,6 +38,9 @@
         <method name="IsConstant" qualifiers="const">
             <description>A constant value is not modified by regeneration.</description>
         </method>
+        <method name="Unit_1" qualifiers="const">
+            <description>to read/write fields ====================</description>
+        </method>
         <method name="Constant">
             <description>if &lt;status&gt; is True, this variable will not be modified by the solver.</description>
         </method>

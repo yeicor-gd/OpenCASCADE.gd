@@ -6,6 +6,9 @@
         <method name="Media_FormatContext" qualifiers="static">
             <description>Constructor.</description>
         </method>
+        <method name="OpenInput">
+            <description>Open input.</description>
+        </method>
         <method name="Close">
             <description>Close input.</description>
         </method>
@@ -18,11 +21,20 @@
         <method name="Seek">
             <description>Seek context to specified position.</description>
         </method>
+        <method name="FormatAVErrorDescription" qualifiers="static">
+            <description>Returns string description for AVError code.</description>
+        </method>
         <method name="FormatUnitsToSeconds" qualifiers="static">
             <description>Convert time units into seconds for context.</description>
         </method>
         <method name="SecondsToUnits_1" qualifiers="static">
             <description>Convert seconds into time units for context.</description>
+        </method>
+        <method name="FormatTime" qualifiers="static">
+            <description>Time formatter.</description>
+        </method>
+        <method name="FormatTimeProgress" qualifiers="static">
+            <description>Time progress / duration formatter.</description>
         </method>
     </methods>
 </class>

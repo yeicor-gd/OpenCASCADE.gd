@@ -2,5 +2,12 @@
 <class name="OcgGraphic3dGraphicdriverfactory" inherits="RefCounted">
     <brief_description>This class for creation of Graphic3d_GraphicDriver.</brief_description>
     <description>! This class for creation of Graphic3d_GraphicDriver.</description>
-    <methods />
+    <methods>
+        <method name="Name" qualifiers="const">
+            <description>Return driver factory name.</description>
+        </method>
+        <method name="UnregisterFactory" qualifiers="static">
+            <description>Unregisters factory.</description>
+        </method>
+    </methods>
 </class>

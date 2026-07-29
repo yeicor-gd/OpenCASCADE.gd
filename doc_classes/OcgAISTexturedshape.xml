@@ -21,6 +21,9 @@
         <method name="AIS_TexturedShape" qualifiers="static">
             <description>Initializes the textured shape.</description>
         </method>
+        <method name="SetTextureFileName">
+            <description>Sets the texture source. &lt;theTextureFileName&gt; can specify path to texture image or one of the standard predefined textures. The accepted file types are those used in Image_AlienPixMap with extensions such as rgb, png, jpg and more. To specify the standard predefined texture, the &lt;theTextureFileName&gt; should contain integer - the Graphic3d_NameOfTexture2D enumeration index. Setting texture source using this method resets the source pixmap (if was set previously).</description>
+        </method>
         <method name="SetTextureMapOn">
             <description>Enables texture mapping</description>
         </method>
