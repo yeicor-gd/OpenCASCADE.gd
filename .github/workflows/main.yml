@@ -392,8 +392,21 @@ jobs:
           echo VCPKG_OVERLAY_PORTS=vcpkg_ports >> $GITHUB_ENV
           echo "GDEXT_CMAKE_ARGS=-DGODOTCPP_TARGET=${{ matrix.target-type }} -DGODOTCPP_PRECISION=${{ matrix.float-precision }} ${{ env.gdext_cmake_args }}" >> $GITHUB_ENV
 
+      - name: Bootstrap vcpkg and install OpenCASCADE (for autowrapper header scanning)
+        shell: bash
+        run: |
+          set -e
+          vcpkg_bootstrap="vcpkg/bootstrap-vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.bat' || '.sh' }}"
+          vcpkg_exe="vcpkg/vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.exe' || '' }}"
+          "$vcpkg_bootstrap"
+          ccache --show-stats --evict-older-than 10d -vv
+          $vcpkg_exe install opencascade
+          ccache --show-stats -vv
+
       - name: Generate autowrapper bindings
         shell: bash
+        env:
+          VCPKG_DEFAULT_TRIPLET: ${{ matrix.target.vcpkg_triplet }}
         run: |
           set -e
           cd OpenCASCADE.gd-autowrapper
@@ -404,10 +417,9 @@ jobs:
         timeout-minutes: 330 # 5h30 to account for very long builds on emscripten with cold cache (which slightly exceeds the github max runtime)
         run: |
           set -e
-          "vcpkg/bootstrap-vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.bat' || '.sh' }}"
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
           vcpkg_exe="vcpkg/vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.exe' || '' }}"
-          ccache --show-stats --evict-older-than 10d --zero-stats -vv && ccache --show-stats -vv
+          ccache --show-stats --zero-stats -vv
           $vcpkg_exe install gdext
           ccache --show-stats -vv
 

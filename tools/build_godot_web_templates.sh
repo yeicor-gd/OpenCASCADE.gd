@@ -56,12 +56,7 @@ GODOT_VERSION=""  # Empty = auto-detect
 # SIDE_MODULE (built with -fwasm-exceptions).  This ensures the main module
 # contains __wasm_lpad_context and other wasm-eh runtime symbols that the
 # side module imports via GOT.
-#
-# The side module defines __wasm_setjmp/__wasm_longjmp locally (see
-# src/setjmp_longjmp_shim.c), so no setjmp/longjmp symbols need to be
-# exported from the main module.  We export _setjmp/_longjmp anyway for
-# backward compatibility with any JS code that may reference them.
-EM_LINKFLAGS="-fwasm-exceptions -sEXPORTED_FUNCTIONS=_setjmp,_longjmp -sEXPORTED_RUNTIME_METHODS=setjmp,longjmp"
+EM_LINKFLAGS="-fwasm-exceptions"
 export EMCC_CFLAGS="${EMCC_CFLAGS:-} -fwasm-exceptions"
 export EMCC_CXXFLAGS="${EMCC_CXXFLAGS:-} -fwasm-exceptions"
 export EM_LINKFLAGS
