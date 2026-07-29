@@ -7,11 +7,17 @@
         <method name="Init">
             <description>Initializes the inner array with bounds from &lt;lower&gt; to &lt;upper&gt;</description>
         </method>
+        <method name="SetValue">
+            <description>Sets the &lt;Index&gt;th element of the array to &lt;Value&gt; OutOfRange exception is raised if &lt;Index&gt; doesn't respect Lower and Upper bounds of the internal array.</description>
+        </method>
         <method name="SetID_2">
             <description>Sets the explicit GUID (user defined) for the attribute.</description>
         </method>
         <method name="SetID_1">
             <description>Sets default GUID for the attribute.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the value of the &lt;Index&gt;th element of the array</description>
         </method>
         <method name="Lower" qualifiers="const">
             <description>Return the lower bound.</description>

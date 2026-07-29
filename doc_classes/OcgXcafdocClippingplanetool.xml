@@ -11,8 +11,17 @@
         <method name="IsClippingPlane" qualifiers="const">
             <description>Returns True if label belongs to a ClippingPlane table and is a ClippingPlane definition</description>
         </method>
+        <method name="AddClippingPlane_2" qualifiers="const">
+            <description>Adds a clipping plane definition to a ClippingPlane table and returns its label (returns existing label if the same clipping plane is already defined)</description>
+        </method>
+        <method name="AddClippingPlane_1" qualifiers="const">
+            <description>Adds a clipping plane definition to a ClippingPlane table and returns its label (returns existing label if the same clipping plane is already defined)</description>
+        </method>
         <method name="RemoveClippingPlane" qualifiers="const">
             <description>Removes clipping plane from the ClippingPlane table Return false and do nothing if clipping plane is referenced in at least one View</description>
+        </method>
+        <method name="UpdateClippingPlane" qualifiers="const">
+            <description>Sets new value of plane and name to the given clipping plane label or do nothing, if the given label is not a clipping plane label</description>
         </method>
         <method name="SetCapping">
             <description>Set new value of capping for given clipping plane label</description>

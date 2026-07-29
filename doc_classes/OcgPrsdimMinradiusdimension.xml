@@ -4,5 +4,12 @@
     <description>! Ellipse Min radius dimension of a Shape which
 ! can be Edge or Face (planar or cylindrical(surface of
 ! extrusion or surface of offset))</description>
-    <methods />
+    <methods>
+        <method name="from_1" qualifiers="static">
+            <description>Max Ellipse radius dimension Shape can be edge, planar face or cylindrical face</description>
+        </method>
+        <method name="from_2" qualifiers="static">
+            <description>Max Ellipse radius dimension with position Shape can be edge, planar face or cylindrical face</description>
+        </method>
+    </methods>
 </class>

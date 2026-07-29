@@ -6,6 +6,9 @@
         <method name="XCAFDoc_NoteBinData" qualifiers="static">
             <description>Creates an empty binary data note.</description>
         </method>
+        <method name="Title" qualifiers="const">
+            <description>Returns the note title.</description>
+        </method>
         <method name="MIMEtype" qualifiers="const">
             <description>Returns data MIME type.</description>
         </method>

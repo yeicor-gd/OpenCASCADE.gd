@@ -39,8 +39,14 @@
         <method name="LoadFromString" qualifiers="static">
             <description>Loads the messages from the given text buffer.</description>
         </method>
+        <method name="AddMsg" qualifiers="static">
+            <description>Adds new message to the map. Parameter &lt;key&gt; gives the key of the message, &lt;text&gt; defines the message itself. If there already was defined the message identified by the same keyword, it is replaced with the new one.</description>
+        </method>
         <method name="HasMsg" qualifiers="static">
             <description>Returns True if message with specified keyword is registered</description>
+        </method>
+        <method name="Msg_2" qualifiers="static">
+            <description>Gives the text for the message identified by the keyword &lt;key&gt;. If there are no messages with such keyword defined, the error message is returned. In that case reference to static string is returned, it can be changed with next call(s) to Msg(). Note: The error message is constructed like 'Unknown message: &lt;key&gt;', and can itself be customized by defining message with key Message_Msg_BadKeyword.</description>
         </method>
     </methods>
 </class>

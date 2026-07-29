@@ -14,6 +14,12 @@
 ! Expression Attribute and the Variable returns True to
 ! the method &lt;IsAssigned&gt;.</description>
     <methods>
+        <method name="Name_2">
+            <description>set or change the name of the variable, in myUnknown and my associated Name attribute.</description>
+        </method>
+        <method name="Name_1" qualifiers="const">
+            <description>returns string stored in the associated Name attribute.</description>
+        </method>
         <method name="Set_1" qualifiers="const">
             <description>retrieve or create the associated real attribute and set the value &lt;value&gt;.</description>
         </method>

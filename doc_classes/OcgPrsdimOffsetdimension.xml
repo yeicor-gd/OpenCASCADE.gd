@@ -7,6 +7,9 @@
 ! text. The text gives the dsitance between the offset
 ! and the basis shape.</description>
     <methods>
+        <method name="PrsDim_OffsetDimension" qualifiers="static">
+            <description>Constructs the offset display object defined by the first shape aFShape, the second shape aSShape, the dimension aVal, and the text aText.</description>
+        </method>
         <method name="KindOfDimension" qualifiers="const">
             <description>Indicates that the dimension we are concerned with is an offset.</description>
         </method>

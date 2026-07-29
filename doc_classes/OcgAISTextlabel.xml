@@ -18,6 +18,9 @@
         <method name="SetMaterial">
             <description>Material has no effect for text label.</description>
         </method>
+        <method name="SetText">
+            <description>Setup text.</description>
+        </method>
         <method name="SetPosition">
             <description>Setup position.</description>
         </method>
@@ -50,6 +53,9 @@
         </method>
         <method name="Position" qualifiers="const">
             <description>Returns position.</description>
+        </method>
+        <method name="Text" qualifiers="const">
+            <description>Returns the label text.</description>
         </method>
         <method name="FontName" qualifiers="const">
             <description>Returns the font of the label text.</description>
