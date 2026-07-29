@@ -10,6 +10,12 @@
         <method name="Aspect_NeutralWindow" qualifiers="static">
             <description>Empty constructor. Note that window is considered "mapped" by default.</description>
         </method>
+        <method name="NativeHandle" qualifiers="const">
+            <description>Return native handle of this drawable.</description>
+        </method>
+        <method name="NativeParentHandle" qualifiers="const">
+            <description>Return native handle of the parent drawable.</description>
+        </method>
         <method name="Map" qualifiers="const">
             <description>Change window mapped flag to TRUE.</description>
         </method>
