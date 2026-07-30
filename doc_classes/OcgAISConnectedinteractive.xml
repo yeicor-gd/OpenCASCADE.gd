@@ -20,6 +20,18 @@
         <method name="Type" qualifiers="const">
             <description>Returns KOI_Object</description>
         </method>
+        <method name="Connect_1">
+            <description>Establishes the connection between the Connected Interactive Object, anotherIobj, and its reference.</description>
+        </method>
+        <method name="Connect_2">
+            <description>Establishes the connection between the Connected Interactive Object, anotherIobj, and its reference. Locates instance in aLocation.</description>
+        </method>
+        <method name="Connect_3">
+            <description>Establishes the connection between the Connected Interactive Object, anotherIobj, and its reference. Locates instance in aLocation.</description>
+        </method>
+        <method name="ConnectedTo" qualifiers="const">
+            <description>Returns the connection with the reference Interactive Object.</description>
+        </method>
         <method name="Disconnect">
             <description>Clears the connection with a source reference. The presentation will no longer be displayed. Warning Must be done before deleting the presentation.</description>
         </method>

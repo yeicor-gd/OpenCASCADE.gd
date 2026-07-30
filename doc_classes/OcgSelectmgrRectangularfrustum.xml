@@ -31,6 +31,12 @@
         <method name="IsScalable" qualifiers="const">
             <description>Checks if it is possible to scale this frustum. It is true for frustum built on a single point.</description>
         </method>
+        <method name="ScaleAndTransform" qualifiers="const">
+            <description>IMPORTANT: Scaling makes sense only for frustum built on a single point! Note that this method does not perform any checks on type of the frustum. Returns a copy of the frustum resized according to the scale factor given and transforms it using the matrix given. There are no default parameters, but in case if: - transformation only is needed: must be initialized as any negative value; - scale only is needed: must be set to gp_Identity. Builder is an optional argument that represents corresponding settings for re-constructing transformed frustum from scratch. Can be null if reconstruction is not expected furthermore.</description>
+        </method>
+        <method name="CopyWithBuilder" qualifiers="const">
+            <description>Returns a copy of the frustum using the given frustum builder configuration. Returned frustum should be re-constructed before being used.</description>
+        </method>
         <method name="OverlapsPoint_1" qualifiers="const">
             <description>Intersection test between defined volume and given point</description>
         </method>
@@ -51,6 +57,9 @@
         </method>
         <method name="GetMousePosition" qualifiers="const">
             <description>Returns current mouse coordinates.</description>
+        </method>
+        <method name="GetPlanes" qualifiers="const">
+            <description>Stores plane equation coefficients (in the following form: Ax + By + Cz + D = 0) to the given vector</description>
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>

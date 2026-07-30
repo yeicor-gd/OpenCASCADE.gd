@@ -21,6 +21,12 @@
         <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
+        <method name="SetContext">
+            <description>Sets context for algorithm.</description>
+        </method>
+        <method name="GetContext" qualifiers="const">
+            <description>Gets context of algorithm.</description>
+        </method>
         <method name="Perform">
             <description>Performs meshing to the shape using current context.</description>
         </method>

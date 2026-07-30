@@ -2,5 +2,12 @@
 <class name="OcgIgescontrolActorwrite" inherits="RefCounted">
     <brief_description>Actor to write Shape to IGES</brief_description>
     <description>! Actor to write Shape to IGES</description>
-    <methods />
+    <methods>
+        <method name="Recognize">
+            <description>Recognizes a ShapeMapper</description>
+        </method>
+        <method name="Transfer">
+            <description>Transfers Shape to IGES Entities</description>
+        </method>
+    </methods>
 </class>

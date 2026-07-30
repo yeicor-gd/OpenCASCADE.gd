@@ -9,11 +9,17 @@
         <method name="default" qualifiers="static">
             <description>Creates an empty iterator.</description>
         </method>
+        <method name="Initialize">
+            <description>Initializes the iteration on the Children Step of the given Step. If &lt;allLevels&gt; option is set to true, it explores not only the first, but all the sub Step levels.</description>
+        </method>
         <method name="Next">
             <description>Move to the next Item</description>
         </method>
         <method name="NextBrother">
             <description>Move to the next Brother. If there is none, go up etc. This method is interesting only with "allLevels" behavior, because it avoids to explore the current Step ChildStepren.</description>
+        </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the current item; a null Step if there is no one.</description>
         </method>
     </methods>
 </class>

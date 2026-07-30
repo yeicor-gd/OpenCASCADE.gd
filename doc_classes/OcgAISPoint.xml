@@ -7,6 +7,12 @@
         <method name="Type" qualifiers="const">
             <description>Indicates that a point is a datum.</description>
         </method>
+        <method name="Component">
+            <description>Returns the component specified in SetComponent.</description>
+        </method>
+        <method name="SetComponent">
+            <description>Constructs an instance of the point aComponent.</description>
+        </method>
         <method name="AcceptDisplayMode" qualifiers="const">
             <description>Returns true if the display mode selected is valid for point datums.</description>
         </method>

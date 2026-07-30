@@ -24,6 +24,9 @@
         <method name="D2">
             <description>Returns the value, first and second derivatives at parameter X.</description>
         </method>
+        <method name="Trim" qualifiers="const">
+            <description>Returns a law equivalent of &lt;me&gt; between parameters &lt;First&gt; and &lt;Last&gt;. &lt;Tol&gt; is used to test for 3d points confusion. It is usfule to determines the derivatives in these values &lt;First&gt; and &lt;Last&gt; if the Law is not Cn.</description>
+        </method>
         <method name="Bounds">
             <description>Returns the parametric bounds of the function.</description>
         </method>

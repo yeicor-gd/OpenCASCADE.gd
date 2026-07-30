@@ -15,5 +15,8 @@
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
+        <method name="Set" qualifiers="static">
+            <description>Create (if not exist) ShapeTool from XCAFDoc on &lt;L&gt;.</description>
+        </method>
     </methods>
 </class>

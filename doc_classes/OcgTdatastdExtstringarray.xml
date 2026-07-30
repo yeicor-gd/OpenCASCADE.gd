@@ -31,11 +31,20 @@
         <method name="SetDelta">
             <description>for internal use only!</description>
         </method>
+        <method name="DeltaOnModification" qualifiers="const">
+            <description>Makes a DeltaOnModification between &lt;me&gt; and &lt;anOldAttribute&gt;.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
         <method name="GetID" qualifiers="static">
             <description>class methods ============= Returns the GUID for the attribute.</description>
+        </method>
+        <method name="Set_1" qualifiers="static">
+            <description>Finds, or creates, an ExtStringArray attribute with &lt;lower&gt; and &lt;upper&gt; bounds on the specified label. If &lt;isDelta&gt; == False, DefaultDeltaOnModification is used. If &lt;isDelta&gt; == True, DeltaOnModification of the current attribute is used. If attribute is already set, all input parameters are refused and the found attribute is returned.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds, or creates, an ExtStringArray attribute with explicit user defined &lt;guid&gt;. The ExtStringArray attribute is returned.</description>
         </method>
     </methods>
 </class>

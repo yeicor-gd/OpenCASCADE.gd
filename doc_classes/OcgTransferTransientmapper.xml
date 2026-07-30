@@ -3,6 +3,15 @@
     <brief_description />
     <description>Wrapper for OCCT class Transfer_TransientMapper.</description>
     <methods>
+        <method name="Value" qualifiers="const">
+            <description>Returns the contained value</description>
+        </method>
+        <method name="Equates" qualifiers="const">
+            <description>Specific testof equality : defined as False if &lt;other&gt; has not the same true Type, else contents are compared (by C++ operator ==)</description>
+        </method>
+        <method name="ValueType" qualifiers="const">
+            <description>Returns the Type of the Value. By default, returns the DynamicType of &lt;me&gt;, but can be redefined</description>
+        </method>
         <method name="ValueTypeName" qualifiers="const">
             <description>Returns the name of the Type of the Value. Default is name of ValueType, unless it is for a non-handled object</description>
         </method>

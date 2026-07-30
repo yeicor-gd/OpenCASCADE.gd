@@ -33,5 +33,8 @@
         <method name="UnsetWidth">
             <description>Removes the setting for width from the filter.</description>
         </method>
+        <method name="IsOk" qualifiers="const">
+            <description>Indicates that the selected Interactive Object passes the filter. The owner, anObj, can be either direct or user. A direct owner is the corresponding construction element, whereas a user is the compound shape of which the entity forms a part. If the Interactive Object returns true when detected by the Local Context selector through the mouse, the object is kept; if not, it is rejected.</description>
+        </method>
     </methods>
 </class>

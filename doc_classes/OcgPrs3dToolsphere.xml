@@ -6,5 +6,8 @@
         <method name="from_double_int_int" qualifiers="static">
             <description>Initializes the algorithm creating a sphere.</description>
         </method>
+        <method name="Create" qualifiers="static">
+            <description>Generate primitives for 3D quadric surface.</description>
+        </method>
     </methods>
 </class>

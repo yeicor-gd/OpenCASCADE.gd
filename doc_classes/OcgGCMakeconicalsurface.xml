@@ -39,5 +39,8 @@
         <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref_double_double" qualifiers="static">
             <description>Creates a conical surface with two points and two radii.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed cone. Exceptions StdFail_NotDone if no cone is constructed.</description>
+        </method>
     </methods>
 </class>

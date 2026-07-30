@@ -7,13 +7,22 @@
             <description>The Offset is set to 0.</description>
         </method>
         <method name="Load_1">
-            <description>Changes the Offset on the current Curve.</description>
+            <description>Changes the curve. The Offset is reset to 0.</description>
         </method>
         <method name="Load_2">
+            <description>Changes the Offset on the current Curve.</description>
+        </method>
+        <method name="Load_3">
             <description>Changes the Offset Curve on the current Curve.</description>
         </method>
         <method name="NbIntervals" qualifiers="const">
             <description>If necessary, breaks the curve in intervals of continuity &lt;S&gt;. And returns the number of intervals.</description>
+        </method>
+        <method name="Intervals" qualifiers="const">
+            <description>Stores in &lt;T&gt; the parameters bounding the intervals of continuity &lt;S&gt;.</description>
+        </method>
+        <method name="Trim" qualifiers="const">
+            <description>Returns a curve equivalent of &lt;me&gt; between parameters &lt;First&gt; and &lt;Last&gt;. &lt;Tol&gt; is used to test for 3d points confusion. If &lt;First&gt; &gt;= &lt;Last&gt;</description>
         </method>
         <method name="Value" qualifiers="const">
             <description>Computes the point of parameter U on the curve.</description>

@@ -24,11 +24,17 @@
         <method name="Init1_2">
             <description>initialize the argument &lt;Pl&gt; - argument Obsolete</description>
         </method>
+        <method name="Init1_3">
+            <description>initialize the argument &lt;Sf&gt; - argument Obsolete</description>
+        </method>
         <method name="Init2_1">
             <description>initialize the tool &lt;S2&gt; - tool Obsolete</description>
         </method>
         <method name="Init2_2">
             <description>initialize the tool &lt;Pl&gt; - tool Obsolete</description>
+        </method>
+        <method name="Init2_3">
+            <description>initialize the tool &lt;Sf&gt; - tool Obsolete</description>
         </method>
         <method name="ComputePCurveOn1">
             <description>Indicates whether the P-Curve should be (or not) performed on the argument. By default, no parametric 2D curve (pcurve) is defined for the edges of the result. If ComputePCurve1 equals true, further computations performed to attach an P-Curve in the parametric space of the argument to the constructed edges. Obsolete</description>

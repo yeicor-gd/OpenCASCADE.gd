@@ -69,6 +69,9 @@
         <method name="InsertKnot">
             <description>Inserts a knot value in the sequence of knots. If &lt;U&gt; is an existing knot the multiplicity is increased by &lt;M&gt;.</description>
         </method>
+        <method name="InsertKnots">
+            <description>Inserts a set of knots values in the sequence of knots.</description>
+        </method>
         <method name="RemoveKnot">
             <description>Decrement the knots multiplicity to &lt;M&gt;. If M is 0 the knot is removed. The Poles sequence is modified.</description>
         </method>
@@ -83,6 +86,9 @@
         </method>
         <method name="SetKnot_1">
             <description>Changes the knot of range Index. The multiplicity of the knot is not modified. Raised if K &gt;= Knots(Index+1) or K &lt;= Knots(Index-1). Raised if Index &lt; 1 || Index &gt; NbKnots</description>
+        </method>
+        <method name="SetKnots">
+            <description>Changes all the knots of the curve The multiplicity of the knots are not modified.</description>
         </method>
         <method name="SetKnot_2">
             <description>Changes the knot of range Index with its multiplicity. You can increase the multiplicity of a knot but it is not allowed to decrease the multiplicity of an existing knot.</description>
@@ -141,6 +147,12 @@
         <method name="Knot" qualifiers="const">
             <description>Returns the knot of range Index. When there is a knot with a multiplicity greater than 1 the knot is not repeated. The method Multiplicity can be used to get the multiplicity of the Knot. Raised if Index &lt; 1 or Index &gt; NbKnots</description>
         </method>
+        <method name="Knots" qualifiers="const">
+            <description>returns the knot values of the B-spline curve;</description>
+        </method>
+        <method name="KnotSequence" qualifiers="const">
+            <description>Returns the knots sequence. In this sequence the knots with a multiplicity greater than 1 are repeated. Example : K = {k1, k1, k1, k2, k3, k3, k4, k4, k4}</description>
+        </method>
         <method name="KnotDistribution" qualifiers="const">
             <description>Returns NonUniform or Uniform or QuasiUniform or PiecewiseBezier. If all the knots differ by a positive constant from the preceding knot the BSpline Curve can be : - Uniform if all the knots are of multiplicity 1, - QuasiUniform if all the knots are of multiplicity 1 except for the first and last knot which are of multiplicity Degree + 1, - PiecewiseBezier if the first and last knots have multiplicity Degree + 1 and if interior knots have multiplicity Degree A piecewise Bezier with only two knots is a BezierCurve. else the curve is non uniform. The tolerance criterion is Epsilon from class Real.</description>
         </method>
@@ -156,6 +168,9 @@
         <method name="Multiplicity" qualifiers="const">
             <description>Returns the multiplicity of the knots of range Index. Raised if Index &lt; 1 or Index &gt; NbKnots</description>
         </method>
+        <method name="Multiplicities" qualifiers="const">
+            <description>Returns the multiplicity of the knots of the curve.</description>
+        </method>
         <method name="NbKnots" qualifiers="const">
             <description>Returns the number of knots. This method returns the number of knot without repetition of multiple knots.</description>
         </method>
@@ -165,11 +180,17 @@
         <method name="Pole" qualifiers="const">
             <description>Returns the pole of range Index. Raised if Index &lt; 1 or Index &gt; NbPoles.</description>
         </method>
+        <method name="Poles" qualifiers="const">
+            <description>Returns the poles of the B-spline curve;</description>
+        </method>
         <method name="StartPoint" qualifiers="const">
             <description>Returns the start point of the curve. Warnings : This point is different from the first pole of the curve if the multiplicity of the first knot is lower than Degree.</description>
         </method>
         <method name="Weight" qualifiers="const">
             <description>Returns the weight of the pole of range Index . Raised if Index &lt; 1 or Index &gt; NbPoles.</description>
+        </method>
+        <method name="Weights" qualifiers="const">
+            <description>Returns the weights of the B-spline curve;</description>
         </method>
         <method name="MovePointAndTangent">
             <description>Changes the value of the Law at parameter U to NewValue. and makes its derivative at U be derivative. StartingCondition = -1 means first can move EndingCondition = -1 means last point can move StartingCondition = 0 means the first point cannot move EndingCondition = 0 means the last point cannot move StartingCondition = 1 means the first point and tangent cannot move EndingCondition = 1 means the last point and tangent cannot move and so forth ErrorStatus != 0 means that there are not enough degree of freedom with the constrain to deform the curve accordingly</description>

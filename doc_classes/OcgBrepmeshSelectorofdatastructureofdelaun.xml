@@ -7,6 +7,9 @@
         <method name="default" qualifiers="static">
             <description>Default constructor.</description>
         </method>
+        <method name="Initialize">
+            <description>Initializes selector by the mesh.</description>
+        </method>
         <method name="NeighboursOf_1">
             <description>Selects all neighboring elements of the given node.</description>
         </method>

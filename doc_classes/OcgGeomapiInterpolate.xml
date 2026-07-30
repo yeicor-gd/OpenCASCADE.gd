@@ -20,7 +20,7 @@
 ! -   implementing the interpolation algorithm, and
 ! -   consulting the results.</description>
     <methods>
-        <method name="Load_1">
+        <method name="Load">
             <description>Assigns this constrained BSpline curve to be tangential to vectors InitialTangent and FinalTangent at its first and last points respectively (i.e. the first and last points of the table of points through which the curve passes, as defined at the time of initialization).</description>
         </method>
         <method name="ClearTangents">
@@ -28,6 +28,9 @@
         </method>
         <method name="Perform">
             <description>Computes the constrained BSpline curve. Use the function IsDone to verify that the computation is successful, and then the function Curve to obtain the result.</description>
+        </method>
+        <method name="Curve" qualifiers="const">
+            <description>Returns the computed BSpline curve. Raises StdFail_NotDone if the interpolation fails.</description>
         </method>
         <method name="IsDone" qualifiers="const">
             <description>Returns true if the constrained BSpline curve is successfully constructed. Note: in this case, the result is given by the function Curve.</description>

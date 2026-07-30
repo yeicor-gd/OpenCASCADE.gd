@@ -38,7 +38,10 @@
         <method name="default" qualifiers="static">
             <description>An empty constructor. Init() should be called for initialization.</description>
         </method>
-        <method name="Init">
+        <method name="Init_1">
+            <description>Initialize algorithm by two images.</description>
+        </method>
+        <method name="Init_2">
             <description>Initialize algorithm by two images (will be loaded from files).</description>
         </method>
         <method name="SetColorTolerance">

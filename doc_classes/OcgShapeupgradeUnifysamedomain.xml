@@ -60,5 +60,11 @@
         <method name="Shape" qualifiers="const">
             <description>Gives the resulting shape</description>
         </method>
+        <method name="History_1" qualifiers="const">
+            <description>Returns the history of the processed shapes.</description>
+        </method>
+        <method name="History_2">
+            <description>Returns the history of the processed shapes.</description>
+        </method>
     </methods>
 </class>

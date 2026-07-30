@@ -12,6 +12,9 @@
         <method name="Center3D" qualifiers="const">
             <description>Returns the center point of the sensitive triangle created at construction time.</description>
         </method>
+        <method name="GetConnected">
+            <description>Returns the copy of this</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

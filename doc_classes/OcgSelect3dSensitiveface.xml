@@ -5,6 +5,9 @@
 ! In some cases this class can raise Standard_ConstructionError and
 ! Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</description>
     <methods>
+        <method name="from_SelectMgr_EntityOwner_const_ref_NCollection_Array1_of_gp_Pnt_const_ref_Select3D_TypeOfSensitivity" qualifiers="static">
+            <description>Constructs a sensitive face object defined by the owner theOwnerId, the array of points thePoints, and the sensitivity type theType. The array of points is the outer polygon of the geometric face.</description>
+        </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of the face. If location transformation is set, it will be applied</description>
         </method>

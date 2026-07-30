@@ -8,6 +8,15 @@
         <method name="from_double_double_int" qualifiers="static">
             <description>Constructor</description>
         </method>
+        <method name="computeTriNormal" qualifiers="const">
+            <description>Compute normal for the mesh element.</description>
+        </method>
+        <method name="AddTriangulation">
+            <description>Add another triangulation to created one.</description>
+        </method>
+        <method name="Result">
+            <description>Prepare and return result triangulation (temporary data will be truncated to result size).</description>
+        </method>
         <method name="PushLastElement">
             <description>Add new triangle or quad with nodes specified by ChangeElementNode().</description>
         </method>
@@ -16,6 +25,12 @@
         </method>
         <method name="PushLastQuad">
             <description>Add new quad with nodes specified by ChangeElementNode().</description>
+        </method>
+        <method name="ChangeOutput">
+            <description>Setup output triangulation for modifications. When set to NULL, the tool could be used as a merge map for filling in external mesh structure.</description>
+        </method>
+        <method name="MergeNodes" qualifiers="static">
+            <description>Merge nodes of existing mesh and return the new mesh.</description>
         </method>
     </methods>
 </class>

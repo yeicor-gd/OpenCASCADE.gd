@@ -3,6 +3,9 @@
     <brief_description>A framework to define selection by a sensitive sphere.</brief_description>
     <description>! A framework to define selection by a sensitive sphere.</description>
     <methods>
+        <method name="GetConnected">
+            <description>Returns the copy of this</description>
+        </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of the sphere with transformation applied</description>
         </method>

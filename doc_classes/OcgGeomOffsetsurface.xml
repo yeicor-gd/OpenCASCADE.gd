@@ -30,11 +30,17 @@
         <method name="ClearEvalRepresentation">
             <description>Removes the evaluation representation.</description>
         </method>
+        <method name="SetBasisSurface">
+            <description>Raised if S is not at least C1. Warnings : No check is done to verify that a unique normal direction is defined at any point of the basis surface S. If isNotCheckC0 = TRUE checking if basis surface has C0-continuity is not made. Exceptions Standard_ConstructionError if the surface S is not at least "C1" continuous.</description>
+        </method>
         <method name="SetOffsetValue">
             <description>Changes this offset surface by assigning D as the offset value.</description>
         </method>
         <method name="Offset" qualifiers="const">
             <description>Returns the offset value of this offset surface.</description>
+        </method>
+        <method name="BasisSurface" qualifiers="const">
+            <description>Returns the basis surface of this offset surface. Note: The basis surface can be an offset surface.</description>
         </method>
         <method name="UReverse">
             <description>Changes the orientation of this offset surface in the u parametric direction. The bounds of the surface are not changed but the given parametric direction is reversed.</description>
@@ -78,6 +84,12 @@
         <method name="VPeriod" qualifiers="const">
             <description>Returns the period of this offset surface in the v parametric direction respectively, i.e. the period of the basis surface of this offset surface in this parametric direction. raises if the surface is not vperiodic.</description>
         </method>
+        <method name="UIso" qualifiers="const">
+            <description>Computes the U isoparametric curve.</description>
+        </method>
+        <method name="VIso" qualifiers="const">
+            <description>Computes the V isoparametric curve.</description>
+        </method>
         <method name="EvalD0" qualifiers="const">
             <description>where is the normal direction of the basis surface. Pbasis, D1Ubasis, D1Vbasis are the point and the first derivatives on the basis surface. If Ndir is undefined this method computes an approached normal direction using the following limited development: with Eps-&gt;0 which requires to compute the second derivatives on the basis surface. If the normal direction cannot be approximate for this order of derivation the exception UndefinedValue is raised.</description>
         </method>
@@ -92,6 +104,18 @@
         </method>
         <method name="ParametricTransformation" qualifiers="const">
             <description>Returns a 2d transformation used to find the new parameters of a point on the transformed surface. is the same point as Where U',V' are obtained by transforming U,V with the 2d transformation returned by This method calls the basis surface method.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this offset surface.</description>
+        </method>
+        <method name="Surface" qualifiers="const">
+            <description>returns an equivalent surface of the offset surface when the basis surface is a canonic surface or a rectangular limited surface on canonic surface or if the offset is null.</description>
+        </method>
+        <method name="UOsculatingSurface" qualifiers="const">
+            <description>if true, L is the local osculating surface along U at the point U,V. It means that DL/DU is collinear to DS/DU. If IsOpposite == true these vectors have opposite direction.</description>
+        </method>
+        <method name="VOsculatingSurface" qualifiers="const">
+            <description>if true, L is the local osculating surface along V at the point U,V. It means that DL/DV is collinear to DS/DV. If IsOpposite == true these vectors have opposite direction.</description>
         </method>
         <method name="GetBasisSurfContinuity" qualifiers="const">
             <description>Returns continuity of the basis surface.</description>

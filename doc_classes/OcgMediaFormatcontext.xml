@@ -15,6 +15,9 @@
         <method name="NbSteams" qualifiers="const">
             <description>Return amount of streams.</description>
         </method>
+        <method name="ReadPacket">
+            <description>av_read_frame() wrapper.</description>
+        </method>
         <method name="SeekStream">
             <description>Seek stream to specified position.</description>
         </method>

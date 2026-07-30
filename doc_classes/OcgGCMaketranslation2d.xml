@@ -15,5 +15,8 @@
         <method name="from_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref" qualifiers="static">
             <description>Constructs a translation along the vector from one point to another.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed transformation.</description>
+        </method>
     </methods>
 </class>

@@ -3,7 +3,7 @@
     <brief_description>Representation by a parameter on a 3D curve.</brief_description>
     <description>! Representation by a parameter on a 3D curve.</description>
     <methods>
-        <method name="IsPointOnCurve" qualifiers="const">
+        <method name="IsPointOnCurve_1" qualifiers="const">
             <description>Returns True</description>
         </method>
         <method name="DumpJson" qualifiers="const">

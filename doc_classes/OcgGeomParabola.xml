@@ -98,6 +98,9 @@
         <method name="ParametricTransformation" qualifiers="const">
             <description>Returns a coefficient to compute the parameter on the transformed curve for the transform of the point on &lt;me&gt;.</description>
         </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this parabola.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

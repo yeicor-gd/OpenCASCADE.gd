@@ -10,14 +10,32 @@
         <method name="BaseLabel" qualifiers="const">
             <description>returns the label under which colors are stored</description>
         </method>
+        <method name="ShapeTool">
+            <description>Returns internal XCAFDoc_ShapeTool tool</description>
+        </method>
         <method name="IsMaterial" qualifiers="const">
             <description>Returns True if label belongs to a material table and is a Material definition</description>
         </method>
-        <method name="SetMaterial" qualifiers="const">
+        <method name="GetMaterialLabels" qualifiers="const">
+            <description>Returns a sequence of materials currently stored in the material table</description>
+        </method>
+        <method name="AddMaterial" qualifiers="const">
+            <description>Adds a Material definition to a table and returns its label</description>
+        </method>
+        <method name="SetMaterial_1" qualifiers="const">
             <description>Sets a link with GUID</description>
+        </method>
+        <method name="SetMaterial_2" qualifiers="const">
+            <description>Sets a link with GUID Adds a Material as necessary</description>
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Creates (if not exist) MaterialTool.</description>
+        </method>
+        <method name="GetMaterial" qualifiers="static">
+            <description>Returns Material assigned to &lt;MatL&gt; Returns False if no such Material is assigned</description>
         </method>
         <method name="GetDensityForShape" qualifiers="static">
             <description>Find referred material and return density from it if no material --&gt; return 0</description>

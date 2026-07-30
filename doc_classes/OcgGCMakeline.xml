@@ -27,5 +27,8 @@
         <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a line passing through two points.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed line. Exceptions StdFail_NotDone if no line is constructed.</description>
+        </method>
     </methods>
 </class>

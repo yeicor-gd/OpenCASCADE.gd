@@ -5,6 +5,15 @@
 ! It provides an interface for building BVH tree which is used to speed-up
 ! the performance of searching for overlap among sensitives of one selectable object</description>
     <methods>
+        <method name="Append_1">
+            <description>Adds new entity to the set and marks BVH tree for rebuild</description>
+        </method>
+        <method name="Append_2">
+            <description>Adds every entity of selection theSelection to the set and marks BVH tree for rebuild</description>
+        </method>
+        <method name="Remove">
+            <description>Removes every entity of selection theSelection from the set and marks BVH tree for rebuild</description>
+        </method>
         <method name="Center" qualifiers="const">
             <description>Returns geometry center of sensitive entity index theIdx along the given axis theAxis</description>
         </method>
@@ -13,6 +22,9 @@
         </method>
         <method name="Size" qualifiers="const">
             <description>Returns the amount of entities</description>
+        </method>
+        <method name="GetSensitiveById" qualifiers="const">
+            <description>Returns the entity with index theIndex in the set</description>
         </method>
     </methods>
 </class>

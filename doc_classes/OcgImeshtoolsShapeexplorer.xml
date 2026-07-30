@@ -6,5 +6,8 @@
         <method name="from_TopoDS_Shape_const_ref" qualifiers="static">
             <description>Constructor.</description>
         </method>
+        <method name="Accept">
+            <description>Starts exploring of a shape.</description>
+        </method>
     </methods>
 </class>

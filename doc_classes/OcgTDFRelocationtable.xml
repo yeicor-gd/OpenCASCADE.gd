@@ -26,11 +26,23 @@
         <method name="AfterRelocate_1" qualifiers="const">
             <description>Returns &lt;myAfterRelocate&gt;.</description>
         </method>
-        <method name="SetRelocation">
+        <method name="SetRelocation_1">
             <description>Sets the relocation value of &lt;aSourceLabel&gt; to &lt;aTargetLabel&gt;.</description>
         </method>
-        <method name="HasRelocation" qualifiers="const">
+        <method name="HasRelocation_1" qualifiers="const">
             <description>Finds the relocation value of &lt;aSourceLabel&gt; and returns it into &lt;aTargetLabel&gt;.</description>
+        </method>
+        <method name="SetRelocation_2">
+            <description>Sets the relocation value of &lt;aSourceAttribute&gt; to &lt;aTargetAttribute&gt;.</description>
+        </method>
+        <method name="HasRelocation_2" qualifiers="const">
+            <description>Finds the relocation value of &lt;aSourceAttribute&gt; and returns it into &lt;aTargetAttribute&gt;.</description>
+        </method>
+        <method name="SetTransientRelocation">
+            <description>Sets the relocation value of &lt;aSourceTransient&gt; to &lt;aTargetTransient&gt;.</description>
+        </method>
+        <method name="HasTransientRelocation" qualifiers="const">
+            <description>Finds the relocation value of &lt;aSourceTransient&gt; and returns it into &lt;aTargetTransient&gt;.</description>
         </method>
         <method name="Clear">
             <description>Clears the relocation dictionary, but lets the self relocation flag to its current value.</description>

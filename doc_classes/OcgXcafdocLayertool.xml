@@ -10,6 +10,9 @@
         <method name="BaseLabel" qualifiers="const">
             <description>returns the label under which Layers are stored</description>
         </method>
+        <method name="ShapeTool">
+            <description>Returns internal XCAFDoc_ShapeTool tool</description>
+        </method>
         <method name="IsLayer" qualifiers="const">
             <description>Returns True if label belongs to a Layertable and is a Layer definition</description>
         </method>
@@ -27,6 +30,9 @@
         </method>
         <method name="RemoveLayer" qualifiers="const">
             <description>Removes Layer from the Layertable</description>
+        </method>
+        <method name="GetLayerLabels" qualifiers="const">
+            <description>Returns a sequence of Layers currently stored in the Layertable</description>
         </method>
         <method name="SetLayer_1" qualifiers="const">
             <description>Sets a link from label &lt;L&gt; to Layer defined by &lt;LayerL&gt; optional parameter &lt;shapeInOneLayer&gt; show could shape be in number of layers or only in one.</description>
@@ -78,6 +84,12 @@
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Creates (if not exist) LayerTool.</description>
+        </method>
+        <method name="GetShapesOfLayer" qualifiers="static">
+            <description>Return sequanese of shape labels that assigned with layers to &lt;ShLabels&gt;.</description>
         </method>
     </methods>
 </class>

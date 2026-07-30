@@ -4,5 +4,12 @@
     <description>! A framework to define a sensitive 3D curve.
 ! In some cases this class can raise Standard_ConstructionError and
 ! Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.</description>
-    <methods />
+    <methods>
+        <method name="from_SelectMgr_EntityOwner_const_ref_NCollection_Array1_of_gp_Pnt_const_ref" qualifiers="static">
+            <description>Creation of Sensitive Curve from Points. Warning : This Method should disappear in the next version...</description>
+        </method>
+        <method name="GetConnected">
+            <description>Returns the copy of this</description>
+        </method>
+    </methods>
 </class>

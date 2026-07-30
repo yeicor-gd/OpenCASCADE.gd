@@ -4,8 +4,14 @@
     <description>! A framework to define selection of a wire owner by an
 ! elastic wire band.</description>
     <methods>
+        <method name="Add">
+            <description>Adds the sensitive entity theSensitive to this framework.</description>
+        </method>
         <method name="NbSubElements" qualifiers="const">
             <description>Returns the amount of sub-entities</description>
+        </method>
+        <method name="Set">
+            <description>Sets the owner for all entities in wire</description>
         </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of the wire. If location transformation is set, it will be applied</description>

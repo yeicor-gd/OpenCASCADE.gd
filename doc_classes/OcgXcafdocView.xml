@@ -2,5 +2,12 @@
 <class name="OcgXcafdocView" inherits="RefCounted">
     <brief_description>Attribute to store view</brief_description>
     <description>! Attribute to store view</description>
-    <methods />
+    <methods>
+        <method name="SetObject">
+            <description>Updates parent's label and its sub-labels with data taken from theViewObject. Old data associated with the label will be lost.</description>
+        </method>
+        <method name="GetObject" qualifiers="const">
+            <description>Returns view object data taken from the paren's label and its sub-labels.</description>
+        </method>
+    </methods>
 </class>

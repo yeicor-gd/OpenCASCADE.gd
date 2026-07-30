@@ -45,5 +45,11 @@
         <method name="BossEdges">
             <description>Determination of TopEdges and LatEdges. sig = 1 -&gt; TopEdges = FirstShape of the DPrism sig = 2 -&gt; TOpEdges = LastShape of the DPrism</description>
         </method>
+        <method name="TopEdges">
+            <description>Returns the list of TopoDS Edges of the top of the boss.</description>
+        </method>
+        <method name="LatEdges">
+            <description>Returns the list of TopoDS Edges of the bottom of the boss.</description>
+        </method>
     </methods>
 </class>

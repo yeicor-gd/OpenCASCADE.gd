@@ -2,5 +2,12 @@
 <class name="OcgXcafprsTexture" inherits="RefCounted">
     <brief_description>Texture holder.</brief_description>
     <description>! Texture holder.</description>
-    <methods />
+    <methods>
+        <method name="GetCompressedImage">
+            <description>Image reader.</description>
+        </method>
+        <method name="GetImageSource" qualifiers="const">
+            <description>Return image source.</description>
+        </method>
+    </methods>
 </class>

@@ -15,5 +15,8 @@
         <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Constructs a translation from two points.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed transformation.</description>
+        </method>
     </methods>
 </class>

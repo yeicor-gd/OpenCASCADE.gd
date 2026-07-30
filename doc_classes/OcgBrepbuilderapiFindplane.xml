@@ -20,5 +20,8 @@
         <method name="Found" qualifiers="const">
             <description>Returns true if a plane containing the edges of the shape is found and built. Use the function Plane to consult the result.</description>
         </method>
+        <method name="Plane" qualifiers="const">
+            <description>Returns the plane containing the edges of the shape. Warning Use the function Found to verify that the plane is built. If a plane is not found, Plane returns a null handle.</description>
+        </method>
     </methods>
 </class>

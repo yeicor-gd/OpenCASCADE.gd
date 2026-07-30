@@ -8,5 +8,8 @@
         <method name="from_double_gp_Pnt_const_ref" qualifiers="static">
             <description>Create a Zoom transformation persistence with an anchor 3D point and a scale value</description>
         </method>
+        <method name="persistentScale" qualifiers="const">
+            <description>Find scale value based on the camera position and view dimensions If the camera scale value less than the persistence scale, zoom persistence is not applied.</description>
+        </method>
     </methods>
 </class>

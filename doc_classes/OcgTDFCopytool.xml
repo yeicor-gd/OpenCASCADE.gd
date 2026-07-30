@@ -36,5 +36,9 @@
 ! * finally call Copy(...) with the relocation table
 ! previously set. In this way, this method will take
 ! these relocations in account.</description>
-    <methods />
+    <methods>
+        <method name="Copy_1" qualifiers="static">
+            <description>Copy &lt;aSourceDataSet&gt; with using and updating &lt;aRelocationTable&gt;. This method ignores target attributes privilege over source ones.</description>
+        </method>
+    </methods>
 </class>

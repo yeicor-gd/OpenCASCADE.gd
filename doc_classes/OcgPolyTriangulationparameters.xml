@@ -6,5 +6,8 @@
         <method name="from_double_double_double" qualifiers="static">
             <description>Constructor. Initializes object with the given parameters.</description>
         </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a copy of current triangulation parameters.</description>
+        </method>
     </methods>
 </class>

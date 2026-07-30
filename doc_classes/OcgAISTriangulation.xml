@@ -6,6 +6,9 @@
 ! instead of classic Quantity_Color values.
 ! Interactive selection of triangles and vertices is not yet implemented.</description>
     <methods>
+        <method name="GetTriangulation" qualifiers="const">
+            <description>Returns Poly_Triangulation .</description>
+        </method>
         <method name="SetTransparency">
             <description>Sets the value aValue for transparency in the reconstructed compound shape.</description>
         </method>

@@ -76,6 +76,9 @@
         <method name="Bounds" qualifiers="const">
             <description>Returns the parametric bounds U1, U2, V1 and V2 of this torus. For a torus: U1 = V1 = 0 and U2 = V2 = 2*PI .</description>
         </method>
+        <method name="Coefficients" qualifiers="const">
+            <description>Returns the coefficients of the implicit equation of the surface in the absolute cartesian coordinate system : Coef(1) * X**4 + Coef(2) * Y**4 + Coef(3) * Z**4 + Coef(4) * X**3 * Y + Coef(5) * X**3 * Z + Coef(6) * Y**3 * X + Coef(7) * Y**3 * Z + Coef(8) * Z**3 * X + Coef(9) * Z**3 * Y + Coef(10) * X**2 * Y**2 + Coef(11) * X**2 * Z**2 + Coef(12) * Y**2 * Z**2 + Coef(13) * X**3 + Coef(14) * Y**3 + Coef(15) * Z**3 + Coef(16) * X**2 * Y + Coef(17) * X**2 * Z + Coef(18) * Y**2 * X + Coef(19) * Y**2 * Z + Coef(20) * Z**2 * X + Coef(21) * Z**2 * Y + Coef(22) * X**2 + Coef(23) * Y**2 + Coef(24) * Z**2 + Coef(25) * X * Y + Coef(26) * X * Z + Coef(27) * Y * Z + Coef(28) * X + Coef(29) * Y + Coef(30) * Z + Coef(31) = 0.0 Raised if the length of Coef is lower than 31.</description>
+        </method>
         <method name="MajorRadius" qualifiers="const">
             <description>Returns the major radius, or the minor radius, of this torus.</description>
         </method>
@@ -97,6 +100,12 @@
         <method name="IsVPeriodic" qualifiers="const">
             <description>Returns True.</description>
         </method>
+        <method name="UIso" qualifiers="const">
+            <description>Computes the U isoparametric curve.</description>
+        </method>
+        <method name="VIso" qualifiers="const">
+            <description>Computes the V isoparametric curve.</description>
+        </method>
         <method name="EvalD0" qualifiers="const">
             <description>Computes the point P (U, V) on the surface. P (U, V) = Loc + MinorRadius * Sin (V) * Zdir + (MajorRadius + MinorRadius * std::cos(V)) * (cos (U) * XDir + sin (U) * YDir) where Loc is the origin of the placement plane (XAxis, YAxis) XDir is the direction of the XAxis and YDir the direction of the YAxis and ZDir the direction of the ZAxis.</description>
         </method>
@@ -105,6 +114,9 @@
         </method>
         <method name="Transform">
             <description>Applies the transformation T to this torus.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this torus.</description>
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>

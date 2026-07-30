@@ -43,5 +43,17 @@
         <method name="default" qualifiers="static">
             <description>Constructs an empty algorithm for approximation or interpolation of a surface. Use: - an Init function to define and build the BSpline surface by approximation, or - an Interpolate function to define and build the BSpline surface by interpolation.</description>
         </method>
+        <method name="Interpolate_1">
+            <description>Interpolates a BSpline Surface passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be 3. 2- his continuity will be C2.</description>
+        </method>
+        <method name="Interpolate_2">
+            <description>Interpolates a BSpline Surface passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be 3. 2- his continuity will be C2.</description>
+        </method>
+        <method name="Interpolate_3">
+            <description>Interpolates a BSpline Surface passing through an array of Points.</description>
+        </method>
+        <method name="Surface" qualifiers="const">
+            <description>Returns the approximate BSpline Surface</description>
+        </method>
     </methods>
 </class>

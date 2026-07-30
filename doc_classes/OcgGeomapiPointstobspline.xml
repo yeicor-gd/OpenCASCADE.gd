@@ -12,5 +12,8 @@
         <method name="default" qualifiers="static">
             <description>Constructs an empty approximation algorithm. Use an Init function to define and build the BSpline curve.</description>
         </method>
+        <method name="Curve" qualifiers="const">
+            <description>Returns the computed BSpline curve. Raises StdFail_NotDone if the curve is not built.</description>
+        </method>
     </methods>
 </class>

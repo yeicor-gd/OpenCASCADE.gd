@@ -15,5 +15,8 @@
         <method name="GetID" qualifiers="static">
             <description>Returns default attribute GUID</description>
         </method>
+        <method name="Get" qualifiers="static">
+            <description>Finds a binary data attribute on the given label and returns it, if it is found</description>
+        </method>
     </methods>
 </class>

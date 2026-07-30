@@ -6,11 +6,41 @@
 ! Attribute containing sequence of father's and child's labels.
 ! Provide create and work with Graph in XCAFDocument.</description>
     <methods>
-        <method name="UnSetFather">
+        <method name="SetFather">
+            <description>Set GraphNode &lt;F&gt; as father of me and returns index of &lt;F&gt; in Sequence that containing Fathers GraphNodes. return index of &lt;F&gt; from GraphNodeSequnece</description>
+        </method>
+        <method name="SetChild">
+            <description>Set GraphNode &lt;Ch&gt; as child of me and returns index of &lt;Ch&gt; in Sequence that containing Children GraphNodes. return index of &lt;Ch&gt; from GraphNodeSequnece</description>
+        </method>
+        <method name="UnSetFather_1">
+            <description>Remove &lt;F&gt; from Fathers GraphNodeSequence. and remove link between father and child.</description>
+        </method>
+        <method name="UnSetFather_2">
             <description>Remove Father GraphNode by index from Fathers GraphNodeSequence. and remove link between father and child.</description>
         </method>
-        <method name="UnSetChild">
+        <method name="UnSetChild_1">
+            <description>Remove &lt;Ch&gt; from GraphNodeSequence. and remove link between father and child.</description>
+        </method>
+        <method name="UnSetChild_2">
             <description>Remove Child GraphNode by index from Children GraphNodeSequence. and remove link between father and child.</description>
+        </method>
+        <method name="GetFather" qualifiers="const">
+            <description>Return GraphNode by index from GraphNodeSequence.</description>
+        </method>
+        <method name="GetChild" qualifiers="const">
+            <description>Return GraphNode by index from GraphNodeSequence.</description>
+        </method>
+        <method name="FatherIndex" qualifiers="const">
+            <description>Return index of &lt;F&gt;, or zero if there is no such Graphnode.</description>
+        </method>
+        <method name="ChildIndex" qualifiers="const">
+            <description>Return index of &lt;Ch&gt;, or zero if there is no such Graphnode.</description>
+        </method>
+        <method name="IsFather" qualifiers="const">
+            <description>returns TRUE if &lt;me&gt; is father of &lt;Ch&gt;.</description>
+        </method>
+        <method name="IsChild" qualifiers="const">
+            <description>returns TRUE if &lt;me&gt; is child of &lt;F&gt;.</description>
         </method>
         <method name="NbFathers" qualifiers="const">
             <description>return Number of Fathers GraphNodes.</description>
@@ -23,6 +53,15 @@
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Find" qualifiers="static">
+            <description>class methods working on the node ================================= Shortcut to search a Graph node attribute with default GraphID. Returns true if found.</description>
+        </method>
+        <method name="Set_1" qualifiers="static">
+            <description>Finds or Creates a GraphNode attribute on the label &lt;L&gt; with the default Graph ID, returned by the method &lt;GetDefaultGraphID&gt;. Returns the created/found GraphNode attribute.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds or Creates a GraphNode attribute on the label &lt;L&gt;, with an explicit tree ID. &lt;ExplicitGraphID&gt; is the ID returned by &lt;TDF_Attribute::ID&gt; method. Returns the found/created GraphNode attribute.</description>
         </method>
         <method name="GetDefaultGraphID" qualifiers="static">
             <description>returns a default Graph ID. this ID is used by the &lt;Set&gt; method without explicit tree ID. Instance methods: ================</description>

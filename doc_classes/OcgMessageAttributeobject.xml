@@ -3,6 +3,12 @@
     <brief_description>Alert object storing a transient object</brief_description>
     <description>! Alert object storing a transient object</description>
     <methods>
+        <method name="Object" qualifiers="const">
+            <description>Returns object</description>
+        </method>
+        <method name="SetObject">
+            <description>Sets the object</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

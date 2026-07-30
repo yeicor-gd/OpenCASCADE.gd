@@ -6,5 +6,8 @@
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
+        <method name="Set_8" qualifiers="static">
+            <description>Find, or create, a Color attribute and set it's value the Color attribute is returned.</description>
+        </method>
     </methods>
 </class>

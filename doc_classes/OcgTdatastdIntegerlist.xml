@@ -33,5 +33,11 @@
         <method name="GetID" qualifiers="static">
             <description>Static methods ============== Returns the ID of the list of integer attribute.</description>
         </method>
+        <method name="Set_1" qualifiers="static">
+            <description>Finds or creates a list of integer values attribute.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds or creates a list of integer values attribute with explicit user defined &lt;guid&gt;.</description>
+        </method>
     </methods>
 </class>

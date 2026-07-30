@@ -3,6 +3,9 @@
     <brief_description>A framework to define sensitive 3D circles.</brief_description>
     <description>! A framework to define sensitive 3D circles.</description>
     <methods>
+        <method name="GetConnected">
+            <description>Returns a copy of this sensitive circle</description>
+        </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of the circle with transformation applied</description>
         </method>

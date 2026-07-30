@@ -10,5 +10,9 @@
 ! (to select or exclude specific attribute IDs) and
 ! CopyOption objects and by giving to Closure
 ! method.</description>
-    <methods />
+    <methods>
+        <method name="Closure_1" qualifiers="static">
+            <description>Builds the transitive closure of label and attribute sets into &lt;aDataSet&gt;.</description>
+        </method>
+    </methods>
 </class>

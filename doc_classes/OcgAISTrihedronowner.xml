@@ -6,5 +6,14 @@
         <method name="DatumPart" qualifiers="const">
             <description>Returns the datum part identifier.</description>
         </method>
+        <method name="HilightWithColor">
+            <description>Highlights selectable object's presentation.</description>
+        </method>
+        <method name="IsHilighted" qualifiers="const">
+            <description>Returns true if the presentation manager thePM highlights selections corresponding to the selection mode aMode.</description>
+        </method>
+        <method name="Unhilight">
+            <description>Removes highlighting from the owner of a detected selectable object in the presentation manager thePM.</description>
+        </method>
     </methods>
 </class>

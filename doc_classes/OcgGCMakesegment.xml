@@ -20,5 +20,8 @@
         <method name="from_gp_Lin_const_ref_gp_Pnt_const_ref_gp_Pnt_const_ref" qualifiers="static">
             <description>Creates a segment of the input line between two points.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed line segment.</description>
+        </method>
     </methods>
 </class>

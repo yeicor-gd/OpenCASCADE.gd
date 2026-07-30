@@ -6,6 +6,15 @@
         <method name="default" qualifiers="static">
             <description>Constructs an empty framework for the display of planes.</description>
         </method>
+        <method name="EdgesAspect" qualifiers="const">
+            <description>Returns the attributes of displayed edges involved in the presentation of planes.</description>
+        </method>
+        <method name="IsoAspect" qualifiers="const">
+            <description>Returns the attributes of displayed isoparameters involved in the presentation of planes.</description>
+        </method>
+        <method name="ArrowAspect" qualifiers="const">
+            <description>Returns the settings for displaying an arrow.</description>
+        </method>
         <method name="SetArrowsSize">
             <description>Sets the angle of the arrowhead used in the display of planes.</description>
         </method>

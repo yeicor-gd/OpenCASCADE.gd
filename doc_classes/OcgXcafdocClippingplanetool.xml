@@ -11,14 +11,26 @@
         <method name="IsClippingPlane" qualifiers="const">
             <description>Returns True if label belongs to a ClippingPlane table and is a ClippingPlane definition</description>
         </method>
-        <method name="AddClippingPlane_2" qualifiers="const">
+        <method name="GetClippingPlane_2" qualifiers="const">
+            <description>Returns ClippingPlane defined by label lab Returns False if the label is not in ClippingPlane table or does not define a ClippingPlane</description>
+        </method>
+        <method name="AddClippingPlane_3" qualifiers="const">
+            <description>Adds a clipping plane definition to a ClippingPlane table and returns its label (returns existing label if the same clipping plane is already defined)</description>
+        </method>
+        <method name="AddClippingPlane_4" qualifiers="const">
             <description>Adds a clipping plane definition to a ClippingPlane table and returns its label (returns existing label if the same clipping plane is already defined)</description>
         </method>
         <method name="AddClippingPlane_1" qualifiers="const">
             <description>Adds a clipping plane definition to a ClippingPlane table and returns its label (returns existing label if the same clipping plane is already defined)</description>
         </method>
+        <method name="AddClippingPlane_2" qualifiers="const">
+            <description>Adds a clipping plane definition to a ClippingPlane table and returns its label (returns existing label if the same clipping plane is already defined)</description>
+        </method>
         <method name="RemoveClippingPlane" qualifiers="const">
             <description>Removes clipping plane from the ClippingPlane table Return false and do nothing if clipping plane is referenced in at least one View</description>
+        </method>
+        <method name="GetClippingPlanes" qualifiers="const">
+            <description>Returns a sequence of clipping planes currently stored in the ClippingPlane table</description>
         </method>
         <method name="UpdateClippingPlane" qualifiers="const">
             <description>Sets new value of plane and name to the given clipping plane label or do nothing, if the given label is not a clipping plane label</description>
@@ -31,6 +43,9 @@
         </method>
         <method name="GetCapping_2" qualifiers="const">
             <description>Get capping value for given clipping plane label Return true if Label is valid and capping exists.</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Creates (if not exist) ClippingPlaneTool.</description>
         </method>
     </methods>
 </class>

@@ -16,5 +16,8 @@
         <method name="SetCurrent">
             <description>Set current box to search for overlapping with him</description>
         </method>
+        <method name="ResInd">
+            <description>Get list of indexes of boxes intersecting with the current box</description>
+        </method>
     </methods>
 </class>

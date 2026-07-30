@@ -18,5 +18,8 @@
         <method name="from_gp_Hypr_const_ref_gp_Pnt_const_ref_gp_Pnt_const_ref_bool" qualifiers="static">
             <description>Constructs an arc between two points on a hyperbola.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed arc of hyperbola.</description>
+        </method>
     </methods>
 </class>

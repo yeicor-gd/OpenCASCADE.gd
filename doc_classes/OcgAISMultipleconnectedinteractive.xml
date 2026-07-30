@@ -10,14 +10,38 @@
         <method name="default" qualifiers="static">
             <description>Initializes the Interactive Object with multiple connections to AIS_Interactive objects.</description>
         </method>
+        <method name="Connect_3">
+            <description>Establishes the connection between the Connected Interactive Object, theInteractive, and its reference. Locates instance in theLocation and applies specified transformation persistence mode.</description>
+        </method>
         <method name="HasConnection" qualifiers="const">
             <description>Returns true if the object is connected to others.</description>
+        </method>
+        <method name="Disconnect">
+            <description>Removes the connection with theInteractive.</description>
         </method>
         <method name="DisconnectAll">
             <description>Clears all the connections to objects.</description>
         </method>
         <method name="AcceptShapeDecomposition" qualifiers="const">
             <description>Informs the graphic context that the interactive Object may be decomposed into sub-shapes for dynamic selection.</description>
+        </method>
+        <method name="GetAssemblyOwner" qualifiers="const">
+            <description>Returns common entity owner if the object is an assembly</description>
+        </method>
+        <method name="GlobalSelOwner" qualifiers="const">
+            <description>Returns the owner of mode for selection of object as a whole</description>
+        </method>
+        <method name="SetContext">
+            <description>Assigns interactive context.</description>
+        </method>
+        <method name="Connect_1">
+            <description>Establishes the connection between the Connected Interactive Object, theInteractive, and its reference. Copies local transformation and transformation persistence mode from theInteractive.</description>
+        </method>
+        <method name="Connect_2">
+            <description>Establishes the connection between the Connected Interactive Object, theInteractive, and its reference. Locates instance in theLocation and copies transformation persistence mode from theInteractive.</description>
+        </method>
+        <method name="Connect_4">
+            <description>Establishes the connection between the Connected Interactive Object, theInteractive, and its reference. Locates instance in theLocation and applies specified transformation persistence mode.</description>
         </method>
     </methods>
 </class>

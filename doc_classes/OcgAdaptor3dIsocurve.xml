@@ -10,13 +10,22 @@
             <description>The iso is set to NoneIso.</description>
         </method>
         <method name="Load_1">
-            <description>Changes the iso on the current surface.</description>
+            <description>Changes the surface. The iso is reset to NoneIso.</description>
         </method>
         <method name="Load_2">
             <description>Changes the iso on the current surface.</description>
         </method>
+        <method name="Load_3">
+            <description>Changes the iso on the current surface.</description>
+        </method>
         <method name="NbIntervals" qualifiers="const">
             <description>Returns the number of intervals for continuity &lt;S&gt;. May be one if Continuity(me) &gt;= &lt;S&gt;</description>
+        </method>
+        <method name="Intervals" qualifiers="const">
+            <description>Stores in &lt;T&gt; the parameters bounding the intervals of continuity &lt;S&gt;.</description>
+        </method>
+        <method name="Trim" qualifiers="const">
+            <description>Returns a curve equivalent of &lt;me&gt; between parameters &lt;First&gt; and &lt;Last&gt;. &lt;Tol&gt; is used to test for 3d points confusion. If &lt;First&gt; &gt;= &lt;Last&gt;</description>
         </method>
         <method name="EvalD0" qualifiers="const">
             <description>Computes the point of parameter theU on the curve.</description>

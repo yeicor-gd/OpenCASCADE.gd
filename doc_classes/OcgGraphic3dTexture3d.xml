@@ -6,5 +6,11 @@
         <method name="from_TCollection_AsciiString_const_ref" qualifiers="static">
             <description>Creates a texture from a file.</description>
         </method>
+        <method name="from_NCollection_Array1_of_TCollection_AsciiString_const_ref" qualifiers="static">
+            <description>Creates a texture from a file.</description>
+        </method>
+        <method name="SetImage">
+            <description>Assign new image to the texture. Note that this method does not invalidate already uploaded resources - consider calling ::UpdateRevision() if needed.</description>
+        </method>
     </methods>
 </class>

@@ -3,6 +3,18 @@
     <brief_description>NoteBook Object attribute</brief_description>
     <description>! NoteBook Object attribute</description>
     <methods>
+        <method name="Append_1">
+            <description>Tool to Create an Integer attribute from &lt;value&gt;, Insert it in a new son label of &lt;me&gt;. The Real attribute is returned.</description>
+        </method>
+        <method name="Append_2">
+            <description>Tool to Create an Real attribute from &lt;value&gt;, Insert it in a new son label of &lt;me&gt;. The Integer attribute is returned.</description>
+        </method>
+        <method name="Find" qualifiers="static">
+            <description>class methods ============= try to retrieve a NoteBook attribute at &lt;current&gt; label or in fathers label of &lt;current&gt;. Returns True if found and set &lt;N&gt;.</description>
+        </method>
+        <method name="New" qualifiers="static">
+            <description>Create an enpty NoteBook attribute, located at &lt;label&gt;. Raises if &lt;label&gt; has attribute</description>
+        </method>
         <method name="GetID" qualifiers="static">
             <description>NoteBook methods ===============</description>
         </method>

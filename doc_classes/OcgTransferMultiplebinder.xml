@@ -26,11 +26,20 @@
         <method name="IsMultiple" qualifiers="const">
             <description>Returns True if a starting object is bound with SEVERAL results : Here, returns always True</description>
         </method>
+        <method name="ResultType" qualifiers="const">
+            <description>Returns the Type permitted for Results, i.e. here Transient</description>
+        </method>
         <method name="ResultTypeName" qualifiers="const">
             <description>Returns the Name of the Type which characterizes the Result Here, returns "(list)"</description>
         </method>
+        <method name="AddResult">
+            <description>Adds a new Item to the Multiple Result</description>
+        </method>
         <method name="NbResults" qualifiers="const">
             <description>Returns the actual count of recorded (Transient) results</description>
+        </method>
+        <method name="ResultValue" qualifiers="const">
+            <description>Returns the value of the recorded result n0 &lt;num&gt;</description>
         </method>
     </methods>
 </class>

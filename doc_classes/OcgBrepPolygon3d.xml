@@ -6,6 +6,9 @@
         <method name="IsPolygon3D" qualifiers="const">
             <description>Returns True.</description>
         </method>
+        <method name="Copy" qualifiers="const">
+            <description>Return a copy of this representation.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

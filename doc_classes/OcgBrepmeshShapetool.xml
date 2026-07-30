@@ -10,17 +10,38 @@
         <method name="BoxMaxDimension" qualifiers="static">
             <description>Gets the maximum dimension of the given bounding box. If the given bounding box is void leaves the resulting value unchanged.</description>
         </method>
+        <method name="AddInFace" qualifiers="static">
+            <description>Stores the given triangulation into the given face.</description>
+        </method>
         <method name="NullifyFace" qualifiers="static">
             <description>Nullifies triangulation stored in the face.</description>
         </method>
-        <method name="NullifyEdge" qualifiers="static">
+        <method name="NullifyEdge_2" qualifiers="static">
+            <description>Nullifies polygon on triangulation stored in the edge.</description>
+        </method>
+        <method name="NullifyEdge_1" qualifiers="static">
             <description>Nullifies 3d polygon stored in the edge.</description>
+        </method>
+        <method name="UpdateEdge_2" qualifiers="static">
+            <description>Updates the given edge by the given tessellated representation.</description>
+        </method>
+        <method name="UpdateEdge_1" qualifiers="static">
+            <description>Updates the given edge by the given tessellated representation.</description>
+        </method>
+        <method name="UpdateEdge_3" qualifiers="static">
+            <description>Updates the given seam edge by the given tessellated representations.</description>
         </method>
         <method name="UseLocation" qualifiers="static">
             <description>Applies location to the given point and return result.</description>
         </method>
         <method name="UVPoints" qualifiers="static">
             <description>Gets the strict UV locations of the extremities of the edge using pcurve.</description>
+        </method>
+        <method name="Range_2" qualifiers="static">
+            <description>Gets the parametric range of the given edge on the given face.</description>
+        </method>
+        <method name="Range_1" qualifiers="static">
+            <description>Gets the 3d range of the given edge.</description>
         </method>
     </methods>
 </class>

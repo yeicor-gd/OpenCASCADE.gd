@@ -78,5 +78,11 @@
         <method name="SetColorSubTitle">
             <description>Modifies the colour of the subtitle for the TODT_SUBTITLE TextDisplayType and the colour of backgroubd for the TODT_DEKALE TextDisplayType.</description>
         </method>
+        <method name="TextFormatter" qualifiers="const">
+            <description>Returns text presentation formatter; NULL by default, which means standard text formatter will be used.</description>
+        </method>
+        <method name="SetTextFormatter">
+            <description>Setup text formatter for presentation. It's empty by default.</description>
+        </method>
     </methods>
 </class>

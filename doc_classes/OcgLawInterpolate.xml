@@ -9,7 +9,7 @@
 ! be closed and the junction will be the first point
 ! given. The curve will than be only C1</description>
     <methods>
-        <method name="Load_1">
+        <method name="Load">
             <description>loads initial and final tangents if any.</description>
         </method>
         <method name="ClearTangents">

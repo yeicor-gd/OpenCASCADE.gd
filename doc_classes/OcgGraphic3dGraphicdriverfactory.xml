@@ -3,11 +3,20 @@
     <brief_description>This class for creation of Graphic3d_GraphicDriver.</brief_description>
     <description>! This class for creation of Graphic3d_GraphicDriver.</description>
     <methods>
+        <method name="CreateDriver">
+            <description>Creates new empty graphic driver.</description>
+        </method>
         <method name="Name" qualifiers="const">
             <description>Return driver factory name.</description>
         </method>
+        <method name="RegisterFactory" qualifiers="static">
+            <description>Registers factory.</description>
+        </method>
         <method name="UnregisterFactory" qualifiers="static">
             <description>Unregisters factory.</description>
+        </method>
+        <method name="DefaultDriverFactory" qualifiers="static">
+            <description>Return default driver factory or NULL if no one was registered.</description>
         </method>
     </methods>
 </class>

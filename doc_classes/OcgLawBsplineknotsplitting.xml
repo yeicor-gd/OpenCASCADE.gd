@@ -24,6 +24,9 @@
         <method name="NbSplits" qualifiers="const">
             <description>Returns the number of knots corresponding to the splitting.</description>
         </method>
+        <method name="Splitting" qualifiers="const">
+            <description>Returns the indexes of the BSpline curve knots corresponding to the splitting.</description>
+        </method>
         <method name="SplitValue" qualifiers="const">
             <description>Returns the index of the knot corresponding to the splitting of range Index.</description>
         </method>

@@ -24,6 +24,9 @@
         <method name="SetTextureFileName">
             <description>Sets the texture source. &lt;theTextureFileName&gt; can specify path to texture image or one of the standard predefined textures. The accepted file types are those used in Image_AlienPixMap with extensions such as rgb, png, jpg and more. To specify the standard predefined texture, the &lt;theTextureFileName&gt; should contain integer - the Graphic3d_NameOfTexture2D enumeration index. Setting texture source using this method resets the source pixmap (if was set previously).</description>
         </method>
+        <method name="SetTexturePixMap">
+            <description>Sets the texture source. &lt;theTexturePixMap&gt; specifies image data. Please note that the data should be in Bottom-Up order, the flag of Image_PixMap::IsTopDown() will be ignored by graphic driver. Setting texture source using this method resets the source by filename (if was set previously).</description>
+        </method>
         <method name="SetTextureMapOn">
             <description>Enables texture mapping</description>
         </method>
@@ -32,6 +35,9 @@
         </method>
         <method name="TextureFile" qualifiers="const">
             <description>Returns path to the texture file</description>
+        </method>
+        <method name="TexturePixMap" qualifiers="const">
+            <description>Returns the source pixmap for texture map</description>
         </method>
         <method name="UpdateAttributes">
             <description>Use this method to display the textured shape without recomputing the whole presentation. Use this method when ONLY the texture content has been changed. If other parameters (ie: scale factors, texture origin, texture repeat...) have changed, the whole presentation has to be recomputed:</description>

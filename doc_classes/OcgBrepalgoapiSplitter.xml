@@ -32,6 +32,12 @@
         <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
+        <method name="SetTools">
+            <description>Sets the Tool arguments</description>
+        </method>
+        <method name="Tools" qualifiers="const">
+            <description>Returns the Tool arguments</description>
+        </method>
         <method name="Build">
             <description>Performs the Split operation. Performs the intersection of the argument shapes (both objects and tools) and splits objects by the tools.</description>
         </method>

@@ -12,5 +12,8 @@
         <method name="GetID" qualifiers="static">
             <description>class methods =============</description>
         </method>
+        <method name="GetDocument_2" qualifiers="static">
+            <description>Owner methods ===============</description>
+        </method>
     </methods>
 </class>

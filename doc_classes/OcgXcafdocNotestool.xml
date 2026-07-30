@@ -61,6 +61,12 @@
         <method name="NbAnnotatedItems" qualifiers="const">
             <description>Returns the number of labels in the annotated items hive.</description>
         </method>
+        <method name="GetNotes" qualifiers="const">
+            <description>Returns all labels from the notes hive. The label sequence isn't cleared beforehand.</description>
+        </method>
+        <method name="GetAnnotatedItems" qualifiers="const">
+            <description>Returns all labels from the annotated items hive. The label sequence isn't cleared beforehand.</description>
+        </method>
         <method name="IsAnnotatedItem_1" qualifiers="const">
             <description>Checks if the given assembly item is annotated.</description>
         </method>
@@ -84,6 +90,30 @@
         </method>
         <method name="FindAnnotatedItemSubshape_2" qualifiers="const">
             <description>Finds a label of the given labeled item's subshape in the annotated items hive.</description>
+        </method>
+        <method name="CreateComment">
+            <description>Create a new comment note. Creates a new label under the notes hive and attaches XCAFDoc_NoteComment attribute (derived ftom XCAFDoc_Note).</description>
+        </method>
+        <method name="CreateBalloon">
+            <description>Create a new 'balloon' note. Creates a new label under the notes hive and attaches XCAFDoc_NoteBalloon attribute (derived ftom XCAFDoc_Note).</description>
+        </method>
+        <method name="AddNote_1">
+            <description>Adds the given note to the assembly item.</description>
+        </method>
+        <method name="AddNote_2">
+            <description>Adds the given note to the labeled item.</description>
+        </method>
+        <method name="AddNoteToAttr_1">
+            <description>Adds the given note to the assembly item's attribute.</description>
+        </method>
+        <method name="AddNoteToAttr_2">
+            <description>Adds the given note to the labeled item's attribute.</description>
+        </method>
+        <method name="AddNoteToSubshape_1">
+            <description>Adds the given note to the assembly item's subshape.</description>
+        </method>
+        <method name="AddNoteToSubshape_2">
+            <description>Adds the given note to the labeled item's subshape.</description>
         </method>
         <method name="RemoveNote_1">
             <description>Removes the given note from the assembly item.</description>
@@ -127,6 +157,9 @@
         <method name="NbOrphanNotes" qualifiers="const">
             <description>Returns number of notes that aren't linked to annotated items.</description>
         </method>
+        <method name="GetOrphanNotes" qualifiers="const">
+            <description>Returns note labels that aren't linked to annotated items. The label sequence isn't cleared beforehand.</description>
+        </method>
         <method name="DeleteOrphanNotes">
             <description>Deletes all notes that aren't linked to annotated items.</description>
         </method>
@@ -135,6 +168,9 @@
         </method>
         <method name="GetID" qualifiers="static">
             <description>Returns default attribute GUID</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Create (if not exist) a notes tool from XCAFDoc on theLabel.</description>
         </method>
     </methods>
 </class>

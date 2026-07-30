@@ -31,5 +31,14 @@
         <method name="UndefinedMetricValue" qualifiers="static">
             <description>Returns default value of the metric when it is not defined</description>
         </method>
+        <method name="StartAlert" qualifiers="static">
+            <description>Sets start values of default report metrics into the alert</description>
+        </method>
+        <method name="StopAlert" qualifiers="static">
+            <description>Sets stop values of default report metrics into the alert</description>
+        </method>
+        <method name="SetAlertMetrics" qualifiers="static">
+            <description>Sets current values of default report metrics into the alert. Processed only alert with Message_AttributeMeter attribute</description>
+        </method>
     </methods>
 </class>

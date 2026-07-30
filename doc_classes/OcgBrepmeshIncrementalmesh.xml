@@ -7,20 +7,14 @@
         <method name="default" qualifiers="static">
             <description>Default constructor</description>
         </method>
-        <method name="from_TopoDS_Shape_const_ref_IMeshTools_Parameters_const_ref_Message_ProgressRange_const_ref" qualifiers="static">
-            <description>Constructor. Automatically calls method Perform.</description>
-        </method>
         <method name="from_TopoDS_Shape_const_ref_double_bool_double_bool" qualifiers="static">
             <description>Constructor. Automatically calls method Perform.</description>
         </method>
-        <method name="Perform">
+        <method name="Perform_1">
             <description>Performs meshing of the shape.</description>
         </method>
-        <method name="Parameters" qualifiers="const">
-            <description>Returns meshing parameters</description>
-        </method>
-        <method name="ChangeParameters">
-            <description>Returns modifiable meshing parameters</description>
+        <method name="Perform_2">
+            <description>Performs meshing using custom context;</description>
         </method>
         <method name="IsParallelDefault" qualifiers="static">
             <description>Returns multi-threading usage flag set by default in Discret() static method (thus applied only to Mesh Factories).</description>

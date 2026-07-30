@@ -12,8 +12,5 @@
         <method name="ChangeFrame">
             <description>Access RGBA frame, should NOT be re-initialized outside. Note that image is expected to have upper-left origin.</description>
         </method>
-        <method name="FrameCount" qualifiers="const">
-            <description>Return current frame index.</description>
-        </method>
     </methods>
 </class>

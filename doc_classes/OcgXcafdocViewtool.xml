@@ -14,6 +14,21 @@
         <method name="IsView" qualifiers="const">
             <description>Returns True if label belongs to a View table and is a View definition</description>
         </method>
+        <method name="GetViewLabels" qualifiers="const">
+            <description>Returns a sequence of View labels currently stored in the View table</description>
+        </method>
+        <method name="SetView_3" qualifiers="const">
+            <description>Sets a link with GUID</description>
+        </method>
+        <method name="SetView_2" qualifiers="const">
+            <description>Sets a link with GUID</description>
+        </method>
+        <method name="SetView_1" qualifiers="const">
+            <description>Sets a link with GUID</description>
+        </method>
+        <method name="SetClippingPlanes" qualifiers="const">
+            <description>Set Clipping planes to given View</description>
+        </method>
         <method name="RemoveView">
             <description>Remove View</description>
         </method>
@@ -28,6 +43,9 @@
         </method>
         <method name="Unlock" qualifiers="const">
             <description>Unlock the given View</description>
+        </method>
+        <method name="Set" qualifiers="static">
+            <description>Creates (if not exist) ViewTool.</description>
         </method>
     </methods>
 </class>

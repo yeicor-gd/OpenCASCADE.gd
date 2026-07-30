@@ -10,8 +10,23 @@
 ! Result is given as a TransferIterator (see TransferProcess)
 ! Also, it is possible to pilot directly the TransientProcess</description>
     <methods>
+        <method name="Model" qualifiers="const">
+            <description>Returns the Starting Model</description>
+        </method>
+        <method name="TransientProcess" qualifiers="const">
+            <description>Returns the TransientProcess used to work</description>
+        </method>
+        <method name="Transfer">
+            <description>Transfer checks that all taken Entities come from the same Model, then calls Transfer from TransientProcess</description>
+        </method>
+        <method name="TransferRoots_2">
+            <description>Runs transfer on the roots of the Interface Model The Roots are computed with a ShareFlags created from a Protocol given as Argument</description>
+        </method>
         <method name="TransferRoots_1">
             <description>Runs transfer on the roots of the Interface Model Remark : the Roots are computed with a ShareFlags created from the Active Protocol</description>
+        </method>
+        <method name="ModelForStatus" qualifiers="const">
+            <description>Fills a Model with the list determined by ListForStatus This model starts from scratch (made by NewEmptyModel from the current Model), then is filled by AddWithRefs</description>
         </method>
     </methods>
 </class>

@@ -33,5 +33,8 @@
         <method name="from_double_double_double_double" qualifiers="static">
             <description>Creates a plane from its cartesian equation: `A * x + B * y + C * z + D = 0.0`.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed plane. Exceptions StdFail_NotDone if no plane is constructed.</description>
+        </method>
     </methods>
 </class>

@@ -42,5 +42,8 @@
         <method name="from_gp_Pnt_const_ref_gp_Pnt_const_ref_double" qualifiers="static">
             <description>Creates a circle from center point, axis point and radius.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed circle. Exceptions StdFail_NotDone if no circle is constructed.</description>
+        </method>
     </methods>
 </class>

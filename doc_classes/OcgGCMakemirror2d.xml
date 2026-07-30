@@ -21,5 +21,8 @@
         <method name="from_gp_Pnt2d_const_ref_gp_Dir2d_const_ref" qualifiers="static">
             <description>Constructs an axial symmetry about a line defined by point and direction.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed transformation.</description>
+        </method>
     </methods>
 </class>

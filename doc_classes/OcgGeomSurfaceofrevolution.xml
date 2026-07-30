@@ -48,6 +48,9 @@
         <method name="SetDirection">
             <description>Changes the direction of the revolution axis. Warnings : It is not checked that the axis is in the plane of the revolved curve.</description>
         </method>
+        <method name="SetBasisCurve">
+            <description>Changes the revolved curve of the surface. Warnings : It is not checked that the curve C is planar and that the surface axis is in the plane of the curve. It is not checked that the revolved curve C doesn't self-intersects.</description>
+        </method>
         <method name="SetLocation">
             <description>Changes the location point of the revolution axis. Warnings : It is not checked that the axis is in the plane of the revolved curve.</description>
         </method>
@@ -99,6 +102,12 @@
         <method name="IsVPeriodic" qualifiers="const">
             <description>IsVPeriodic returns true if the meridian of this surface of revolution is periodic.</description>
         </method>
+        <method name="UIso" qualifiers="const">
+            <description>Computes the U isoparametric curve of this surface of revolution. It is the curve obtained by rotating the meridian through an angle U about the axis of revolution.</description>
+        </method>
+        <method name="VIso" qualifiers="const">
+            <description>Computes the U isoparametric curve of this surface of revolution. It is the curve obtained by rotating the meridian through an angle U about the axis of revolution.</description>
+        </method>
         <method name="EvalD0" qualifiers="const">
             <description>Computes the point P (U, V) on the surface. U is the angle of the rotation around the revolution axis. The direction of this axis gives the sense of rotation. V is the parameter of the revolved curve. Raises an exception on failure.</description>
         </method>
@@ -107,6 +116,9 @@
         </method>
         <method name="Transform">
             <description>Applies the transformation T to this surface of revolution.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this surface of revolution.</description>
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>

@@ -34,8 +34,32 @@
         <method name="SquareMagnitude" qualifiers="const">
             <description>Returns the square magnitude of &lt;me&gt;.</description>
         </method>
+        <method name="Add">
+            <description>Adds the Vector Other to &lt;me&gt;.</description>
+        </method>
+        <method name="Added" qualifiers="const">
+            <description>Adds the vector Other to &lt;me&gt;.</description>
+        </method>
+        <method name="Cross">
+            <description>Computes the cross product between &lt;me&gt; and Other &lt;me&gt; ^ Other.</description>
+        </method>
+        <method name="Crossed" qualifiers="const">
+            <description>Computes the cross product between &lt;me&gt; and Other &lt;me&gt; ^ Other. A new vector is returned.</description>
+        </method>
+        <method name="CrossCross">
+            <description>Computes the triple vector product &lt;me&gt; ^ (V1 ^ V2).</description>
+        </method>
+        <method name="CrossCrossed" qualifiers="const">
+            <description>Computes the triple vector product &lt;me&gt; ^ (V1 ^ V2). A new vector is returned.</description>
+        </method>
         <method name="Divide">
             <description>Divides &lt;me&gt; by a scalar.</description>
+        </method>
+        <method name="Divided" qualifiers="const">
+            <description>Divides &lt;me&gt; by a scalar. A new vector is returned.</description>
+        </method>
+        <method name="Multiplied" qualifiers="const">
+            <description>Computes the product of the vector &lt;me&gt; by a scalar. A new vector is returned.</description>
         </method>
         <method name="Multiply">
             <description>Computes the product of the vector &lt;me&gt; by a scalar.</description>
@@ -43,8 +67,20 @@
         <method name="Normalize">
             <description>Normalizes &lt;me&gt;.</description>
         </method>
+        <method name="Normalized" qualifiers="const">
+            <description>Returns a copy of &lt;me&gt; Normalized.</description>
+        </method>
+        <method name="Subtract">
+            <description>Subtracts the Vector Other to &lt;me&gt;.</description>
+        </method>
+        <method name="Subtracted" qualifiers="const">
+            <description>Subtracts the vector Other to &lt;me&gt;. A new vector is returned.</description>
+        </method>
         <method name="Transform">
             <description>Applies the transformation T to this vector.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this vector.</description>
         </method>
     </methods>
 </class>

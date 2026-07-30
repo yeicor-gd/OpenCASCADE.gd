@@ -18,5 +18,8 @@
         <method name="from_gp_Ax1_const_ref_double_double" qualifiers="static">
             <description>Creates a trimmed cylindrical surface from axis, radius and height.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed trimmed cylinder. Exceptions StdFail_NotDone if no trimmed cylinder is constructed.</description>
+        </method>
     </methods>
 </class>

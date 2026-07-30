@@ -12,5 +12,8 @@
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Find, or create, a Location attribute and set it's value the Location attribute is returned. Location methods ===============</description>
+        </method>
     </methods>
 </class>

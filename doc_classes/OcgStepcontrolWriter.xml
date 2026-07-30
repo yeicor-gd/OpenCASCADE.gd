@@ -16,6 +16,15 @@
         <method name="UnsetTolerance">
             <description>Unsets the tolerance formerly forced by SetTolerance</description>
         </method>
+        <method name="SetWS">
+            <description>Sets a specific session to &lt;me&gt;</description>
+        </method>
+        <method name="WS" qualifiers="const">
+            <description>Returns the session used in &lt;me&gt;</description>
+        </method>
+        <method name="Model">
+            <description>Returns the produced model. Produces a new one if not yet done or if &lt;newone&gt; is True This method allows for instance to edit product or header data before writing.</description>
+        </method>
         <method name="Transfer_1">
             <description>Translates shape sh to a STEP entity. mode defines the STEP entity type to be output: - STEPControlStd_AsIs translates a shape to its highest possible STEP representation. - STEPControlStd_ManifoldSolidBrep translates a shape to a STEP manifold_solid_brep or brep_with_voids entity. - STEPControlStd_FacetedBrep translates a shape into a STEP faceted_brep entity. - STEPControlStd_ShellBasedSurfaceModel translates a shape into a STEP shell_based_surface_model entity. - STEPControlStd_GeometricCurveSet translates a shape into a STEP geometric_curve_set entity.</description>
         </method>

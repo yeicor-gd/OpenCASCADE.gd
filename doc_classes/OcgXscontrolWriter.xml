@@ -14,6 +14,15 @@
         <method name="SetNorm">
             <description>Sets a specific norm to &lt;me&gt; Returns True if done, False if &lt;norm&gt; is not available</description>
         </method>
+        <method name="SetWS">
+            <description>Sets a specific session to &lt;me&gt;</description>
+        </method>
+        <method name="WS" qualifiers="const">
+            <description>Returns the session used in &lt;me&gt;</description>
+        </method>
+        <method name="Model">
+            <description>Returns the produced model. Produces a new one if not yet done or if &lt;newone&gt; is True This method allows for instance to edit product or header data before writing</description>
+        </method>
         <method name="TransferShape">
             <description>Transfers a Shape according to the mode</description>
         </method>

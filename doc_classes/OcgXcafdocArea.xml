@@ -6,11 +6,14 @@
         <method name="default" qualifiers="static">
             <description>class methods =============</description>
         </method>
-        <method name="Set">
+        <method name="Set_1">
             <description>Sets a value of volume</description>
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Find, or create, an Area attribute and set its value</description>
         </method>
         <method name="Get_2" qualifiers="static">
             <description>Returns volume of area as argument and success status returns false if no such attribute at the &lt;label&gt;</description>

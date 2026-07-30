@@ -7,8 +7,14 @@
         <method name="Type" qualifiers="const">
             <description>Indicates that the type of Interactive Object is a datum.</description>
         </method>
+        <method name="Circle" qualifiers="const">
+            <description>Returns the circle component defined in SetCircle.</description>
+        </method>
         <method name="Parameters" qualifiers="const">
             <description>Constructs instances of the starting point and the end point parameters, theU1 and theU2.</description>
+        </method>
+        <method name="SetCircle">
+            <description>Allows you to provide settings for the circle datum aCircle.</description>
         </method>
         <method name="SetFirstParam">
             <description>Allows you to set the parameter theU for the starting point of an arc.</description>

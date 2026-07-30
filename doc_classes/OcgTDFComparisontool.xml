@@ -18,5 +18,12 @@
 ! * IsSelfContained(...) returns true if all the
 ! labels of the attributes of the given DataSet are
 ! descendant of the given label.</description>
-    <methods />
+    <methods>
+        <method name="Cut" qualifiers="static">
+            <description>Removes attributes from &lt;aDataSet&gt;.</description>
+        </method>
+        <method name="IsSelfContained" qualifiers="static">
+            <description>Returns true if all the labels of &lt;aDataSet&gt; are descendant of &lt;aLabel&gt;.</description>
+        </method>
+    </methods>
 </class>

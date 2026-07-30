@@ -81,6 +81,24 @@
         <method name="Invert">
             <description>Raised if the transformation is singular. This means that the ScaleFactor is lower or equal to Resolution from package gp.</description>
         </method>
+        <method name="Inverted" qualifiers="const">
+            <description>Raised if the transformation is singular. This means that the ScaleFactor is lower or equal to Resolution from package gp.</description>
+        </method>
+        <method name="Multiplied" qualifiers="const">
+            <description>Computes the transformation composed with Other and &lt;me&gt;. &lt;me&gt; * Other. Returns a new transformation</description>
+        </method>
+        <method name="Multiply">
+            <description>Computes the transformation composed with Other and &lt;me&gt; . &lt;me&gt; = &lt;me&gt; * Other.</description>
+        </method>
+        <method name="Powered" qualifiers="const">
+            <description>Raised if N &lt; 0 and if the transformation is not inversible</description>
+        </method>
+        <method name="PreMultiply">
+            <description>Computes the matrix of the transformation composed with &lt;me&gt; and Other. &lt;me&gt; = Other * &lt;me&gt;</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this transformation.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

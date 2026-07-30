@@ -19,17 +19,47 @@
         <method name="Copy" qualifiers="const">
             <description>Make a copy of &lt;edge&gt; by call to CopyReplaceVertices() (i.e. construct new TEdge with the same pcurves and vertices). If &lt;sharepcurves&gt; is False, pcurves are also replaced by their copies with help of method CopyPCurves</description>
         </method>
-        <method name="RemovePCurve" qualifiers="const">
+        <method name="RemovePCurve_1" qualifiers="const">
             <description>Removes the PCurve(s) which could be recorded in an Edge for the given Face</description>
+        </method>
+        <method name="RemovePCurve_2" qualifiers="const">
+            <description>Removes the PCurve(s) which could be recorded in an Edge for the given Surface</description>
+        </method>
+        <method name="RemovePCurve_3" qualifiers="const">
+            <description>Removes the PCurve(s) which could be recorded in an Edge for the given Surface, with given Location</description>
+        </method>
+        <method name="ReplacePCurve" qualifiers="const">
+            <description>Replace the PCurve in an Edge for the given Face In case if edge is seam, i.e. has 2 pcurves on that face, only pcurve corresponding to the orientation of the edge is replaced</description>
         </method>
         <method name="ReassignPCurve" qualifiers="const">
             <description>Reassign edge pcurve lying on face &lt;old&gt; to another face . If edge has two pcurves on &lt;old&gt; face, only one of them will be reassigned, and other will left alone. Similarly, if edge already had a pcurve on face , it will have two pcurves on it. Returns True if succeeded, False if no pcurve lying on &lt;old&gt; found.</description>
+        </method>
+        <method name="TransformPCurve" qualifiers="const">
+            <description>Transforms the PCurve with given matrix and affinity U factor.</description>
         </method>
         <method name="RemoveCurve3d" qualifiers="const">
             <description>Removes the Curve3D recorded in an Edge</description>
         </method>
         <method name="BuildCurve3d" qualifiers="const">
             <description>Calls BRepTools::BuildCurve3D</description>
+        </method>
+        <method name="MakeEdge_1" qualifiers="const">
+            <description>Makes edge with curve and location</description>
+        </method>
+        <method name="MakeEdge_4" qualifiers="const">
+            <description>Makes edge with curve, location and range [p1, p2]</description>
+        </method>
+        <method name="MakeEdge_2" qualifiers="const">
+            <description>Makes edge with pcurve and face</description>
+        </method>
+        <method name="MakeEdge_5" qualifiers="const">
+            <description>Makes edge with pcurve, face and range [p1, p2]</description>
+        </method>
+        <method name="MakeEdge_3" qualifiers="const">
+            <description>Makes edge with pcurve, surface and location</description>
+        </method>
+        <method name="MakeEdge_6" qualifiers="const">
+            <description>Makes edge with pcurve, surface, location and range [p1, p2]</description>
         </method>
     </methods>
 </class>

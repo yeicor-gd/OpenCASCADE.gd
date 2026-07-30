@@ -12,5 +12,8 @@
         <method name="from_gp_Pnt_const_ref_double" qualifiers="static">
             <description>Constructs a scaling transformation.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed transformation.</description>
+        </method>
     </methods>
 </class>

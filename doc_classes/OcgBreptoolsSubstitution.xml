@@ -15,11 +15,17 @@
         <method name="Clear">
             <description>Reset all the fields.</description>
         </method>
+        <method name="Substitute">
+            <description>&lt;Oldshape&gt; will be replaced by &lt;NewShapes&gt;.</description>
+        </method>
         <method name="Build">
             <description>Build NewShape from &lt;S&gt; if its subshapes has modified.</description>
         </method>
         <method name="IsCopied" qualifiers="const">
             <description>Returns True if &lt;S&gt; has been replaced.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Returns the set of shapes substituted to &lt;S&gt;.</description>
         </method>
     </methods>
 </class>

@@ -3,7 +3,7 @@
     <brief_description>Used to define a Length Unit attribute containing a length unit info</brief_description>
     <description>! Used to define a Length Unit attribute containing a length unit info</description>
     <methods>
-        <method name="Set">
+        <method name="Set_1">
             <description>Creates a LengthUnit attribute</description>
         </method>
         <method name="GetUnitName" qualifiers="const">
@@ -14,6 +14,15 @@
         </method>
         <method name="GetID" qualifiers="static">
             <description>Returns the GUID of the attribute.</description>
+        </method>
+        <method name="Set_3" qualifiers="static">
+            <description>Finds or creates a LengthUnit attribute</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds or creates a LengthUnit attribute</description>
+        </method>
+        <method name="Set_4" qualifiers="static">
+            <description>Finds, or creates, a LengthUnit attribute with explicit user defined GUID</description>
         </method>
     </methods>
 </class>

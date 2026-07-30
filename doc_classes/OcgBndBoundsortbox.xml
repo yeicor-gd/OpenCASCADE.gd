@@ -25,5 +25,11 @@
         <method name="Add">
             <description>Adds the bounding box theBox at position boxIndex in the internal array of boxes to be sorted by this comparison algorithm. This function is used only in conjunction with the Initialize(const Bnd_Box&amp;, const int) method. Exceptions: - Standard_OutOfRange if boxIndex is not in the range [ 1,nbComponents ] where nbComponents is the maximum number of bounding boxes declared for this algorithm at initialization. - Standard_MultiplyDefined if a box already exists at position theIndex in the internal array of boxes.</description>
         </method>
+        <method name="Compare_1">
+            <description>Compares the bounding box theBox, with the set of bounding boxes provided to this algorithm at initialization, and returns the list of indices of bounding boxes that intersect the theBox or are inside it. The indices correspond to the indices of the bounding boxes in the array provided to this algorithm at initialization.</description>
+        </method>
+        <method name="Compare_2">
+            <description>Compares the plane thePlane with the set of bounding boxes provided to this algorithm at initialization, and returns the list of indices of bounding boxes that intersect the thePlane. The indices correspond to the indices of the bounding boxes in the array provided to this algorithm at initialization.</description>
+        </method>
     </methods>
 </class>

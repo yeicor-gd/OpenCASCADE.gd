@@ -15,5 +15,17 @@
         <method name="from_double_double_double_double_double_int_int" qualifiers="static">
             <description>Initializes the algorithm creating a torus ring segment.</description>
         </method>
+        <method name="Create_1" qualifiers="static">
+            <description>Generate primitives for 3D quadric surface (complete torus).</description>
+        </method>
+        <method name="Create_2" qualifiers="static">
+            <description>Generate primitives for 3D quadric surface (torus segment).</description>
+        </method>
+        <method name="Create_3" qualifiers="static">
+            <description>Generate primitives for 3D quadric surface (torus ring segment).</description>
+        </method>
+        <method name="Create_4" qualifiers="static">
+            <description>Generate primitives for 3D quadric surface (segment of the torus ring segment).</description>
+        </method>
     </methods>
 </class>

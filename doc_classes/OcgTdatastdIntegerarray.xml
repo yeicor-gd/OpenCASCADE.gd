@@ -30,11 +30,23 @@
         <method name="SetDelta">
             <description>for internal use only!</description>
         </method>
+        <method name="Paste" qualifiers="const">
+            <description>Note. Uses inside ChangeArray() method</description>
+        </method>
+        <method name="DeltaOnModification" qualifiers="const">
+            <description>Makes a DeltaOnModification between &lt;me&gt; and &lt;anOldAttribute&gt;.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
         <method name="GetID" qualifiers="static">
             <description>class methods ============= Returns the GUID for arrays of integers.</description>
+        </method>
+        <method name="Set_1" qualifiers="static">
+            <description>Finds or creates on the &lt;label&gt; an integer array attribute with the specified &lt;lower&gt; and &lt;upper&gt; boundaries. If &lt;isDelta&gt; == False, DefaultDeltaOnModification is used. If &lt;isDelta&gt; == True, DeltaOnModification of the current attribute is used. If attribute is already set, all input parameters are refused and the found attribute is returned.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds, or creates, an IntegerArray attribute with explicit user defined &lt;guid&gt;. The IntegerArray attribute is returned.</description>
         </method>
     </methods>
 </class>

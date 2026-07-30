@@ -57,5 +57,8 @@
         <method name="Transform">
             <description>Transforms an axis placement with a Trsf. The "Location" point, the "XDirection" and the "YDirection" are transformed with T. The resulting main "Direction" of &lt;me&gt; is the cross product between the "XDirection" and the "YDirection" after transformation.</description>
         </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object which is a copy of this coordinate system.</description>
+        </method>
     </methods>
 </class>

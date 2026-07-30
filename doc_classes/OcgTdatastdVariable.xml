@@ -23,7 +23,7 @@
         <method name="Set_1" qualifiers="const">
             <description>retrieve or create the associated real attribute and set the value &lt;value&gt;.</description>
         </method>
-        <method name="Set_2" qualifiers="const">
+        <method name="Set_3" qualifiers="const">
             <description>Obsolete method that will be removed in next versions. The dimension argument is not supported in the persistence mechanism.</description>
         </method>
         <method name="IsValued" qualifiers="const">
@@ -32,11 +32,20 @@
         <method name="Get" qualifiers="const">
             <description>returns value stored in associated Real attribute.</description>
         </method>
+        <method name="Real" qualifiers="const">
+            <description>returns associated Real attribute.</description>
+        </method>
         <method name="IsAssigned" qualifiers="const">
             <description>returns True if an Expression attribute is associated. create(if doesn't exist), set and returns the assigned expression attribute.</description>
         </method>
+        <method name="Assign" qualifiers="const">
+            <description>create(if doesn't exist) and returns the assigned expression attribute. fill it after.</description>
+        </method>
         <method name="Desassign" qualifiers="const">
             <description>if &lt;me&gt; is assigned delete the associated expression attribute.</description>
+        </method>
+        <method name="Expression" qualifiers="const">
+            <description>if &lt;me&gt; is assigned, returns associated Expression attribute.</description>
         </method>
         <method name="IsCaptured" qualifiers="const">
             <description>shortcut for &lt;Real()-&gt;IsCaptured()&gt;</description>
@@ -50,11 +59,17 @@
         <method name="Constant">
             <description>if &lt;status&gt; is True, this variable will not be modified by the solver.</description>
         </method>
+        <method name="References" qualifiers="const">
+            <description>to export reference to the associated Name attribute.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
         <method name="GetID" qualifiers="static">
             <description>class methods =============</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Find, or create, a Variable attribute. Real methods ============</description>
         </method>
     </methods>
 </class>

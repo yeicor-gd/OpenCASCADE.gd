@@ -3,6 +3,12 @@
     <brief_description>Attribute to store dimension and tolerance</brief_description>
     <description>! Attribute to store dimension and tolerance</description>
     <methods>
+        <method name="SetObject">
+            <description>Updates parent's label and its sub-labels with data taken from theGeomToleranceObject. Old data associated with the label will be lost.</description>
+        </method>
+        <method name="GetObject" qualifiers="const">
+            <description>Returns geometry tolerance object data taken from the paren's label and its sub-labels.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

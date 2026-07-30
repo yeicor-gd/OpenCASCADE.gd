@@ -6,5 +6,8 @@
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
+        <method name="Set" qualifiers="static">
+            <description>api class methods ============= Find, or create, a UAttribute attribute with &lt;LocalID&gt; as Local GUID. The UAttribute attribute is returned. UAttribute methods ============</description>
+        </method>
     </methods>
 </class>

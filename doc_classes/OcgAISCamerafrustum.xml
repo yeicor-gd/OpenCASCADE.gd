@@ -7,6 +7,9 @@
         <method name="default" qualifiers="static">
             <description>Constructs camera frustum with default configuration.</description>
         </method>
+        <method name="SetCameraFrustum">
+            <description>Sets camera frustum.</description>
+        </method>
         <method name="SetColor">
             <description>Setup custom color.</description>
         </method>

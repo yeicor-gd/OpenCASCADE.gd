@@ -2,5 +2,12 @@
 <class name="OcgGraphic3dCubemappacked" inherits="RefCounted">
     <brief_description>Class is intended to process cubemap packed into single image plane.</brief_description>
     <description>! Class is intended to process cubemap packed into single image plane.</description>
-    <methods />
+    <methods>
+        <method name="CompressedValue">
+            <description>Returns current cubemap side as compressed PixMap.</description>
+        </method>
+        <method name="Value">
+            <description>Returns current cubemap side as PixMap. Resulting PixMap is memory wrapper over original image. Returns null handle if current side or whole cubemap is invalid. Origin image has to contain six quad tiles having one sizes without any gaps to be valid.</description>
+        </method>
+    </methods>
 </class>

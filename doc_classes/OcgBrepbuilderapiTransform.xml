@@ -25,5 +25,8 @@
         <method name="ModifiedShape" qualifiers="const">
             <description>Returns the modified shape corresponding to &lt;S&gt;.</description>
         </method>
+        <method name="Modified">
+            <description>Returns the list of shapes modified from the shape &lt;S&gt;.</description>
+        </method>
     </methods>
 </class>

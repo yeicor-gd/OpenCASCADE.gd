@@ -4,5 +4,12 @@
     <description>! Gives information on an object
 ! Used as template to instantiate Mapper and SimpleBinder
 ! This class is for Transient</description>
-    <methods />
+    <methods>
+        <method name="Type" qualifiers="static">
+            <description>Returns the Type attached to an object Here, the Dynamic Type of a Transient. Null Type if unknown</description>
+        </method>
+        <method name="TypeName" qualifiers="static">
+            <description>Returns Type Name (string) Allows to name type of non-handled objects</description>
+        </method>
+    </methods>
 </class>

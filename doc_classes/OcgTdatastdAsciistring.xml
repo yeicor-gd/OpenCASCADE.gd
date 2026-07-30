@@ -15,5 +15,11 @@
         <method name="GetID" qualifiers="static">
             <description>class methods ============= Returns the GUID of the attribute.</description>
         </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds, or creates an AsciiString attribute and sets the string. the AsciiString attribute is returned. AsciiString methods ===================</description>
+        </method>
+        <method name="Set_3" qualifiers="static">
+            <description>Finds, or creates, an AsciiString attribute with explicit user defined &lt;guid&gt; and sets &lt;string&gt;. The Name attribute is returned.</description>
+        </method>
     </methods>
 </class>

@@ -30,11 +30,20 @@
         <method name="SetDelta">
             <description>for internal use only!</description>
         </method>
+        <method name="DeltaOnModification" qualifiers="const">
+            <description>Makes a DeltaOnModification between &lt;me&gt; and &lt;anOldAttribute&gt;.</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>
         <method name="GetID" qualifiers="static">
             <description>Static methods ============== Returns an ID for array.</description>
+        </method>
+        <method name="Set_1" qualifiers="static">
+            <description>Finds or creates an attribute with the array on the specified label. If &lt;isDelta&gt; == False, DefaultDeltaOnModification is used. If &lt;isDelta&gt; == True, DeltaOnModification of the current attribute is used. If attribute is already set, all input parameters are refused and the found attribute is returned.</description>
+        </method>
+        <method name="Set_2" qualifiers="static">
+            <description>Finds or creates an attribute with byte array and explicit user defined &lt;guid&gt; on the specified label.</description>
         </method>
     </methods>
 </class>

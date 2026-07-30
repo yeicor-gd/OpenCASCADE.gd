@@ -19,6 +19,21 @@
 ! PlaneAspect for planes and LineAspect for
 ! trihedra. Change these values and recalculate the presentation.</description>
     <methods>
+        <method name="Component">
+            <description>Returns the component specified in SetComponent.</description>
+        </method>
+        <method name="SetComponent">
+            <description>Creates an instance of the component object aPlane.</description>
+        </method>
+        <method name="XAxis" qualifiers="const">
+            <description>Returns the "XAxis".</description>
+        </method>
+        <method name="YAxis" qualifiers="const">
+            <description>Returns the "YAxis".</description>
+        </method>
+        <method name="Position" qualifiers="const">
+            <description>Returns the point of origin of the plane trihedron.</description>
+        </method>
         <method name="SetLength">
             <description>Sets the length of the X and Y axes.</description>
         </method>

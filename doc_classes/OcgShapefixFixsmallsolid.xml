@@ -15,5 +15,11 @@
         <method name="SetWidthFactorThreshold">
             <description>Set or clear width factor threshold for small solids</description>
         </method>
+        <method name="Remove" qualifiers="const">
+            <description>Remove small solids from the given shape</description>
+        </method>
+        <method name="Merge" qualifiers="const">
+            <description>Merge small solids in the given shape to adjacent non-small ones</description>
+        </method>
     </methods>
 </class>

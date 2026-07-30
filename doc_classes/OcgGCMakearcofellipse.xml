@@ -18,5 +18,8 @@
         <method name="from_gp_Elips_const_ref_gp_Pnt_const_ref_gp_Pnt_const_ref_bool" qualifiers="static">
             <description>Constructs an arc between two points on an ellipse.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed arc of ellipse.</description>
+        </method>
     </methods>
 </class>

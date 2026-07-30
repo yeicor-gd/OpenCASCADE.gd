@@ -8,5 +8,8 @@
         <method name="GetID" qualifiers="static">
             <description>Static methods ==============</description>
         </method>
+        <method name="Set" qualifiers="static">
+            <description>Find, or create, a Tick attribute. Tick methods ============</description>
+        </method>
     </methods>
 </class>

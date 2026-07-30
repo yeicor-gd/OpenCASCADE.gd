@@ -38,5 +38,8 @@
         <method name="Perform">
             <description>Performs the check.</description>
         </method>
+        <method name="Result">
+            <description>Returns faulty shapes.</description>
+        </method>
     </methods>
 </class>

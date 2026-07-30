@@ -51,8 +51,14 @@
         <method name="ReversedParameter" qualifiers="const">
             <description>Computes the parameter on the reversed curve for the point of parameter U on this offset curve.</description>
         </method>
+        <method name="SetBasisCurve">
+            <description>Changes this offset curve by assigning C as the basis curve from which it is built. If isNotCheckC0 = TRUE checking if basis curve has C0-continuity is not made. Exceptions if isNotCheckC0 = false, Standard_ConstructionError if the curve C is not at least "C1" continuous.</description>
+        </method>
         <method name="SetOffsetValue">
             <description>Changes this offset curve by assigning D as the offset value.</description>
+        </method>
+        <method name="BasisCurve" qualifiers="const">
+            <description>Returns the basis curve of this offset curve. The basis curve can be an offset curve.</description>
         </method>
         <method name="Continuity" qualifiers="const">
             <description>Continuity of the Offset curve : C0 : only geometric continuity, C1 : continuity of the first derivative all along the Curve, C2 : continuity of the second derivative all along the Curve, C3 : continuity of the third derivative all along the Curve, G1 : tangency continuity all along the Curve, G2 : curvature continuity all along the Curve, CN : the order of continuity is infinite. Warnings : Returns the continuity of the basis curve - 1. The offset curve must have a unique normal direction defined at any point. Value and derivatives</description>
@@ -92,6 +98,9 @@
         </method>
         <method name="ParametricTransformation" qualifiers="const">
             <description>Returns a coefficient to compute the parameter on the transformed curve for the transform of the point on &lt;me&gt;.</description>
+        </method>
+        <method name="Copy" qualifiers="const">
+            <description>Creates a new object, which is a copy of this offset curve.</description>
         </method>
         <method name="GetBasisCurveContinuity" qualifiers="const">
             <description>Returns continuity of the basis curve.</description>

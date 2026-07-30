@@ -18,8 +18,11 @@
         <method name="from_double" qualifiers="static">
             <description>Creates an object with tolerance of connexity</description>
         </method>
-        <method name="Add">
+        <method name="Add_1">
             <description>Adds faces of a shape</description>
+        </method>
+        <method name="Add_2">
+            <description>Adds a surface</description>
         </method>
         <method name="Perform">
             <description>Compute resulted shape</description>

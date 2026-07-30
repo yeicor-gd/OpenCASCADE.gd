@@ -23,5 +23,8 @@
         <method name="from_gp_Lin2d_const_ref_gp_Pnt2d_const_ref_gp_Pnt2d_const_ref" qualifiers="static">
             <description>Creates a segment on a line between projections of two points.</description>
         </method>
+        <method name="Value" qualifiers="const">
+            <description>Returns the constructed line segment. Exceptions StdFail_NotDone if no line segment is constructed.</description>
+        </method>
     </methods>
 </class>

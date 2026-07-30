@@ -7,6 +7,24 @@
         <method name="Type" qualifiers="const">
             <description>Returns the type Datum.</description>
         </method>
+        <method name="Line" qualifiers="const">
+            <description>Constructs an infinite line.</description>
+        </method>
+        <method name="StartPoint" qualifiers="const">
+            <description>Returns the starting point of the line set by SetPoints.</description>
+        </method>
+        <method name="EndPoint" qualifiers="const">
+            <description>Returns the end point of the line set by SetPoints.</description>
+        </method>
+        <method name="Points" qualifiers="const">
+            <description>Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.</description>
+        </method>
+        <method name="SetLine">
+            <description>Sets the infinite line.</description>
+        </method>
+        <method name="SetPoints">
+            <description>Sets the starting point and ending point of the infinite line to create a finite line segment.</description>
+        </method>
         <method name="SetColor">
             <description>Provides a new color setting aColor for the line in the drawing tool, or "Drawer".</description>
         </method>
