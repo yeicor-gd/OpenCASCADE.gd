@@ -107,6 +107,9 @@
         <method name="EntityFromShapeResult" qualifiers="const">
             <description>Returns an entity from which a given shape result was produced Returns a Null Handle if &lt;res&gt; not recorded or not a Shape</description>
         </method>
+        <method name="CheckList" qualifiers="const">
+            <description>Returns the CheckList resulting from transferring &lt;ent&gt;, i.e. stored in its recorded form ResultFromModel (empty if transfer successful or not recorded ...)</description>
+        </method>
         <method name="HasChecks" qualifiers="const">
             <description>Returns True if an entity (with a final result) has checks : - failsonly = False : any kind of check message - failsonly = True : fails only Returns False if &lt;ent&gt; is not recorded</description>
         </method>
@@ -124,6 +127,9 @@
         </method>
         <method name="PrintStats" qualifiers="const">
             <description>Prints statistics on current Trace File, according &lt;what&gt; and &lt;mode&gt;. See PrintStatsProcess for details</description>
+        </method>
+        <method name="LastCheckList" qualifiers="const">
+            <description>Returns the CheckList resulting from last TransferRead i.e. from TransientProcess itself, recorded from last Clear</description>
         </method>
         <method name="PrintStatsProcess" qualifiers="static">
             <description>This routines prints statistics about a TransientProcess It can be called, by a TransferReader, or isolately Prints are done on the default trace file &lt;what&gt; defines what kind of statistics are to be printed : 0 : basic figures 1 : root results 2 : all recorded (roots, intermediate, checked entities) 3 : abnormal records 4 : check messages (warnings and fails) 5 : fail messages</description>

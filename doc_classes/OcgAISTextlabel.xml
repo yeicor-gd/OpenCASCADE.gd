@@ -84,5 +84,8 @@
         <method name="SetTextFormatter">
             <description>Setup text formatter for presentation. It's empty by default.</description>
         </method>
+        <method name="get_type_name" qualifiers="static">
+            <description>CASCADE RTTI</description>
+        </method>
     </methods>
 </class>
