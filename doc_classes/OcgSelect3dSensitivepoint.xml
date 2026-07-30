@@ -12,6 +12,9 @@
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of point. If location transformation is set, it will be applied</description>
         </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of the point. If location transformation is set, it will be applied</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

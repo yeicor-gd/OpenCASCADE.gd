@@ -14,6 +14,9 @@
         <method name="Remove">
             <description>Removes every entity of selection theSelection from the set and marks BVH tree for rebuild</description>
         </method>
+        <method name="Box" qualifiers="const">
+            <description>Returns bounding box of entity with index theIdx</description>
+        </method>
         <method name="Center" qualifiers="const">
             <description>Returns geometry center of sensitive entity index theIdx along the given axis theAxis</description>
         </method>

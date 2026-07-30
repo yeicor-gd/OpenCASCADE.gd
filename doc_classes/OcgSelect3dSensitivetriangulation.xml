@@ -12,11 +12,17 @@
         <method name="Size" qualifiers="const">
             <description>Returns the length of array of triangles or edges</description>
         </method>
+        <method name="Box" qualifiers="const">
+            <description>Returns bounding box of triangle/edge with index theIdx</description>
+        </method>
         <method name="Center" qualifiers="const">
             <description>Returns geometry center of triangle/edge with index theIdx in array along the given axis theAxis</description>
         </method>
         <method name="Swap">
             <description>Swaps items with indexes theIdx1 and theIdx2 in array</description>
+        </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of the triangulation. If location transformation is set, it will be applied</description>
         </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of triangulation. If location transformation is set, it will be applied</description>

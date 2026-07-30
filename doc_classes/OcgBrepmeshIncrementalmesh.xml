@@ -16,6 +16,9 @@
         <method name="Perform_2">
             <description>Performs meshing using custom context;</description>
         </method>
+        <method name="Discret" qualifiers="static">
+            <description>Plugin interface for the Mesh Factories. Initializes meshing algorithm with the given parameters.</description>
+        </method>
         <method name="IsParallelDefault" qualifiers="static">
             <description>Returns multi-threading usage flag set by default in Discret() static method (thus applied only to Mesh Factories).</description>
         </method>

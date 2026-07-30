@@ -22,6 +22,9 @@
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of the segment. If location transformation is set, it will be applied</description>
         </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of the segment. If location transformation is set, it will be applied</description>
+        </method>
         <method name="StartPoint_2">
             <description>changes the start Point of the Segment;</description>
         </method>

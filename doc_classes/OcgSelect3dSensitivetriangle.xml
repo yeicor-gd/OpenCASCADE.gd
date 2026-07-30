@@ -15,6 +15,9 @@
         <method name="GetConnected">
             <description>Returns the copy of this</description>
         </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of the triangle. If location transformation is set, it will be applied</description>
+        </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>
         </method>

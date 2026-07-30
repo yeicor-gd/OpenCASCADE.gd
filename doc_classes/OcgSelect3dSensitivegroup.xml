@@ -33,8 +33,14 @@
         <method name="Set">
             <description>Sets the owner for all entities in group</description>
         </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of the group. If location transformation is set, it will be applied</description>
+        </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of entity set. If location transformation is set, it will be applied</description>
+        </method>
+        <method name="Box" qualifiers="const">
+            <description>Returns bounding box of sensitive entity with index theIdx</description>
         </method>
         <method name="Center" qualifiers="const">
             <description>Returns geometry center of sensitive entity index theIdx in the vector along the given axis theAxis</description>

@@ -6,6 +6,9 @@
         <method name="GetConnected">
             <description>Returns a copy of this sensitive circle</description>
         </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of the circle. If location transformation is set, it will be applied</description>
+        </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of the circle with transformation applied</description>
         </method>

@@ -6,6 +6,9 @@
         <method name="GetConnected">
             <description>Returns the copy of this</description>
         </method>
+        <method name="BoundingBox">
+            <description>Returns bounding box of the sphere. If location transformation is set, it will be applied</description>
+        </method>
         <method name="CenterOfGeometry" qualifiers="const">
             <description>Returns center of the sphere with transformation applied</description>
         </method>
