@@ -12,6 +12,30 @@
         <method name="default" qualifiers="static">
             <description>Constructs an empty approximation algorithm. Use an Init function to define and build the BSpline curve.</description>
         </method>
+        <method name="from_NCollection_Array1_of_gp_Pnt_const_ref_int_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximate a BSpline Curve passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D</description>
+        </method>
+        <method name="from_NCollection_Array1_of_gp_Pnt_const_ref_Approx_ParametrizationType_int_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximate a BSpline Curve passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D</description>
+        </method>
+        <method name="from_NCollection_Array1_of_gp_Pnt_const_ref_NCollection_Array1_of_double_const_ref_int_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximate a BSpline Curve passing through an array of Point, which parameters are given by the array &lt;Parameters&gt;. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D</description>
+        </method>
+        <method name="from_NCollection_Array1_of_gp_Pnt_const_ref_double_double_double_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximate a BSpline Curve passing through an array of Point using variational smoothing algorithm, which tries to minimize additional criterium: Weight1*CurveLength + Weight2*Curvature + Weight3*Torsion</description>
+        </method>
+        <method name="Init_1">
+            <description>Approximate a BSpline Curve passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D</description>
+        </method>
+        <method name="Init_2">
+            <description>Approximate a BSpline Curve passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D</description>
+        </method>
+        <method name="Init_3">
+            <description>Approximate a BSpline Curve passing through an array of Point, which parameters are given by the array &lt;Parameters&gt;. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D</description>
+        </method>
+        <method name="Init_4">
+            <description>Approximate a BSpline Curve passing through an array of Point using variational smoothing algorithm, which tries to minimize additional criterium: Weight1*CurveLength + Weight2*Curvature + Weight3*Torsion</description>
+        </method>
         <method name="Curve" qualifiers="const">
             <description>Returns the computed BSpline curve. Raises StdFail_NotDone if the curve is not built.</description>
         </method>

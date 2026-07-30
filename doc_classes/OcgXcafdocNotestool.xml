@@ -61,7 +61,7 @@
         <method name="NbAnnotatedItems" qualifiers="const">
             <description>Returns the number of labels in the annotated items hive.</description>
         </method>
-        <method name="GetNotes" qualifiers="const">
+        <method name="GetNotes_1" qualifiers="const">
             <description>Returns all labels from the notes hive. The label sequence isn't cleared beforehand.</description>
         </method>
         <method name="GetAnnotatedItems" qualifiers="const">
@@ -96,6 +96,21 @@
         </method>
         <method name="CreateBalloon">
             <description>Create a new 'balloon' note. Creates a new label under the notes hive and attaches XCAFDoc_NoteBalloon attribute (derived ftom XCAFDoc_Note).</description>
+        </method>
+        <method name="GetNotes_2" qualifiers="const">
+            <description>Gets all note labels of the assembly item. Notes linked to item's subshapes or attributes aren't taken into account. The label sequence isn't cleared beforehand.</description>
+        </method>
+        <method name="GetNotes_3" qualifiers="const">
+            <description>Gets all note labels of the labeled item. Notes linked to item's attributes aren't taken into account. The label sequence isn't cleared beforehand.</description>
+        </method>
+        <method name="GetAttrNotes_1" qualifiers="const">
+            <description>Gets all note labels of the assembly item's attribute. Notes linked to the item itself or to item's subshapes aren't taken into account. The label sequence isn't cleared beforehand.</description>
+        </method>
+        <method name="GetAttrNotes_2" qualifiers="const">
+            <description>Gets all note labels of the labeled item's attribute. Notes linked to the item itself or to item's subshapes aren't taken into account. The label sequence isn't cleared beforehand.</description>
+        </method>
+        <method name="GetSubshapeNotes" qualifiers="const">
+            <description>Gets all note labels of the annotated item. Notes linked to the item itself or to item's attributes taken into account. The label sequence isn't cleared beforehand.</description>
         </method>
         <method name="AddNote_1">
             <description>Adds the given note to the assembly item.</description>
@@ -150,6 +165,9 @@
         </method>
         <method name="DeleteNote">
             <description>Deletes the given note. Removes all links with items annotated by the note.</description>
+        </method>
+        <method name="DeleteNotes">
+            <description>Deletes the given notes. Removes all links with items annotated by the notes.</description>
         </method>
         <method name="DeleteAllNotes">
             <description>Deletes all notes. Clears all annotations.</description>

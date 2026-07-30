@@ -2,5 +2,9 @@
 <class name="OcgShapeanalysisGeom" inherits="RefCounted">
     <brief_description>Analyzing tool aimed to work on primitive geometrical objects</brief_description>
     <description>! Analyzing tool aimed to work on primitive geometrical objects</description>
-    <methods />
+    <methods>
+        <method name="NearestPlane" qualifiers="static">
+            <description>Builds a plane out of a set of points in array Returns in &lt;dmax&gt; the maximal distance between the produced plane and given points</description>
+        </method>
+    </methods>
 </class>

@@ -9,6 +9,9 @@
         <method name="Release">
             <description>sws_freeContext() wrapper.</description>
         </method>
+        <method name="Init">
+            <description>sws_getContext() wrapper - creates conversion context.</description>
+        </method>
         <method name="Convert">
             <description>Convert one frame to another.</description>
         </method>

@@ -43,14 +43,38 @@
         <method name="default" qualifiers="static">
             <description>Constructs an empty algorithm for approximation or interpolation of a surface. Use: - an Init function to define and build the BSpline surface by approximation, or - an Interpolate function to define and build the BSpline surface by interpolation.</description>
         </method>
+        <method name="from_NCollection_Array2_of_gp_Pnt_const_ref_int_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximates a BSpline Surface passing through an array of Points. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D.</description>
+        </method>
+        <method name="from_NCollection_Array2_of_gp_Pnt_const_ref_Approx_ParametrizationType_int_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximates a BSpline Surface passing through an array of Points. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D.</description>
+        </method>
+        <method name="from_NCollection_Array2_of_gp_Pnt_const_ref_double_double_double_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximates a BSpline Surface passing through an array of points using variational smoothing algorithm, which tries to minimize additional criterium: Weight1*CurveLength + Weight2*Curvature + Weight3*Torsion.</description>
+        </method>
+        <method name="from_NCollection_Array2_of_double_const_ref_double_double_double_double_int_int_GeomAbs_Shape_double" qualifiers="static">
+            <description>Approximates a BSpline Surface passing through an array of Points.</description>
+        </method>
+        <method name="Init_1">
+            <description>Approximates a BSpline Surface passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D.</description>
+        </method>
         <method name="Interpolate_1">
             <description>Interpolates a BSpline Surface passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be 3. 2- his continuity will be C2.</description>
         </method>
         <method name="Interpolate_2">
             <description>Interpolates a BSpline Surface passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be 3. 2- his continuity will be C2.</description>
         </method>
+        <method name="Init_4">
+            <description>Approximates a BSpline Surface passing through an array of Points.</description>
+        </method>
         <method name="Interpolate_3">
             <description>Interpolates a BSpline Surface passing through an array of Points.</description>
+        </method>
+        <method name="Init_2">
+            <description>Approximates a BSpline Surface passing through an array of Point. The resulting BSpline will have the following properties: 1- his degree will be in the range [Degmin,Degmax] 2- his continuity will be at least &lt;Continuity&gt; 3- the distance from the point &lt;Points&gt; to the BSpline will be lower to Tol3D.</description>
+        </method>
+        <method name="Init_3">
+            <description>Approximates a BSpline Surface passing through an array of point using variational smoothing algorithm, which tries to minimize additional criterium: Weight1*CurveLength + Weight2*Curvature + Weight3*Torsion.</description>
         </method>
         <method name="Surface" qualifiers="const">
             <description>Returns the approximate BSpline Surface</description>

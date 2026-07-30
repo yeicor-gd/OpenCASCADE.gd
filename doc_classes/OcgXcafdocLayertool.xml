@@ -55,6 +55,9 @@
         <method name="IsSet_2" qualifiers="const">
             <description>Returns True if label &lt;L&gt; has a Layer associated with the &lt;aLayerL&gt; label.</description>
         </method>
+        <method name="GetLayers_1">
+            <description>Return sequence of labels &lt;aLayerSL&gt; that associated with label &lt;L&gt;.</description>
+        </method>
         <method name="IsVisible" qualifiers="const">
             <description>Return TRUE if layer is visible, FALSE if invisible.</description>
         </method>
@@ -81,6 +84,9 @@
         </method>
         <method name="IsSet_4">
             <description>Returns True if shape &lt;Sh&gt; has a Layer associated with the &lt;aLayerL&gt;.</description>
+        </method>
+        <method name="GetLayers_2">
+            <description>Return sequence of labels &lt;aLayerLS&gt; that associated with shape &lt;Sh&gt;.</description>
         </method>
         <method name="DumpJson" qualifiers="const">
             <description>Dumps the content of me into the stream</description>

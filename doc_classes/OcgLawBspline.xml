@@ -54,6 +54,12 @@
 ! . Curves and Surfaces for Computer Aided Geometric Design,
 ! a practical guide Gerald Farin</description>
     <methods>
+        <method name="from_NCollection_Array1_of_double_const_ref_NCollection_Array1_of_double_const_ref_NCollection_Array1_of_int_const_ref_int_bool" qualifiers="static">
+            <description>Creates a non-rational B_spline curve on the basis &lt;Knots, Multiplicities&gt; of degree &lt;Degree&gt;.</description>
+        </method>
+        <method name="from_NCollection_Array1_of_double_const_ref_NCollection_Array1_of_double_const_ref_NCollection_Array1_of_double_const_ref_NCollection_Array1_of_int_const_ref_int_bool" qualifiers="static">
+            <description>Creates a rational B_spline curve on the basis &lt;Knots, Multiplicities&gt; of degree &lt;Degree&gt;.</description>
+        </method>
         <method name="IncreaseDegree">
             <description>Increase the degree to &lt;Degree&gt;. Nothing is done if &lt;Degree&gt; is lower or equal to the current degree.</description>
         </method>

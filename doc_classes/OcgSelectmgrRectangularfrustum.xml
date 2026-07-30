@@ -22,6 +22,9 @@
         <method name="Init_2">
             <description>Initializes volume according to the selected rectangle</description>
         </method>
+        <method name="isIntersectCircle" qualifiers="const">
+            <description>Returns True if Frustum (theVertices) intersects the circle.</description>
+        </method>
         <method name="isSegmentsIntersect" qualifiers="const">
             <description>Returns True if Seg1 (thePnt1Seg1, thePnt2Seg1) and Seg2 (thePnt1Seg2, thePnt2Seg2) intersect.</description>
         </method>

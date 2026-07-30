@@ -32,5 +32,8 @@
         <method name="CameraDirection" qualifiers="const">
             <description>Returns camera direction.</description>
         </method>
+        <method name="SignedPlanePointDistance">
+            <description>Calculates signed distance from plane to point.</description>
+        </method>
     </methods>
 </class>

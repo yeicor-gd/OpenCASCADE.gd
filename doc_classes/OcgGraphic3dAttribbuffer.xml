@@ -5,6 +5,9 @@
 ! This class is intended for advanced usage allowing invalidation of entire buffer content or its
 ! sub-part.</description>
     <methods>
+        <method name="Init_1">
+            <description>Allocates new empty array</description>
+        </method>
         <method name="SetMutable">
             <description>Set if data can be invalidated.</description>
         </method>

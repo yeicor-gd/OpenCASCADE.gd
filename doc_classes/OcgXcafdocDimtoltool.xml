@@ -25,6 +25,9 @@
         <method name="SetDimension_1" qualifiers="const">
             <description>Sets a dimension to the target label.</description>
         </method>
+        <method name="GetRefDimensionLabels" qualifiers="const">
+            <description>Returns all Dimension labels defined for theShapeL.</description>
+        </method>
         <method name="AddDimension">
             <description>Adds a dimension definition to the GD&amp;T table and returns its label.</description>
         </method>
@@ -39,6 +42,9 @@
         </method>
         <method name="SetGeomTolerance_2" qualifiers="const">
             <description>Sets a geometry tolerance from theGeomTolL to sequence of labels theL. Checks if theGeomTolL is a geometry tolerance definition first.</description>
+        </method>
+        <method name="GetRefGeomToleranceLabels" qualifiers="const">
+            <description>Returns all GeomTolerance labels defined for theShapeL.</description>
         </method>
         <method name="AddGeomTolerance">
             <description>Adds a GeomTolerance definition to the GD&amp;T table and returns its label.</description>
@@ -79,6 +85,12 @@
         <method name="GetDatum" qualifiers="const">
             <description>Returns datum assigned to theDatumL label. Returns False if no such datum is assigned.</description>
         </method>
+        <method name="GetTolerOfDatumLabels" qualifiers="const">
+            <description>Returns all GeomToleranses labels defined for theDatumL label.</description>
+        </method>
+        <method name="GetRefDatumLabel" qualifiers="const">
+            <description>Returns Datum label defined for theShapeL label.</description>
+        </method>
         <method name="IsLocked" qualifiers="const">
             <description>Returns true if the given GDT is marked as locked.</description>
         </method>
@@ -96,6 +108,15 @@
         </method>
         <method name="GetID" qualifiers="static">
             <description>Returns the standard GD&amp;T tool GUID.</description>
+        </method>
+        <method name="GetRefShapeLabel" qualifiers="static">
+            <description>Gets all shape labels referred by theL label of the GD&amp;T table. Returns False if there are no shape labels added to the sequences.</description>
+        </method>
+        <method name="GetDatumOfTolerLabels" qualifiers="static">
+            <description>Returns all Datum labels defined for theDimTolL label.</description>
+        </method>
+        <method name="GetDatumWithObjectOfTolerLabels" qualifiers="static">
+            <description>Returns all Datum labels with XCAFDimTolObjects_DatumObject defined for label theDimTolL.</description>
         </method>
     </methods>
 </class>

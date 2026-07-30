@@ -6,5 +6,11 @@
         <method name="IsEnlargePossible" qualifiers="static">
             <description>Checks if the surface can be enlarged in U or V direction.</description>
         </method>
+        <method name="MakeSampling" qualifiers="static">
+            <description>Makes the sampling of the given surface &lt;theSurf&gt; making the net of &lt;theNbSU&gt; x &lt;theNbSV&gt; sampling points. The flag &lt;theEnlargeZone&gt; controls the enlargement of the sampling zone on the surface. The parameters of the sampling points are stored into &lt;theUPars&gt; and &lt;theVPars&gt; arrays.</description>
+        </method>
+        <method name="ComputeDeflection" qualifiers="static">
+            <description>Computes the deflection tolerance on the surface for the given sampling.</description>
+        </method>
     </methods>
 </class>

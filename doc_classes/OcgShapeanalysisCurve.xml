@@ -28,8 +28,17 @@
         <method name="SelectForwardSeam" qualifiers="const">
             <description>Defines which pcurve (C1 or C2) should be chosen for FORWARD seam edge.</description>
         </method>
-        <method name="IsPlanar" qualifiers="static">
+        <method name="IsPlanar_1" qualifiers="static">
+            <description>Checks if points are planar with given preci. If Normal has not zero modulus, checks with given normal</description>
+        </method>
+        <method name="IsPlanar_2" qualifiers="static">
             <description>Checks if curve is planar with given preci. If Normal has not zero modulus, checks with given normal</description>
+        </method>
+        <method name="GetSamplePoints_1" qualifiers="static">
+            <description>Returns sample points which will serve as linearisation of the2d curve in range (first, last) The distribution of sample points is consystent with what is used by BRepTopAdaptor_FClass2d</description>
+        </method>
+        <method name="GetSamplePoints_2" qualifiers="static">
+            <description>Returns sample points which will serve as linearisation of the curve in range (first, last)</description>
         </method>
         <method name="IsClosed" qualifiers="static">
             <description>Tells if the Curve is closed with given precision. If &lt;preci&gt; &lt; 0 then Precision::Confusion is used.</description>

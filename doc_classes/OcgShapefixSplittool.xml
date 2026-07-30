@@ -16,5 +16,8 @@
         <method name="CutEdge" qualifiers="const">
             <description>Cut edge by parameters pend and cut</description>
         </method>
+        <method name="SplitEdge_3" qualifiers="const">
+            <description>Split edge on two new edges using two new vertex V1 and V2 and two parameters for splitting - fp and lp correspondingly The "face" is necessary for pcurves and using TransferParameterProj aNum - number of edge in SeqE which corresponding to [fp,lp]</description>
+        </method>
     </methods>
 </class>

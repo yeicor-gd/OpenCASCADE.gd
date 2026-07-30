@@ -32,8 +32,38 @@
         <method name="RemoveView">
             <description>Remove View</description>
         </method>
+        <method name="GetViewLabelsForShape" qualifiers="const">
+            <description>Returns all View labels defined for label ShapeL</description>
+        </method>
+        <method name="GetViewLabelsForGDT" qualifiers="const">
+            <description>Returns all View labels defined for label GDTL</description>
+        </method>
+        <method name="GetViewLabelsForClippingPlane" qualifiers="const">
+            <description>Returns all View labels defined for label ClippingPlaneL</description>
+        </method>
+        <method name="GetViewLabelsForNote" qualifiers="const">
+            <description>Returns all View labels defined for label NoteL</description>
+        </method>
+        <method name="GetViewLabelsForAnnotation" qualifiers="const">
+            <description>Returns all View labels defined for label AnnotationL</description>
+        </method>
         <method name="AddView">
             <description>Adds a view definition to a View table and returns its label</description>
+        </method>
+        <method name="GetRefShapeLabel" qualifiers="const">
+            <description>Returns shape labels defined for label theViewL Returns False if the theViewL is not in View table</description>
+        </method>
+        <method name="GetRefGDTLabel" qualifiers="const">
+            <description>Returns GDT labels defined for label theViewL Returns False if the theViewL is not in View table</description>
+        </method>
+        <method name="GetRefClippingPlaneLabel" qualifiers="const">
+            <description>Returns ClippingPlane labels defined for label theViewL Returns False if the theViewL is not in View table</description>
+        </method>
+        <method name="GetRefNoteLabel" qualifiers="const">
+            <description>Returns Notes labels defined for label theViewL Returns False if the theViewL is not in View table</description>
+        </method>
+        <method name="GetRefAnnotationLabel" qualifiers="const">
+            <description>Returns Annotation labels defined for label theViewL Returns False if the theViewL is not in View table</description>
         </method>
         <method name="IsLocked" qualifiers="const">
             <description>Returns true if the given View is marked as locked</description>

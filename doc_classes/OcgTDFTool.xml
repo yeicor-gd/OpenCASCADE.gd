@@ -27,6 +27,9 @@
         <method name="Label_2" qualifiers="static">
             <description>Returns the label expressed by &lt;anEntry&gt;; creates the label if it does not exist and if &lt;create&gt; is true.</description>
         </method>
+        <method name="Label_3" qualifiers="static">
+            <description>Returns the label expressed by &lt;anEntry&gt;; creates the label if it does not exist and if &lt;create&gt; is true.</description>
+        </method>
         <method name="DeepDump_1" qualifiers="static">
             <description>Dumps &lt;aDF&gt; and its labels and their attributes.</description>
         </method>
