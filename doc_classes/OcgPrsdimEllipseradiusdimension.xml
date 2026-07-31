@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgPrsdimEllipseradiusdimension" inherits="RefCounted">
-    <brief_description>Computes geometry ( basis curve and plane of dimension) for input shape aShape from TopoDS Root class for MinRadiusDimension and MaxRadiusDimension</brief_description>
-    <description>! Computes  geometry  (  basis  curve  and  plane  of  dimension)
-! for  input  shape  aShape  from  TopoDS
-! Root  class  for MinRadiusDimension  and  MaxRadiusDimension</description>
-    <methods />
-</class>

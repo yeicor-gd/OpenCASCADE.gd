@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgShapefixSplitcommonvertex" inherits="RefCounted">
-    <brief_description>Two wires have common vertex - this case is valid in BRep model and isn't valid in STEP =&gt; before writing into STEP it is necessary to split this vertex (each wire must has one vertex)</brief_description>
-    <description>! Two wires have common vertex - this case is valid in BRep model
-! and isn't valid in STEP =&gt; before writing into STEP it is necessary
-! to split this vertex (each wire must has one vertex)</description>
-    <methods />
-</class>

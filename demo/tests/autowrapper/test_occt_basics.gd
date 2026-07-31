@@ -2,7 +2,7 @@ extends Node
 
 
 func test_occt_loads() -> String:
-	var pnt := OcgGpPnt.from_3(1.0, 2.0, 3.0)
+	var pnt := OcgGpPnt.from_668(1.0, 2.0, 3.0)
 	if pnt == null:
 		return "Failed to create gp_Pnt"
 	if pnt.X() != 1.0:
@@ -15,7 +15,7 @@ func test_occt_loads() -> String:
 
 
 func test_vec_operations() -> String:
-	var vec := OcgGpVec.from_5(1.0, 0.0, 0.0)
+	var vec := OcgGpVec.from_668(1.0, 0.0, 0.0)
 	if vec == null:
 		return "Failed to create gp_Vec"
 	if vec.X() != 1.0:

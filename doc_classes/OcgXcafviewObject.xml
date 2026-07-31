@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgXcafviewObject" inherits="RefCounted">
-    <brief_description>Access object for saved view</brief_description>
-    <description>! Access object for saved view</description>
-    <methods />
-</class>

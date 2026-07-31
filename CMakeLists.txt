@@ -26,6 +26,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(OpenCASCADE.gd CXX)  # OpenCASCADE Technology wrapper for Godot
 
+# Automatically use ccache or sccache as a compiler launcher when one is
+# available on the system. This dramatically speeds up the incremental
+# rebuilds that vcpkg --editable performs after each autowrapper
+# regeneration (only changed translation units need recompiling).
+find_program(CCACHE_PROGRAM ccache)
+find_program(SCCACHE_PROGRAM sccache)
+if(CCACHE_PROGRAM OR SCCACHE_PROGRAM)
+  if(CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    message(STATUS "Using ccache for compilation: ${CCACHE_PROGRAM}")
+  else()
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+    set(CMAKE_C_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+    message(STATUS "Using sccache for compilation: ${SCCACHE_PROGRAM}")
+  endif()
+endif()
+
 # Check that both CMAKE_BUILD_TYPE and GODOTCPP_TARGET are set correctly
 # (always required)
 if (NOT CMAKE_BUILD_TYPE STREQUAL "Release" AND
@@ -71,7 +89,7 @@ if(GODOTCPP_TARGET MATCHES "editor|template_debug")
   find_package(Python3 3.4 REQUIRED) # pathlib should be present
   file(GLOB_RECURSE DOC_XML LIST_DIRECTORIES NO CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/doc_classes/*.xml"
-        "${PROJECT_SOURCE_DIR}/doc_classes/**/*.xml")
+        "${PROJECT_SOURCE_DIR}/doc_classes/autowrapper/*.xml")
   set(DOC_GEN_FILE "${CMAKE_CURRENT_BINARY_DIR}/gen/doc_data.cpp")
   file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/gen")
   set(PYTHON_LIST "'${DOC_XML}'")

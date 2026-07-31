@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgImeshdataModel" inherits="RefCounted">
-    <brief_description>Interface class representing discrete model of a shape.</brief_description>
-    <description>! Interface class representing discrete model of a shape.</description>
-    <methods />
-</class>

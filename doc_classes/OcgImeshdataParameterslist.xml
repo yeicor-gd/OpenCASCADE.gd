@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgImeshdataParameterslist" inherits="RefCounted">
-    <brief_description>Interface class representing list of parameters on curve.</brief_description>
-    <description>! Interface class representing list of parameters on curve.</description>
-    <methods />
-</class>

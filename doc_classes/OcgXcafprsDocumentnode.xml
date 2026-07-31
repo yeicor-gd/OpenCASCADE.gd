@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgXcafprsDocumentnode" inherits="RefCounted">
-    <brief_description>Structure defining document node.</brief_description>
-    <description>! Structure defining document node.</description>
-    <methods />
-</class>

@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgLawFunction" inherits="RefCounted">
-    <brief_description>Root class for evolution laws.</brief_description>
-    <description>! Root class for evolution laws.</description>
-    <methods />
-</class>

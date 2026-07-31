@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgBrepPointonsurface" inherits="RefCounted">
-    <brief_description>Representation by two parameters on a surface.</brief_description>
-    <description>! Representation by two parameters on a surface.</description>
-    <methods />
-</class>

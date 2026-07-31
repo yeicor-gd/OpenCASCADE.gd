@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgAISViewinputbuffer" inherits="RefCounted">
-    <brief_description>Auxiliary structure defining viewer events</brief_description>
-    <description>! Auxiliary structure defining viewer events</description>
-    <methods />
-</class>

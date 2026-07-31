@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgImeshtoolsMeshalgo" inherits="RefCounted">
-    <brief_description>Interface class providing API for algorithms intended to create mesh for discrete face.</brief_description>
-    <description>! Interface class providing API for algorithms intended to create mesh for discrete face.</description>
-    <methods />
-</class>

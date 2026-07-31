@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgXcafdocAssemblytool" inherits="RefCounted">
-    <brief_description>Provides generic methods for traversing assembly tree and graph</brief_description>
-    <description>! Provides generic methods for traversing assembly tree and graph</description>
-    <methods />
-</class>

@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgAISAnimationaxisrotation" inherits="RefCounted">
-    <brief_description>Animation defining object transformation.</brief_description>
-    <description>! Animation defining object transformation.</description>
-    <methods />
-</class>

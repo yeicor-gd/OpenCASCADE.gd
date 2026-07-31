@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgShapefixEdgeprojaux" inherits="RefCounted">
-    <brief_description>Project 3D point (vertex) on pcurves to find Vertex Parameter on parametric representation of an edge</brief_description>
-    <description>! Project 3D point (vertex) on pcurves to find Vertex Parameter
-! on parametric representation of an edge</description>
-    <methods />
-</class>

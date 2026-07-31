@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgImeshtoolsShapevisitor" inherits="RefCounted">
-    <brief_description>Interface class for shape visitor.</brief_description>
-    <description>! Interface class for shape visitor.</description>
-    <methods />
-</class>

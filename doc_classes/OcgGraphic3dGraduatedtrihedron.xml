@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgGraphic3dGraduatedtrihedron" inherits="RefCounted">
-    <brief_description>Defines the class of a graduated trihedron. It contains main style parameters for implementation of graduated trihedron</brief_description>
-    <description>! Defines the class of a graduated trihedron.
-! It contains main style parameters for implementation of graduated trihedron
-! @sa OpenGl_GraduatedTrihedron</description>
-    <methods />
-</class>

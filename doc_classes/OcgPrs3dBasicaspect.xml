@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<class name="OcgPrs3dBasicaspect" inherits="RefCounted">
-    <brief_description>All basic Prs3d_xxxAspect must inherits from this class The aspect classes qualifies how to represent a given kind of object.</brief_description>
-    <description>! All basic Prs3d_xxxAspect must inherits from this class
-! The aspect classes qualifies how to represent a given kind of object.</description>
-    <methods />
-</class>
