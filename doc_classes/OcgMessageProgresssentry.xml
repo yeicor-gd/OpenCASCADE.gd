@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgMessageProgresssentry" inherits="RefCounted">
+    <brief_description>Functionality of this class (Message_ProgressSentry) has been superseded by Message_ProgressScope. This class is kept just to simplify transition of an old code and will be removed in future.</brief_description>
+    <description>! Functionality of this class (Message_ProgressSentry) has been superseded by
+! Message_ProgressScope. This class is kept just to simplify transition of an old code and will be
+! removed in future.</description>
+    <methods>
+        <method name="from_Message_ProgressRange_const_ref_char_const_ptr_double_double_double_bool_double" qualifiers="static">
+            <description>Deprecated constructor, Message_ProgressScope should be created instead.</description>
+        </method>
+        <method name="Relieve">
+            <description>Method Relieve() was replaced by Close() in Message_ProgressScope</description>
+        </method>
+    </methods>
+</class>

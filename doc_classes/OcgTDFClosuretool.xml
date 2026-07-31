@@ -14,5 +14,8 @@
         <method name="Closure_1" qualifiers="static">
             <description>Builds the transitive closure of label and attribute sets into &lt;aDataSet&gt;.</description>
         </method>
+        <method name="Closure_2" qualifiers="static">
+            <description>Builds the transitive closure of label and attribute sets into &lt;aDataSet&gt;. Uses &lt;aFilter&gt; to determine if an attribute has to be taken in account or not. Uses &lt;aMode&gt; for various way of closing.</description>
+        </method>
     </methods>
 </class>

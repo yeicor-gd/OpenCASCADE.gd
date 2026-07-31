@@ -19,6 +19,15 @@
 ! labels of the attributes of the given DataSet are
 ! descendant of the given label.</description>
     <methods>
+        <method name="Compare" qualifiers="static">
+            <description>Compares &lt;aSourceDataSet&gt; with &lt;aTargetDataSet&gt;, updating &lt;aRelocationTable&gt; with labels and attributes found in both sets.</description>
+        </method>
+        <method name="SourceUnbound" qualifiers="static">
+            <description>Finds from &lt;aRefDataSet&gt; all the keys not bound into &lt;aRelocationTable&gt; and put them into &lt;aDiffDataSet&gt;. Returns True if the difference contains at least one key. (A key is a source object).</description>
+        </method>
+        <method name="TargetUnbound" qualifiers="static">
+            <description>Subtracts from &lt;aRefDataSet&gt; all the items bound into &lt;aRelocationTable&gt;. The result is put into &lt;aDiffDataSet&gt;. Returns True if the difference contains at least one item. (An item is a target object).</description>
+        </method>
         <method name="Cut" qualifiers="static">
             <description>Removes attributes from &lt;aDataSet&gt;.</description>
         </method>

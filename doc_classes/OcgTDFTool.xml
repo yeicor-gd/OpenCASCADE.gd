@@ -9,8 +9,14 @@
         <method name="NbAttributes_1" qualifiers="static">
             <description>Returns the total number of attributes attached to the labels dependent on the label aLabel. The attributes of aLabel are also included in this figure. This information is useful in setting the size of an array.</description>
         </method>
+        <method name="NbAttributes_2" qualifiers="static">
+            <description>Returns the number of attributes of the tree, selected by a&lt;Filter&gt;, including those of &lt;aLabel&gt;.</description>
+        </method>
         <method name="IsSelfContained_1" qualifiers="static">
             <description>Returns true if &lt;aLabel&gt; and its descendants reference only attributes or labels attached to themselves.</description>
+        </method>
+        <method name="IsSelfContained_2" qualifiers="static">
+            <description>Returns true if &lt;aLabel&gt; and its descendants reference only attributes or labels attached to themselves and kept by &lt;aFilter&gt;.</description>
         </method>
         <method name="RelocateLabel" qualifiers="static">
             <description>Returns the label having the same sub-entry as &lt;aLabel&gt; but located as descendant as &lt;toRoot&gt; instead of &lt;fromRoot&gt;.</description>
@@ -33,8 +39,14 @@
         <method name="DeepDump_1" qualifiers="static">
             <description>Dumps &lt;aDF&gt; and its labels and their attributes.</description>
         </method>
+        <method name="ExtendedDeepDump_1" qualifiers="static">
+            <description>Dumps &lt;aDF&gt; and its labels and their attributes, if their IDs are kept by &lt;aFilter&gt;. Dumps also the attributes content.</description>
+        </method>
         <method name="DeepDump_2" qualifiers="static">
             <description>Dumps &lt;aLabel&gt;, its children and their attributes.</description>
+        </method>
+        <method name="ExtendedDeepDump_2" qualifiers="static">
+            <description>Dumps &lt;aLabel&gt;, its children and their attributes, if their IDs are kept by &lt;aFilter&gt;. Dumps also the attributes content.</description>
         </method>
     </methods>
 </class>
