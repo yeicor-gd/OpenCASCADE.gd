@@ -15,5 +15,8 @@
         <method name="Init" qualifiers="static">
             <description>Defines and loads all functions which work on shapes for XSControl (as ActFunc)</description>
         </method>
+        <method name="FileAndVar" qualifiers="static">
+            <description>Analyses given file name and variable name, with a default name for variables. Returns resulting file name and variable name plus status "file to read"(True) or "already read"(False) In the latter case, empty resfile means no file available</description>
+        </method>
     </methods>
 </class>

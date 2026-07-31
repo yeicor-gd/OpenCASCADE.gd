@@ -21,6 +21,9 @@
         <method name="RelocateLabel" qualifiers="static">
             <description>Returns the label having the same sub-entry as &lt;aLabel&gt; but located as descendant as &lt;toRoot&gt; instead of &lt;fromRoot&gt;.</description>
         </method>
+        <method name="Entry" qualifiers="static">
+            <description>Returns the entry for the label aLabel in the form of the ASCII character string anEntry containing the tag list for aLabel.</description>
+        </method>
         <method name="TagList_1" qualifiers="static">
             <description>Returns the entry of &lt;aLabel&gt; as list of integers in &lt;aTagList&gt;.</description>
         </method>

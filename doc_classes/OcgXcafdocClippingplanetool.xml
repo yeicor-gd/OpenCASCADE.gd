@@ -11,6 +11,9 @@
         <method name="IsClippingPlane" qualifiers="const">
             <description>Returns True if label belongs to a ClippingPlane table and is a ClippingPlane definition</description>
         </method>
+        <method name="GetClippingPlane_1" qualifiers="const">
+            <description>Returns ClippingPlane defined by label lab Returns False if the label is not in ClippingPlane table or does not define a ClippingPlane</description>
+        </method>
         <method name="GetClippingPlane_2" qualifiers="const">
             <description>Returns ClippingPlane defined by label lab Returns False if the label is not in ClippingPlane table or does not define a ClippingPlane</description>
         </method>

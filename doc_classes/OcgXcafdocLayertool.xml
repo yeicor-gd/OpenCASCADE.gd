@@ -16,6 +16,9 @@
         <method name="IsLayer" qualifiers="const">
             <description>Returns True if label belongs to a Layertable and is a Layer definition</description>
         </method>
+        <method name="GetLayer" qualifiers="const">
+            <description>Returns Layer defined by label lab Returns False if the label is not in Layertable or does not define a Layer</description>
+        </method>
         <method name="FindLayer_1" qualifiers="const">
             <description>Finds a Layer definition in a Layertable and returns its label if found Returns False if Layer is not found in Layertable</description>
         </method>
