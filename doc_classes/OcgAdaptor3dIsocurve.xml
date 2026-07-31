@@ -30,6 +30,15 @@
         <method name="EvalD0" qualifiers="const">
             <description>Computes the point of parameter theU on the curve.</description>
         </method>
+        <method name="EvalD1" qualifiers="const">
+            <description>Computes the point of parameter theU on the curve with its first derivative. Raised if the continuity of the current interval is not C1.</description>
+        </method>
+        <method name="EvalD2" qualifiers="const">
+            <description>Returns the point and the first and second derivatives at parameter theU. Raised if the continuity of the current interval is not C2.</description>
+        </method>
+        <method name="EvalD3" qualifiers="const">
+            <description>Returns the point and the first, second and third derivatives at parameter theU. Raised if the continuity of the current interval is not C3.</description>
+        </method>
         <method name="Resolution" qualifiers="const">
             <description>Returns the parametric resolution corresponding to the real space resolution &lt;R3d&gt;.</description>
         </method>

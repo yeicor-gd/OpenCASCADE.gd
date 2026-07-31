@@ -93,6 +93,15 @@
         <method name="EvalD0" qualifiers="const">
             <description>where is the normal direction of the basis surface. Pbasis, D1Ubasis, D1Vbasis are the point and the first derivatives on the basis surface. If Ndir is undefined this method computes an approached normal direction using the following limited development: with Eps-&gt;0 which requires to compute the second derivatives on the basis surface. If the normal direction cannot be approximate for this order of derivation the exception UndefinedValue is raised.</description>
         </method>
+        <method name="EvalD1" qualifiers="const">
+            <description>Computes the point and first partial derivatives at (U, V). Raises an exception if the continuity of the basis surface is not C2.</description>
+        </method>
+        <method name="EvalD2" qualifiers="const">
+            <description>Computes the point and partial derivatives up to 2nd order at (U, V). Raises an exception if the continuity of the basis surface is not C3.</description>
+        </method>
+        <method name="EvalD3" qualifiers="const">
+            <description>Computes the point and partial derivatives up to 3rd order at (U, V). Raises an exception if the continuity of the basis surface is not C4.</description>
+        </method>
         <method name="EvalDN" qualifiers="const">
             <description>Computes the derivative of order Nu in U and Nv in V at (U, V). Raises an exception on failure.</description>
         </method>

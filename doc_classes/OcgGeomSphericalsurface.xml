@@ -98,6 +98,15 @@
         <method name="EvalD0" qualifiers="const">
             <description>Computes the point P (U, V) on the surface. P (U, V) = Loc + Radius * Sin (V) * Zdir + Radius * Cos (V) * (cos (U) * XDir + sin (U) * YDir) where Loc is the origin of the placement plane (XAxis, YAxis) XDir is the direction of the XAxis and YDir the direction of the YAxis and ZDir the direction of the ZAxis.</description>
         </method>
+        <method name="EvalD1" qualifiers="const">
+            <description>Computes the current point and the first derivatives in the directions U and V.</description>
+        </method>
+        <method name="EvalD2" qualifiers="const">
+            <description>Computes the current point, the first and the second derivatives in the directions U and V.</description>
+        </method>
+        <method name="EvalD3" qualifiers="const">
+            <description>Computes the current point, the first,the second and the third derivatives in the directions U and V.</description>
+        </method>
         <method name="EvalDN" qualifiers="const">
             <description>Computes the derivative of order Nu in the direction u and Nv in the direction v. Raised if Nu + Nv &lt; 1 or Nu &lt; 0 or Nv &lt; 0.</description>
         </method>

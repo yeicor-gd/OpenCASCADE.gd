@@ -86,6 +86,15 @@
         <method name="EvalD0" qualifiers="const">
             <description>Returns the point of parameter U. If U = 0 the returned point is the origin of the XAxis and the YAxis of the parabola and it is the vertex of the parabola. P = S + F * (U * U * XDir + * U * YDir) where S is the vertex of the parabola, XDir the XDirection and YDir the YDirection of the parabola's local coordinate system.</description>
         </method>
+        <method name="EvalD1" qualifiers="const">
+            <description>Returns the point of parameter U and the first derivative.</description>
+        </method>
+        <method name="EvalD2" qualifiers="const">
+            <description>Returns the point of parameter U, the first and second derivatives.</description>
+        </method>
+        <method name="EvalD3" qualifiers="const">
+            <description>Returns the point of parameter U, the first, second and third derivatives.</description>
+        </method>
         <method name="EvalDN" qualifiers="const">
             <description>For the point of parameter U of this parabola, computes the vector corresponding to the Nth derivative. Exceptions Standard_RangeError if N is less than 1.</description>
         </method>

@@ -76,6 +76,12 @@
         <method name="EvalD0" qualifiers="const">
             <description>Warning! this should not be called if the basis curve is not at least C1. Nevertheless if used on portion where the curve is C1, it is OK</description>
         </method>
+        <method name="EvalD1" qualifiers="const">
+            <description>Warning! this should not be called if the continuity of the basis curve is not C2. Nevertheless, it's OK to use it on a portion where the curve is C2</description>
+        </method>
+        <method name="EvalD2" qualifiers="const">
+            <description>Warning! this should not be called if the continuity of the basis curve is not C3. Nevertheless, it's OK to use it on a portion where the curve is C3</description>
+        </method>
         <method name="EvalDN" qualifiers="const">
             <description>The returned vector gives the value of the derivative for the order of derivation N.</description>
         </method>

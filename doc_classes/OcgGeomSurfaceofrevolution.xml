@@ -111,6 +111,15 @@
         <method name="EvalD0" qualifiers="const">
             <description>Computes the point P (U, V) on the surface. U is the angle of the rotation around the revolution axis. The direction of this axis gives the sense of rotation. V is the parameter of the revolved curve. Raises an exception on failure.</description>
         </method>
+        <method name="EvalD1" qualifiers="const">
+            <description>Computes the point and first partial derivatives at (U, V). Raises an exception if the surface continuity is not C1.</description>
+        </method>
+        <method name="EvalD2" qualifiers="const">
+            <description>Computes the point and partial derivatives up to 2nd order at (U, V). Raises an exception if the surface continuity is not C2.</description>
+        </method>
+        <method name="EvalD3" qualifiers="const">
+            <description>Computes the point and partial derivatives up to 3rd order at (U, V). Raises an exception if the surface continuity is not C3.</description>
+        </method>
         <method name="EvalDN" qualifiers="const">
             <description>Computes the derivative of order Nu in U and Nv in V at (U, V). Raises an exception on failure.</description>
         </method>
