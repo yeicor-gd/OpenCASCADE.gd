@@ -7,5 +7,8 @@
         <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
+        <method name="GetAlgo" qualifiers="const">
+            <description>Creates instance of meshing algorithm for the given type of surface.</description>
+        </method>
     </methods>
 </class>
