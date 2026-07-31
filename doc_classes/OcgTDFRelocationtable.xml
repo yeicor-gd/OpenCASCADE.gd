@@ -47,5 +47,8 @@
         <method name="Clear">
             <description>Clears the relocation dictionary, but lets the self relocation flag to its current value.</description>
         </method>
+        <method name="Dump" qualifiers="const">
+            <description>Dumps the relocation table.</description>
+        </method>
     </methods>
 </class>

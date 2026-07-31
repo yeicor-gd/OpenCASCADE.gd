@@ -56,5 +56,8 @@
         <method name="Modified" qualifiers="const">
             <description>Gives a modifieded shape Raises NoSuchObject if shape has not been modified</description>
         </method>
+        <method name="Dump" qualifiers="const">
+            <description>Dump properties of resulting shape.</description>
+        </method>
     </methods>
 </class>
