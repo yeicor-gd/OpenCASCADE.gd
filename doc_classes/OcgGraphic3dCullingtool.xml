@@ -35,5 +35,8 @@
         <method name="SignedPlanePointDistance">
             <description>Calculates signed distance from plane to point.</description>
         </method>
+        <method name="IsOutFrustum" qualifiers="const">
+            <description>Detects if AABB overlaps view volume using separating axis theorem (SAT).</description>
+        </method>
     </methods>
 </class>

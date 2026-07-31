@@ -43,6 +43,9 @@
         <method name="OverlapsBox_2" qualifiers="const">
             <description>SAT intersection test between defined volume and given axis-aligned box</description>
         </method>
+        <method name="OverlapsBox_1" qualifiers="const">
+            <description>Returns true if selecting volume is overlapped by axis-aligned bounding box with minimum corner at point theMinPt and maximum at point theMaxPt</description>
+        </method>
         <method name="OverlapsPoint_2" qualifiers="const">
             <description>Intersection test between defined volume and given point</description>
         </method>
@@ -61,10 +64,19 @@
         <method name="OverlapsSphere_2" qualifiers="const">
             <description>Intersection test between defined volume and given sphere</description>
         </method>
+        <method name="OverlapsSphere_1" qualifiers="const">
+            <description>Intersection test between defined volume and given sphere</description>
+        </method>
         <method name="OverlapsCylinder_2" qualifiers="const">
             <description>Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.</description>
         </method>
+        <method name="OverlapsCylinder_1" qualifiers="const">
+            <description>Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.</description>
+        </method>
         <method name="OverlapsCircle_2" qualifiers="const">
+            <description>Returns true if selecting volume is overlapped by circle with radius theRadius, boolean theIsFilled and transformation to apply theTrsf. The position and orientation of the circle are specified via theTrsf transformation for gp::XOY() with center in gp::Origin().</description>
+        </method>
+        <method name="OverlapsCircle_1" qualifiers="const">
             <description>Returns true if selecting volume is overlapped by circle with radius theRadius, boolean theIsFilled and transformation to apply theTrsf. The position and orientation of the circle are specified via theTrsf transformation for gp::XOY() with center in gp::Origin().</description>
         </method>
         <method name="DistToGeometryCenter" qualifiers="const">

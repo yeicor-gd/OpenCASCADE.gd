@@ -32,6 +32,9 @@
         <method name="default" qualifiers="static">
             <description>Empty constructor</description>
         </method>
+        <method name="from_BOPAlgo_PaveFiller_const_ref" qualifiers="static">
+            <description>Constructor with already prepared intersection tool - PaveFiller</description>
+        </method>
         <method name="SetTools">
             <description>Sets the Tool arguments</description>
         </method>
