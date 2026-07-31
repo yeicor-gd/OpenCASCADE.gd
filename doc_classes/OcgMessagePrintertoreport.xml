@@ -14,6 +14,9 @@
         <method name="SetReport">
             <description>Sets the printer report</description>
         </method>
+        <method name="SendStringStream" qualifiers="const">
+            <description>Send a string message with specified trace level. Stream is converted to string value. Default implementation calls first method Send().</description>
+        </method>
         <method name="SendObject" qualifiers="const">
             <description>Send a string message with specified trace level. The object is converted to string in format: &lt;object kind&gt; : &lt;object pointer&gt;. The parameter theToPutEol specified whether end-of-line should be added to the end of the message. Default implementation calls first method Send().</description>
         </method>
