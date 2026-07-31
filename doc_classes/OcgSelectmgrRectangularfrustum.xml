@@ -85,6 +85,9 @@
         <method name="DetectedPoint" qualifiers="const">
             <description>Calculates the point on a view ray that was detected during the run of selection algo by given depth</description>
         </method>
+        <method name="GetVertices" qualifiers="const">
+            <description>A set of helper functions that return rectangular selecting frustum data</description>
+        </method>
         <method name="GetNearPnt" qualifiers="const">
             <description>Returns projection of 2d mouse picked point or projection of center of 2d rectangle (for point and rectangular selection correspondingly) onto near view frustum plane</description>
         </method>

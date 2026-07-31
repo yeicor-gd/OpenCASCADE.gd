@@ -65,6 +65,9 @@
         <method name="PreMultiply">
             <description>Computes the product of the transformation theT and this transformation, and assigns the result to this transformation: this = theT * this</description>
         </method>
+        <method name="Transforms_2" qualifiers="const">
+            <description>Applies this transformation to the coordinates: - of the number pair Coord, or - X and Y.</description>
+        </method>
         <method name="Trsf2d" qualifiers="const">
             <description>Converts this transformation into a gp_Trsf2d transformation. Exceptions Standard_ConstructionError if this transformation cannot be converted, i.e. if its form is gp_Other.</description>
         </method>

@@ -103,6 +103,9 @@
         <method name="PreMultiply">
             <description>Computes the matrix of the transformation composed with &lt;me&gt; and Other. &lt;me&gt; = Other * &lt;me&gt;</description>
         </method>
+        <method name="Transforms" qualifiers="const">
+            <description>Applies the transformation &lt;me&gt; to the triplet {X, Y}.</description>
+        </method>
         <method name="Copy" qualifiers="const">
             <description>Creates a new object, which is a copy of this transformation.</description>
         </method>

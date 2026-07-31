@@ -7,5 +7,8 @@
         <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
+        <method name="Reset">
+            <description>Resets this splitter. Must be called before first use.</description>
+        </method>
     </methods>
 </class>

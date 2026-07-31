@@ -21,5 +21,8 @@
         <method name="Allocate">
             <description>Allocate memory</description>
         </method>
+        <method name="Free">
+            <description>Release memory</description>
+        </method>
     </methods>
 </class>

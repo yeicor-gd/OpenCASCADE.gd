@@ -9,5 +9,8 @@
         <method name="Allocate">
             <description>Allocate memory with given size. Returns NULL on failure.</description>
         </method>
+        <method name="Free">
+            <description>Free a previously allocated memory.</description>
+        </method>
     </methods>
 </class>

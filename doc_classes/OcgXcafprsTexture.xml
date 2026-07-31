@@ -6,6 +6,9 @@
         <method name="GetCompressedImage">
             <description>Image reader.</description>
         </method>
+        <method name="GetImage">
+            <description>Image reader.</description>
+        </method>
         <method name="GetImageSource" qualifiers="const">
             <description>Return image source.</description>
         </method>

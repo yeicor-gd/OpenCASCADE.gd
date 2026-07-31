@@ -9,5 +9,20 @@
         <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
+        <method name="CreateEdgeTessellator_1" qualifiers="static">
+            <description>Creates instance of free edge tessellator.</description>
+        </method>
+        <method name="CreateEdgeTessellator_2" qualifiers="static">
+            <description>Creates instance of edge tessellator.</description>
+        </method>
+        <method name="CreateEdgeTessellationExtractor" qualifiers="static">
+            <description>Creates instance of tessellation extractor.</description>
+        </method>
+        <method name="Tessellate3d" qualifiers="static">
+            <description>Updates 3d discrete edge model using the given tessellation tool.</description>
+        </method>
+        <method name="Tessellate2d" qualifiers="static">
+            <description>Updates 2d discrete edge model using tessellation of 3D curve.</description>
+        </method>
     </methods>
 </class>

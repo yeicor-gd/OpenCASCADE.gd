@@ -4,6 +4,9 @@
     <description>! Auxiliary class implements functionality retrieving tessellated
 ! representation of an edge stored in polygon.</description>
     <methods>
+        <method name="from_IMeshData_Edge_const_ref_IMeshData_Face_const_ref" qualifiers="static">
+            <description>Constructor.</description>
+        </method>
         <method name="PointsNb" qualifiers="const">
             <description>Returns number of tessellation points.</description>
         </method>

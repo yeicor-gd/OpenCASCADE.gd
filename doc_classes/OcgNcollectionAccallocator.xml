@@ -26,5 +26,8 @@
         <method name="Allocate">
             <description>Allocate memory with given size</description>
         </method>
+        <method name="Free">
+            <description>Free a previously allocated memory; memory is returned to the OS when all allocations in some block are freed</description>
+        </method>
     </methods>
 </class>

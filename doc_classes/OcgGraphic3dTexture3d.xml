@@ -12,5 +12,8 @@
         <method name="SetImage">
             <description>Assign new image to the texture. Note that this method does not invalidate already uploaded resources - consider calling ::UpdateRevision() if needed.</description>
         </method>
+        <method name="GetImage">
+            <description>Load and return image.</description>
+        </method>
     </methods>
 </class>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class name="OcgTDFAttributeiterator" inherits="RefCounted">
+    <brief_description />
+    <description>Wrapper for OCCT class TDF_AttributeIterator.</description>
+    <methods>
+        <method name="PtrValue" qualifiers="const">
+            <description>Provides an access to the internal pointer of the current attribute. The method has better performance as not-creating handle.</description>
+        </method>
+    </methods>
+</class>

@@ -6,6 +6,9 @@
 ! data stored in model. Each segment is then checked for intersection with
 ! other ones. All collisions are registered and returned as result of check.</description>
     <methods>
+        <method name="from_IMeshData_Face_const_ref_IMeshTools_Parameters_const_ref" qualifiers="static">
+            <description>Default constructor</description>
+        </method>
         <method name="Perform">
             <description>Performs check wires of the face for intersections.</description>
         </method>

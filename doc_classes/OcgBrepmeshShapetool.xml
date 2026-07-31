@@ -10,6 +10,9 @@
         <method name="BoxMaxDimension" qualifiers="static">
             <description>Gets the maximum dimension of the given bounding box. If the given bounding box is void leaves the resulting value unchanged.</description>
         </method>
+        <method name="CheckAndUpdateFlags" qualifiers="static">
+            <description>Checks same parameter, same range and degenerativity attributes using geometrical data of the given edge and updates edge model by computed parameters in case of worst case - it can drop flags same parameter and same range to False but never to True if it is already set to False. In contrary, it can also drop degenerated flag to True, but never to False if it is already set to True.</description>
+        </method>
         <method name="AddInFace" qualifiers="static">
             <description>Stores the given triangulation into the given face.</description>
         </method>

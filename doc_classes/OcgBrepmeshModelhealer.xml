@@ -17,5 +17,8 @@
         <method name="default" qualifiers="static">
             <description>Constructor.</description>
         </method>
+        <method name="call" qualifiers="const">
+            <description>Functor API to discretize the given edge.</description>
+        </method>
     </methods>
 </class>

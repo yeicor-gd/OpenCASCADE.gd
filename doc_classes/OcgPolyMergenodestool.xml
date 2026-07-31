@@ -17,6 +17,9 @@
         <method name="Result">
             <description>Prepare and return result triangulation (temporary data will be truncated to result size).</description>
         </method>
+        <method name="AddElement">
+            <description>Add new triangle or quad.</description>
+        </method>
         <method name="PushLastElement">
             <description>Add new triangle or quad with nodes specified by ChangeElementNode().</description>
         </method>
