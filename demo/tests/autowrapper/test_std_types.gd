@@ -105,3 +105,82 @@ func test_splitter_pair_returns() -> String:
 	if (ru as PackedFloat64Array).size() != 2:
 		return "GetRangeU should have 2 elements"
 	return "OK"
+
+
+func test_packed_map_of_integer() -> String:
+	var pmap := OcgTcolstdPackedmapofinteger.new()
+	if pmap == null:
+		return "Failed to create TColStd_PackedMapOfInteger"
+	if not pmap.IsEmpty():
+		return "Fresh map should be empty"
+	if pmap.Add(42) != true:
+		return "Add(42) should return true"
+	if pmap.Add(42) != false:
+		return "Add(42) twice should return false"
+	if pmap.Add(-7) != true:
+		return "Add(-7) should return true"
+	if pmap.Extent() != 2 or pmap.Length() != 2:
+		return "Extent/Length should be 2, got %d/%d" % [pmap.Extent(), pmap.Length()]
+	if not pmap.Contains(42) or not pmap.Contains(-7) or pmap.Contains(3):
+		return "Contains checks wrong"
+	if pmap.Remove(42) != true:
+		return "Remove(42) should return true"
+	if pmap.Remove(42) != false:
+		return "Remove(42) twice should return false"
+	if pmap.Extent() != 1:
+		return "Extent should be 1 after removal"
+	pmap.Clear()
+	if not pmap.IsEmpty():
+		return "Map should be empty after Clear"
+	return "OK"
+
+
+func test_hpacked_map_of_integer_map() -> String:
+	var pmap := OcgTcolstdPackedmapofinteger.new()
+	pmap.Add(10)
+	pmap.Add(20)
+	var hmap := OcgTcolstdHpackedmapofinteger.from__3s(pmap)
+	if hmap == null:
+		return "Failed to create TColStd_HPackedMapOfInteger"
+	var out := hmap.Map()
+	if out == null:
+		return "Map() should return a map"
+	if out.Extent() != 2 or not out.Contains(20):
+		return "Map() contents wrong: Extent=%d" % out.Extent()
+	out.Add(30)
+	if out.Extent() != 3:
+		return "Map() should share storage (Extent=3), got %d" % out.Extent()
+	return "OK"
+
+
+func test_bnd_box_get_limits() -> String:
+	var p_min := OcgGpPnt.from_668(1.0, 2.0, 3.0)
+	var p_max := OcgGpPnt.from_668(5.0, 6.0, 7.0)
+	var box := OcgBndBox.from_Wm7(p_min, p_max)
+	if box == null:
+		return "Failed to create Bnd_Box"
+	var lim: Variant = box.Get_kuK()
+	if not lim is PackedFloat64Array:
+		return "Bnd_Box::Get() should return PackedFloat64Array, got %s" % lim
+	var arr := lim as PackedFloat64Array
+	if arr.size() != 6:
+		return "Bnd_Box::Get() should have 6 elements, got %d" % arr.size()
+	if arr[0] != 1.0 or arr[1] != 5.0 or arr[2] != 2.0 or arr[3] != 6.0 or arr[4] != 3.0 or arr[5] != 7.0:
+		return "Bnd_Box::Get() wrong limits: %s" % arr
+	return "OK"
+
+
+func test_bnd_box2d_get_limits() -> String:
+	var box := OcgBndBox2d.new()
+	if box == null:
+		return "Failed to create Bnd_Box2d"
+	box.Update_rh2(1.0, 2.0, 5.0, 6.0)
+	var lim: Variant = box.Get_kuK()
+	if not lim is PackedFloat64Array:
+		return "Bnd_Box2d::Get() should return PackedFloat64Array, got %s" % lim
+	var arr := lim as PackedFloat64Array
+	if arr.size() != 4:
+		return "Bnd_Box2d::Get() should have 4 elements, got %d" % arr.size()
+	if arr[0] != 1.0 or arr[1] != 5.0 or arr[2] != 2.0 or arr[3] != 6.0:
+		return "Bnd_Box2d::Get() wrong limits: %s" % arr
+	return "OK"
