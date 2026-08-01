@@ -8,5 +8,6 @@ const SUITES := [
 	"res://tests/autowrapper/test_exception_repro.gd",
 	"res://tests/autowrapper/test_occt_basics.gd",
 	"res://tests/autowrapper/test_occt_enums.gd",
+	"res://tests/autowrapper/test_opaque_pointers.gd",
 	"res://tests/autowrapper/test_std_types.gd",
 ]
