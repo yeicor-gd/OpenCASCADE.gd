@@ -2,7 +2,7 @@ extends Node
 
 
 func test_neutralwindow_opaque_handles() -> String:
-	var w := OcgAspectNeutralwindow.new()
+	var w := OcgAspectNeutralWindow.new()
 	var initial := w.NativeHandle()
 	var set := w.SetNativeHandles(0x1A2B, 0, 0)
 	if not set:

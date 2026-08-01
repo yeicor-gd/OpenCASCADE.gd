@@ -59,6 +59,19 @@ inline void clear_last_error() {
 
 } // namespace occt_gd
 
+// Catch epilogue for generated default constructors. A constructor has no
+// return value and cannot return null on failure, so the exception is recorded
+// (readable via OcgErrors.get_last_error_message()) and construction completes
+// with the object in a safe, null-native state (methods null-check before use).
+#define OCCT_GUARD_CATCH_CTOR()                                                                 \
+    catch (const Standard_Failure &occt_gd_sf) {                                              \
+        occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString());       \
+    } catch (const std::exception &occt_gd_e) {                                               \
+        occt_gd::record_last_exception(occt_gd_e.what(), nullptr);                            \
+    } catch (...) {                                                                           \
+        occt_gd::record_last_exception("Unknown OCCT/GDExtension exception", nullptr);        \
+    }
+
 // Catch epilogue for generated NON-void wrapper methods. Must be written as
 //   } OCCT_GUARD_CATCH(<default>);
 // directly after the try block that contains the body (and OCC_CATCH_SIGNALS,

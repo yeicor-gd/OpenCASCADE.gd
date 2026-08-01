@@ -24,10 +24,10 @@ func test_standalone_enum_constants() -> String:
 
 
 func test_enum_as_method_argument() -> String:
-	var col := OcgQuantityColor.from_iQM(OcgEnums.Quantity_NameOfColor.Quantity_NOC_RED)
+	var col := OcgQuantityColor.from_i(OcgEnums.Quantity_NameOfColor.Quantity_NOC_RED)
 	if col == null:
 		return "from_iQM(Quantity_NOC_RED) failed"
-	var name := col.Name_kuK()
+	var name := col.Name_k()
 	if name != OcgEnums.Quantity_NameOfColor.Quantity_NOC_RED:
 		return "Name_kuK expected Quantity_NOC_RED got %s" % name
 	var name_str := OcgQuantityColor.StringName(OcgEnums.Quantity_NameOfColor.Quantity_NOC_BLUE)
@@ -37,7 +37,7 @@ func test_enum_as_method_argument() -> String:
 
 
 func test_nested_enum_cross_class() -> String:
-	var ax := OcgGpAx1.from_Kvo(OcgGpDir.D.X)
+	var ax := OcgGpAx1.from_K(OcgGpDir.D.X)
 	if ax == null:
 		return "gp_Ax1(gp_Dir::D::X) failed"
 	return "OK"
