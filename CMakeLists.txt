@@ -149,7 +149,8 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 # It provides all transitive OCCT dependencies in topological order,
 # derived from libclang's include graphs (no hardcoded library knowledge).
 target_compile_options(${PROJECT_NAME} PRIVATE
-  "-include" "${CMAKE_CURRENT_SOURCE_DIR}/src/autowrapper/occt_compat.hxx"
+  "SHELL:-include ${CMAKE_CURRENT_SOURCE_DIR}/src/autowrapper/occt_compat.hxx"
+  "SHELL:-include ${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
 )
 
 if(MSVC) # Maximum warnings and treat them as errors

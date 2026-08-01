@@ -4,11 +4,27 @@
 
 // Autowrapper-generated module registration
 #include "autowrapper/module.h"
+#include "occt_errors.h"
+
+#include <OSD.hxx>
+
+#include <godot_cpp/core/class_db.hpp>
 
 static void opencascade_gd_initialize(ModuleInitializationLevel p_level) {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
         return;
     }
+
+    // Convert OCCT C-style signals (SIGSEGV, SIGBUS, ...) into C++ exceptions
+    // so that the generated wrapper try/catch guards can turn them into Godot
+    // errors instead of crashing the process. Floating-point traps are left
+    // disabled (theFloatingSignal=false) so harmless NaN computations don't
+    // raise spurious SIGFPE. Safe to call repeatedly.
+    OSD::SetSignal(false);
+
+    // Register the GDScript-facing diagnostics API (reads the last-error state
+    // recorded by the wrapper exception guards).
+    godot::ClassDB::register_class<godot::OcgErrors>();
 
     // Register autowrapper-generated classes
     gdext_initialize_module_auto(p_level);
