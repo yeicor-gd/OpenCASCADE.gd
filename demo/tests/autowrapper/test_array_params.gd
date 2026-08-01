@@ -34,3 +34,23 @@ func test_poly_mergenodes_addtriangle() -> String:
 	tool.AddQuad([p0, p1, p3, p2])
 	tool.PushLastQuad()
 	return "OK"
+
+
+func test_enum_out_param_color_from_name() -> String:
+	var out := OcgEnumValue.new()
+	var ok := OcgQuantityColor.ColorFromName_OGa("RED", out)
+	if not ok:
+		return "ColorFromName(RED) returned false"
+	if out.get_value() != OcgEnums.Quantity_NameOfColor.Quantity_NOC_RED:
+		return "ColorFromName(RED) expected %s got %s" % [OcgEnums.Quantity_NameOfColor.Quantity_NOC_RED, out.get_value()]
+	return "OK"
+
+
+func test_enum_out_param_material_from_name() -> String:
+	var out := OcgEnumValue.new()
+	var ok := OcgGraphic3dMaterialaspect.MaterialFromName_CWl("brass", out)
+	if not ok:
+		return "MaterialFromName(brass) returned false"
+	if out.get_value() != OcgEnums.Graphic3d_NameOfMaterial.Graphic3d_NOM_BRASS:
+		return "MaterialFromName(brass) expected %s got %s" % [OcgEnums.Graphic3d_NameOfMaterial.Graphic3d_NOM_BRASS, out.get_value()]
+	return "OK"
