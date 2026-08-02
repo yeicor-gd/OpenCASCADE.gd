@@ -3,11 +3,11 @@ extends Node
 
 func test_neutralwindow_opaque_handles() -> String:
 	var w := OcgAspectNeutralWindow.new()
-	var initial := w.NativeHandle()
-	var set := w.SetNativeHandles(0x1A2B, 0, 0)
+	var initial := w.native_handle()
+	var set := w.set_native_handles(0x1A2B, 0, 0)
 	if not set:
 		return "SetNativeHandles returned false"
-	var got := w.NativeHandle()
+	var got := w.native_handle()
 	if got != 0x1A2B:
 		return "NativeHandle expected %s got %s" % [0x1A2B, got]
 	if initial == 0x1A2B:

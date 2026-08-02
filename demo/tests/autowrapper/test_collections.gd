@@ -5,26 +5,26 @@ func test_array1_gp_pnt() -> String:
 	var arr := OcgNCollectionArray1GpPnt.from_k(1, 3)
 	if arr == null:
 		return "Failed to create Array1<gp_Pnt>"
-	if arr.Lower() != 1 or arr.Upper() != 3 or arr.Length() != 3:
-		return "Array1 bounds wrong: lower=%s upper=%s length=%s" % [arr.Lower(), arr.Upper(), arr.Length()]
-	if arr.IsEmpty():
+	if arr.lower() != 1 or arr.upper() != 3 or arr.length() != 3:
+		return "Array1 bounds wrong: lower=%s upper=%s length=%s" % [arr.lower(), arr.upper(), arr.length()]
+	if arr.is_empty():
 		return "Array1 should not be empty"
 	var p1 := OcgGpPnt.from_6(1.0, 2.0, 3.0)
 	var p2 := OcgGpPnt.from_6(4.0, 5.0, 6.0)
 	var p3 := OcgGpPnt.from_6(7.0, 8.0, 9.0)
-	arr.SetValue(1, p1)
-	arr.SetValue(2, p2)
-	arr.SetValue(3, p3)
-	if arr.Value(1).X() != 1.0 or arr.Value(2).Y() != 5.0 or arr.Value(3).Z() != 9.0:
+	arr.set_value(1, p1)
+	arr.set_value(2, p2)
+	arr.set_value(3, p3)
+	if arr.value(1).x() != 1.0 or arr.value(2).y() != 5.0 or arr.value(3).z() != 9.0:
 		return "Array1 SetValue/Value roundtrip failed"
-	if arr.ChangeValue(2).X() != 4.0:
+	if arr.change_value(2).x() != 4.0:
 		return "Array1 ChangeValue read-back failed"
 	var p4 := OcgGpPnt.from_6(55.0, 0.0, 0.0)
-	arr.SetValue(2, p4)
-	if arr.Value(2).X() != 55.0:
+	arr.set_value(2, p4)
+	if arr.value(2).x() != 55.0:
 		return "Array1 SetValue mutation failed"
-	arr.Init(p1)
-	if arr.Value(1).X() != 1.0 or arr.Value(3).Z() != 3.0:
+	arr.init(p1)
+	if arr.value(1).x() != 1.0 or arr.value(3).z() != 3.0:
 		return "Array1 Init fill failed"
 	return "OK"
 
@@ -33,36 +33,36 @@ func test_array2_gp_pnt() -> String:
 	var arr := OcgNCollectionArray2GpPnt.from_v(1, 2, 3, 4)
 	if arr == null:
 		return "Failed to create Array2<gp_Pnt>"
-	if arr.LowerRow() != 1 or arr.UpperRow() != 2 or arr.LowerCol() != 3 or arr.UpperCol() != 4:
+	if arr.lower_row() != 1 or arr.upper_row() != 2 or arr.lower_col() != 3 or arr.upper_col() != 4:
 		return "Array2 bounds wrong"
-	if arr.RowLength() != 2 or arr.ColLength() != 2:
+	if arr.row_length() != 2 or arr.col_length() != 2:
 		return "Array2 lengths wrong"
 	var p := OcgGpPnt.from_6(10.0, 20.0, 30.0)
-	arr.SetValue(1, 3, p)
-	if arr.Value(1, 3).X() != 10.0 or arr.Value(1, 3).Z() != 30.0:
+	arr.set_value(1, 3, p)
+	if arr.value(1, 3).x() != 10.0 or arr.value(1, 3).z() != 30.0:
 		return "Array2 SetValue/Value roundtrip failed"
 	return "OK"
 
 
 func test_list_double() -> String:
 	var lst := OcgNCollectionListDouble.new()
-	if not lst.IsEmpty():
+	if not lst.is_empty():
 		return "List should start empty"
-	lst.Append_y(1.5)
-	lst.Append_y(2.5)
-	if lst.Extent() != 2:
-		return "List Extent wrong: %s" % lst.Extent()
-	if lst.First() != 1.5 or lst.Last() != 2.5:
+	lst.append_y(1.5)
+	lst.append_y(2.5)
+	if lst.extent() != 2:
+		return "List Extent wrong: %s" % lst.extent()
+	if lst.first() != 1.5 or lst.last() != 2.5:
 		return "List First/Last wrong"
-	if not lst.Contains(1.5) or not lst.Contains(2.5):
+	if not lst.contains(1.5) or not lst.contains(2.5):
 		return "List Contains failed"
-	if lst.Contains(9.9):
+	if lst.contains(9.9):
 		return "List Contains false positive"
-	lst.RemoveFirst()
-	if lst.First() != 2.5:
+	lst.remove_first()
+	if lst.first() != 2.5:
 		return "List RemoveFirst failed"
-	lst.Clear()
-	if not lst.IsEmpty():
+	lst.clear()
+	if not lst.is_empty():
 		return "List Clear failed"
 	return "OK"
 
@@ -71,29 +71,29 @@ func test_sequence_gp_pnt() -> String:
 	var seq := OcgNCollectionSequenceGpPnt.new()
 	var p1 := OcgGpPnt.from_6(1.0, 0.0, 0.0)
 	var p2 := OcgGpPnt.from_6(0.0, 2.0, 0.0)
-	seq.Append_N(p1)
-	seq.Append_N(p2)
-	if seq.Length() != 2:
+	seq.append_N(p1)
+	seq.append_N(p2)
+	if seq.length() != 2:
 		return "Sequence length wrong"
-	if seq.First().X() != 1.0 or seq.Last().Y() != 2.0:
+	if seq.first().x() != 1.0 or seq.last().y() != 2.0:
 		return "Sequence First/Last wrong"
 	var p0 := OcgGpPnt.from_6(0.0, 0.0, 3.0)
-	seq.Prepend_N(p0)
-	if seq.Length() != 3 or seq.First().Z() != 3.0:
+	seq.prepend_N(p0)
+	if seq.length() != 3 or seq.first().z() != 3.0:
 		return "Sequence Prepend failed"
-	if seq.Value(3).Y() != 2.0:
+	if seq.value(3).y() != 2.0:
 		return "Sequence Value wrong"
-	seq.InsertBefore(2, OcgGpPnt.from_6(5.0, 5.0, 5.0))
-	if seq.Length() != 4 or seq.Value(2).X() != 5.0:
+	seq.insert_before(2, OcgGpPnt.from_6(5.0, 5.0, 5.0))
+	if seq.length() != 4 or seq.value(2).x() != 5.0:
 		return "Sequence InsertBefore failed"
-	seq.SetValue(2, OcgGpPnt.from_6(6.0, 6.0, 6.0))
-	if seq.Value(2).Y() != 6.0:
+	seq.set_value(2, OcgGpPnt.from_6(6.0, 6.0, 6.0))
+	if seq.value(2).y() != 6.0:
 		return "Sequence SetValue failed"
-	seq.Remove(2)
-	if seq.Length() != 3 or seq.Value(2).X() != 1.0:
+	seq.remove(2)
+	if seq.length() != 3 or seq.value(2).x() != 1.0:
 		return "Sequence Remove failed"
-	seq.Clear()
-	if not seq.IsEmpty():
+	seq.clear()
+	if not seq.is_empty():
 		return "Sequence Clear failed"
 	return "OK"
 
@@ -103,52 +103,52 @@ func test_shape_keyed_containers() -> String:
 	if shape == null:
 		return "Failed to create TopoDS_Shape"
 	var lst := OcgNCollectionListTopoDSShape.new()
-	lst.Append_4(shape)
-	if lst.Extent() != 1:
+	lst.append_4(shape)
+	if lst.extent() != 1:
 		return "List<Shape> Extent wrong"
-	if not lst.Contains(shape):
+	if not lst.contains(shape):
 		return "List<Shape> Contains failed"
-	if lst.First() == null:
+	if lst.first() == null:
 		return "List<Shape> First() returned null"
 
 	var mp := OcgNCollectionMapTopoDSShapeTopToolsShapeMapHasher.new()
-	if not mp.Add(shape):
+	if not mp.add(shape):
 		return "Map<Shape> Add failed"
-	if not mp.Contains(shape) or mp.Extent() != 1:
+	if not mp.contains(shape) or mp.extent() != 1:
 		return "Map<Shape> Contains/Extent wrong"
-	if not mp.Remove(shape) or not mp.IsEmpty():
+	if not mp.remove(shape) or not mp.is_empty():
 		return "Map<Shape> Remove failed"
 
 	var im := OcgNCollectionIndexedMapTopoDSShapeTopToolsShapeMapHasher.new()
-	if im.Add(shape) != 1:
+	if im.add(shape) != 1:
 		return "IndexedMap<Shape> Add failed"
-	if im.FindIndex(shape) != 1:
+	if im.find_index(shape) != 1:
 		return "IndexedMap<Shape> FindIndex wrong"
-	if im.FindKey(1) == null:
+	if im.find_key(1) == null:
 		return "IndexedMap<Shape> FindKey returned null"
 
 	var dm := OcgNCollectionIndexedDataMapTopoDSShapeDoubleTopToolsShapeMapHasher.new()
-	if dm.Add(shape, 3.5) != 1:
+	if dm.add(shape, 3.5) != 1:
 		return "IndexedDataMap<Shape, double> Add failed"
-	if dm.FindFromKey(shape) != 3.5 or dm.FindFromIndex(1) != 3.5:
+	if dm.find_from_key(shape) != 3.5 or dm.find_from_index(1) != 3.5:
 		return "IndexedDataMap<Shape, double> Find failed"
 	return "OK"
 
 
 func test_vec3_double() -> String:
 	var v := OcgNCollectionVec3Double.new()
-	v.SetValues(3.0, 4.0, 0.0)
+	v.set_values(3.0, 4.0, 0.0)
 	if v.x() != 3.0 or v.y() != 4.0 or v.z() != 0.0:
 		return "Vec3 component access failed"
-	if v.Modulus() != 5.0:
-		return "Vec3 Modulus failed: %s" % v.Modulus()
-	if v.SquareModulus() != 25.0:
+	if v.modulus() != 5.0:
+		return "Vec3 Modulus failed: %s" % v.modulus()
+	if v.square_modulus() != 25.0:
 		return "Vec3 SquareModulus failed"
 	var w := OcgNCollectionVec3Double.new()
-	w.SetValues(1.0, 0.0, 0.0)
-	if v.Dot(w) != 3.0:
+	w.set_values(1.0, 0.0, 0.0)
+	if v.dot(w) != 3.0:
 		return "Vec3 Dot failed"
-	var c := OcgNCollectionVec3Double.Cross(v, w)
+	var c := OcgNCollectionVec3Double.cross(v, w)
 	if c == null or c.x() != 0.0 or c.y() != 0.0 or c.z() != -4.0:
 		return "Vec3 Cross failed"
 	return "OK"

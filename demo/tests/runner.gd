@@ -209,7 +209,7 @@ func _load_index_suites() -> Array[String]:
 	if not ResourceLoader.exists(INDEX_FILE, "Script"):
 		return suites
 
-	var index := ResourceLoader.load(INDEX_FILE, "Script", ResourceLoader.CACHE_MODE_IGNORE) as Script
+	var index := ResourceLoader.load(INDEX_FILE, "Script") as Script
 	if index == null:
 		bootstrap_error = true
 		log_error("Failed to load test index: %s" % INDEX_FILE)
@@ -343,9 +343,11 @@ func _run_test(script: Object, method: String) -> String:
 		return "Failed to instantiate script"
 
 	if not instance.has_method(method):
+		_free_test_instance(instance)
 		return "Instance method not found: %s" % method
 
 	var result = instance.call(method)
+	_free_test_instance(instance)
 
 	match typeof(result):
 		TYPE_STRING:
@@ -358,6 +360,14 @@ func _run_test(script: Object, method: String) -> String:
 
 		_:
 			return "Invalid return type: expected \"OK\" or error String"
+
+
+func _free_test_instance(instance: Object) -> void:
+	# Tests extend Node. free() clears the script's instance list so a later
+	# reload() doesn't fail with ERR_ALREADY_IN_USE (leaked instances would
+	# block re-running the suites). RefCounted tests release themselves.
+	if not instance is RefCounted:
+		instance.free()
 
 
 func log_success(message: String) -> void:

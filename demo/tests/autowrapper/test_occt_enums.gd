@@ -27,10 +27,10 @@ func test_enum_as_method_argument() -> String:
 	var col := OcgQuantityColor.from_i(OcgEnums.Quantity_NameOfColor.Quantity_NOC_RED)
 	if col == null:
 		return "from_iQM(Quantity_NOC_RED) failed"
-	var name := col.Name_k()
+	var name := col.name_k()
 	if name != OcgEnums.Quantity_NameOfColor.Quantity_NOC_RED:
 		return "Name_kuK expected Quantity_NOC_RED got %s" % name
-	var name_str := OcgQuantityColor.StringName(OcgEnums.Quantity_NameOfColor.Quantity_NOC_BLUE)
+	var name_str := OcgQuantityColor.string_name(OcgEnums.Quantity_NameOfColor.Quantity_NOC_BLUE)
 	if name_str != "BLUE":
 		return "StringName(Quantity_NOC_BLUE) expected BLUE got %s" % name_str
 	return "OK"

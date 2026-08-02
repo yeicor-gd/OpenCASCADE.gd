@@ -17,12 +17,12 @@ func test_exception_guard_method() -> String:
 	if dir == null:
 		return "failed to create valid gp_Dir"
 	OcgErrors.clear_last_error()
-	dir.SetCoord_n(5, 0.0)
+	dir.set_coord_n(5, 0.0)
 	var msg := OcgErrors.get_last_error_message()
 	if msg == "":
 		return "expected last-error message after SetCoord_n(5, ...)"
 	# The object state survives the caught exception.
-	if dir.X() != 1.0:
+	if dir.x() != 1.0:
 		return "gp_Dir state corrupted after caught exception"
 	return "OK"
 
@@ -46,7 +46,7 @@ func test_builder_default_ctor_guard() -> String:
 	var face := OcgBRepBuilderAPIMakeFace.new()
 	if face == null:
 		return "expected a valid (not-done) builder object from new()"
-	if face.IsDone():
+	if face.is_done():
 		return "expected IsDone() == false for default-constructed face builder"
 	var msg := OcgErrors.get_last_error_message()
 	if msg == "":
@@ -59,7 +59,7 @@ func test_signal_conversion() -> String:
 	# + OCC_CATCH_SIGNALS must convert that SIGSEGV into a catchable error.
 	OcgErrors.clear_last_error()
 	var pnt := OcgGpPnt.new()
-	pnt.SetXYZ(null)
+	pnt.set_xyz(null)
 	var msg := OcgErrors.get_last_error_message()
 	if msg == "":
 		return "expected recorded last-error after null-Ref SIGSEGV"
