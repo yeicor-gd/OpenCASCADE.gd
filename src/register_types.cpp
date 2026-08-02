@@ -5,7 +5,9 @@
 // Autowrapper-generated module registration
 #include "autowrapper/module.h"
 #include "occt_errors.h"
+#include "occt_console_printer.hpp"
 
+#include <Message.hxx>
 #include <OSD.hxx>
 
 #include <godot_cpp/core/class_db.hpp>
@@ -21,6 +23,13 @@ static void opencascade_gd_initialize(ModuleInitializationLevel p_level) {
     // disabled (theFloatingSignal=false) so harmless NaN computations don't
     // raise spurious SIGFPE. Safe to call repeatedly.
     OSD::SetSignal(false);
+
+    // Replace OCCT's default console printer (which writes to std::cout and
+    // crashes inside Godot due to the mixed libstdc++ ABI — see
+    // occt_console_printer.hpp) with a safe C-stdio-based printer, so internal
+    // OCCT messages (warnings, reader errors, ...) stay visible without
+    // terminating the process.
+    occt_gd::install_safe_console_printer(Message::DefaultMessenger());
 
     // Register the GDScript-facing diagnostics API (reads the last-error state
     // recorded by the wrapper exception guards).

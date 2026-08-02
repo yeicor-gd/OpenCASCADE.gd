@@ -12,6 +12,11 @@
 #include <Standard_ErrorHandler.hxx>
 #include <Standard_Failure.hxx>
 
+// Safe-console printer declaration: generated wrapper code calls
+// occt_gd::install_safe_console_printer() (e.g. in the Message_Messenger
+// constructor) so OCCT messages never reach the crash-prone std::cout path.
+#include "occt_console_printer.hpp"
+
 namespace occt_gd {
 
 struct LastError {
