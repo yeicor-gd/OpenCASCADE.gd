@@ -24,5 +24,14 @@ compile_commands.json
 # VCPKG
 /vcpkg_ports/*/.last_build
 /vcpkg_installed/
+
+# Prebuilt GDExtension library files (downloaded by the editor plugin from GitHub Actions).
+# Ignored exhaustively: the addon only ships sources + config, binaries come from CI.
 demo/addons/OpenCASCADE.gd/*.so
+demo/addons/OpenCASCADE.gd/*.so.*
+demo/addons/OpenCASCADE.gd/*.dll
+demo/addons/OpenCASCADE.gd/*.dylib
+demo/addons/OpenCASCADE.gd/*.wasm
+demo/addons/OpenCASCADE.gd/*.pdb
+
 .build-autowrapper/
