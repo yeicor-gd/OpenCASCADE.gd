@@ -147,6 +147,33 @@ if [ "$DO_BUILD" = "1" ] || [ "$DO_BUILD" = "true" ]; then
     fi
 
     echo "Build succeeded! Running runtime validation..."
+
+    # OCCT is linked as static archives, so the extension .so must not have
+    # any undefined OCCT-class symbols. Header/library drift (a Standard_EXPORT
+    # method declared but never defined in the compiled libs) slips through the
+    # -shared link, then fails Godot's dlopen at runtime with an opaque
+    # "undefined symbol" error. Fail here with the offending symbols instead.
+    EXT_LIB="$(ls "$SCRIPT_DIR"/demo/addons/OpenCASCADE.gd/libgdext*.so 2>/dev/null | head -1)"
+    if [ -n "$EXT_LIB" ]; then
+        UNDEF=$(nm -D --undefined-only "$EXT_LIB" 2>/dev/null | c++filt | \
+                grep -E "[A-Z][A-Za-z0-9_]*::" | \
+                grep -vE "godot::|std::|__cxa|__gxx|__cxxabiv1|__gnu_cxx|DW\.ref" || true)
+        if [ -n "$UNDEF" ]; then
+            echo "✗ Extension has undefined OCCT symbols (header/lib drift?):" >&2
+            echo "$UNDEF" >&2
+            if [ -n "$ERROR_FILE" ]; then
+                {
+                    echo "Undefined OCCT symbols in the built extension:"
+                    echo "$UNDEF"
+                    echo ""
+                    echo "A method is declared Standard_EXPORT in a header but has no"
+                    echo "definition in the compiled OCCT static libs. Add it to"
+                    echo "SKIP_METHODS_BY_CLASS in classify/skippable.py and regenerate."
+                } > "$ERROR_FILE"
+            fi
+            exit 1
+        fi
+    fi
 else
     echo "Skipping build (DO_BUILD=$DO_BUILD). Running runtime validation..."
 fi

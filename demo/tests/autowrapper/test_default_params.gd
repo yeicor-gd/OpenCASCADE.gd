@@ -86,8 +86,8 @@ func test_dump_json_default_depth() -> String:
 func test_tdf_transaction_string_default() -> String:
 	# TDF_Transaction(aName="") — a string-typed default; the zero-arg
 	# call must construct a valid (anonymous) transaction.
-	var tr := OcgTDFTransaction.from_Q()
-	if tr == null:
+	var mtr := OcgTDFTransaction.from_Q()
+	if mtr == null:
 		return "from_Q() with default name failed"
 	var tr2 := OcgTDFTransaction.from_Q("my-name")
 	if tr2 == null:

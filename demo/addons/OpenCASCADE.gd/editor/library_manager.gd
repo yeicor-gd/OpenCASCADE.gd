@@ -33,7 +33,18 @@ func _ready() -> void:
 	ok_button_text = "Close"
 	min_size = Vector2(760, 420)
 	_build_ui()
-	refresh()
+	_status_label.text = "Press \"Refresh\" to check GitHub for available builds."
+	_clamp_to_available_size()
+
+
+## Caps the dialog to the available editor area so it never overflows the screen,
+## regardless of how many rows the tree contains.
+func _clamp_to_available_size() -> void:
+	var screen := DisplayServer.SCREEN_OF_MAIN_WINDOW
+	var rect := DisplayServer.screen_get_usable_rect(screen)
+	var limit := Vector2i(maxi(rect.size.x - 40, 480), maxi(rect.size.y - 40, 360))
+	max_size = limit
+	min_size = min_size.min(Vector2(limit))
 
 
 func _build_ui() -> void:
@@ -60,6 +71,7 @@ func _build_ui() -> void:
 	_tree.set_column_expand(1, true)
 	_tree.set_column_expand(2, true)
 	_tree.allow_reselect = true
+	_tree.select_mode = Tree.SELECT_MULTI
 	box.add_child(_tree)
 
 	_progress_bar = ProgressBar.new()
@@ -128,17 +140,9 @@ func _populate_tree(keys: Array[String], artifacts: Dictionary) -> void:
 	_tree.clear()
 	_rows.clear()
 	var current_key := Downloader.best_key_for_os()
-	var groups := {}
 	for key in keys:
 		var parts := String(key).split(".")
-		var platform := String(parts[0])
-		var group: TreeItem = groups.get(platform)
-		if group == null:
-			group = _tree.create_item()
-			group.set_text(0, platform.to_upper())
-			group.set_selectable(0, false)
-			groups[platform] = group
-		var item := _tree.create_item(group)
+		var item := _tree.create_item()
 		item.set_metadata(0, key)
 		var artifact: Dictionary = artifacts.get(Downloader.artifact_name_for_key(key), {})
 		_fill_row(item, key, parts, artifact, key == current_key)
@@ -149,7 +153,7 @@ func _fill_row(item: TreeItem, key: String, parts: PackedStringArray, artifact: 
 	var build := "debug" if parts.has("debug") else "release"
 	var precision := String(parts[parts.size() - 1])
 	var threads := " threads" if parts.has("threads") else ""
-	var label := "%s%s · %s" % [String(parts[1]), threads, build]
+	var label := "%s · %s%s · %s · %s" % [String(parts[0]), String(parts[1]), threads, precision, build]
 	if is_current:
 		label = "* " + label
 	item.set_text(1, label)
@@ -203,9 +207,8 @@ func _summary(keys: Array[String], artifacts: Dictionary) -> String:
 
 
 func _on_download_selected() -> void:
-	var selected := _tree.get_selected()
 	var keys: Array[String] = []
-	for item in selected:
+	for item in _tree.get_selected_items():
 		var key := String(item.get_metadata(0))
 		if not key.is_empty():
 			keys.append(key)

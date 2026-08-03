@@ -2,19 +2,23 @@
 class_name Flag
 extends MeshInstance3D
 
-## Animated flag built with OpenCASCADE on a background thread.
+## Animated flag built with OpenCASCADE on a pool of background threads.
 ##
 ## The flag is a grid of control points approximated by a B-spline surface,
-## meshed by OCCT and uploaded to the GPU. A double-buffered pipeline keeps the
-## main thread rendering while a worker thread already builds the next flag, and
-## every build is measured into a hierarchical stats tree (see `last_stats`).
+## meshed by OCCT and uploaded to the GPU. A queue + worker-pool pipeline keeps
+## N frames of the animation (N defaults to the machine's parallelism level)
+## being generated and meshed at any point in time, so the build cost overlaps
+## instead of serializing on a single thread. Frames for a rolling window of
+## future animation times are prebuilt and applied in order on the main thread.
+## Every build is measured into a hierarchical stats tree (see `last_stats`).
 ##
 ## Stability rules (keep these intact when editing):
-## - The worker thread does *all* OCCT work. OCCT wrapper objects are created and
-##   destroyed only on that thread; nothing OCCT crosses the mutex. `_pending_result`
-##   only ever carries Godot-native data (PackedArrays, ints, stats dicts).
-## - Param dicts are snapshots; the worker never mutates them, so the main thread
-##   can compare "unchanged" safely and skip redundant builds.
+## - Worker threads do *all* OCCT work. OCCT wrapper objects are created and
+##   destroyed only on those threads; nothing OCCT crosses a mutex. The job
+##   queue and pending results only ever carry Godot-native data (PackedArrays,
+##   ints, stats dicts).
+## - Param dicts are snapshots; workers never mutate them, so the main thread
+##   can schedule future frames ahead of the playhead safely.
 ## - Every OCCT stage is guarded: a failed stage aborts the build and the last
 ##   good mesh stays on screen instead of crashing the process.
 
@@ -32,14 +36,14 @@ extends MeshInstance3D
 @export_group("Surface")
 
 ## Control points along the flag. More = smoother, slower.
-@export var u_detail := 24
+@export var u_detail := 8
 ## Control points across the flag.
-@export var v_detail := 12
+@export var v_detail := 4
 
 @export_group("Meshing")
 
 ## Maximum distance between a mesh triangle and the exact surface.
-@export var linear_deflection := 0.001
+@export var linear_deflection := 0.01
 ## Maximum angle (deg) between normals of neighbouring triangles.
 @export var angular_deflection := 0.5
 
@@ -85,9 +89,12 @@ extends MeshInstance3D
 
 ## Animation clock. Scrubbing it rebuilds the flag.
 @export var time := 0.0
-@export var time_scale := 0.01
+@export var time_scale := 1.0
 ## Automatically advance the animation clock.
 @export var animated := false
+## Number of worker threads that generate/mesh frames in parallel.
+## 0 = automatic (the machine's CPU core count).
+@export var worker_count := 0
 ## Print the hierarchical build timings to the console.
 @export var print_timings := true
 
@@ -107,64 +114,71 @@ signal stats_changed(stats: Dictionary)
 var last_stats: Dictionary = {}
 
 # ---------------------------------------------------------------------------
-# Double-buffered pipeline: worker builds the next flag while we render this one
+# Queue + worker-pool pipeline: N flags for a rolling window of future animation
+# times are generated and meshed in parallel (N defaults to the machine's core
+# count), so the build cost overlaps instead of serializing on one thread.
 # ---------------------------------------------------------------------------
 
-var _thread: Thread
+var _workers: Array[Thread] = []
 var _mutex := Mutex.new()
-var _work_sem := Semaphore.new()
-var _done_sem := Semaphore.new()
+var _job_sem := Semaphore.new()
 var _exit := false
-var _params := {}
+var _jobs: Array[Dictionary] = []
+var _results: Array[Dictionary] = []
+var _pending_results: Array[Dictionary] = []
 var _params_sent := {}
-var _work_pending := false
-var _pending_result := {}
+var _next_build_time := -INF
+var _last_applied_time := -INF
+var _in_flight := 0
 # Time (usec) when the previous mesh was applied on the main thread.
 # Used to measure the frame-to-frame interval between visible mesh updates.
 var _last_mesh_update_us := 0
 
 
 func _ready() -> void:
-	# Editor reloads can re-enter _ready; never spawn a second worker.
-	if _thread != null:
+	# Editor reloads can re-enter _ready; never spawn a second pool.
+	if not _workers.is_empty():
 		return
-	_thread = Thread.new()
-	_thread.start(_worker_main)
+	for i in _effective_worker_count():
+		var t := Thread.new()
+		t.start(_worker_main)
+		_workers.append(t)
 	if not Engine.is_editor_hint():
 		print_timings = false
 		animated = true
+	_refill_jobs()
+	var _1 = _rebuild_btn
+	var _2 = _step_btn
+
+
+## Number of worker threads: the exported `worker_count`, or the CPU core count.
+func _effective_worker_count() -> int:
+	return worker_count if worker_count > 0 else maxi(OS.get_processor_count(), 1)
 
 
 func _exit_tree() -> void:
-	_stop_worker()
+	_stop_workers()
 
 
-func _stop_worker() -> void:
-	var t := _thread
-	if t == null:
-		return
+func _stop_workers() -> void:
 	_mutex.lock()
 	_exit = true
 	_mutex.unlock()
-	_work_sem.post()
-	if t.is_started():
-		t.wait_to_finish()
-	_thread = null
+	for i in _workers.size():
+		_job_sem.post()
+	for t in _workers:
+		if t.is_started():
+			t.wait_to_finish()
+	_workers.clear()
 
 
 func _process(_delta: float) -> void:
 	if animated:
 		time += _delta * time_scale
 	_drain_results()
-	if _thread == null:
+	if _workers.is_empty():
 		return
-	var p := _snapshot_params()
-	_mutex.lock()
-	var changed := p != _params_sent
-	var busy := _work_pending
-	_mutex.unlock()
-	if changed and not busy:
-		_request_build(p)
+	_refill_jobs()
 
 
 func _snapshot_params() -> Dictionary:
@@ -182,65 +196,117 @@ func _snapshot_params() -> Dictionary:
 
 
 func request_build() -> void:
-	if _thread == null:
+	if _workers.is_empty():
 		return
-	_mutex.lock()
-	var busy := _work_pending
-	_mutex.unlock()
-	if not busy:
-		_request_build(_snapshot_params())
+	_params_sent = {}
+	_next_build_time = time
+	_last_applied_time = time - 1.0
+	_pending_results.clear()
+	_refill_jobs()
 
 
 ## Stops the animation and advances the clock by one frame.
 func step_once() -> void:
 	animated = false
 	time += time_scale * (1.0 / 60.0)
-
-
-func _request_build(p: Dictionary) -> void:
-	_mutex.lock()
-	# Duplicate so the worker owns a private copy it can never mutate behind
-	# the main thread's back (this also guarantees the "changed" compare stays sane).
-	_params = p.duplicate()
-	_params_sent = _params
-	_work_pending = true
-	_mutex.unlock()
-	_work_sem.post()
+	request_build()
 
 
 func get_stats() -> Dictionary:
 	return last_stats
 
 
+## Enqueues builds for a rolling window [time, time + lead] of animation times so
+## that up to N frames are in flight at any moment, keeping every worker busy.
+func _refill_jobs() -> void:
+	var n := _effective_worker_count()
+	var step := maxf(time_scale / 60.0, 1e-4)
+	var lead := step * float(n)
+	var key := _snapshot_params()
+	key.erase("time")
+
+	_mutex.lock()
+	var params_changed := key != _params_sent
+	var scrubbed_back := time < _last_applied_time - 1e-6
+	if params_changed or scrubbed_back:
+		# Rebuild from the playhead after a param edit or a backward scrub; old
+		# in-flight results get dropped by the key check when they arrive.
+		_params_sent = key
+		_next_build_time = time
+		_last_applied_time = time - step
+	# If the playhead jumped ahead of what is queued, skip straight to it.
+	if _next_build_time < time - lead:
+		_next_build_time = time
+	var posted := 0
+	while _in_flight < n and _next_build_time <= time + lead:
+		var p := _snapshot_params()
+		p["time"] = _next_build_time
+		p["key"] = key
+		_jobs.append(p)
+		_in_flight += 1
+		_next_build_time += step
+		posted += 1
+	_mutex.unlock()
+	for i in posted:
+		_job_sem.post()
+
+
 func _worker_main() -> void:
 	while true:
-		_work_sem.wait()
+		_job_sem.wait()
 		_mutex.lock()
 		if _exit:
 			_mutex.unlock()
 			break
-		var p := _params
+		var job: Dictionary = {}
+		if _jobs.size() > 0:
+			job = _jobs.pop_front()
 		_mutex.unlock()
+		if job.is_empty():
+			continue
 		# A failed build returns {}; _apply_result ignores it and the previous
 		# mesh stays on screen. A GDScript error inside the build only aborts
 		# this function frame, so the worker thread itself never dies here.
-		var result := _build_flag(p)
+		var result := _build_flag(job)
+		result["time"] = job.get("time", 0.0)
+		result["key"] = job.get("key", {})
 		_mutex.lock()
-		_pending_result = result
+		_results.append(result)
 		_mutex.unlock()
-		_done_sem.post()
 
 
 func _drain_results() -> void:
-	while _done_sem.try_wait():
-		_mutex.lock()
-		var result := _pending_result
-		# The request stays pending until its result is consumed here, so the
-		# worker never has more than one build in flight and results are always
-		# applied in request order (no stale-frame jumps or lost frames).
-		_work_pending = false
-		_mutex.unlock()
-		_apply_result(result)
+	_mutex.lock()
+	var done := _results
+	_results = []
+	_in_flight -= done.size()
+	_mutex.unlock()
+	if done.is_empty():
+		return
+	_pending_results.append_array(done)
+	_pending_results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["time"] < b["time"])
+	var key := _snapshot_params()
+	key.erase("time")
+	# Drop results built for a different parameter set (e.g. a changed slider).
+	var kept: Array[Dictionary] = []
+	for r in _pending_results:
+		if r.get("key") == key:
+			kept.append(r)
+	_pending_results = kept
+	# Apply in animation-time order those that are due (time <= playhead), at
+	# most one mesh per frame: applying more than one in a single frame is
+	# wasted work. Results whose animation time the playhead has already passed
+	# are dropped (they will never be shown).
+	while _pending_results.size() > 0:
+		var r: Dictionary = _pending_results[0]
+		if float(r["time"]) > time:
+			break
+		_pending_results.pop_front()
+		if float(r["time"]) <= _last_applied_time:
+			continue
+		_apply_result(r)
+		_last_applied_time = r["time"]
+		break
 
 
 func _apply_result(result: Dictionary) -> void:
@@ -312,12 +378,12 @@ func _build_flag(p: Dictionary) -> Dictionary:
 		stat.end()
 		return {}
 
-	var mesh: Dictionary = _measure(stat, "Triangulation", func(s: _Stat): return _triangulate(p, surface, s))
-	if mesh.is_empty():
+	var mmesh: Dictionary = _measure(stat, "Triangulation", func(s: _Stat): return _triangulate(p, surface, s))
+	if mmesh.is_empty():
 		stat.end()
 		return {}
 
-	var arrays: Dictionary = _measure(stat, "To Godot arrays", func(s: _Stat): return _tri_to_arrays(mesh["triangulation"], mesh, s))
+	var arrays: Dictionary = _measure(stat, "To Godot arrays", func(s: _Stat): return _tri_to_arrays(mmesh["triangulation"], mmesh, s))
 	if arrays.is_empty():
 		stat.end()
 		return {}
@@ -326,14 +392,14 @@ func _build_flag(p: Dictionary) -> Dictionary:
 	return {
 		"arrays": arrays,
 		"stats": stat.to_dict(),
-		"nodes": mesh["triangulation"].nb_nodes(),
-		"triangles": mesh["triangulation"].nb_triangles(),
+		"nodes": mmesh["triangulation"].nb_nodes(),
+		"triangles": mmesh["triangulation"].nb_triangles(),
 	}
 
 
-func _measure(parent: _Stat, name: String, fn: Callable) -> Variant:
+func _measure(parent: _Stat, mname: String, fn: Callable) -> Variant:
 	var s := _Stat.new()
-	s.name = name
+	s.name = mname
 	s.begin()
 	var result = fn.call(s)
 	s.end()
@@ -385,8 +451,8 @@ func _make_points(p: Dictionary) -> OcgNCollectionArray2GpPnt:
 	var fold: float = p["amplitude"] * wind
 	# Keep the phase divisors away from zero so degenerate params can't produce
 	# NaN/inf geometry that OCCT would struggle to fit and mesh.
-	var wavelength := maxf(p["wavelength"], 0.05)
-	var camber_wavelength := maxf(p["camber_wavelength"], 0.05)
+	var mwavelength := maxf(p["wavelength"], 0.05)
+	var mcamber_wavelength := maxf(p["camber_wavelength"], 0.05)
 
 	for v in nv:
 		var v_norm := float(v) / float(nv - 1)
@@ -406,7 +472,7 @@ func _make_points(p: Dictionary) -> OcgNCollectionArray2GpPnt:
 			# Flutter only exists near the free end.
 			var flutter_env := smoothstep(0.75, 1.0, x_norm)
 
-			var phase: float = TAU * (s / wavelength - t * p["wind_speed"]) + twist
+			var phase: float = TAU * (s / mwavelength - t * p["wind_speed"]) + twist
 
 			var slope := env * (
 				fold * sin(phase)
@@ -414,7 +480,7 @@ func _make_points(p: Dictionary) -> OcgNCollectionArray2GpPnt:
 			)
 
 			slope += flutter_env * p["flutter"] * fold * \
-				sin(TAU * 6.0 * s / wavelength - TAU * 8.0 * t)
+				sin(TAU * 6.0 * s / mwavelength - TAU * 8.0 * t)
 
 			var dir := Vector3(
 				1.0,
@@ -439,7 +505,7 @@ func _make_points(p: Dictionary) -> OcgNCollectionArray2GpPnt:
 			# Travelling phase, offset across the flag so neighbouring strips
 			# aren't perfectly synchronized.
 			var camber_phase = TAU * (
-					s / camber_wavelength
+					s / mcamber_wavelength
 					- t * p["camber_speed"]
 				) + (v_norm - 0.5) * 0.8
 
@@ -489,7 +555,7 @@ func _triangulate(p: Dictionary, surface: OcgGeomBSplineSurface, sec: _Stat) -> 
 	)
 	if face == null or not _occt_ok():
 		return {}
-	_measure(sec, "Incremental mesh", func(_s: _Stat):
+	_measure(sec, "Meshing", func(_s: _Stat):
 		OcgErrors.clear_last_error()
 		return OcgBRepMeshIncrementalMesh.from_z(
 			face, maxf(p["linear_deflection"], 1e-4), false, maxf(p["angular_deflection"], 0.05), false
@@ -511,7 +577,7 @@ func _triangulate(p: Dictionary, surface: OcgGeomBSplineSurface, sec: _Stat) -> 
 	)
 	if not _occt_ok():
 		return {}
-	var tri: OcgPolyTriangulation = _measure(sec, "Extract triangulation", func(_s: _Stat):
+	var tri: OcgPolyTriangulation = _measure(sec, "Triangulation", func(_s: _Stat):
 		OcgErrors.clear_last_error()
 		return OcgBRepTool.triangulation(face, OcgTopLocLocation.new(), 0)
 	)
@@ -521,8 +587,8 @@ func _triangulate(p: Dictionary, surface: OcgGeomBSplineSurface, sec: _Stat) -> 
 	return bounds
 
 
-func _tri_to_arrays(tri: OcgPolyTriangulation, mesh: Dictionary, sec: _Stat) -> Dictionary:
-	_measure(sec, "Compute normals", func(_s: _Stat):
+func _tri_to_arrays(tri: OcgPolyTriangulation, mmesh: Dictionary, sec: _Stat) -> Dictionary:
+	_measure(sec, "Normals", func(_s: _Stat):
 		OcgErrors.clear_last_error()
 		tri.compute_normals()
 		return null
@@ -537,10 +603,10 @@ func _tri_to_arrays(tri: OcgPolyTriangulation, mesh: Dictionary, sec: _Stat) -> 
 	var normals := PackedVector3Array()
 	var indices := PackedInt32Array()
 	var uvs := PackedVector2Array()
-	var umin: float = mesh["umin"]
-	var umax: float = mesh["umax"]
-	var vmin: float = mesh["vmin"]
-	var vmax: float = mesh["vmax"]
+	var umin: float = mmesh["umin"]
+	var umax: float = mmesh["umax"]
+	var vmin: float = mmesh["vmin"]
+	var vmax: float = mmesh["vmax"]
 	var du := umax - umin
 	var dv := vmax - vmin
 	var u_scale := 0.0 if du <= 0.0 else 1.0 / du

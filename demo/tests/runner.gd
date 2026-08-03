@@ -20,7 +20,6 @@ var bootstrap_error := false
 var test_filter: String = ""
 
 var _worker_thread: Thread
-var _pending_logs: Array[String] = []
 
 static var ctx := TestContext.new()
 
