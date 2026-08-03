@@ -17,6 +17,18 @@ This project provides a GDExtension wrapper for [OpenCASCADE Technology](https:/
 2. **Extract**: the downloaded `...-addon.zip` into your project's root.
 3. **Profit**: see [demo/tests](demo/tests) for examples.
 
+## License warning
+
+> Open CASCADE Technology version 6.7.0 and later are governed by GNU Lesser
+> General Public License (LGPL) version 2.1 with additional exception.
+
+The OCCT libraries are compiled statically into the addon's prebuilt binaries
+(see [demo/addons/OpenCASCADE.gd/](demo/addons/OpenCASCADE.gd/)). If you
+distribute the addon, the LGPL 2.1 obligations (including making the source
+available and allowing users to relink the OCCT libraries) apply to the parts
+derived from OCCT. Building the addon from source is the easiest way
+to satisfy the corresponding source/relinking requirements.
+
 ## Using this project as a template for other GDExtensions
 
 1. **Rename the Project**: update `project({old-name} CXX)` in [CMakeLists.txt](CMakeLists.txt), and rename [demo/addons/{old-name}/](demo/addons/OpenCASCADE.gd) to match your new addon name.
