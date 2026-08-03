@@ -459,9 +459,9 @@ jobs:
       matrix:
         target: # Not all architectures are tested for simplicity
           [
-            { os: ubuntu-24.04, export_name: Linux },
-            { os: windows-2025-vs2026, export_name: "Windows Desktop" },
-            { os: macos-15, export_name: macOS },
+            { os: ubuntu-24.04, export_name: "Linux x86_64" },
+            { os: windows-2025-vs2026, export_name: "Windows x86_64" },
+            { os: macos-15, export_name: "macOS universal" },
           ]
         mode: [debug, release]
         godot-version: ${{ fromJson(needs.read-versions.outputs.godot_versions) }}
@@ -490,7 +490,7 @@ jobs:
           merge-multiple: true
 
       - name: Setup Linux dependencies
-        if: matrix.target.export_name == 'Linux'
+        if: matrix.target.export_name == 'Linux x86_64'
         shell: bash
         run: |
           set -e
@@ -518,7 +518,7 @@ jobs:
           DO_BUILD=false GODOT_VERSION="system" ./validate.sh /tmp/a.txt || ( echo "====== ERRORS ======" && cat /tmp/a.txt && exit 1 )
 
       - name: Prepare addon export
-        if: matrix.target.export_name == 'Linux' && matrix.mode == 'release' && matrix.godot-version == needs.read-versions.outputs.godot_max_version
+        if: matrix.target.export_name == 'Linux x86_64' && matrix.mode == 'release' && matrix.godot-version == needs.read-versions.outputs.godot_max_version
         shell: bash
         run: |
           set -e
@@ -531,7 +531,7 @@ jobs:
           echo "MODIFIED_REF=$MODIFIED_REF" >> $GITHUB_ENV
 
       - name: Upload addon artifact
-        if: matrix.target.export_name == 'Linux' && matrix.mode == 'release' && matrix.godot-version == needs.read-versions.outputs.godot_max_version
+        if: matrix.target.export_name == 'Linux x86_64' && matrix.mode == 'release' && matrix.godot-version == needs.read-versions.outputs.godot_max_version
         uses: actions/upload-artifact@v7
         with:
           name: ${{ github.event.repository.name }}-${{ env.MODIFIED_REF }}-addon
@@ -573,9 +573,9 @@ jobs:
         run: |
           # Full name used for cache lookups — includes version + rebuild hash
           # to prevent stale caches across Godot version bumps or source changes.
-          CACHE_NAME="web-${{ matrix.type }}-threads-${{ matrix.mode }}-${{ needs.read-versions.outputs.godot_max_version }}-${{ needs.read-versions.outputs.rebuild_hash }}"
+          CACHE_NAME="web-${{ matrix.type }}-${{ matrix.mode }}-${{ needs.read-versions.outputs.godot_max_version }}-${{ needs.read-versions.outputs.rebuild_hash }}"
           # Current-run name used by downstream jobs (short, no version).
-          RUN_NAME="web-${{ matrix.type }}-threads-${{ matrix.mode }}"
+          RUN_NAME="web-${{ matrix.type }}-${{ matrix.mode }}"
           echo "cache=${CACHE_NAME}" >> $GITHUB_OUTPUT
           echo "run=${RUN_NAME}" >> $GITHUB_OUTPUT
 
@@ -618,20 +618,20 @@ jobs:
       matrix:
         target:
           [
-            { triplet: x64-linux, preset: "Linux", os: ubuntu-24.04 },
-            { triplet: x86-linux, preset: "Linux x86", os: ubuntu-24.04 },
+            { triplet: x64-linux, preset: "Linux x86_64", os: ubuntu-24.04 },
+            { triplet: x86-linux, preset: "Linux x86_32", os: ubuntu-24.04 },
             { triplet: arm64-linux, preset: "Linux arm64", os: ubuntu-24.04-arm },
-            { triplet: arm-linux, preset: "Linux arm", os: ubuntu-24.04-arm },
-            { triplet: x64-windows-static, preset: "Windows Desktop", os: windows-2025-vs2026 },
-            { triplet: x86-windows-static, preset: "Windows Desktop x86", os: windows-2025-vs2026 },
-            { triplet: arm64-windows-static, preset: "Windows Desktop arm64", os: windows-2025-vs2026 },
-            { triplet: universal-osx, preset: "macOS", os: macos-15 },
-            { triplet: wasm32-emscripten, preset: "Web Threads", os: ubuntu-24.04 },
-            { triplet: arm64-android, preset: "Android", os: ubuntu-24.04 },
-            { triplet: arm-neon-android, preset: "Android armeabi-v7a", os: ubuntu-24.04 },
+            { triplet: arm-linux, preset: "Linux arm32", os: ubuntu-24.04-arm },
+            { triplet: x64-windows-static, preset: "Windows x86_64", os: windows-2025-vs2026 },
+            { triplet: x86-windows-static, preset: "Windows x86_32", os: windows-2025-vs2026 },
+            { triplet: arm64-windows-static, preset: "Windows arm64", os: windows-2025-vs2026 },
+            { triplet: universal-osx, preset: "macOS universal", os: macos-15 },
+            { triplet: wasm32-emscripten, preset: "Web", os: ubuntu-24.04 },
+            { triplet: arm64-android, preset: "Android arm64", os: ubuntu-24.04 },
+            { triplet: arm-neon-android, preset: "Android arm32", os: ubuntu-24.04 },
             { triplet: x64-android, preset: "Android x86_64", os: ubuntu-24.04 },
-            { triplet: x86-android, preset: "Android x86", os: ubuntu-24.04 },
-            { triplet: arm64-ios, preset: "iOS", os: ubuntu-24.04 },
+            { triplet: x86-android, preset: "Android x86_32", os: ubuntu-24.04 },
+            { triplet: arm64-ios, preset: "iOS arm64", os: ubuntu-24.04 },
           ]
         mode: [debug, release]
     runs-on: ${{ matrix.target.os }}
@@ -685,7 +685,7 @@ jobs:
         if: contains(matrix.target.triplet, 'wasm32-emscripten')
         uses: actions/download-artifact@v8
         with:
-          name: web-template-threads-${{ matrix.mode }}
+          name: web-template-${{ matrix.mode }}
           path: web-templates
 
       - name: Install custom web templates
@@ -744,7 +744,7 @@ jobs:
       - name: Download web demo artifact
         uses: actions/download-artifact@v8
         with:
-          name: demo-web-threads-release
+          name: demo-web-release
           path: web
 
       - name: Download and extract web editor
@@ -753,7 +753,7 @@ jobs:
           set -e
           mkdir -p web/editor
           gh run download "${{ github.run_id }}" \
-            --name web-editor-threads-release \
+            --name web-editor-release \
             --dir editor-dl
           cd editor-dl
           unzip -q editor/threads/web_editor.zip -d "${{ github.workspace }}/web/editor"
