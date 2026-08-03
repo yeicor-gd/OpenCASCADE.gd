@@ -1,4 +1,5 @@
 @tool
+class_name Flag
 extends MeshInstance3D
 
 ## Animated flag built with OpenCASCADE on a background thread.
@@ -92,6 +93,10 @@ extends MeshInstance3D
 
 @export_tool_button("Rebuild") var _rebuild_btn := request_build
 
+@export_tool_button("Step") var _step_btn := step_once
+
+signal stats_changed(stats: Dictionary)
+
 # ---------------------------------------------------------------------------
 # Public state
 # ---------------------------------------------------------------------------
@@ -114,6 +119,9 @@ var _params := {}
 var _params_sent := {}
 var _work_pending := false
 var _pending_result := {}
+# Time (usec) when the previous mesh was applied on the main thread.
+# Used to measure the frame-to-frame interval between visible mesh updates.
+var _last_mesh_update_us := 0
 
 
 func _ready() -> void:
@@ -183,6 +191,12 @@ func request_build() -> void:
 		_request_build(_snapshot_params())
 
 
+## Stops the animation and advances the clock by one frame.
+func step_once() -> void:
+	animated = false
+	time += time_scale * (1.0 / 60.0)
+
+
 func _request_build(p: Dictionary) -> void:
 	_mutex.lock()
 	# Duplicate so the worker owns a private copy it can never mutate behind
@@ -247,6 +261,13 @@ func _apply_result(result: Dictionary) -> void:
 	mesh = m
 	var apply_us := Time.get_ticks_usec() - t0
 
+	# Time between visible mesh updates (main thread).
+	var now_us := Time.get_ticks_usec()
+	var frame_to_frame_us := 0
+	if _last_mesh_update_us != 0:
+		frame_to_frame_us = now_us - _last_mesh_update_us
+	_last_mesh_update_us = now_us
+
 	var build_stats: Dictionary = result["stats"]
 	last_stats = {
 		"name": "Frame",
@@ -256,10 +277,12 @@ func _apply_result(result: Dictionary) -> void:
 		"children": [
 			build_stats.duplicate(true),
 			{"name": "Apply (main thread)", "us": apply_us},
+			{"name": "Mesh-to-mesh", "us": frame_to_frame_us}
 		],
 	}
 	if print_timings:
 		_print_stats(last_stats)
+	stats_changed.emit(last_stats)
 
 
 func _print_stats(s: Dictionary, indent := "") -> void:
@@ -329,7 +352,7 @@ func _make_surface(p: Dictionary, sec: _Stat) -> OcgGeomBSplineSurface:
 		# Drop any error a constructor may have recorded, so only init_g's
 		# outcome decides whether this stage succeeded.
 		OcgErrors.clear_last_error()
-		f.init_g(pts, 3, 3, OcgEnums.GeomAbs_Shape.GeomAbs_C2, 1e-4)
+		f.init_g(pts, 8, 8, OcgEnums.GeomAbs_Shape.GeomAbs_G2, 1e-5)
 		return f
 	)
 	if fit == null or not _occt_ok():
