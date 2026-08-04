@@ -280,6 +280,15 @@ func _run_suite(path: String) -> void:
 	if filtered_methods.is_empty():
 		return
 
+	# Optional per-suite lifecycle hooks: _suite_setup() runs before the first
+	# test, _suite_teardown() after the last. Used e.g. by test_exception_repro
+	# to temporarily disable push_error spam from expected exceptions.
+	var setup_instance: Object = null
+	if script.can_instantiate():
+		setup_instance = script.new()
+		if setup_instance != null and setup_instance.has_method("_suite_setup"):
+			setup_instance.call("_suite_setup")
+
 	log_info("Suite: %s" % suite_name)
 	indent_level += 1
 
@@ -307,6 +316,11 @@ func _run_suite(path: String) -> void:
 					log_debug("  at %s:%d" % [frame.get("source", "?"), frame.get("line", 0)])
 
 		ctx.current_test = ""
+
+	if setup_instance != null and setup_instance.has_method("_suite_teardown"):
+		setup_instance.call("_suite_teardown")
+	if setup_instance != null and not setup_instance is RefCounted:
+		setup_instance.free()
 
 	var suite_duration_ms := (Time.get_ticks_usec() - suite_start) / 1000.0
 

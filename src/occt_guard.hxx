@@ -64,7 +64,42 @@ inline void clear_last_error() {
     last_error_ref().stack = ::godot::String();
 }
 
+// Runtime toggle for the push_error emitted when a caught OCCT exception is
+// converted into a Godot error (see the catch macros below). Enabled by
+// default; callers that treat an exception as expected (tests, probing code)
+// can silence the log spam while still reading the last-error state via
+// OcgErrors.get_last_error_message().
+inline bool &push_errors_ref() {
+    static bool enabled = true;
+    return enabled;
+}
+
+inline bool errors_pushed_on_exception() {
+    return push_errors_ref();
+}
+
+inline void set_errors_pushed_on_exception(bool p_enabled) {
+    push_errors_ref() = p_enabled;
+}
+
 } // namespace occt_gd
+
+// Non-void catch-block epilogue: record_last_exception() already ran; emit the
+// Godot error only when push_errors_on_exception is enabled, otherwise return
+// the default value silently. `m_default` is always `{}` in generated code, so
+// evaluating it in both branches is safe.
+#define OCCT_GUARD_FAIL_RETURN(m_default, occt_msg)                                          \
+    if (occt_gd::errors_pushed_on_exception()) {                                             \
+        ERR_FAIL_V_MSG(m_default, occt_msg);                                                 \
+    }                                                                                        \
+    return m_default;
+
+// Void catch-block epilogue, same semantics as OCCT_GUARD_FAIL_RETURN.
+#define OCCT_GUARD_FAIL_VOID_RETURN(occt_msg)                                                \
+    if (occt_gd::errors_pushed_on_exception()) {                                             \
+        ERR_FAIL_MSG(occt_msg);                                                              \
+    }                                                                                        \
+    return;
 
 // Catch epilogue for generated default constructors. A constructor has no
 // return value and cannot return null on failure, so the exception is recorded
@@ -87,24 +122,24 @@ inline void clear_last_error() {
 #define OCCT_GUARD_CATCH(m_default)                                                           \
     catch (const Standard_Failure &occt_gd_sf) {                                              \
         occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString());       \
-        ERR_FAIL_V_MSG(m_default, occt_gd_sf.what());                                         \
+        OCCT_GUARD_FAIL_RETURN(m_default, occt_gd_sf.what())                                 \
     } catch (const std::exception &occt_gd_e) {                                               \
         occt_gd::record_last_exception(occt_gd_e.what(), nullptr);                            \
-        ERR_FAIL_V_MSG(m_default, occt_gd_e.what());                                          \
+        OCCT_GUARD_FAIL_RETURN(m_default, occt_gd_e.what())                                  \
     } catch (...) {                                                                           \
         occt_gd::record_last_exception("Unknown OCCT/GDExtension exception", nullptr);        \
-        ERR_FAIL_V_MSG(m_default, "Unknown OCCT/GDExtension exception");                      \
+        OCCT_GUARD_FAIL_RETURN(m_default, "Unknown OCCT/GDExtension exception")              \
     }
 
 // Catch epilogue for generated VOID wrapper methods.
 #define OCCT_GUARD_CATCH_VOID()                                                               \
     catch (const Standard_Failure &occt_gd_sf) {                                              \
         occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString());       \
-        ERR_FAIL_MSG(occt_gd_sf.what());                                                      \
+        OCCT_GUARD_FAIL_VOID_RETURN(occt_gd_sf.what())                                       \
     } catch (const std::exception &occt_gd_e) {                                               \
         occt_gd::record_last_exception(occt_gd_e.what(), nullptr);                            \
-        ERR_FAIL_MSG(occt_gd_e.what());                                                       \
+        OCCT_GUARD_FAIL_VOID_RETURN(occt_gd_e.what())                                        \
     } catch (...) {                                                                           \
         occt_gd::record_last_exception("Unknown OCCT/GDExtension exception", nullptr);        \
-        ERR_FAIL_MSG("Unknown OCCT/GDExtension exception");                                   \
+        OCCT_GUARD_FAIL_VOID_RETURN("Unknown OCCT/GDExtension exception")                    \
     }

@@ -18,6 +18,8 @@ public:
     static String take_last_error_message();
     static String take_last_error_stack();
     static void clear_last_error();
+    static void set_errors_pushed_on_exception(bool enabled);
+    static bool is_errors_pushed_on_exception();
 
 protected:
     static void _bind_methods();

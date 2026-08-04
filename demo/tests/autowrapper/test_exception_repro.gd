@@ -1,6 +1,16 @@
 extends Node
 
 
+func _suite_setup() -> void:
+	# Every test in this suite deliberately triggers OCCT exceptions; without
+	# this, the caught-and-guarded ones would spam push_error into the log.
+	OcgErrors.set_errors_pushed_on_exception(false)
+
+
+func _suite_teardown() -> void:
+	OcgErrors.set_errors_pushed_on_exception(true)
+
+
 func test_exception_guard_construction() -> String:
 	OcgErrors.clear_last_error()
 	var bad := OcgGpDir.from_6(0.0, 0.0, 0.0)
