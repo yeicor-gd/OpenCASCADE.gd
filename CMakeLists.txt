@@ -92,12 +92,13 @@ if(GODOTCPP_TARGET MATCHES "editor|template_debug")
         "${PROJECT_SOURCE_DIR}/doc_classes/autowrapper/*.xml")
   set(DOC_GEN_FILE "${CMAKE_CURRENT_BINARY_DIR}/gen/doc_data.cpp")
   file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/gen")
-  set(PYTHON_LIST "'${DOC_XML}'")
-  list(JOIN PYTHON_LIST "','" PYTHON_LIST)
+  # Note: paths are not passed on the command line (that would exceed
+  # MAX_ARG_STRLEN once there are thousands of generated doc XML files);
+  # the generator globs the directory itself.
   add_custom_command(
     OUTPUT ${DOC_GEN_FILE}
     COMMAND ${Python3_EXECUTABLE} "-c"
-        "from doc_source_generator import generate_doc_source; generate_doc_source('${DOC_GEN_FILE}', [${PYTHON_LIST}])"
+        "from doc_source_generator import generate_doc_source_from_directory; generate_doc_source_from_directory('${DOC_GEN_FILE}', '${PROJECT_SOURCE_DIR}/doc_classes/autowrapper')"
     VERBATIM
     WORKING_DIRECTORY
         ${CMAKE_CURRENT_SOURCE_DIR}/godot-cpp
@@ -107,7 +108,10 @@ endif()
 
 # Define the shared library target
 # Hand-written sources + autowrapper-generated sources
-file(GLOB_RECURSE SOURCES
+# CONFIGURE_DEPENDS: re-glob automatically when the autowrapper is
+# regenerated (new/deleted TUs), so builds stay incremental without a
+# manual cmake re-run. Unchanged files keep their mtimes and are skipped.
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     "src/*.cpp"
     "src/**/*.cpp"
     "src/autowrapper/*.cpp"
@@ -145,11 +149,10 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE src/autowrapper)
 get_target_property(GODOTCPP_INCLUDES godot-cpp INTERFACE_INCLUDE_DIRECTORIES)
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 
-# Force-include the auto-generated OCCT compatibility header.
-# It provides all transitive OCCT dependencies in topological order,
-# derived from libclang's include graphs (no hardcoded library knowledge).
+# Force-include the exception guard header. It defines the OCCT signal/exception
+# catch machinery used by the generated wrappers (OCC_CATCH_SIGNALS, OCCT_GUARD_*).
+# Every generated header/source includes exactly the OCCT headers it needs itself.
 target_compile_options(${PROJECT_NAME} PRIVATE
-  "SHELL:-include ${CMAKE_CURRENT_SOURCE_DIR}/src/autowrapper/occt_compat.hxx"
   "SHELL:-include ${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
 )
 

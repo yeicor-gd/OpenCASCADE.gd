@@ -1,7 +1,9 @@
 // Hand-written exception guard helpers for the generated OCCT wrappers.
-// Force-included (via CMake) AFTER occt_compat.hxx so all OCCT headers are
-// already available. DO NOT edit the generated files to depend on this header
-// explicitly — it is force-included into every generated translation unit.
+// Force-included (via CMake) into every generated translation unit.  Each
+// generated file includes its own OCCT headers, so this header must only rely
+// on the OCCT headers it includes below.  DO NOT edit the generated files to
+// depend on this header explicitly — it is force-included into every generated
+// translation unit.
 #pragma once
 
 #include <exception>

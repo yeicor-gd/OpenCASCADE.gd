@@ -293,6 +293,13 @@ func _drain_results() -> void:
 		if r.get("key") == key:
 			kept.append(r)
 	_pending_results = kept
+	# Workers can produce meshes faster than the (frame-rate limited) main
+	# thread can apply them. Bound the queue to the rolling window so results
+	# that will never be shown can't accumulate in memory: the oldest results
+	# are the ones the playhead has already passed, so they are safe to drop.
+	var pending_cap := _effective_worker_count()
+	if _pending_results.size() > pending_cap:
+		_pending_results = _pending_results.slice(_pending_results.size() - pending_cap)
 	# Apply in animation-time order those that are due (time <= playhead), at
 	# most one mesh per frame: applying more than one in a single frame is
 	# wasted work. Results whose animation time the playhead has already passed
