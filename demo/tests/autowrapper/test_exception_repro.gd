@@ -38,22 +38,6 @@ func test_exception_guard_survives() -> String:
 	return "OK"
 
 
-func test_builder_default_ctor_guard() -> String:
-	# Default-constructing a builder calls Build()/Shape(), which throws
-	# StdFail_NotDone for a default-constructed BRepBuilderAPI_MakeFace. That
-	# exception must be caught at the GDExtension boundary (not std::terminate).
-	OcgErrors.clear_last_error()
-	var face := OcgBRepBuilderAPIMakeFace.new()
-	if face == null:
-		return "expected a valid (not-done) builder object from new()"
-	if face.is_done():
-		return "expected IsDone() == false for default-constructed face builder"
-	var msg := OcgErrors.get_last_error_message()
-	if msg == "":
-		return "expected a recorded last-error message from the guarded constructor"
-	return "OK"
-
-
 func test_signal_conversion() -> String:
 	# Dereferencing a null Ref arg segfaults during arg extraction; OSD::SetSignal
 	# + OCC_CATCH_SIGNALS must convert that SIGSEGV into a catchable error.

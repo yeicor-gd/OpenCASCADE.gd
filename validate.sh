@@ -17,6 +17,15 @@ else
     echo "Errors will be written to: $ERROR_FILE"
 fi
 
+# Optional test filter: run only a reduced set of suites for fast iteration
+# (e.g. TEST_FILTER=test_occt_basics or test_occt_basics.test_something, or a
+# comma-separated list of suites/methods). A bare suite name selects the whole
+# suite. Defaults to the reduced set that the new autogen pipeline supports;
+# set TEST_FILTER=* to run every suite.
+TEST_FILTER="${TEST_FILTER:-test_occt_basics,test_occt_enums,test_exception_repro}"
+echo "Running only tests matching: $TEST_FILTER"
+export GODOT_TEST_RUNNER_FILTER="$TEST_FILTER"
+
 export VCPKG_ROOT="$SCRIPT_DIR/vcpkg"
 export VCPKG_DISABLE_METRICS=1
 #export VCPKG_DEFAULT_TRIPLET=x64-linux

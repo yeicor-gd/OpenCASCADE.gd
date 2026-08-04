@@ -318,21 +318,39 @@ func _run_suite(path: String) -> void:
 	total_failed += suite_failed
 
 
+func _filter_patterns() -> Array[String]:
+	var patterns: Array[String] = []
+	for raw in test_filter.split(","):
+		var p := raw.strip_edges()
+		if not p.is_empty():
+			patterns.append(p)
+	return patterns
+
+
 func _matches_filter_prefix(suite_name: String) -> bool:
 	if test_filter.is_empty():
 		return true
-	var dot_idx := test_filter.find(".")
-	if dot_idx < 0:
-		return suite_name.matchn(test_filter)
-	return suite_name.matchn(test_filter.substr(0, dot_idx))
+	for pattern in _filter_patterns():
+		var dot_idx := pattern.find(".")
+		if dot_idx < 0:
+			if suite_name.matchn(pattern):
+				return true
+		elif suite_name.matchn(pattern.substr(0, dot_idx)):
+			return true
+	return false
 
 
 func _matches_filter(suite_name: String, method_name: String) -> bool:
 	if test_filter.is_empty():
 		return true
 	var qualified := "%s.%s" % [suite_name, method_name]
-	if qualified.matchn(test_filter):
-		return true
+	for pattern in _filter_patterns():
+		if qualified.matchn(pattern):
+			return true
+		# A bare suite name (no wildcard, no method suffix) selects the whole
+		# suite; a wildcard without a method suffix selects by suite name too.
+		if pattern.find(".") < 0 and suite_name.matchn(pattern):
+			return true
 	return false
 
 
