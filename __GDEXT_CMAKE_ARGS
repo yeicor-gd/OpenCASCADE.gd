@@ -1,0 +1,1 @@
+-DGODOTCPP_TARGET=template_debug -DGODOTCPP_PRECISION=single

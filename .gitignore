@@ -7,6 +7,7 @@
 /build/
 /build-gcc/
 /demo/templates/
+/ccache/
 
 # IDEs
 /.idea/
