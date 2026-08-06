@@ -140,6 +140,38 @@ func test_list_iterator_operations() -> String:
 	return "OK"
 
 
+func test_data_map_ascii_operations() -> String:
+	var m := OcgNCollectionDataMapTCollectionAsciiStringTCollectionAsciiString.new()
+	var key_a := OcgTCollectionAsciiString.from_f("alpha")
+	var key_b := OcgTCollectionAsciiString.from_f("beta")
+	var val_x := OcgTCollectionAsciiString.from_f("x")
+	var val_y := OcgTCollectionAsciiString.from_f("y")
+	if not m.bind_b(key_a, val_x):
+		return "bind_b failed"
+	if not m.bind_b(key_b, val_y):
+		return "bind_b (2nd) failed"
+	if m.find_m(key_a) != "x" or m.find_m(key_b) != "y":
+		return "find_m: %s, %s" % [m.find_m(key_a), m.find_m(key_b)]
+	if not m.is_bound(key_a) or not m.is_bound(key_b):
+		return "is_bound failed"
+	if not m.un_bind(key_a) or m.is_bound(key_a):
+		return "un_bind failed"
+	# assign copies the other map's contents into this one.
+	var other := OcgNCollectionDataMapTCollectionAsciiStringTCollectionAsciiString.new()
+	other.bind_b(key_a, val_x)
+	m.assign(other)
+	if not m.is_bound(key_a) or m.find_m(key_a) != "x":
+		return "assign did not copy key_a: %s" % m.find_m(key_a)
+	# exchange swaps the two maps' contents.
+	var m2 := OcgNCollectionDataMapTCollectionAsciiStringTCollectionAsciiString.new()
+	m2.bind_b(key_b, val_y)
+	m.exchange(m2)
+	if m.is_bound(key_a) or not m.is_bound(key_b):
+		return "exchange did not swap contents"
+	m.clear_c(false)
+	return "OK"
+
+
 func test_shape_keyed_containers() -> String:
 	var shape := OcgTopoDSShape.new()
 	if shape == null:
