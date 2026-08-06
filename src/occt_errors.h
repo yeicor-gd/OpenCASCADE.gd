@@ -15,8 +15,10 @@ class OcgErrors : public RefCounted {
 public:
     static String get_last_error_message();
     static String get_last_error_stack();
+    static String get_last_error_type();
     static String take_last_error_message();
     static String take_last_error_stack();
+    static String take_last_error_type();
     static void clear_last_error();
     static void set_errors_pushed_on_exception(bool enabled);
     static bool is_errors_pushed_on_exception();

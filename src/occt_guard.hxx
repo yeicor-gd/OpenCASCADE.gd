@@ -24,6 +24,7 @@ namespace occt_gd {
 struct LastError {
     ::godot::String message;
     ::godot::String stack;
+    ::godot::String type;  // OCCT class name of the caught exception, e.g. "Standard_DomainError"
 };
 
 // Thread-local so concurrent Godot threads (Servers, etc.) don't clobber each
@@ -33,10 +34,12 @@ inline LastError &last_error_ref() {
     return err;
 }
 
-inline void record_last_exception(const char *p_message, const char *p_stack) {
+inline void record_last_exception(const char *p_message, const char *p_stack,
+                                  const char *p_type = nullptr) {
     LastError &err = last_error_ref();
     err.message = p_message ? ::godot::String(p_message) : ::godot::String();
     err.stack = p_stack ? ::godot::String(p_stack) : ::godot::String();
+    err.type = p_type ? ::godot::String(p_type) : ::godot::String();
 }
 
 inline ::godot::String get_last_error_message() {
@@ -45,6 +48,10 @@ inline ::godot::String get_last_error_message() {
 
 inline ::godot::String get_last_error_stack() {
     return last_error_ref().stack;
+}
+
+inline ::godot::String get_last_error_type() {
+    return last_error_ref().type;
 }
 
 inline ::godot::String take_last_error_message() {
@@ -59,9 +66,16 @@ inline ::godot::String take_last_error_stack() {
     return out;
 }
 
+inline ::godot::String take_last_error_type() {
+    ::godot::String out = last_error_ref().type;
+    last_error_ref().type = ::godot::String();
+    return out;
+}
+
 inline void clear_last_error() {
     last_error_ref().message = ::godot::String();
     last_error_ref().stack = ::godot::String();
+    last_error_ref().type = ::godot::String();
 }
 
 // Runtime toggle for the push_error emitted when a caught OCCT exception is
@@ -107,7 +121,8 @@ inline void set_errors_pushed_on_exception(bool p_enabled) {
 // with the object in a safe, null-native state (methods null-check before use).
 #define OCCT_GUARD_CATCH_CTOR()                                                                 \
     catch (const Standard_Failure &occt_gd_sf) {                                              \
-        occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString());       \
+        occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString(),         \
+                                       occt_gd_sf.ExceptionType());                            \
     } catch (const std::exception &occt_gd_e) {                                               \
         occt_gd::record_last_exception(occt_gd_e.what(), nullptr);                            \
     } catch (...) {                                                                           \
@@ -121,7 +136,8 @@ inline void set_errors_pushed_on_exception(bool p_enabled) {
 // is `{}` (value-init) which compiles for every wrapper return type.
 #define OCCT_GUARD_CATCH(m_default)                                                           \
     catch (const Standard_Failure &occt_gd_sf) {                                              \
-        occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString());       \
+        occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString(),         \
+                                       occt_gd_sf.ExceptionType());                            \
         OCCT_GUARD_FAIL_RETURN(m_default, occt_gd_sf.what())                                 \
     } catch (const std::exception &occt_gd_e) {                                               \
         occt_gd::record_last_exception(occt_gd_e.what(), nullptr);                            \
@@ -134,7 +150,8 @@ inline void set_errors_pushed_on_exception(bool p_enabled) {
 // Catch epilogue for generated VOID wrapper methods.
 #define OCCT_GUARD_CATCH_VOID()                                                               \
     catch (const Standard_Failure &occt_gd_sf) {                                              \
-        occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString());       \
+        occt_gd::record_last_exception(occt_gd_sf.what(), occt_gd_sf.GetStackString(),         \
+                                       occt_gd_sf.ExceptionType());                            \
         OCCT_GUARD_FAIL_VOID_RETURN(occt_gd_sf.what())                                       \
     } catch (const std::exception &occt_gd_e) {                                               \
         occt_gd::record_last_exception(occt_gd_e.what(), nullptr);                            \
