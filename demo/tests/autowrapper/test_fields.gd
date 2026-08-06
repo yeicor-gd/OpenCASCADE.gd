@@ -47,13 +47,13 @@ func test_scroll_delta_object_property() -> String:
 	var p: Variant = sd.point
 	if not p is OcgNCollectionVec2Int:
 		return "ScrollDelta.Point should be an OcgNCollectionVec2Int, got %s" % p
-	if p.x() != -1 or p.y() != -1:
-		return "ScrollDelta.Point default should be (-1,-1), got (%s,%s)" % [p.x(), p.y()]
+	if p.x_k() != -1 or p.y_k() != -1:
+		return "ScrollDelta.Point default should be (-1,-1), got (%s,%s)" % [p.x_k(), p.y_k()]
 	# Roundtrip: set a new vector and read it back.
 	var q := OcgNCollectionVec2Int.new()
 	sd.point = q
 	var p3: Variant = sd.point
-	if p3.x() != q.x() or p3.y() != q.y():
+	if p3.x_k() != q.x_k() or p3.y_k() != q.y_k():
 		return "ScrollDelta.Point roundtrip failed"
 	# Numeric properties on the same struct.
 	sd.delta = 1.5

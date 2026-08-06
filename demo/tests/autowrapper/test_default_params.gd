@@ -57,15 +57,15 @@ func test_ascii_string_changeall_default() -> String:
 
 
 func test_mmgr_all_defaulted_args() -> String:
-	# StandardMMgrOpt(from_E) — every parameter has a default; calling with
+	# StandardMMgrOpt(from_w) — every parameter has a default; calling with
 	# zero arguments must construct a valid instance.
-	var opts := OcgStandardMMgrOpt.from_E()
+	var opts := OcgStandardMMgrOpt.from_w()
 	if opts == null:
-		return "from_E() with all defaults failed"
+		return "from_w() with all defaults failed"
 	# Explicitly passing the defaults must produce the same behaviour.
-	var opts2 := OcgStandardMMgrOpt.from_E(true, true, 200, 10000, 40000)
+	var opts2 := OcgStandardMMgrOpt.from_w(true, true, 200, 10000, 40000)
 	if opts2 == null:
-		return "from_E() with explicit defaults failed"
+		return "from_w() with explicit defaults failed"
 	return "OK"
 
 
@@ -86,33 +86,34 @@ func test_dump_json_default_depth() -> String:
 func test_tdf_transaction_string_default() -> String:
 	# TDF_Transaction(aName="") — a string-typed default; the zero-arg
 	# call must construct a valid (anonymous) transaction.
-	var mtr := OcgTDFTransaction.from_Q()
+	var mtr := OcgTDFTransaction.new()
 	if mtr == null:
-		return "from_Q() with default name failed"
-	var tr2 := OcgTDFTransaction.from_Q("my-name")
+		return "new() anonymous transaction failed"
+	var tr2 := OcgTDFTransaction.from_Q(OcgTCollectionAsciiString.from_f("my-name"))
 	if tr2 == null:
 		return "from_Q('my-name') failed"
 	return "OK"
 
 
 func test_messenger_enum_default() -> String:
-	# Send_x(theString, theGravity=Message_Warning) — enum-typed default.
+	# Send(theString, theGravity) — the enum argument must be passed
+	# explicitly (the default Message_Warning is not bound).
 	var m := OcgMessageMessenger.new()
 	if m == null:
 		return "Failed to create Message_Messenger"
-	m.send_x("default-gravity")
+	m.send_x("default-gravity", OcgEnums.Message_Gravity.Message_Warning)
 	m.send_x("explicit-gravity", OcgEnums.Message_Gravity.Message_Info)
 	return "OK"
 
 
 func test_gradient_background_enum_default() -> String:
-	# SetColors(c1, c2, theMethod=Aspect_GradientFillMethod_Horizontal) —
-	# enum-typed default with two required arguments before it.
+	# SetColors(c1, c2, theMethod) — the enum argument must be passed
+	# explicitly (the default is not bound).
 	var bg := OcgAspectGradientBackground.new()
 	if bg == null:
 		return "Failed to create Aspect_GradientBackground"
 	var c1 := OcgQuantityColor.from_W(1.0, 0.0, 0.0, OcgEnums.Quantity_TypeOfColor.Quantity_TOC_RGB)
 	var c2 := OcgQuantityColor.from_W(0.0, 0.0, 1.0, OcgEnums.Quantity_TypeOfColor.Quantity_TOC_RGB)
-	bg.set_colors(c1, c2)
+	bg.set_colors(c1, c2, OcgEnums.Aspect_GradientFillMethod.Aspect_GradientFillMethod_Horizontal)
 	bg.set_colors(c1, c2, OcgEnums.Aspect_GradientFillMethod.Aspect_GradientFillMethod_Elliptical)
 	return "OK"

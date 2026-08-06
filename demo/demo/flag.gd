@@ -2,32 +2,25 @@
 class_name Flag
 extends MeshInstance3D
 
-## Animated flag generated on a pool of background threads.
+## Animated flag built with OpenCASCADE on a pool of background threads.
 ##
-## The flag is a (u_detail × v_detail) grid of points laid out by a cheap
-## fake-cloth chain (constant segment length), displaced by a traveling
-## wave + flutter + sag + camber + sway field, and uploaded to the GPU as an
-## ArrayMesh. A queue + worker-pool pipeline keeps N frames of the animation
-## (N defaults to the machine's parallelism level) being generated at any point
-## in time, so the build cost overlaps instead of serializing on a single
-## thread. Frames for a rolling window of future animation times are prebuilt
-## and applied in order on the main thread. Every build is measured into a
-## hierarchical stats tree (see `last_stats`).
-##
-## Note: this used to build the waved surface with OpenCASCADE
-## (GeomAPI_PointsToBSplineSurface over a control-point grid) and let OCCT mesh
-## it. That API needs the TColgp_Array2OfPnt wrapper, which is regenerated from
-## the autowrapper template-specialization synthesis; until it lands, the grid
-## is generated directly in GDScript (the same wave math) so the demo keeps
-## working.
+## The flag is a grid of control points approximated by a B-spline surface,
+## meshed by OCCT and uploaded to the GPU. A queue + worker-pool pipeline keeps
+## N frames of the animation (N defaults to the machine's parallelism level)
+## being generated and meshed at any point in time, so the build cost overlaps
+## instead of serializing on a single thread. Frames for a rolling window of
+## future animation times are prebuilt and applied in order on the main thread.
+## Every build is measured into a hierarchical stats tree (see `last_stats`).
 ##
 ## Stability rules (keep these intact when editing):
-## - Worker threads do *all* mesh generation. The job queue and pending results
-##   only ever carry Godot-native data (PackedArrays, ints, stats dicts).
+## - Worker threads do *all* OCCT work. OCCT wrapper objects are created and
+##   destroyed only on those threads; nothing OCCT crosses a mutex. The job
+##   queue and pending results only ever carry Godot-native data (PackedArrays,
+##   ints, stats dicts).
 ## - Param dicts are snapshots; workers never mutate them, so the main thread
 ##   can schedule future frames ahead of the playhead safely.
-## - Every stage is guarded: a failed stage aborts the build and the last good
-##   mesh stays on screen instead of crashing the process.
+## - Every OCCT stage is guarded: a failed stage aborts the build and the last
+##   good mesh stays on screen instead of crashing the process.
 
 # ---------------------------------------------------------------------------
 # Parameters -- the whole flag is controllable from the inspector
@@ -46,6 +39,13 @@ extends MeshInstance3D
 @export var u_detail := 8
 ## Control points across the flag.
 @export var v_detail := 4
+
+@export_group("Meshing")
+
+## Maximum distance between a mesh triangle and the exact surface.
+@export var linear_deflection := 0.01
+## Maximum angle (deg) between normals of neighbouring triangles.
+@export var angular_deflection := 0.5
 
 @export_group("Wind")
 
@@ -92,7 +92,7 @@ extends MeshInstance3D
 @export var time_scale := 1.0
 ## Automatically advance the animation clock.
 @export var animated := false
-## Number of worker threads that generate frames in parallel.
+## Number of worker threads that generate/mesh frames in parallel.
 ## 0 = automatic (the machine's CPU core count).
 @export var worker_count := 0
 ## Print the hierarchical build timings to the console.
@@ -185,6 +185,7 @@ func _snapshot_params() -> Dictionary:
 	return {
 		"flag_width": flag_width, "flag_height": flag_height,
 		"u_detail": u_detail, "v_detail": v_detail,
+		"linear_deflection": linear_deflection, "angular_deflection": angular_deflection,
 		"time": time, "wind_base": wind_base, "wind_gust": wind_gust,
 		"gust_speed": gust_speed, "wind_speed": wind_speed,
 		"wavelength": wavelength, "amplitude": amplitude, "flutter": flutter,
@@ -367,12 +368,29 @@ func _print_stats(s: Dictionary, indent := "") -> void:
 # Worker thread: all OCCT + meshing work happens here
 # ---------------------------------------------------------------------------
 
+## True if the last OCCT call recorded no error. Wrappers record the caught
+## exception in thread-local state, so this is only meaningful on the worker
+## thread right after an OCCT call.
+func _occt_ok() -> bool:
+	return OcgErrors.get_last_error_message() == ""
+
+
 func _build_flag(p: Dictionary) -> Dictionary:
 	var stat := _Stat.new()
 	stat.name = "Flag build"
 	stat.begin()
 
-	var arrays: Dictionary = _measure(stat, "Flag mesh", func(s: _Stat): return _make_flag_mesh(p, s))
+	var surface: OcgGeomBSplineSurface = _measure(stat, "Surface", func(s: _Stat): return _make_surface(p, s))
+	if surface == null:
+		stat.end()
+		return {}
+
+	var mmesh: Dictionary = _measure(stat, "Triangulation", func(s: _Stat): return _triangulate(p, surface, s))
+	if mmesh.is_empty():
+		stat.end()
+		return {}
+
+	var arrays: Dictionary = _measure(stat, "To Godot arrays", func(s: _Stat): return _tri_to_arrays(mmesh["triangulation"], mmesh, s))
 	if arrays.is_empty():
 		stat.end()
 		return {}
@@ -381,8 +399,8 @@ func _build_flag(p: Dictionary) -> Dictionary:
 	return {
 		"arrays": arrays,
 		"stats": stat.to_dict(),
-		"nodes": arrays["verts"].size(),
-		"triangles": arrays["indices"].size() / 3,
+		"nodes": mmesh["triangulation"].nb_nodes(),
+		"triangles": mmesh["triangulation"].nb_triangles(),
 	}
 
 
@@ -396,29 +414,38 @@ func _measure(parent: _Stat, mname: String, fn: Callable) -> Variant:
 	return result
 
 
-func _make_flag_mesh(p: Dictionary, sec: _Stat) -> Dictionary:
-	var nu: int = maxi(p["u_detail"], 2)
-	var nv: int = maxi(p["v_detail"], 2)
-	var pts: PackedVector3Array = _measure(sec, "Wave grid", func(_s: _Stat): return _make_wave_points(p, nu, nv))
-	if pts.is_empty():
-		return {}
-	var normals: PackedVector3Array = _measure(sec, "Normals", func(_s: _Stat): return _compute_grid_normals(pts, nu, nv))
-	var indices := _make_grid_indices(nu, nv)
-	var uvs := _make_grid_uvs(nu, nv)
-	return {"verts": pts, "normals": normals, "indices": indices, "uvs": uvs}
+func _make_surface(p: Dictionary, sec: _Stat) -> OcgGeomBSplineSurface:
+	var pts: OcgNCollectionArray2GpPnt = _measure(sec, "Control points", func(_s: _Stat): return _make_points(p))
+	if pts == null:
+		return null
+	var fit: OcgGeomAPIPointsToBSplineSurface = _measure(sec, "B-spline fit", func(_s: _Stat):
+		var f := OcgGeomAPIPointsToBSplineSurface.new()
+		if f == null:
+			return null
+		# Drop any error a constructor may have recorded, so only init_g's
+		# outcome decides whether this stage succeeded.
+		OcgErrors.clear_last_error()
+		f.init_g(pts, 8, 8, OcgEnums.GeomAbs_Shape.GeomAbs_G2, 1e-5)
+		return f
+	)
+	if fit == null or not _occt_ok():
+		return null
+	OcgErrors.clear_last_error()
+	var surface: OcgGeomBSplineSurface = fit.surface()
+	if surface == null or not _occt_ok():
+		return null
+	return surface
 
 
-## Lay out the flag grid as a chain of constant-length segments (rope/spring):
+## Lay out control points as a chain of constant-length segments (rope/spring):
 ## each point sits a fixed distance from the previous one, so the flag's arc
 ## length never changes no matter how much it waves or sags. The segment
 ## direction blends a forward step, a downward sag and a traveling fold slope,
-## then rotates around Y for the sway -- a cheap, stable fake cloth. The pole
-## is at x = 0, the free end at x = flag_width; the grid is stored v-major with
-## stride nu + 1.
-func _make_wave_points(p: Dictionary, nu: int, nv: int) -> PackedVector3Array:
-	var pts := PackedVector3Array()
-	pts.resize((nu + 1) * (nv + 1))
-	var stride := nu + 1
+## then rotates around Y for the sway -- a cheap, stable fake cloth.
+func _make_points(p: Dictionary) -> OcgNCollectionArray2GpPnt:
+	var nu: int = maxi(p["u_detail"], 2)
+	var nv: int = maxi(p["v_detail"], 2)
+	var pts := OcgNCollectionArray2GpPnt.from_v(1, nu, 1, nv)
 
 	var t: float = p["time"]
 	var wind := _wind(p)
@@ -430,19 +457,20 @@ func _make_wave_points(p: Dictionary, nu: int, nv: int) -> PackedVector3Array:
 	# Fold steepness scales with wind and amplitude.
 	var fold: float = p["amplitude"] * wind
 	# Keep the phase divisors away from zero so degenerate params can't produce
-	# NaN/inf geometry.
+	# NaN/inf geometry that OCCT would struggle to fit and mesh.
 	var mwavelength := maxf(p["wavelength"], 0.05)
 	var mcamber_wavelength := maxf(p["camber_wavelength"], 0.05)
 
-	for v in nv + 1:
-		var v_norm := float(v) / float(nv)
+	for v in nv:
+		var v_norm := float(v) / float(nv - 1)
 		var y_off := (v_norm - 0.5) * height
+		var start := Vector3(0.0, y_off, 0.0)
 		# Diagonal ripple across the width so folds travel like cloth, not a board.
 		var twist := (v_norm - 0.5) * 0.8
-		var pos := Vector3(0.0, y_off, 0.0)
-		pts[v * stride] = pos
+		var pos := start
 		var s := seg_len
-		for i in range(1, nu + 1):
+		pts.set_value_m(1, v + 1, OcgGpPnt.from_6(pos.x, pos.y, pos.z))
+		for i in range(1, nu):
 			var x_norm := float(i) / float(nu)
 
 			# Base wave envelope.
@@ -503,59 +531,9 @@ func _make_wave_points(p: Dictionary, nu: int, nv: int) -> PackedVector3Array:
 
 			pos.z += tip * k * profile
 
-			pts[v * stride + i] = pos
+			pts.set_value_m(i + 1, v + 1, OcgGpPnt.from_6(pos.x, pos.y, pos.z))
 			s += seg_len
 	return pts
-
-
-## Smooth per-vertex normals from the regular grid (central differences).
-## Normals point toward -Z, away from the pole, matching the camera view.
-func _compute_grid_normals(pts: PackedVector3Array, nu: int, nv: int) -> PackedVector3Array:
-	var normals := PackedVector3Array()
-	normals.resize(pts.size())
-	var stride := nu + 1
-	for v in nv + 1:
-		for i in nu + 1:
-			var idx := v * stride + i
-			var left := pts[maxi(i - 1, 0) + v * stride]
-			var right := pts[mini(i + 1, nu) + v * stride]
-			var down := pts[i + maxi(v - 1, 0) * stride]
-			var up := pts[i + mini(v + 1, nv) * stride]
-			var n := (right - left).cross(up - down)
-			normals[idx] = -n.normalized() if n.length_squared() > 1e-12 else Vector3.DOWN
-	return normals
-
-
-func _make_grid_indices(nu: int, nv: int) -> PackedInt32Array:
-	var indices := PackedInt32Array()
-	indices.resize(nu * nv * 6)
-	var stride := nu + 1
-	var k := 0
-	for v in nv:
-		for i in nu:
-			var a := v * stride + i
-			var b := a + 1
-			var c := a + stride
-			var d := c + 1
-			indices[k] = a
-			indices[k + 1] = c
-			indices[k + 2] = b
-			indices[k + 3] = b
-			indices[k + 4] = c
-			indices[k + 5] = d
-			k += 6
-	return indices
-
-
-func _make_grid_uvs(nu: int, nv: int) -> PackedVector2Array:
-	var uvs := PackedVector2Array()
-	uvs.resize((nu + 1) * (nv + 1))
-	var stride := nu + 1
-	for v in nv + 1:
-		var vv := 1.0 - float(v) / float(nv)
-		for i in nu + 1:
-			uvs[v * stride + i] = Vector2(float(i) / float(nu), vv)
-	return uvs
 
 
 func _wind(p: Dictionary) -> float:
@@ -565,6 +543,108 @@ func _wind(p: Dictionary) -> float:
 func smoothstep(edge0: float, edge1: float, x: float) -> float:
 	var t := clampf((x - edge0) / (edge1 - edge0), 0.0, 1.0)
 	return t * t * (3.0 - 2.0 * t)
+
+
+## Meshes the given surface and returns a dict with the triangulation and the
+## parametric UV bounds (used to normalize texture coordinates). Returns {}
+## if any stage fails; the caller keeps the previous mesh in that case.
+func _triangulate(p: Dictionary, surface: OcgGeomBSplineSurface, sec: _Stat) -> Dictionary:
+	var face: OcgTopoDSFace = _measure(sec, "Build face", func(_s: _Stat):
+		OcgErrors.clear_last_error()
+		var gen := OcgBRepBuilderAPIMakeFace.new()
+		if gen == null:
+			return null
+		gen.init_W(surface, true, 1e-6)
+		# The builder's default ctor records a benign "not done" error; drop it
+		# so only Face()'s own outcome decides whether this stage succeeded.
+		OcgErrors.clear_last_error()
+		return gen.face()
+	)
+	if face == null or not _occt_ok():
+		return {}
+	_measure(sec, "Meshing", func(_s: _Stat):
+		OcgErrors.clear_last_error()
+		return OcgBRepMeshIncrementalMesh.from_z(
+			face, maxf(p["linear_deflection"], 1e-4), false, maxf(p["angular_deflection"], 0.05), false
+		)
+	)
+	if not _occt_ok():
+		return {}
+	var bounds: Dictionary = _measure(sec, "Grab UV bounds", func(_s: _Stat):
+		OcgErrors.clear_last_error()
+		var umin := OcgStandardReal.new()
+		var umax := OcgStandardReal.new()
+		var vmin := OcgStandardReal.new()
+		var vmax := OcgStandardReal.new()
+		surface.bounds(umin, umax, vmin, vmax)
+		return {
+			"umin": umin.get_value(), "umax": umax.get_value(),
+			"vmin": vmin.get_value(), "vmax": vmax.get_value(),
+		}
+	)
+	if not _occt_ok():
+		return {}
+	var tri: OcgPolyTriangulation = _measure(sec, "Triangulation", func(_s: _Stat):
+		OcgErrors.clear_last_error()
+		return OcgBRepTool.triangulation(face, OcgTopLocLocation.new(), 0)
+	)
+	if tri == null or not _occt_ok():
+		return {}
+	bounds["triangulation"] = tri
+	return bounds
+
+
+func _tri_to_arrays(tri: OcgPolyTriangulation, mmesh: Dictionary, sec: _Stat) -> Dictionary:
+	_measure(sec, "Normals", func(_s: _Stat):
+		OcgErrors.clear_last_error()
+		tri.compute_normals()
+		return null
+	)
+	if not _occt_ok():
+		return {}
+	var node_count: int = tri.nb_nodes()
+	var triangle_count: int = tri.nb_triangles()
+	if node_count == 0 or triangle_count == 0:
+		return {}
+	var verts := PackedVector3Array()
+	var normals := PackedVector3Array()
+	var indices := PackedInt32Array()
+	var uvs := PackedVector2Array()
+	var umin: float = mmesh["umin"]
+	var umax: float = mmesh["umax"]
+	var vmin: float = mmesh["vmin"]
+	var vmax: float = mmesh["vmax"]
+	var du := umax - umin
+	var dv := vmax - vmin
+	var u_scale := 0.0 if du <= 0.0 else 1.0 / du
+	var v_scale := 0.0 if dv <= 0.0 else 1.0 / dv
+	_measure(sec, "Copy vertices", func(_s: _Stat):
+		var n := OcgNCollectionVec3Float.new()
+		for i in node_count:
+			var pnt := tri.node(i + 1)
+			verts.push_back(Vector3(pnt.x(), pnt.y(), pnt.z()))
+			tri.normal_C(i + 1, n)
+			normals.push_back(-Vector3(n.x_k(), n.y_k(), n.z_k()))
+			var uv := tri.uv_node(i + 1)
+			uvs.push_back(Vector2(
+				(uv.x() - umin) * u_scale,
+				1.0 - (uv.y() - vmin) * v_scale
+			))
+		return null
+	)
+	_measure(sec, "Copy indices", func(_s: _Stat):
+		var a := OcgStandardInteger.new()
+		var b := OcgStandardInteger.new()
+		var c := OcgStandardInteger.new()
+		for i in triangle_count:
+			var t := tri.triangle(i + 1)
+			t.get(a, b, c)
+			indices.push_back(a.get_value() - 1)
+			indices.push_back(b.get_value() - 1)
+			indices.push_back(c.get_value() - 1)
+		return null
+	)
+	return {"verts": verts, "normals": normals, "indices": indices, "uvs": uvs}
 
 
 # ---------------------------------------------------------------------------

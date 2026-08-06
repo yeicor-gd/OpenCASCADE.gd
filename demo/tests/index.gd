@@ -3,7 +3,14 @@
 # This file is necessary for test runner compatibility with exported binaries.
 
 const SUITES := [
+	"res://tests/autowrapper/test_array_params.gd",
+	"res://tests/autowrapper/test_collections.gd",
+	"res://tests/autowrapper/test_default_params.gd",
 	"res://tests/autowrapper/test_exception_repro.gd",
+	"res://tests/autowrapper/test_fields.gd",
+	"res://tests/autowrapper/test_leak_probe.gd",
 	"res://tests/autowrapper/test_occt_basics.gd",
 	"res://tests/autowrapper/test_occt_enums.gd",
+	"res://tests/autowrapper/test_opaque_pointers.gd",
+	"res://tests/autowrapper/test_std_types.gd",
 ]

@@ -28,7 +28,7 @@ func _make_points(offset: float) -> OcgNCollectionArray2GpPnt:
 		for u in NU:
 			var x := float(u) / float(NU - 1) * 2.0
 			var z := 0.4 * sin(TAU * x - offset) * (1.0 - x * 0.1)
-			pts.set_value(u + 1, v + 1, OcgGpPnt.from_6(x, y, z))
+			pts.set_value_m(u + 1, v + 1, OcgGpPnt.from_6(x, y, z))
 	return pts
 
 func _make_surface(offset: float) -> OcgGeomBSplineSurface:
@@ -57,10 +57,10 @@ func _mesh(face: OcgTopoDSFace) -> OcgBRepMeshIncrementalMesh:
 		TestRunner.ctx.log_error("from_z error: %s" % OcgErrors.get_last_error_message())
 	return m
 
-func _mesh_size(m) -> String:
-	if m == null:
+func _mesh_size(face: OcgTopoDSFace) -> String:
+	if face == null:
 		return "null"
-	var tri := OcgBRepTool.triangulation(m.shape(), OcgTopLocLocation.new(), 0)
+	var tri := OcgBRepTool.triangulation(face, OcgTopLocLocation.new(), 0)
 	if tri == null:
 		return "no tri"
 	return "%d nodes / %d tris" % [tri.nb_nodes(), tri.nb_triangles()]
@@ -91,7 +91,7 @@ func test_fresh_face_mesh() -> String:
 			return "face failed at %d" % i
 		var m := _mesh(face)
 		if i == 0:
-			TestRunner.ctx.log_info("mesh[0] = %s" % _mesh_size(m))
+			TestRunner.ctx.log_info("mesh[0] = %s" % _mesh_size(face))
 		if i == 25 or i == 50 or i == 75 or i == 99:
 			_mark("mesh iter %d" % i)
 	return "OK"
@@ -108,7 +108,7 @@ func test_reuse_face_mesh() -> String:
 	for i in 100:
 		var m := _mesh(face)
 		if i == 0:
-			TestRunner.ctx.log_info("mesh[0] = %s" % _mesh_size(m))
+			TestRunner.ctx.log_info("mesh[0] = %s" % _mesh_size(face))
 		if i == 25 or i == 50 or i == 75 or i == 99:
 			_mark("reuse mesh iter %d" % i)
 	return "OK"
@@ -128,7 +128,7 @@ func test_plane_face_mesh() -> String:
 			return "face failed at %d" % i
 		var m := _mesh(face)
 		if i == 0:
-			TestRunner.ctx.log_info("plane mesh[0] = %s" % _mesh_size(m))
+			TestRunner.ctx.log_info("plane mesh[0] = %s" % _mesh_size(face))
 		if i == 25 or i == 50 or i == 75 or i == 99:
 			_mark("plane mesh iter %d" % i)
 	return "OK"
