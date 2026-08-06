@@ -88,6 +88,58 @@ func test_sequence_gp_pnt() -> String:
 	return "OK"
 
 
+func test_sequence_iterator_operations() -> String:
+	var seq := OcgNCollectionSequenceGpPnt.new()
+	seq.append_N(OcgGpPnt.from_6(1.0, 0.0, 0.0))
+	seq.append_N(OcgGpPnt.from_6(2.0, 0.0, 0.0))
+	seq.append_N(OcgGpPnt.from_6(3.0, 0.0, 0.0))
+	# insert_after_n uses the C++ InsertAfter(Iterator&, item): position is
+	# 0-based, so inserting after position 0 puts the new element second.
+	seq.insert_after_n(0, OcgGpPnt.from_6(4.0, 0.0, 0.0))
+	if seq.upper() != 4:
+		return "insert_after_n did not grow the sequence"
+	if seq.value_T(2).x() != 4.0:
+		return "insert_after_n(0, item) did not insert second: %s" % seq.value_T(2).x()
+	# remove_Z uses the C++ Remove(Iterator&): 0-based position, so removing
+	# position 1 drops the element inserted above.
+	seq.remove_Z(1)
+	if seq.upper() != 3:
+		return "remove_Z did not shrink the sequence"
+	if seq.value_T(1).x() != 1.0 or seq.value_T(2).x() != 2.0 or seq.value_T(3).x() != 3.0:
+		return "remove_Z(1) removed the wrong element"
+	# The iterator-based overloads coexist with the index-based ones
+	# (remove_2/remove_9 are 1-based OCCT indices).
+	seq.remove_2(2)
+	if seq.upper() != 2 or seq.value_T(1).x() != 1.0 or seq.value_T(2).x() != 3.0:
+		return "index-based remove_2(2) wrong: upper=%s" % seq.upper()
+	seq.clear(OcgNCollectionBaseAllocator.common_base_allocator())
+	return "OK"
+
+
+func test_list_iterator_operations() -> String:
+	var lst := OcgNCollectionListDouble.new()
+	lst.append_y(1.5)
+	lst.append_y(2.5)
+	lst.append_y(3.5)
+	# insert_after_b(item, position): List::InsertAfter(Iterator&, item) with a
+	# 0-based position, so inserting after position 0 lands second.
+	lst.insert_after_b(9.5, 0)
+	lst.remove_first()
+	if lst.first_k() != 9.5:
+		return "insert_after_b(0) did not insert second: %s" % lst.first_k()
+	lst.remove_first()
+	if lst.first_k() != 2.5:
+		return "List order wrong after inserts"
+	# remove(position): List::Remove(Iterator&), 0-based. Remove the first
+	# element and verify the 2.5 already consumed is gone.
+	lst.append_y(7.5)
+	lst.remove(0)
+	if lst.first_k() != 3.5:
+		return "remove(0) did not drop the first element: %s" % lst.first_k()
+	lst.clear(OcgNCollectionBaseAllocator.common_base_allocator())
+	return "OK"
+
+
 func test_shape_keyed_containers() -> String:
 	var shape := OcgTopoDSShape.new()
 	if shape == null:
