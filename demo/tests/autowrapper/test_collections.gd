@@ -152,6 +152,11 @@ func test_data_map_ascii_operations() -> String:
 		return "bind_b (2nd) failed"
 	if m.find_m(key_a) != "x" or m.find_m(key_b) != "y":
 		return "find_m: %s, %s" % [m.find_m(key_a), m.find_m(key_b)]
+	if m.seek(key_a) != "x":
+		return "seek: %s" % m.seek(key_a)
+	# bound_b inserts and returns the bound value (V* return -> String).
+	if m.bound_b(key_a, val_x) != "x":
+		return "bound_b did not return the bound value"
 	if not m.is_bound(key_a) or not m.is_bound(key_b):
 		return "is_bound failed"
 	if not m.un_bind(key_a) or m.is_bound(key_a):
