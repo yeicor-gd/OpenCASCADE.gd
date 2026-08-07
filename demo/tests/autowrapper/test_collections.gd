@@ -227,3 +227,63 @@ func test_vec3_double() -> String:
 	if c == null or c.x_k() != 0.0 or c.y_k() != 0.0 or c.z_k() != -4.0:
 		return "Vec3 Cross failed"
 	return "OK"
+
+
+func test_vec2_pointer_data() -> String:
+	# GetData/ChangeData return double*; the FFI derefs and null-guards it.
+	var v := OcgNCollectionVec2Double.from_V(4.0, 8.0)
+	if v.get_data() != 4.0:
+		return "Vec2 GetData first component wrong: %s" % v.get_data()
+	if v.change_data() != 4.0:
+		return "Vec2 ChangeData first component wrong: %s" % v.change_data()
+	v.set_values(1.0, 2.0)
+	if v.get_data() != 1.0:
+		return "Vec2 GetData after SetValues wrong: %s" % v.get_data()
+	return "OK"
+
+
+func test_data_map_primitive_values() -> String:
+	# Seek/ChangeSeek return V* (null when absent); the FFI derefs and
+	# null-guards to 0.0.
+	var m := OcgNCollectionDataMapTCollectionExtendedStringDouble.new()
+	var key := OcgTCollectionExtendedString.from_j("energy")
+	if m.seek(key) != 0.0:
+		return "seek on absent key should be 0.0: %s" % m.seek(key)
+	if not m.bind_0(key, 3.5):
+		return "bind failed"
+	if m.seek(key) != 3.5:
+		return "seek after bind wrong: %s" % m.seek(key)
+	if m.change_seek(key) != 3.5:
+		return "change_seek wrong: %s" % m.change_seek(key)
+	if not m.is_bound(key):
+		return "is_bound failed after bind"
+	if not m.un_bind(key) or m.is_bound(key):
+		return "un_bind failed"
+	if m.seek(key) != 0.0:
+		return "seek after un_bind should be 0.0: %s" % m.seek(key)
+	return "OK"
+
+
+func test_indexed_data_map_ascii_exchange() -> String:
+	# Exchange/Assign take the self type spelled with placeholder template
+	# args (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>&);
+	# they must map to the same wrapper's own class.
+	var m := OcgNCollectionIndexedDataMapTCollectionAsciiStringTCollectionAsciiString.new()
+	var key_a := OcgTCollectionAsciiString.from_f("alpha")
+	var val_x := OcgTCollectionAsciiString.from_f("x")
+	if m.add_b(key_a, val_x) != 1:
+		return "IndexedDataMap Add failed"
+	var m2 := OcgNCollectionIndexedDataMapTCollectionAsciiStringTCollectionAsciiString.new()
+	m.exchange(m2)
+	if m.find_index(key_a) != 0:
+		return "exchange should have moved the entry out: %s" % m.find_index(key_a)
+	if m2.find_index(key_a) != 1:
+		return "exchange did not move the entry in: %s" % m2.find_index(key_a)
+	if m2.find_from_index_c(1) != "x":
+		return "exchange moved the wrong value: %s" % m2.find_from_index_c(1)
+	var assigned := m.assign(m2)
+	if assigned != m:
+		return "assign must return the same instance"
+	if m.find_index(key_a) != 1 or m.find_from_index_c(1) != "x":
+		return "assign did not copy the entry back"
+	return "OK"
