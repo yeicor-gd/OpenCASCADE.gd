@@ -14,4 +14,5 @@ const SUITES := [
 	"res://tests/autowrapper/test_opaque_pointers.gd",
 	"res://tests/autowrapper/test_standard.gd",
 	"res://tests/autowrapper/test_std_types.gd",
+	"res://tests/autowrapper/test_stream_callables.gd",
 ]

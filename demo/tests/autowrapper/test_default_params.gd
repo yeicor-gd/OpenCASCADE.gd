@@ -75,7 +75,7 @@ func test_dump_json_default_depth() -> String:
 	var json1: Variant = pnt.dump_json()
 	if not json1 is String:
 		return "DumpJson() should return a String, got %s" % json1
-	var json2: Variant = pnt.dump_json(-1)
+	var json2: Variant = pnt.dump_json(Callable(), -1)
 	if json1 != json2:
 		return "DumpJson() default depth should equal DumpJson(-1)"
 	if not (json1 as String).contains("gp_Pnt"):
