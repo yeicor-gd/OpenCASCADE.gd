@@ -12,7 +12,7 @@ extends RefCounted
 ## (where the export loop cannot yield back to the main loop).
 
 const REPO_OWNER := "yeicor-gd"
-const REPO_NAME := "OCCT-Light.gd"
+const REPO_NAME := "OpenCASCADE.gd"
 
 const ADDON_DIR := "res://addons/OpenCASCADE.gd"
 const EXTENSION_CONFIG_PATH := "res://addons/OpenCASCADE.gd/gdext.gdextension"

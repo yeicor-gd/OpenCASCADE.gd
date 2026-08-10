@@ -4,10 +4,14 @@
 
 const SUITES := [
 	"res://tests/autowrapper/test_array_params.gd",
+	"res://tests/autowrapper/test_brep_primitive_builders.gd",
 	"res://tests/autowrapper/test_collections.gd",
 	"res://tests/autowrapper/test_default_params.gd",
 	"res://tests/autowrapper/test_exception_repro.gd",
 	"res://tests/autowrapper/test_fields.gd",
+	"res://tests/autowrapper/test_fillet_pipe_mesh.gd",
+	"res://tests/autowrapper/test_geometry_surfaces.gd",
+	"res://tests/autowrapper/test_gp_transforms.gd",
 	"res://tests/autowrapper/test_leak_probe.gd",
 	"res://tests/autowrapper/test_new_occt_api.gd",
 	"res://tests/autowrapper/test_occt_basics.gd",
@@ -15,5 +19,6 @@ const SUITES := [
 	"res://tests/autowrapper/test_opaque_pointers.gd",
 	"res://tests/autowrapper/test_standard.gd",
 	"res://tests/autowrapper/test_std_types.gd",
+	"res://tests/autowrapper/test_step_io.gd",
 	"res://tests/autowrapper/test_stream_callables.gd",
 ]

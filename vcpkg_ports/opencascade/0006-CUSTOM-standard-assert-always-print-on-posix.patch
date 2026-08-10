@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: OCCT-Light <dev@occt-light.example>
+From: OpenCASCADE <dev@opencascade.example>
 Date: Fri Jul 3 12:00:00 2026 +0200
 Subject: [PATCH] Standard_Assert.hxx: always print assertion failures on all
  platforms
