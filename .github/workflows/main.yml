@@ -392,6 +392,11 @@ jobs:
           echo VCPKG_OVERLAY_PORTS=vcpkg_ports >> $GITHUB_ENV
           echo "GDEXT_CMAKE_ARGS=-DGODOTCPP_TARGET=${{ matrix.target-type }} -DGODOTCPP_PRECISION=${{ matrix.float-precision }} ${{ env.gdext_cmake_args }}" >> $GITHUB_ENV
 
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '4.4.2'
+
       - name: Bootstrap vcpkg and install OpenCASCADE (for autowrapper header scanning)
         shell: bash
         run: |
@@ -400,7 +405,7 @@ jobs:
           vcpkg_exe="vcpkg/vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.exe' || '' }}"
           "$vcpkg_bootstrap"
           ccache --show-stats --evict-older-than 10d -vv
-          $vcpkg_exe install opencascade
+          $vcpkg_exe install --recurse 'opencascade[freetype,rapidjson]'
           ccache --show-stats -vv
 
       - name: Generate autowrapper bindings
@@ -420,7 +425,7 @@ jobs:
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
           vcpkg_exe="vcpkg/vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.exe' || '' }}"
           ccache --show-stats --zero-stats -vv
-          $vcpkg_exe install gdext
+          $vcpkg_exe install --recurse gdext
           ccache --show-stats -vv
 
       - name: Copy to addon folder
