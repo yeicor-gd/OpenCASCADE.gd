@@ -21,6 +21,11 @@
 # By default, builds all 2 combinations: debug/release (threads only).
 # Use flags to restrict to specific variants.
 #
+# When --editor is used with --mode, the output zip is named accordingly:
+#   --editor --mode=debug   -> web_editor_debug.zip
+#   --editor --mode=release -> web_editor_release.zip
+#   --editor (no mode)      -> web_editor.zip
+#
 # Usage:
 #   ./tools/build_godot_web_templates.sh [OPTIONS] [OUTPUT_DIR]
 #
@@ -56,7 +61,13 @@ GODOT_VERSION=""  # Empty = auto-detect
 # SIDE_MODULE (built with -fwasm-exceptions).  This ensures the main module
 # contains __wasm_lpad_context and other wasm-eh runtime symbols that the
 # side module imports via GOT.
-EM_LINKFLAGS="-fwasm-exceptions"
+#
+# Export the JS setjmp/longjmp runtime methods so the side module can reach
+# them if any library (e.g. OCCT) uses setjmp-style control flow.  Note: with
+# -fwasm-exceptions the compiler emits wasm-native setjmp/longjmp, so the wasm
+# symbols _setjmp/_longjmp may not exist at all — exporting those via
+# EXPORTED_FUNCTIONS would be an error, hence the EXPORTED_RUNTIME_METHODS.
+EM_LINKFLAGS="-fwasm-exceptions -sEXPORTED_RUNTIME_METHODS=setjmp,longjmp"
 export EMCC_CFLAGS="${EMCC_CFLAGS:-} -fwasm-exceptions"
 export EMCC_CXXFLAGS="${EMCC_CXXFLAGS:-} -fwasm-exceptions"
 export EM_LINKFLAGS
@@ -96,6 +107,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --mode=debug    Build only debug variant"
             echo "  --mode=release  Build only release variant"
             echo "  --editor        Build the editor instead of export templates"
+            echo "                  Output zip is named web_editor[_mode].zip"
             echo "  --clean         Clean build (remove previous build directory)"
             echo "  --version TAG   Godot version tag to build (default: auto-detect latest stable)"
             echo "  OUTPUT_DIR      Where to place the output (default: demo/templates)"
@@ -273,73 +285,145 @@ patch_template_js() {
     local _tmp_dir
     _tmp_dir=$(mktemp -d)
 
-    unzip -oq "$zip_path" godot.js -d "$_tmp_dir"
+    # Editor zips use godot.editor.js, template zips use godot.js
+    local js_name="godot.js"
+    unzip -l "$zip_path" | grep -q 'godot\.editor\.js' && js_name="godot.editor.js"
+    unzip -oq "$zip_path" "$js_name" -d "$_tmp_dir"
 
-    local js_file="${_tmp_dir}/godot.js"
+    # Editor builds use preloadedWasmModules and an older Emscripten that needs
+    # extra patches. Export templates already handle both code paths correctly.
+    local is_editor=0
+    [ "$js_name" = "godot.editor.js" ] && is_editor=1
+
+    local js_file="${_tmp_dir}/${js_name}"
     local sentinel='case"__cpp_exception":'
-    if grep -q "$sentinel" "$js_file"; then
-        echo "  godot.js already patched, skipping"
-        rm -rf "$_tmp_dir"
-        return 0
-    fi
 
-    python3 - "$js_file" << 'PYEOF'
+    local py_rc=0
+    python3 -u - "$js_file" "$is_editor" << 'PYEOF' || py_rc=$?
 import sys
 
 path = sys.argv[1]
+is_editor = int(sys.argv[2])
 with open(path) as f:
     content = f.read()
+
+failed = False
 
 # Patch 1: proxyHandler – serve the __cpp_exception WebAssembly.Tag
 old1 = 'case"__memory_base":return memoryBase;case"__table_base":return tableBase}'
 new1 = 'case"__memory_base":return memoryBase;case"__table_base":return tableBase;case"__cpp_exception":if(!globalThis.__cpp_exception_tag)globalThis.__cpp_exception_tag=new WebAssembly.Tag({parameters:["i32"]});return globalThis.__cpp_exception_tag}'
 if old1 not in content:
-    print("Warning: proxyHandler pattern not found", file=sys.stderr)
-    sys.exit(1)
-if new1 in content:
-    print("  Patch 1 (tag) already applied")
+    print("Warning: proxyHandler pattern not found", flush=True)
+    failed = True
+elif new1 in content:
+    print("  Patch 1 (tag) already applied", flush=True)
 else:
     content = content.replace(old1, new1, 1)
-    print("  Applied patch 1 (__cpp_exception tag)")
+    print("  Applied patch 1 (__cpp_exception tag)", flush=True)
 
 # Patch 2: resolveGlobalSymbol – fall through to wasmExports
 old2 = 'var resolveGlobalSymbol=(symName,direct=false)=>{var sym;if(isSymbolDefined(symName)){sym=wasmImports[symName]}return{sym,name:symName}};'
 new2 = 'var resolveGlobalSymbol=(symName,direct=false)=>{var sym;if(isSymbolDefined(symName)){sym=wasmImports[symName]}else if(typeof wasmExports!=="undefined"){var e=wasmExports[symName];if(typeof e==="function")sym=e;else if(e&&typeof e.value!=="undefined")sym=+e.value}return{sym,name:symName}};'
 if old2 not in content:
-    print("Warning: resolveGlobalSymbol pattern not found", file=sys.stderr)
-    sys.exit(1)
-if new2 in content:
-    print("  Patch 2 (resolveGlobalSymbol) already applied")
+    print("Warning: resolveGlobalSymbol pattern not found", flush=True)
+    failed = True
+elif new2 in content:
+    print("  Patch 2 (resolveGlobalSymbol) already applied", flush=True)
 else:
     content = content.replace(old2, new2, 1)
-    print("  Applied patch 2 (resolveGlobalSymbol)")
+    print("  Applied patch 2 (resolveGlobalSymbol)", flush=True)
+
+# Patch 3: findLibraryFS – add JS fallback to search Emscripten FS
+old3 = 'return withStackSave(()=>{var bufSize=2*255+2;var buf=stackAlloc(bufSize);var rpathC=stringToUTF8OnStack(rpathResolved.join(":"));var libNameC=stringToUTF8OnStack(libName);var resLibNameC=__emscripten_find_dylib(buf,rpathC,libNameC,bufSize);return resLibNameC?UTF8ToString(resLibNameC):undefined})};'
+new3 = 'var _flr=withStackSave(()=>{var bufSize=2*255+2;var buf=stackAlloc(bufSize);var rpathC=stringToUTF8OnStack(rpathResolved.join(":"));var libNameC=stringToUTF8OnStack(libName);var resLibNameC=__emscripten_find_dylib(buf,rpathC,libNameC,bufSize);return resLibNameC?UTF8ToString(resLibNameC):undefined});if(_flr)return _flr;try{_fl=FS.cwd();FS.lookupPath(_fl+"/"+libName);return _fl+"/"+libName}catch(e){}try{FS.lookupPath("/"+libName);return "/"+libName}catch(e){}return undefined};'
+if old3 not in content:
+    print("Warning: findLibraryFS pattern not found", flush=True)
+    failed = True
+elif new3 in content:
+    print("  Patch 3 (findLibraryFS fallback) already applied", flush=True)
+else:
+    content = content.replace(old3, new3, 1)
+    print("  Applied patch 3 (findLibraryFS fallback)", flush=True)
+
+# Patch 4: loadLibData – check global __preloadedWasmModules registry.
+# Editor-only: export templates already handle sharedModules lookups correctly.
+if is_editor:
+    old4 = 'function loadLibData(){var sharedMod=sharedModules[libName];'
+    new4 = 'function loadLibData(){var sharedMod=(typeof __preloadedWasmModules!=="undefined"&&__preloadedWasmModules[libName])||sharedModules[libName];'
+    if old4 not in content:
+        print("Warning: loadLibData pattern not found", flush=True)
+        failed = True
+    elif new4 in content:
+        print("  Patch 4 (preloadedWasmModules) already applied", flush=True)
+    else:
+        content = content.replace(old4, new4, 1)
+        print("  Applied patch 4 (preloadedWasmModules)", flush=True)
 
 with open(path, 'w') as f:
     f.write(content)
+
+if failed:
+    sys.exit(1)
 PYEOF
 
-    if [ $? -ne 0 ]; then
-        echo "  Warning: failed to patch godot.js" >&2
-        rm -rf "$_tmp_dir"
-        return 1
-    fi
-    if ! grep -q "$sentinel" "$js_file"; then
-        echo "  Warning: failed to patch godot.js (tag pattern not found)" >&2
-        rm -rf "$_tmp_dir"
-        return 1
-    fi
-    if ! grep -q 'wasmExports\[symName\]' "$js_file"; then
-        echo "  Warning: failed to patch godot.js (resolveGlobalSymbol pattern not found)" >&2
+    if [ $py_rc -ne 0 ]; then
+        echo "  Error: Python patching script failed (exit code $py_rc)" >&2
         rm -rf "$_tmp_dir"
         return 1
     fi
 
-    # Re-pack into the zip.  Use update mode (not -f freshen): zip -f compares
-    # DOS timestamps with 2-second resolution, so a patch applied within the
-    # same window is seen as "nothing to do" and exits 12, aborting the build.
-    (cd "$_tmp_dir" && zip -q "$zip_path" godot.js)
+    # Verify all patches were applied
+    local verify_failed=0
+    if ! grep -q "$sentinel" "$js_file"; then
+        echo "  Warning: tag pattern not found after patching" >&2
+        verify_failed=1
+    fi
+    if ! grep -q 'wasmExports\[symName\]' "$js_file"; then
+        echo "  Warning: resolveGlobalSymbol pattern not found after patching" >&2
+        verify_failed=1
+    fi
+    if ! grep -q '_flr=' "$js_file"; then
+        echo "  Warning: findLibraryFS fallback not found after patching" >&2
+        verify_failed=1
+    fi
+    # Only verify editor-specific patches on editor zips
+    if [ "$is_editor" -eq 1 ]; then
+        if ! grep -q '__preloadedWasmModules' "$js_file"; then
+            echo "  Warning: preloadedWasmModules not found after patching" >&2
+            verify_failed=1
+        fi
+    fi
+    if [ $verify_failed -ne 0 ]; then
+        rm -rf "$_tmp_dir"
+        return 1
+    fi
+
+    # Re-pack into the zip using Python (zip command may not be installed)
+    local zip_rc=0
+    python3 -u - "$zip_path" "$_tmp_dir/$js_name" "$js_name" << 'PYEOF' || zip_rc=$?
+import sys, zipfile, os
+
+zip_path, patched_file, arcname = sys.argv[1], sys.argv[2], sys.argv[3]
+with open(patched_file, 'rb') as f:
+    data = f.read()
+tmp = zip_path + '.tmp'
+with zipfile.ZipFile(zip_path, 'r') as zin:
+    with zipfile.ZipFile(tmp, 'w', compression=zin.compression) as zout:
+        for item in zin.infolist():
+            if item.filename == arcname:
+                zout.writestr(item, data)
+            else:
+                zout.writestr(item, zin.read(item.filename))
+os.replace(tmp, zip_path)
+PYEOF
     rm -rf "$_tmp_dir"
-    echo "  Patched godot.js in $(basename "$zip_path") (tag + resolveGlobalSymbol)"
+    if [ $zip_rc -ne 0 ]; then
+        echo "  Error: zip repack failed (exit code $zip_rc)" >&2
+        return 1
+    fi
+    local patches_desc="tag + resolveGlobalSymbol + findLibraryFS"
+    [ "$is_editor" -eq 1 ] && patches_desc="${patches_desc} + preloadedWasm"
+    echo "  Patched $(basename "$zip_path") (${patches_desc})"
 }
 
 # Install a template zip to the output dir
@@ -370,7 +454,10 @@ install_template_zip() {
 }
 
 # Install editor binary to the output dir
+#   $1 = mode_name: "debug", "release", or "" (unnamed)
 install_editor_binary() {
+    local mode_name="$1"
+
     local godot_dir="${PROJECT_DIR}/build/godot-${GODOT_VERSION}"
 
     local zip_file="${godot_dir}/bin/godot.web.editor.wasm32.dlink.zip"
@@ -384,11 +471,14 @@ install_editor_binary() {
 
     local dest_dir="${OUTPUT_DIR}/editor/threads"
     mkdir -p "$dest_dir"
-    cp "$zip_file" "${dest_dir}/web_editor.zip"
-    echo "Installed: ${dest_dir}/web_editor.zip"
 
-    # Patch godot.js inside the zip for __cpp_exception tag support
-    patch_template_js "${dest_dir}/web_editor.zip"
+    local dest_name="web_editor"
+    [ -n "$mode_name" ] && dest_name="${dest_name}_${mode_name}"
+    cp "$zip_file" "${dest_dir}/${dest_name}.zip"
+    echo "Installed: ${dest_dir}/${dest_name}.zip"
+
+    # Patch the editor JS inside the zip for __cpp_exception tag support
+    patch_template_js "${dest_dir}/${dest_name}.zip"
 }
 
 # Build all selected variants
@@ -413,7 +503,16 @@ build_web() {
         echo ""
 
         build_one_variant "editor"
-        install_editor_binary
+
+        local editor_mode_name=""
+        if [ "$BUILD_DEBUG" = "yes" ] && [ "$BUILD_RELEASE" = "yes" ]; then
+            editor_mode_name=""
+        elif [ "$BUILD_DEBUG" = "yes" ]; then
+            editor_mode_name="debug"
+        else
+            editor_mode_name="release"
+        fi
+        install_editor_binary "$editor_mode_name"
     else
         echo ""
         echo "=== Building Godot Web export templates ==="
@@ -457,7 +556,15 @@ main() {
     echo ""
     echo "Done! Output installed to: ${OUTPUT_DIR}"
     if [ $BUILD_EDITOR -eq 1 ]; then
-        echo "  editor/threads/web_editor.zip"
+        local editor_mode_name=""
+        if [ "$BUILD_DEBUG" = "yes" ] && [ "$BUILD_RELEASE" = "yes" ]; then
+            editor_mode_name=""
+        elif [ "$BUILD_DEBUG" = "yes" ]; then
+            editor_mode_name="_debug"
+        else
+            editor_mode_name="_release"
+        fi
+        echo "  editor/threads/web_editor${editor_mode_name}.zip"
     else
         echo "  threads/web_debug.zip, threads/web_release.zip"
     fi

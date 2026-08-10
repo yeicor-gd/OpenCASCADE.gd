@@ -802,7 +802,7 @@ jobs:
             --name web-editor-release \
             --dir editor-dl
           cd editor-dl
-          unzip -q editor/threads/web_editor.zip -d "${{ github.workspace }}/web/editor"
+          unzip -q editor/threads/web_editor_release.zip -d "${{ github.workspace }}/web/editor"
           rm -rf editor-dl
         env:
           GH_TOKEN: ${{ github.token }}
