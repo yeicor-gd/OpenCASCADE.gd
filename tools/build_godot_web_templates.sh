@@ -331,8 +331,10 @@ PYEOF
         return 1
     fi
 
-    # Re-pack into the zip
-    (cd "$_tmp_dir" && zip -qf "$zip_path" godot.js)
+    # Re-pack into the zip.  Use update mode (not -f freshen): zip -f compares
+    # DOS timestamps with 2-second resolution, so a patch applied within the
+    # same window is seen as "nothing to do" and exits 12, aborting the build.
+    (cd "$_tmp_dir" && zip -q "$zip_path" godot.js)
     rm -rf "$_tmp_dir"
     echo "  Patched godot.js in $(basename "$zip_path") (tag + resolveGlobalSymbol)"
 }
