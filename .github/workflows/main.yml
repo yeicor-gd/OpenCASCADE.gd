@@ -408,12 +408,26 @@ jobs:
           $vcpkg_exe install --recurse 'opencascade[freetype,rapidjson]'
           ccache --show-stats -vv
 
-      - name: Install Python libclang bindings (for autowrapper generation)
+      - name: Install clang + Python libclang bindings (for autowrapper generation)
         shell: bash
         run: |
           set -e
+          case "$RUNNER_OS" in
+            Linux)
+              wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s 22
+              echo "LIBCLANG_LIBRARY_FILE=/usr/lib/llvm-22/lib/libclang.so" >> "$GITHUB_ENV"
+              ;;
+            macOS)
+              brew install llvm
+              echo "LIBCLANG_LIBRARY_FILE=$(brew --prefix llvm)/lib/libclang.dylib" >> "$GITHUB_ENV"
+              ;;
+            Windows)
+              winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM
+              echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
+              ;;
+          esac
           PY="$(command -v python3 || command -v python)"
-          "$PY" -m pip install clang==18.1.8 libclang==18.1.1
+          "$PY" -m pip install clang==21.1.7
           echo "PYTHON=$PY" >> "$GITHUB_ENV"
 
       - name: Generate autowrapper bindings
@@ -517,21 +531,6 @@ jobs:
           use-dotnet: false
           include-templates: true
           cache: false # Bypassing cache for this simple download to ensure the API dump and other sources stays cached.
-
-      - name: Install Python libclang bindings (for autowrapper generation)
-        shell: bash
-        run: |
-          set -e
-          PY="$(command -v python3 || command -v python)"
-          "$PY" -m pip install clang==18.1.8 libclang==18.1.1
-          echo "PYTHON=$PY" >> "$GITHUB_ENV"
-
-      - name: Generate autowrapper bindings (to generate tests)
-        shell: bash
-        run: |
-          set -e
-          cd OpenCASCADE.gd-autowrapper
-          ./generate.sh
 
       - name: Run demo test
         shell: bash
@@ -718,12 +717,26 @@ jobs:
           cp "web-templates/threads/web_${{ matrix.mode }}.zip" "demo/templates/threads/"
           ls -R demo/templates/
 
-      - name: Install Python libclang bindings (for autowrapper generation)
+      - name: Install clang + Python libclang bindings (for autowrapper generation)
         shell: bash
         run: |
           set -e
+          case "$RUNNER_OS" in
+            Linux)
+              wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s 22
+              echo "LIBCLANG_LIBRARY_FILE=/usr/lib/llvm-22/lib/libclang.so" >> "$GITHUB_ENV"
+              ;;
+            macOS)
+              brew install llvm
+              echo "LIBCLANG_LIBRARY_FILE=$(brew --prefix llvm)/lib/libclang.dylib" >> "$GITHUB_ENV"
+              ;;
+            Windows)
+              winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM
+              echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
+              ;;
+          esac
           PY="$(command -v python3 || command -v python)"
-          "$PY" -m pip install clang==18.1.8 libclang==18.1.1
+          "$PY" -m pip install clang==21.1.7
           echo "PYTHON=$PY" >> "$GITHUB_ENV"
 
       - name: Generate autowrapper bindings
