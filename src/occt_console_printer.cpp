@@ -4,8 +4,10 @@
 #include "occt_console_printer.hpp"
 
 #include <cstdio>
-#include <ext/stdio_sync_filebuf.h>
 #include <iostream>
+#if defined(__GLIBCXX__)
+#include <ext/stdio_sync_filebuf.h>
+#endif
 
 #include <Message_Printer.hxx>
 #include <TCollection_AsciiString.hxx>
@@ -36,6 +38,11 @@ protected:
 // This reconstructs the shared std::cout in place so those paths are safe
 // (send() prints, Close() flushes) regardless of libstdc++ interposition.
 void ensure_functional_shared_cout() {
+#if !defined(__GLIBCXX__)
+    // libc++/MSVC STL do not interpose std::cout the way libstdc++ does, and
+    // do not ship __gnu_cxx::stdio_sync_filebuf, so there is nothing to fix.
+    return;
+#endif
     if (*reinterpret_cast<const void **>(&std::cout) != nullptr) {
         return; // already constructed
     }
