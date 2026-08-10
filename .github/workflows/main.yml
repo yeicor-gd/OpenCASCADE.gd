@@ -415,6 +415,8 @@ jobs:
           case "$RUNNER_OS" in
             Linux)
               wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s 22
+              sudo apt-get install -y libclang-22-dev # provides /usr/lib/llvm-22/lib/libclang.so
+              test -f /usr/lib/llvm-22/lib/libclang.so
               echo "LIBCLANG_LIBRARY_FILE=/usr/lib/llvm-22/lib/libclang.so" >> "$GITHUB_ENV"
               ;;
             macOS)
@@ -724,6 +726,8 @@ jobs:
           case "$RUNNER_OS" in
             Linux)
               wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s 22
+              sudo apt-get install -y libclang-22-dev # provides /usr/lib/llvm-22/lib/libclang.so
+              test -f /usr/lib/llvm-22/lib/libclang.so
               echo "LIBCLANG_LIBRARY_FILE=/usr/lib/llvm-22/lib/libclang.so" >> "$GITHUB_ENV"
               ;;
             macOS)

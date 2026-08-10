@@ -265,7 +265,10 @@ build_one_variant() {
 # This function patches the proxyHandler in godot.js to detect __cpp_exception
 # tag look-ups and return a reusable WebAssembly.Tag instance.
 patch_template_js() {
-    local zip_path="$1"
+    # Use an absolute path: the re-pack below runs from a temp dir, and zip
+    # update mode creates a sibling output file next to the archive.
+    local zip_path
+    zip_path="$(realpath "$1")"
 
     local _tmp_dir
     _tmp_dir=$(mktemp -d)
