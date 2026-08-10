@@ -408,6 +408,14 @@ jobs:
           $vcpkg_exe install --recurse 'opencascade[freetype,rapidjson]'
           ccache --show-stats -vv
 
+      - name: Install Python libclang bindings (for autowrapper generation)
+        shell: bash
+        run: |
+          set -e
+          PY="$(command -v python3 || command -v python)"
+          "$PY" -m pip install clang==18.1.8 libclang==18.1.1
+          echo "PYTHON=$PY" >> "$GITHUB_ENV"
+
       - name: Generate autowrapper bindings
         shell: bash
         env:
@@ -509,6 +517,14 @@ jobs:
           use-dotnet: false
           include-templates: true
           cache: false # Bypassing cache for this simple download to ensure the API dump and other sources stays cached.
+
+      - name: Install Python libclang bindings (for autowrapper generation)
+        shell: bash
+        run: |
+          set -e
+          PY="$(command -v python3 || command -v python)"
+          "$PY" -m pip install clang==18.1.8 libclang==18.1.1
+          echo "PYTHON=$PY" >> "$GITHUB_ENV"
 
       - name: Generate autowrapper bindings (to generate tests)
         shell: bash
@@ -701,6 +717,14 @@ jobs:
           mkdir -p demo/templates/threads
           cp "web-templates/threads/web_${{ matrix.mode }}.zip" "demo/templates/threads/"
           ls -R demo/templates/
+
+      - name: Install Python libclang bindings (for autowrapper generation)
+        shell: bash
+        run: |
+          set -e
+          PY="$(command -v python3 || command -v python)"
+          "$PY" -m pip install clang==18.1.8 libclang==18.1.1
+          echo "PYTHON=$PY" >> "$GITHUB_ENV"
 
       - name: Generate autowrapper bindings
         shell: bash
