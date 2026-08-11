@@ -91,6 +91,8 @@ func test_make_fillet() -> String:
 		return "MakeFillet from_v returned null"
 	fillet.add_9(2.0, e)
 	fillet.build(OcgMessageProgressRange.new())
+	if not fillet.is_done():
+		return "Fillet is_done() false after build"
 	if fillet.nb_contours() != 1:
 		return "Fillet nb_contours expected 1 got %s" % fillet.nb_contours()
 	if fillet.nb_faulty_contours() != 0:
@@ -101,6 +103,11 @@ func test_make_fillet() -> String:
 		return "Fillet stripe_status expected no error"
 	if not _near(fillet.radius_2(1), 2.0):
 		return "Fillet radius_2(1) expected 2 got %s" % fillet.radius_2(1)
+	var fillet_shape: OcgTopoDSShape = fillet.shape()
+	if fillet_shape == null or fillet_shape.is_null():
+		return "Fillet.shape() returned a null shape"
+	if not OcgBRepCheckAnalyzer.from_L(fillet_shape, true, false, true).is_valid_k():
+		return "Fillet shape should be valid"
 	return "OK"
 
 
@@ -117,6 +124,8 @@ func test_make_chamfer() -> String:
 		return "MakeChamfer from_4 returned null"
 	chamfer.add_9(2.0, e)
 	chamfer.build(OcgMessageProgressRange.new())
+	if not chamfer.is_done():
+		return "Chamfer is_done() false after build"
 	if chamfer.nb_contours() != 1:
 		return "Chamfer nb_contours expected 1 got %s" % chamfer.nb_contours()
 	if not chamfer.is_symetric(1):
@@ -125,6 +134,11 @@ func test_make_chamfer() -> String:
 	chamfer.get_dist(1, d)
 	if not _near(d.get_value(), 2.0):
 		return "Chamfer get_dist expected 2 got %s" % d.get_value()
+	var chamfer_shape: OcgTopoDSShape = chamfer.shape()
+	if chamfer_shape == null or chamfer_shape.is_null():
+		return "Chamfer.shape() returned a null shape"
+	if not OcgBRepCheckAnalyzer.from_L(chamfer_shape, true, false, true).is_valid_k():
+		return "Chamfer shape should be valid"
 	return "OK"
 
 

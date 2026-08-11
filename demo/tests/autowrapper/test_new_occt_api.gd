@@ -165,6 +165,12 @@ func test_brep_gprop_volume() -> String:
 	return "OK"
 
 
+func _shape_volume(shape: OcgTopoDSShape) -> float:
+	var props := OcgGPropGProps.from_N(OcgGpPnt.new())
+	OcgBRepGProp.volume_properties_J(shape, props, true, false, false)
+	return props.mass
+
+
 func test_boolean_operations() -> String:
 	# BRepAlgoAPI_* constructors accept an optional Message_ProgressRange; the
 	# default-constructed range is an inert no-op scope.
@@ -177,16 +183,89 @@ func test_boolean_operations() -> String:
 	var fuse := OcgBRepAlgoAPIFuse.from_b(b1, b2, rng)
 	if fuse == null:
 		return "Failed to create BRepAlgoAPI_Fuse"
+	if not fuse.is_done():
+		return "Fuse is_done() false"
+	var fuse_shape: OcgTopoDSShape = fuse.shape()
+	if fuse_shape == null or fuse_shape.is_null():
+		return "Fuse.shape() returned a null shape"
+	if not is_equal_approx(_shape_volume(fuse_shape), 1500.0):
+		return "Fuse volume expected 1500 got %s" % _shape_volume(fuse_shape)
 	var cut := OcgBRepAlgoAPICut.from_b(b1, b2, rng)
 	if cut == null:
 		return "Failed to create BRepAlgoAPI_Cut"
+	var cut_shape: OcgTopoDSShape = cut.shape()
+	if cut_shape == null or cut_shape.is_null():
+		return "Cut.shape() returned a null shape"
+	if not is_equal_approx(_shape_volume(cut_shape), 500.0):
+		return "Cut volume expected 500 got %s" % _shape_volume(cut_shape)
 	var common := OcgBRepAlgoAPICommon.from_b(b1, b2, rng)
 	if common == null:
 		return "Failed to create BRepAlgoAPI_Common"
+	var common_shape: OcgTopoDSShape = common.shape()
+	if common_shape == null or common_shape.is_null():
+		return "Common.shape() returned a null shape"
+	if not is_equal_approx(_shape_volume(common_shape), 500.0):
+		return "Common volume expected 500 got %s" % _shape_volume(common_shape)
 	# Section exposes plain-shape overloads that need no progress range.
 	var sec := OcgBRepAlgoAPISection.from_s(b1, b2, true)
 	if sec == null:
 		return "Failed to create BRepAlgoAPI_Section"
+	if not sec.is_done():
+		return "Section is_done() false"
+	var sec_shape: OcgTopoDSShape = sec.shape()
+	if sec_shape == null or sec_shape.is_null():
+		return "Section.shape() returned a null shape"
+	if not OcgBRepCheckAnalyzer.from_L(sec_shape, true, false, true).is_valid_k():
+		return "Section shape should be valid"
+	return "OK"
+
+
+func test_transform_shape() -> String:
+	# BRepBuilderAPI_Transform inherits Shape() (flattened): the result of the
+	# transform is available directly, not just via modified_shape(S).
+	var mk := OcgBRepPrimAPIMakeBox.from_6(1.0, 2.0, 3.0)
+	var trsf := OcgGpTrsf.new()
+	trsf.set_translation_Z(OcgGpVec.from_6(10.0, 0.0, 0.0))
+	var t := OcgBRepBuilderAPITransform.from_l(mk.solid(), trsf, true, false)
+	if t == null:
+		return "Failed to create BRepBuilderAPI_Transform"
+	if not t.is_done():
+		return "Transform is_done() false"
+	var moved: OcgTopoDSShape = t.shape()
+	if moved == null or moved.is_null():
+		return "Transform.shape() returned a null shape"
+	if not is_equal_approx(_shape_volume(moved), 6.0):
+		return "Transform volume expected 6 got %s" % _shape_volume(moved)
+	var cm := OcgGPropGProps.from_N(OcgGpPnt.new())
+	OcgBRepGProp.volume_properties_J(moved, cm, true, false, false)
+	if abs(cm.centre_of_mass.x - 10.5) > 1e-6:
+		return "Transform centre_of_mass.x expected 10.5 got %s" % cm.centre_of_mass.x
+	return "OK"
+
+
+func test_adaptor_curve_inherited() -> String:
+	# BRepAdaptor_Curve derives through GeomAdaptor_TransformedCurve ->
+	# Adaptor3d_Curve; Value/D1/FirstParameter/LastParameter are inherited
+	# through the Transient wrapper chain (bound on OcgAdaptor3dCurve).
+	var e := OcgBRepBuilderAPIMakeEdge.from_Wm(
+		OcgGpPnt.from_6(0.0, 0.0, 0.0), OcgGpPnt.from_6(10.0, 0.0, 0.0)).edge()
+	var ac := OcgBRepAdaptorCurve.from_g(e)
+	if ac == null:
+		return "Failed to create BRepAdaptor_Curve"
+	if not is_equal_approx(ac.first_parameter(), 0.0):
+		return "first_parameter expected 0 got %s" % ac.first_parameter()
+	if not is_equal_approx(ac.last_parameter(), 10.0):
+		return "last_parameter expected 10 got %s" % ac.last_parameter()
+	var p: OcgGpPnt = ac.value(5.0)
+	if p == null:
+		return "value() returned null"
+	if not is_equal_approx(p.x, 5.0) or not is_equal_approx(p.y, 0.0):
+		return "value(5) expected (5,0,0) got %s" % p
+	var p2 := OcgGpPnt.new()
+	var v := OcgGpVec.new()
+	ac.d1(5.0, p2, v)
+	if not is_equal_approx(v.x, 1.0):
+		return "d1 tangent x expected 1 got %s" % v.x
 	return "OK"
 
 
