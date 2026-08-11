@@ -38,16 +38,13 @@ protected:
 // This reconstructs the shared std::cout in place so those paths are safe
 // (send() prints, Close() flushes) regardless of libstdc++ interposition.
 void ensure_functional_shared_cout() {
-#if !defined(__GLIBCXX__)
-    // libc++/MSVC STL do not interpose std::cout the way libstdc++ does, and
-    // do not ship __gnu_cxx::stdio_sync_filebuf, so there is nothing to fix.
-    return;
-#endif
+#if defined(__GLIBCXX__)
     if (*reinterpret_cast<const void **>(&std::cout) != nullptr) {
         return; // already constructed
     }
     static __gnu_cxx::stdio_sync_filebuf<char> s_stdout_buf(stdout);
     new (&std::cout) std::ostream(&s_stdout_buf);
+#endif
 }
 
 } // namespace
