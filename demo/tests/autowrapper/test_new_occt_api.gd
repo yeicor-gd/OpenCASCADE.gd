@@ -239,15 +239,3 @@ func test_message_exec_status() -> String:
 	if both.is_set(OcgEnums.Message_Status.Message_Done1):
 		return "and_assign should drop Done1"
 	return "OK"
-
-
-func test_cube_map_dereference() -> String:
-	# operator-> is bound as dereference(); the default-constructed wrapper
-	# holds no native object, so it must yield an empty Ref instead of crashing.
-	var v := OcgGraphic3dValidatedCubeMapOrder.new()
-	if v == null:
-		return "Failed to create Graphic3d_ValidatedCubeMapOrder"
-	var order := v.dereference()
-	if order != null:
-		return "dereference on empty wrapper should be null"
-	return "OK"

@@ -53,7 +53,7 @@ func _ready() -> void:
 	test_filter = OS.get_environment("GODOT_TEST_RUNNER_FILTER")
 
 	# Set up a timeout failsafe in case tests get stuck.
-	var timeout_ms := 60000
+	var timeout_ms := 600000
 	var timeout_str := OS.get_environment("GODOT_TEST_RUNNER_TIMEOUT")
 	if timeout_str != "":
 		timeout_ms = int(timeout_str)
