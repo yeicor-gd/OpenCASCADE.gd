@@ -14,6 +14,23 @@ else()
 endif()
 separate_arguments(GDEXT_CMAKE_ARGS UNIX_COMMAND "${GDEXT_CMAKE_ARGS}")
 
+# The gdext build compiles thousands of autowrapper translation units; the
+# default VCPKG_CONCURRENCY (cores+1) makes small CI runners run out of memory
+# (SIGTERM/exit 143 at "Building ..." when the allocator is starved).  Bound
+# the build parallelism to a fraction of the cores, honoring an explicit
+# VCPKG_MAX_CONCURRENCY override (the knob vcpkg itself exposes).
+cmake_host_system_information(RESULT _gdext_ncores QUERY NUMBER_OF_LOGICAL_CORES)
+set(_gdext_cores_cap 4)
+if(_gdext_ncores LESS _gdext_cores_cap)
+    set(_gdext_cores_cap "${_gdext_ncores}")
+endif()
+if(NOT DEFINED ENV{VCPKG_MAX_CONCURRENCY} AND
+   (NOT DEFINED VCPKG_CONCURRENCY OR VCPKG_CONCURRENCY GREATER _gdext_cores_cap))
+    set(VCPKG_CONCURRENCY "${_gdext_cores_cap}")
+    message(STATUS "gdext: capping VCPKG_CONCURRENCY to ${VCPKG_CONCURRENCY} "
+                   "to bound peak memory (set VCPKG_MAX_CONCURRENCY to override)")
+endif()
+
 vcpkg_configure_cmake(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS ${GDEXT_CMAKE_ARGS}

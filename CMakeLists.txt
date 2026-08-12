@@ -83,6 +83,74 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/godot-cpp")
 # OpenCASCADE (consumed via vcpkg).
 find_package(OpenCASCADE REQUIRED)
 
+# Regenerate the OCCT autowrapper bindings at configure time, so a from-scratch
+# "vcpkg install gdext" works in one run: the deps (OCCT headers) are already
+# installed above, and the wrappers are written before the source GLOB below
+# picks them up.  Wrappers are only regenerated when needed:
+#   - no stamp file yet (fresh checkout), or
+#   - the OCCT version in the stamp differs from the one just found, or
+#   - any generator source (autogen/*.py) is newer than the stamp.
+# The CI "Generate autowrapper bindings" step writes the same stamp, so its
+# separate generation is not repeated here.
+set(AUTOWRAPPER_DIR "${PROJECT_SOURCE_DIR}/OpenCASCADE.gd-autowrapper")
+set(AUTOWRAPPER_STAMP "${PROJECT_SOURCE_DIR}/src/autowrapper/.autowrapper-stamp")
+set(AUTOWRAPPER_NEED_REGEN FALSE)
+if (NOT EXISTS "${AUTOWRAPPER_STAMP}")
+  set(AUTOWRAPPER_NEED_REGEN TRUE)
+  message(STATUS "OpenCASCADE autowrapper: no stamp, will regenerate")
+else()
+  file(STRINGS "${AUTOWRAPPER_STAMP}" _stamp_lines)
+  set(_stamp_occt "")
+  foreach(_l IN LISTS _stamp_lines)
+    if (_l MATCHES "^occt=(.*)$")
+      set(_stamp_occt "${CMAKE_MATCH_1}")
+      break()
+    endif()
+  endforeach()
+  if (NOT "${_stamp_occt}" STREQUAL "${OpenCASCADE_VERSION}")
+    set(AUTOWRAPPER_NEED_REGEN TRUE)
+    message(STATUS "OpenCASCADE autowrapper: OCCT version changed "
+        "(${_stamp_occt} -> ${OpenCASCADE_VERSION}), will regenerate")
+  else()
+    file(GLOB_RECURSE _gen_srcs "${AUTOWRAPPER_DIR}/autogen/*.py")
+    foreach(_s IN LISTS _gen_srcs)
+      if ("${_s}" IS_NEWER_THAN "${AUTOWRAPPER_STAMP}")
+        set(AUTOWRAPPER_NEED_REGEN TRUE)
+        message(STATUS "OpenCASCADE autowrapper: generator sources newer than "
+            "stamp (${_s}), will regenerate")
+        break()
+      endif()
+    endforeach()
+  endif()
+endif()
+if (AUTOWRAPPER_NEED_REGEN)
+  find_package(Python3 COMPONENTS Interpreter REQUIRED)
+  # Bound the scan/parse parallelism the same way generate.sh does (each scan
+  # worker is a separate libclang process parsing large OCCT headers; on small
+  # runners oversubscription starves memory).
+  cmake_host_system_information(RESULT _nproc QUERY NUMBER_OF_LOGICAL_CORES)
+  math(EXPR _autogen_jobs "${_nproc} > 8 ? 8 : ${_nproc}")
+  if (_autogen_jobs LESS 1)
+    set(_autogen_jobs 1)
+  endif()
+  # The generator locates the OCCT include dir via VCPKG_DEFAULT_TRIPLET.
+  if (DEFINED VCPKG_TARGET_TRIPLET)
+    set(ENV{VCPKG_DEFAULT_TRIPLET} "${VCPKG_TARGET_TRIPLET}")
+  endif()
+  message(STATUS "OpenCASCADE autowrapper: regenerating bindings "
+      "(occt ${OpenCASCADE_VERSION}, jobs ${_autogen_jobs})...")
+  execute_process(
+    COMMAND "${Python3_EXECUTABLE}" -m autogen regenerate --jobs "${_autogen_jobs}"
+    WORKING_DIRECTORY "${AUTOWRAPPER_DIR}"
+    RESULT_VARIABLE _autogen_rc
+    OUTPUT_VARIABLE _autogen_out
+    ERROR_VARIABLE _autogen_err)
+  if (NOT _autogen_rc EQUAL 0)
+    message(FATAL_ERROR "OpenCASCADE autowrapper generation failed (rc=${_autogen_rc}):\n"
+        "${_autogen_out}\n${_autogen_err}")
+  endif()
+endif()
+
 # Define the documentation sources (the godot-cpp cmake version does not
 # work?)
 if(GODOTCPP_TARGET MATCHES "editor|template_debug")
