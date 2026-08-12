@@ -152,9 +152,17 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 # Force-include the exception guard header. It defines the OCCT signal/exception
 # catch machinery used by the generated wrappers (OCC_CATCH_SIGNALS, OCCT_GUARD_*).
 # Every generated header/source includes exactly the OCCT headers it needs itself.
-target_compile_options(${PROJECT_NAME} PRIVATE
-  "SHELL:-include ${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
-)
+# MSVC ignores the GCC-style `-include` flag (D9002) and would compile every TU
+# without the guard macros; it needs the MSVC `/FI` force-include form instead.
+if(MSVC)
+  target_compile_options(${PROJECT_NAME} PRIVATE
+    "/FI${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
+  )
+else()
+  target_compile_options(${PROJECT_NAME} PRIVATE
+    "SHELL:-include ${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
+  )
+endif()
 
 if(MSVC) # Maximum warnings and treat them as errors
   set(WARN_FLAGS "/W4")
