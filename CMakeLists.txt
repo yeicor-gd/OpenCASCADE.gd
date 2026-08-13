@@ -90,8 +90,8 @@ find_package(OpenCASCADE REQUIRED)
 #   - no stamp file yet (fresh checkout), or
 #   - the OCCT version in the stamp differs from the one just found, or
 #   - any generator source (autogen/*.py) is newer than the stamp.
-# The CI "Generate autowrapper bindings" step writes the same stamp, so its
-# separate generation is not repeated here.
+# A previous configure that already generated (or a manual generate.sh run)
+# leaves the stamp in place, so the regeneration is not repeated.
 set(AUTOWRAPPER_DIR "${PROJECT_SOURCE_DIR}/OpenCASCADE.gd-autowrapper")
 set(AUTOWRAPPER_STAMP "${PROJECT_SOURCE_DIR}/src/autowrapper/.autowrapper-stamp")
 set(AUTOWRAPPER_NEED_REGEN FALSE)
@@ -124,7 +124,15 @@ else()
   endif()
 endif()
 if (AUTOWRAPPER_NEED_REGEN)
-  find_package(Python3 COMPONENTS Interpreter REQUIRED)
+  # CI installs the python clang bindings into a specific interpreter recorded
+  # in $PYTHON; prefer it over find_package so the regeneration uses the exact
+  # python that can import clang.cindex (find_package may pick a different one).
+  if (DEFINED ENV{PYTHON} AND NOT "$ENV{PYTHON}" STREQUAL "")
+    set(_autogen_python "$ENV{PYTHON}")
+  else()
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    set(_autogen_python "${Python3_EXECUTABLE}")
+  endif()
   # Bound the scan/parse parallelism the same way generate.sh does (each scan
   # worker is a separate libclang process parsing large OCCT headers; on small
   # runners oversubscription starves memory).
@@ -140,7 +148,7 @@ if (AUTOWRAPPER_NEED_REGEN)
   message(STATUS "OpenCASCADE autowrapper: regenerating bindings "
       "(occt ${OpenCASCADE_VERSION}, jobs ${_autogen_jobs})...")
   execute_process(
-    COMMAND "${Python3_EXECUTABLE}" -m autogen regenerate --jobs "${_autogen_jobs}"
+    COMMAND "${_autogen_python}" -m autogen regenerate --jobs "${_autogen_jobs}"
     WORKING_DIRECTORY "${AUTOWRAPPER_DIR}"
     RESULT_VARIABLE _autogen_rc
     OUTPUT_VARIABLE _autogen_out

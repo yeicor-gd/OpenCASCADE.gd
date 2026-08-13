@@ -384,7 +384,7 @@ jobs:
           # ---
           echo "CMAKE_CXX_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
           echo "CMAKE_C_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
-          echo "VCPKG_KEEP_ENV_VARS=CCACHE_DIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER" >> $GITHUB_ENV
+          echo "VCPKG_KEEP_ENV_VARS=CCACHE_DIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
           # ---
           echo VCPKG_DISABLE_METRICS=1 >> $GITHUB_ENV
           echo VCPKG_DEFAULT_TRIPLET=${{ matrix.target.vcpkg_triplet }} >> $GITHUB_ENV
@@ -397,16 +397,13 @@ jobs:
         with:
           cmake-version: '4.4.2'
 
-      - name: Bootstrap vcpkg and install OpenCASCADE (for autowrapper header scanning)
+      - name: Bootstrap vcpkg
         shell: bash
         run: |
           set -e
           vcpkg_bootstrap="vcpkg/bootstrap-vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.bat' || '.sh' }}"
-          vcpkg_exe="vcpkg/vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.exe' || '' }}"
           "$vcpkg_bootstrap"
           ccache --show-stats --evict-older-than 10d -vv
-          $vcpkg_exe install --recurse 'opencascade[freetype,rapidjson]'
-          ccache --show-stats -vv
 
       - name: Install clang + Python libclang bindings (for autowrapper generation)
         shell: bash
@@ -431,15 +428,6 @@ jobs:
           PY="$(command -v python3 || command -v python)"
           "$PY" -m pip install clang==21.1.7
           echo "PYTHON=$PY" >> "$GITHUB_ENV"
-
-      - name: Generate autowrapper bindings
-        shell: bash
-        env:
-          VCPKG_DEFAULT_TRIPLET: ${{ matrix.target.vcpkg_triplet }}
-        run: |
-          set -e
-          cd OpenCASCADE.gd-autowrapper
-          ./generate.sh
 
       - name: Build with vcpkg
         shell: bash
@@ -718,37 +706,6 @@ jobs:
           mkdir -p demo/templates/threads
           cp "web-templates/threads/web_${{ matrix.mode }}.zip" "demo/templates/threads/"
           ls -R demo/templates/
-
-      - name: Install clang + Python libclang bindings (for autowrapper generation)
-        shell: bash
-        run: |
-          set -e
-          case "$RUNNER_OS" in
-            Linux)
-              wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s 22
-              sudo apt-get install -y libclang-22-dev # provides /usr/lib/llvm-22/lib/libclang.so
-              test -f /usr/lib/llvm-22/lib/libclang.so
-              echo "LIBCLANG_LIBRARY_FILE=/usr/lib/llvm-22/lib/libclang.so" >> "$GITHUB_ENV"
-              ;;
-            macOS)
-              brew install llvm
-              echo "LIBCLANG_LIBRARY_FILE=$(brew --prefix llvm)/lib/libclang.dylib" >> "$GITHUB_ENV"
-              ;;
-            Windows)
-              winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM
-              echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
-              ;;
-          esac
-          PY="$(command -v python3 || command -v python)"
-          "$PY" -m pip install clang==21.1.7
-          echo "PYTHON=$PY" >> "$GITHUB_ENV"
-
-      - name: Generate autowrapper bindings
-        shell: bash
-        run: |
-          set -e
-          cd OpenCASCADE.gd-autowrapper
-          ./generate.sh
 
       - name: Export demo
         shell: bash
