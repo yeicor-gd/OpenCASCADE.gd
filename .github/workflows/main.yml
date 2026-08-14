@@ -384,8 +384,22 @@ jobs:
           # ---
           echo "CMAKE_CXX_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
           echo "CMAKE_C_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
-          echo "VCPKG_KEEP_ENV_VARS=CCACHE_DIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
           # ---
+          # Determine the number of cores to set VCPKG_MAX_CONCURRENCY and bound memory usage
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            NCORES=$(nproc)
+          elif [ "$RUNNER_OS" = "macOS" ]; then
+            NCORES=$(sysctl -n hw.ncpu)
+          elif [ "$RUNNER_OS" = "Windows" ]; then
+            NCORES=$NUMBER_OF_PROCESSORS
+          else
+            NCORES=2
+          fi
+          # Cap concurrency to avoid starvation (as the default of vcpkg is NCORES+1)
+          VCPKG_MAX_CONCURRENCY=$NCORES
+          echo "VCPKG_MAX_CONCURRENCY=$VCPKG_MAX_CONCURRENCY" >> $GITHUB_ENV
+          # ---
+          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
           echo VCPKG_DISABLE_METRICS=1 >> $GITHUB_ENV
           echo VCPKG_DEFAULT_TRIPLET=${{ matrix.target.vcpkg_triplet }} >> $GITHUB_ENV
           echo VCPKG_OVERLAY_TRIPLETS=vcpkg_triplets >> $GITHUB_ENV
