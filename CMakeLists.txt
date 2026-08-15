@@ -221,6 +221,26 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten" OR MINGW)
   # Avoid failing on duplicate definitions for Emscripten and mingw compilers
   target_link_libraries(${PROJECT_NAME} PRIVATE "-Wl,--allow-multiple-definition")
 endif()
+# GNU ld (bfd) cannot synthesize the range-extension thunks this very large
+# shared library needs on AArch64: calls between the far ends of the .so
+# exceed the +/-128MB range of R_AARCH64_CALL26/JUMP26, and the link dies with
+# "relocation truncated to fit" (binutils ld/18668, e.g. against libgcc's
+# __aarch64_ldadd4_rel outline-atomics helper and godot-cpp's
+# add_engine_class_registration_callback).  LLD inserts thunks robustly, so
+# prefer it for native AArch64 Linux links (CI installs lld-22 via llvm.sh).
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux"
+   AND CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64|arm64)$")
+  # `-fuse-ld=lld` makes GCC search PATH for an unversioned `ld.lld`; the
+  # CI symlinks it from the llvm.sh lld-22 install.
+  find_program(GDEXT_LLD NAMES ld.lld)
+  if(GDEXT_LLD)
+    message(STATUS "AArch64 Linux: linking with LLD (${GDEXT_LLD})")
+    target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=lld")
+  else()
+    message(WARNING "AArch64 Linux: LLD not found; the shared library may "
+            "fail to link with 'relocation truncated to fit' (GNU ld veneer bug)")
+  endif()
+endif()
 # Link godot-cpp and OpenCASCADE.
 # The OpenCASCADE cmake config provides imported targets in per-module
 # *Targets.cmake files.  We include them all to make every TK* target

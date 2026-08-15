@@ -428,6 +428,13 @@ jobs:
               wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s 22
               sudo apt-get install -y libclang-22-dev # provides /usr/lib/llvm-22/lib/libclang.so
               test -f /usr/lib/llvm-22/lib/libclang.so
+              # The gdext shared library is large enough on AArch64 that GNU ld
+              # (bfd) cannot place the range-extension thunks (R_AARCH64_CALL26
+              # relocation truncated to fit); CMake links it with LLD, which
+              # needs `ld.lld` on PATH (the lld-22 package installs it versioned).
+              if [ -x /usr/lib/llvm-22/bin/ld.lld ]; then
+                sudo ln -sf /usr/lib/llvm-22/bin/ld.lld /usr/local/bin/ld.lld
+              fi
               echo "LIBCLANG_LIBRARY_FILE=/usr/lib/llvm-22/lib/libclang.so" >> "$GITHUB_ENV"
               ;;
             macOS)
