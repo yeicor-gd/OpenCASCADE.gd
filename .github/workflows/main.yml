@@ -458,7 +458,18 @@ jobs:
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
           vcpkg_exe="vcpkg/vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.exe' || '' }}"
           ccache --show-stats --zero-stats -vv
-          $vcpkg_exe install --recurse gdext
+          # Retry on transient download failures (gitlab.freedesktop.org
+          # intermittently 502/504s when serving freetype/fontconfig tarballs).
+          attempt=1
+          while ! "$vcpkg_exe" install --recurse gdext; do
+            if [ "$attempt" -ge 4 ]; then
+              echo "vcpkg install failed after $attempt attempts" >&2
+              exit 1
+            fi
+            echo "vcpkg install attempt $attempt failed (likely a flaky source download); retrying..."
+            attempt=$((attempt + 1))
+            sleep 60
+          done
           ccache --show-stats -vv
 
       - name: Debug upload generated autowrapper files
