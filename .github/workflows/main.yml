@@ -462,21 +462,19 @@ jobs:
           ccache --show-stats -vv
 
       - name: Debug upload generated autowrapper files
-        if: "!cancelled() && contains(matrix.target.vcpkg_triplet, 'windows-static')"
+        if: "!cancelled()"
         shell: bash
         run: |
           set -e
           mkdir -p /tmp/debug-autowrapper
-          for f in OcgBRepAdaptorSurface OcgIGESConvGeom OcgStorageBucketOfPersistent OcgTDataStdNamedData OcgTDataStdReferenceArray OcgTDataStdTreeNode; do
-            cp -f "src/autowrapper/${f}.cpp" "src/autowrapper/${f}.hpp" /tmp/debug-autowrapper/ 2>/dev/null || true
-          done
-          ls -la /tmp/debug-autowrapper/
+          cp -r src/autowrapper/* /tmp/debug-autowrapper/ 2>/dev/null || true
+          echo "Collected $(ls /tmp/debug-autowrapper | wc -l) files"
 
       - name: Upload debug autowrapper artifact
-        if: "!cancelled() && contains(matrix.target.vcpkg_triplet, 'windows-static')"
+        if: "!cancelled()"
         uses: actions/upload-artifact@v7
         with:
-          name: debug-autowrapper-${{ matrix.target.vcpkg_triplet }}
+          name: debug-autowrapper-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}
           path: |
             /tmp/debug-autowrapper
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
