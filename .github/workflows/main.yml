@@ -461,6 +461,26 @@ jobs:
           $vcpkg_exe install --recurse gdext
           ccache --show-stats -vv
 
+      - name: Debug upload generated autowrapper files
+        if: "!cancelled() && contains(matrix.target.vcpkg_triplet, 'windows-static')"
+        shell: bash
+        run: |
+          set -e
+          mkdir -p /tmp/debug-autowrapper
+          for f in OcgBRepAdaptorSurface OcgIGESConvGeom OcgStorageBucketOfPersistent OcgTDataStdNamedData OcgTDataStdReferenceArray OcgTDataStdTreeNode; do
+            cp -f "src/autowrapper/${f}.cpp" "src/autowrapper/${f}.hpp" /tmp/debug-autowrapper/ 2>/dev/null || true
+          done
+          ls -la /tmp/debug-autowrapper/
+
+      - name: Upload debug autowrapper artifact
+        if: "!cancelled() && contains(matrix.target.vcpkg_triplet, 'windows-static')"
+        uses: actions/upload-artifact@v7
+        with:
+          name: debug-autowrapper-${{ matrix.target.vcpkg_triplet }}
+          path: |
+            /tmp/debug-autowrapper
+            ${{ github.workspace }}/.fake-path-to-force-artifact-root
+
       - name: Copy to addon folder
         shell: bash
         run: |
