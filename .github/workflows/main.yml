@@ -477,9 +477,12 @@ jobs:
         shell: bash
         run: |
           set -e
-          mkdir -p /tmp/debug-autowrapper
-          cp -r src/autowrapper/* /tmp/debug-autowrapper/ 2>/dev/null || true
-          echo "Collected $(ls /tmp/debug-autowrapper | wc -l) files"
+          # Use a workspace-relative staging dir: on Windows, /tmp is a git-bash
+          # virtual path that the Node-based upload action cannot resolve.
+          STAGE="${{ github.workspace }}/debug-autowrapper"
+          mkdir -p "$STAGE"
+          cp -r src/autowrapper/* "$STAGE/" 2>/dev/null || true
+          echo "Collected $(ls "$STAGE" | wc -l) files"
 
       - name: Upload debug autowrapper artifact
         if: "!cancelled()"
@@ -487,7 +490,7 @@ jobs:
         with:
           name: debug-autowrapper-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}
           path: |
-            /tmp/debug-autowrapper
+            ${{ github.workspace }}/debug-autowrapper
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
 
       - name: Copy to addon folder
