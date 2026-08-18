@@ -262,8 +262,8 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE src/autowrapper)
 get_target_property(GODOTCPP_INCLUDES godot-cpp INTERFACE_INCLUDE_DIRECTORIES)
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 
-# Define NOMINMAX to prevent windows.h min/max macro collisions
-target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)
+# Define NOMINMAX and WIN32_LEAN_AND_MEAN to prevent windows.h macro collisions
+target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
 
 # Force-include the exception guard header. It defines the OCCT signal/exception
 # catch machinery used by the generated wrappers (OCC_CATCH_SIGNALS, OCCT_GUARD_*).
@@ -273,6 +273,8 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)
 if(MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
     "/FI${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
+    "/utf-8"
+    "/wd4828"
   )
 else()
   target_compile_options(${PROJECT_NAME} PRIVATE
