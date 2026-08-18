@@ -388,6 +388,9 @@ jobs:
           # Determine the number of cores to set VCPKG_MAX_CONCURRENCY and bound memory usage
           if [ "$RUNNER_OS" = "Linux" ]; then
             NCORES=$(nproc)
+            if [ "${{ matrix.target-type }}" = "template_debug" ] && [ "$NCORES" -gt 3 ]; then
+              NCORES=3
+            fi
           elif [ "$RUNNER_OS" = "macOS" ]; then
             NCORES=$(sysctl -n hw.ncpu)
           elif [ "$RUNNER_OS" = "Windows" ]; then

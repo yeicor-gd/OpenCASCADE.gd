@@ -275,6 +275,7 @@ if(MSVC)
     "/FI${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
     "/utf-8"
     "/wd4828"
+    "/bigobj"
   )
 else()
   target_compile_options(${PROJECT_NAME} PRIVATE
@@ -303,7 +304,7 @@ else()
     list(APPEND WARN_FLAGS "-Werror")
   endif()
 endif()
-set_source_files_properties(${SOURCES} PROPERTIES COMPILE_OPTIONS "${WARN_FLAGS}")
+target_compile_options(${PROJECT_NAME} PRIVATE "${WARN_FLAGS}")
 
 # Also figure out runtime issues in debug builds with sanitizers if supported by the compiler
 if(ENABLE_SANITIZERS)
