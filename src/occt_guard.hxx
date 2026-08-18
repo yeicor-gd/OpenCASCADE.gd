@@ -6,6 +6,14 @@
 // translation unit.
 #pragma once
 
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#if defined(_WIN32) || defined(_MSC_VER)
+#undef min
+#undef max
+#endif
+
 #include <exception>
 
 #include <godot_cpp/core/error_macros.hpp>

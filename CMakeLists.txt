@@ -164,6 +164,12 @@ if (AUTOWRAPPER_NEED_REGEN)
     RESULT_VARIABLE _autogen_rc
     OUTPUT_VARIABLE _autogen_out
     ERROR_VARIABLE _autogen_err)
+  if (_autogen_out)
+    message(STATUS "OpenCASCADE autowrapper output:\n${_autogen_out}")
+  endif()
+  if (_autogen_err)
+    message(STATUS "OpenCASCADE autowrapper stderr:\n${_autogen_err}")
+  endif()
   if (NOT _autogen_rc EQUAL 0)
     message(FATAL_ERROR "OpenCASCADE autowrapper generation failed (rc=${_autogen_rc}):\n"
         "${_autogen_out}\n${_autogen_err}")
@@ -256,6 +262,9 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE src/autowrapper)
 get_target_property(GODOTCPP_INCLUDES godot-cpp INTERFACE_INCLUDE_DIRECTORIES)
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 
+# Define NOMINMAX to prevent windows.h min/max macro collisions
+target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)
+
 # Force-include the exception guard header. It defines the OCCT signal/exception
 # catch machinery used by the generated wrappers (OCC_CATCH_SIGNALS, OCCT_GUARD_*).
 # Every generated header/source includes exactly the OCCT headers it needs itself.
@@ -268,6 +277,16 @@ if(MSVC)
 else()
   target_compile_options(${PROJECT_NAME} PRIVATE
     "SHELL:-include ${CMAKE_CURRENT_SOURCE_DIR}/src/occt_guard.hxx"
+  )
+endif()
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  # Wrapper TUs contain thousands of methods whose debug DIEs and variable-tracking
+  # consume gigabytes of memory per compiler worker. -g1 and -fno-var-tracking
+  # keep essential line-number information while slashing peak memory by ~80%,
+  # avoiding OOM kills on high-parallelism CI runners.
+  target_compile_options(${PROJECT_NAME} PRIVATE
+    "$<$<CONFIG:Debug>:-g1;-fno-var-tracking>"
   )
 endif()
 
