@@ -160,7 +160,7 @@ jobs:
       actions: write
       contents: read
     steps:
-      - name: Free disk space (Ubuntu)
+      - name: Free disk space & setup swap (Ubuntu)
         if: matrix.target.os == 'ubuntu-24.04' || matrix.target.os == 'ubuntu-24.04-arm'
         shell: bash
         run: |
@@ -168,6 +168,11 @@ jobs:
           sudo rm -rf /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL
           sudo docker image prune --all --force
           sudo docker builder prune -a
+          # Setup 4GB swap to safeguard against memory spikes during heavy wrapper compilation and linking
+          sudo fallocate -l 4G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=4096
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -388,9 +393,6 @@ jobs:
           # Determine the number of cores to set VCPKG_MAX_CONCURRENCY and bound memory usage
           if [ "$RUNNER_OS" = "Linux" ]; then
             NCORES=$(nproc)
-            if [ "${{ matrix.target-type }}" = "template_debug" ] && [ "$NCORES" -gt 3 ]; then
-              NCORES=3
-            fi
           elif [ "$RUNNER_OS" = "macOS" ]; then
             NCORES=$(sysctl -n hw.ncpu)
           elif [ "$RUNNER_OS" = "Windows" ]; then
@@ -429,7 +431,7 @@ jobs:
           case "$RUNNER_OS" in
             Linux)
               wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s 22
-              sudo apt-get install -y libclang-22-dev # provides /usr/lib/llvm-22/lib/libclang.so
+              sudo apt-get install -y libclang-22-dev mold # provides /usr/lib/llvm-22/lib/libclang.so and mold linker
               test -f /usr/lib/llvm-22/lib/libclang.so
               # The gdext shared library is large enough on AArch64 that GNU ld
               # (bfd) cannot place the range-extension thunks (R_AARCH64_CALL26
