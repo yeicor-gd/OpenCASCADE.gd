@@ -160,19 +160,15 @@ jobs:
       actions: write
       contents: read
     steps:
-      - name: Free disk space & setup swap (Ubuntu)
+      - name: Free disk space (Ubuntu)
         if: matrix.target.os == 'ubuntu-24.04' || matrix.target.os == 'ubuntu-24.04-arm'
-        shell: bash
-        run: |
-          set -e
-          sudo rm -rf /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL
-          sudo docker image prune --all --force
-          sudo docker builder prune -a
-          # Setup 4GB swap to safeguard against memory spikes during heavy wrapper compilation and linking
-          sudo fallocate -l 4G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=4096
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
+        uses: endersonmenezes/free-disk-space@v4
+        with:
+          remove_android: true
+          remove_dotnet: true
+          remove_haskell: true
+          remove_tool_cache: true
+          remove_swap: false
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -452,7 +448,7 @@ jobs:
               ;;
           esac
           PY="$(command -v python3 || command -v python)"
-          "$PY" -m pip install clang==21.1.7
+          "$PY" -m pip install clang==21.1.7 psutil
           echo "PYTHON=$PY" >> "$GITHUB_ENV"
 
       - name: Build with vcpkg
@@ -463,19 +459,42 @@ jobs:
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
           vcpkg_exe="vcpkg/vcpkg${{ matrix.target.os == 'windows-2025-vs2026' && '.exe' || '' }}"
           ccache --show-stats --zero-stats -vv
+
+          # Start memory monitor and OOM watchdog in background
+          PY="${PYTHON:-python3}"
+          "$PY" .github/scripts/memory_monitor.py start \
+            --log-file build-monitor.log \
+            --report-file build-oom-report.md \
+            --pid-file build-monitor.pid \
+            --min-avail-mb 250 \
+            --interval 2.0 || true
+
           # Retry on transient download failures (gitlab.freedesktop.org
           # intermittently 502/504s when serving freetype/fontconfig tarballs).
           attempt=1
-          while ! "$vcpkg_exe" install --recurse gdext; do
-            if [ "$attempt" -ge 4 ]; then
-              echo "vcpkg install failed after $attempt attempts" >&2
-              exit 1
+          build_success=false
+          while [ "$attempt" -le 4 ]; do
+            if "$vcpkg_exe" install --recurse gdext; then
+              build_success=true
+              break
+            fi
+            if [ -f build-oom-report.md ]; then
+              echo "::error::vcpkg build stopped by memory watchdog due to critical memory exhaustion!"
+              break
             fi
             echo "vcpkg install attempt $attempt failed (likely a flaky source download); retrying..."
             attempt=$((attempt + 1))
             sleep 60
           done
+
+          # Stop memory monitor
+          "$PY" .github/scripts/memory_monitor.py stop --pid-file build-monitor.pid || true
           ccache --show-stats -vv
+
+          if [ "$build_success" != "true" ]; then
+            echo "vcpkg build failed." >&2
+            exit 1
+          fi
 
       - name: Debug upload generated autowrapper files
         if: "!cancelled()"
@@ -496,6 +515,43 @@ jobs:
           name: debug-autowrapper-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}
           path: |
             ${{ github.workspace }}/debug-autowrapper
+            ${{ github.workspace }}/.fake-path-to-force-artifact-root
+
+      - name: Collect build and debug logs
+        if: "!cancelled()"
+        shell: bash
+        run: |
+          set +e
+          LOG_DIR="${{ github.workspace }}/debug-logs"
+          mkdir -p "$LOG_DIR"
+
+          # Copy memory monitor logs and reports
+          cp -f build-monitor.log "$LOG_DIR/" 2>/dev/null || true
+          cp -f build-oom-report.md "$LOG_DIR/" 2>/dev/null || true
+
+          # Summarize memory usage to Step Summary if available
+          PY="${PYTHON:-python3}"
+          if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+            "$PY" .github/scripts/memory_monitor.py summarize \
+              --log-file build-monitor.log \
+              --report-file build-oom-report.md \
+              --summary-file "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
+          fi
+
+          # Collect vcpkg build logs and error files
+          mkdir -p "$LOG_DIR/vcpkg-logs"
+          find vcpkg/buildtrees/ -type f \( -name "*.log" -o -name "error-*.log" -o -name "CMakeOutput.log" -o -name "CMakeError.log" -o -name ".ninja_log" \) -exec cp --parents {} "$LOG_DIR/vcpkg-logs/" \; 2>/dev/null || true
+
+          # Also copy any .ninja_log from build trees
+          find . -maxdepth 5 -name ".ninja_log" -exec cp {} "$LOG_DIR/" \; 2>/dev/null || true
+
+      - name: Upload build and debug logs
+        if: "!cancelled()"
+        uses: actions/upload-artifact@v7
+        with:
+          name: debug-logs-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}
+          path: |
+            ${{ github.workspace }}/debug-logs
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
 
       - name: Copy to addon folder
