@@ -249,8 +249,8 @@ class Monitor:
     def __init__(
         self,
         log_file: Path,
-        min_avail_mb: float = 250.0,
-        check_interval_sec: float = 2.0,
+        min_avail_mb: float = 750.0,
+        check_interval_sec: float = 1.0,
         monitored_pid: int | None = None,
         report_file: Path | None = None,
     ):
@@ -343,8 +343,8 @@ class Monitor:
 
             # Normal periodic logging
             self.log(f"Status: {stats}")
-            # Print to console every 60 seconds or if usage > 80%
-            if now - last_console_time > 60.0 or stats.percent_used > 80.0:
+            # Print to console every 15 seconds or if usage > 60%
+            if now - last_console_time > 15.0 or stats.percent_used > 60.0:
                 top_summary = ", ".join(f"{p.name}({p.rss_mb:.0f}MB)" for p in top_procs[:3])
                 self.log(f"Memory: {stats} | Top: {top_summary}", console=True)
                 last_console_time = now

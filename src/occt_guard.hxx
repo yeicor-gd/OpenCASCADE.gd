@@ -15,6 +15,17 @@
 #if defined(_WIN32) || defined(_MSC_VER)
 #undef min
 #undef max
+#undef K
+#undef C
+#undef M
+#undef Y
+#undef Surface
+#undef GetObject
+#undef FAR
+#undef NEAR
+#undef pascal
+#undef small
+#undef DOMAIN
 #endif
 
 #include <exception>

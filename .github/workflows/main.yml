@@ -398,6 +398,10 @@ jobs:
           fi
           # Cap concurrency to avoid starvation (as the default of vcpkg is NCORES+1)
           VCPKG_MAX_CONCURRENCY=$NCORES
+          if [ "$RUNNER_OS" = "Linux" ] && [ "${{ matrix.target-type }}" = "template_debug" ] && [ "$NCORES" -gt 2 ]; then
+            echo "Debug linux build detected: capping VCPKG_MAX_CONCURRENCY to 2 to bound peak RAM during compilation with debug symbols."
+            VCPKG_MAX_CONCURRENCY=2
+          fi
           echo "VCPKG_MAX_CONCURRENCY=$VCPKG_MAX_CONCURRENCY" >> $GITHUB_ENV
           # ---
           echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
@@ -466,8 +470,8 @@ jobs:
             --log-file build-monitor.log \
             --report-file build-oom-report.md \
             --pid-file build-monitor.pid \
-            --min-avail-mb 250 \
-            --interval 2.0 || true
+            --min-avail-mb 750 \
+            --interval 1.0 || true
 
           # Retry on transient download failures (gitlab.freedesktop.org
           # intermittently 502/504s when serving freetype/fontconfig tarballs).
