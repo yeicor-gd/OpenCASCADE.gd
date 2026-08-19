@@ -291,13 +291,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   target_compile_options(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:-g1;-fno-var-tracking>"
   )
-  if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    find_program(MOLD_PATH mold)
-    if(MOLD_PATH)
-      target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=mold")
-      message(STATUS "Using mold linker for ${PROJECT_NAME}")
-    endif()
-  endif()
 endif()
 
 if(MSVC) # Maximum warnings and treat them as errors

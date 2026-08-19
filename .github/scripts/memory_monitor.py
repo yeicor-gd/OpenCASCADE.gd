@@ -230,7 +230,7 @@ def kill_target_build_processes(monitored_pid: int | None = None) -> None:
     # Also kill notorious heavy build subprocesses if still alive
     target_names = {
         "cl.exe", "link.exe", "ninja.exe", "vcpkg.exe", "cmake.exe",
-        "ninja", "vcpkg", "cmake", "gcc", "g++", "clang", "clang++", "ld", "ld.lld", "lld", "mold",
+        "ninja", "vcpkg", "cmake", "gcc", "g++", "clang", "clang++", "ld", "ld.lld", "lld",
     }
     top_procs = get_top_processes(30)
     for p in top_procs:
