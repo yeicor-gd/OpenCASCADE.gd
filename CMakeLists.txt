@@ -79,6 +79,21 @@ set(GODOTCPP_DISABLE_EXCEPTIONS ON)
 # Godot C++ bindings
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/godot-cpp")
 
+# OOM Mitigation: Override godot-cpp's PUBLIC debug flags without modifying the submodule.
+# godot-cpp sets PUBLIC -g2 (GNU/Clang) and /DEBUG:FULL (MSVC), which propagate to consumer
+# targets like OpenCASCADE.gd and cause memory exhaustion during compilation/linking.
+get_target_property(_godotcpp_interface_opts godot-cpp INTERFACE_COMPILE_OPTIONS)
+if(_godotcpp_interface_opts)
+  string(REPLACE "-g2" "-g1" _godotcpp_interface_opts "${_godotcpp_interface_opts}")
+  string(REPLACE "-g3" "-g1" _godotcpp_interface_opts "${_godotcpp_interface_opts}")
+  set_target_properties(godot-cpp PROPERTIES INTERFACE_COMPILE_OPTIONS "${_godotcpp_interface_opts}")
+endif()
+get_target_property(_godotcpp_interface_link_opts godot-cpp INTERFACE_LINK_OPTIONS)
+if(_godotcpp_interface_link_opts)
+  string(REPLACE "/DEBUG:FULL" "/DEBUG:FASTLINK" _godotcpp_interface_link_opts "${_godotcpp_interface_link_opts}")
+  set_target_properties(godot-cpp PROPERTIES INTERFACE_LINK_OPTIONS "${_godotcpp_interface_link_opts}")
+endif()
+
 # Dependencies
 # OpenCASCADE (consumed via vcpkg).
 find_package(OpenCASCADE REQUIRED)
@@ -290,6 +305,16 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   # avoiding OOM kills on high-parallelism CI runners.
   target_compile_options(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:-g1;-fno-var-tracking>"
+  )
+elseif(MSVC)
+  # For MSVC Debug builds, wrapper TUs cause huge memory consumption with default /Zi
+  # and /DEBUG:FULL. Using /Z7 embeds debug records directly into .obj files without
+  # PDB server (mspdbsrv) overhead, and /DEBUG:FASTLINK reduces link.exe memory by ~80%.
+  target_compile_options(${PROJECT_NAME} PRIVATE
+    "$<$<CONFIG:Debug>:/Z7;/Zo->"
+  )
+  target_link_options(${PROJECT_NAME} PRIVATE
+    "$<$<CONFIG:Debug>:/DEBUG:FASTLINK>"
   )
 endif()
 

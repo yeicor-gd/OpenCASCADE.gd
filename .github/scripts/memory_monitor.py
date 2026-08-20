@@ -228,9 +228,14 @@ def kill_target_build_processes(monitored_pid: int | None = None) -> None:
                     pass
 
     # Also kill notorious heavy build subprocesses if still alive
+    if system == "Windows":
+        for exe_name in ("cl.exe", "link.exe", "mspdbsrv.exe", "ninja.exe", "vcpkg.exe", "cmake.exe", "cvtres.exe"):
+            subprocess.run(["taskkill", "/F", "/IM", exe_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     target_names = {
         "cl.exe", "link.exe", "ninja.exe", "vcpkg.exe", "cmake.exe",
         "ninja", "vcpkg", "cmake", "gcc", "g++", "clang", "clang++", "ld", "ld.lld", "lld",
+        "mspdbsrv.exe", "mspdbsrv", "c1.exe", "c2.exe", "cvtres.exe",
     }
     top_procs = get_top_processes(30)
     for p in top_procs:
@@ -250,7 +255,7 @@ class Monitor:
         self,
         log_file: Path,
         min_avail_mb: float = 750.0,
-        check_interval_sec: float = 1.0,
+        check_interval_sec: float = 0.25,
         monitored_pid: int | None = None,
         report_file: Path | None = None,
     ):
@@ -299,6 +304,10 @@ class Monitor:
             if stats.avail_commit_mb > 0 and stats.avail_commit_mb < self.min_avail_mb:
                 is_critical = True
                 reasons.append(f"Available Commit Charge is critically low: {stats.avail_commit_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
+            min_swap_threshold = min(self.min_avail_mb, 500.0)
+            if stats.total_swap_mb > 0 and stats.avail_swap_mb < min_swap_threshold:
+                is_critical = True
+                reasons.append(f"Available Swap Memory is critically low: {stats.avail_swap_mb:.1f}MB < {min_swap_threshold:.0f}MB (swap exhaustion causes runner lockup)")
             if stats.avail_swap_mb > 0 and (stats.avail_phys_mb + stats.avail_swap_mb) < self.min_avail_mb:
                 is_critical = True
                 reasons.append(f"Total Available RAM+Swap is critically low: {(stats.avail_phys_mb + stats.avail_swap_mb):.1f}MB < {self.min_avail_mb:.0f}MB")
@@ -401,7 +410,7 @@ def main() -> int:
     run_parser.add_argument("--report-file", type=Path, default=Path("build-oom-report.md"), help="OOM report path")
     run_parser.add_argument("--summary-file", type=Path, default=None, help="GitHub Step Summary path")
     run_parser.add_argument("--min-avail-mb", type=float, default=250.0, help="Minimum free memory (MB)")
-    run_parser.add_argument("--interval", type=float, default=2.0, help="Check interval in seconds")
+    run_parser.add_argument("--interval", type=float, default=0.25, help="Check interval in seconds")
     run_parser.add_argument("command", nargs=argparse.REMAINDER, help="Command to execute")
 
     # start command (background daemon)
@@ -410,7 +419,7 @@ def main() -> int:
     start_parser.add_argument("--report-file", type=Path, default=Path("build-oom-report.md"), help="OOM report path")
     start_parser.add_argument("--pid-file", type=Path, default=Path("build-monitor.pid"), help="PID file path")
     start_parser.add_argument("--min-avail-mb", type=float, default=250.0, help="Minimum free memory (MB)")
-    start_parser.add_argument("--interval", type=float, default=2.0, help="Check interval in seconds")
+    start_parser.add_argument("--interval", type=float, default=0.25, help="Check interval in seconds")
 
     # _daemon internal command
     daemon_parser = subparsers.add_parser("_daemon", help=argparse.SUPPRESS)
@@ -418,7 +427,7 @@ def main() -> int:
     daemon_parser.add_argument("--report-file", type=Path, required=True)
     daemon_parser.add_argument("--pid-file", type=Path, required=True)
     daemon_parser.add_argument("--min-avail-mb", type=float, default=250.0)
-    daemon_parser.add_argument("--interval", type=float, default=2.0)
+    daemon_parser.add_argument("--interval", type=float, default=0.25)
 
     # stop command
     stop_parser = subparsers.add_parser("stop", help="Stop background memory monitor daemon.")
@@ -463,12 +472,14 @@ def main() -> int:
             "--min-avail-mb", str(args.min_avail_mb),
             "--interval", str(args.interval),
         ]
+        # On Windows, DETACHED_PROCESS (0x00000008) | CREATE_NO_WINDOW (0x08000000) | CREATE_NEW_PROCESS_GROUP (0x00000200)
+        flags = (0x00000008 | 0x08000000 | 0x00000200) if is_windows else 0
         proc = subprocess.Popen(
             cmd,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             stdin=subprocess.DEVNULL,
-            creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if is_windows else 0,
+            creationflags=flags,
             start_new_session=True if not is_windows else False,
         )
         print(f"[Memory Monitor] Started background watchdog process PID {proc.pid}.")
