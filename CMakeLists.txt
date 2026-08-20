@@ -242,24 +242,17 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten" OR MINGW)
   # Avoid failing on duplicate definitions for Emscripten and mingw compilers
   target_link_libraries(${PROJECT_NAME} PRIVATE "-Wl,--allow-multiple-definition")
 endif()
-# GNU ld (bfd) cannot synthesize the range-extension thunks this very large
-# shared library needs on AArch64: calls between the far ends of the .so
-# exceed the +/-128MB range of R_AARCH64_CALL26/JUMP26, and the link dies with
-# "relocation truncated to fit" (binutils ld/18668, e.g. against libgcc's
-# __aarch64_ldadd4_rel outline-atomics helper and godot-cpp's
-# add_engine_class_registration_callback).  LLD inserts thunks robustly, so
-# prefer it for native AArch64 Linux links (CI installs lld-22 via llvm.sh).
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux"
-   AND CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64|arm64)$")
-  # `-fuse-ld=lld` makes GCC search PATH for an unversioned `ld.lld`; the
-  # CI symlinks it from the llvm.sh lld-22 install.
+# Prefer LLD for all Linux links. GNU ld (bfd) consumes 14+ GB of RAM when linking
+# the thousands of autowrapper translation units, whereas LLD links in ~1.5 GB.
+# Also pass --no-keep-memory to instruct linkers to optimize for memory usage.
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--no-keep-memory")
   find_program(GDEXT_LLD NAMES ld.lld)
   if(GDEXT_LLD)
-    message(STATUS "AArch64 Linux: linking with LLD (${GDEXT_LLD})")
+    message(STATUS "Linux: linking with LLD (${GDEXT_LLD})")
     target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=lld")
   else()
-    message(WARNING "AArch64 Linux: LLD not found; the shared library may "
-            "fail to link with 'relocation truncated to fit' (GNU ld veneer bug)")
+    message(WARNING "Linux: LLD (ld.lld) not found; GNU ld may consume 14+ GB RAM during link")
   endif()
 endif()
 # Link godot-cpp and OpenCASCADE.
