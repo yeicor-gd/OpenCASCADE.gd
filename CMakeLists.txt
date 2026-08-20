@@ -79,20 +79,11 @@ set(GODOTCPP_DISABLE_EXCEPTIONS ON)
 # Godot C++ bindings
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/godot-cpp")
 
-# OOM Mitigation: Override godot-cpp's PUBLIC debug flags without modifying the submodule.
+# OOM Mitigation: Clear godot-cpp's PUBLIC debug compile and link flags without modifying the submodule.
 # godot-cpp sets PUBLIC -g2 (GNU/Clang) and /DEBUG:FULL (MSVC), which propagate to consumer
 # targets like OpenCASCADE.gd and cause memory exhaustion during compilation/linking.
-get_target_property(_godotcpp_interface_opts godot-cpp INTERFACE_COMPILE_OPTIONS)
-if(_godotcpp_interface_opts)
-  string(REPLACE "-g2" "-g1" _godotcpp_interface_opts "${_godotcpp_interface_opts}")
-  string(REPLACE "-g3" "-g1" _godotcpp_interface_opts "${_godotcpp_interface_opts}")
-  set_target_properties(godot-cpp PROPERTIES INTERFACE_COMPILE_OPTIONS "${_godotcpp_interface_opts}")
-endif()
-get_target_property(_godotcpp_interface_link_opts godot-cpp INTERFACE_LINK_OPTIONS)
-if(_godotcpp_interface_link_opts)
-  string(REPLACE "/DEBUG:FULL" "/DEBUG:FASTLINK" _godotcpp_interface_link_opts "${_godotcpp_interface_link_opts}")
-  set_target_properties(godot-cpp PROPERTIES INTERFACE_LINK_OPTIONS "${_godotcpp_interface_link_opts}")
-endif()
+set_target_properties(godot-cpp PROPERTIES INTERFACE_COMPILE_OPTIONS "")
+set_target_properties(godot-cpp PROPERTIES INTERFACE_LINK_OPTIONS "")
 
 # Dependencies
 # OpenCASCADE (consumed via vcpkg).
@@ -242,17 +233,21 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten" OR MINGW)
   # Avoid failing on duplicate definitions for Emscripten and mingw compilers
   target_link_libraries(${PROJECT_NAME} PRIVATE "-Wl,--allow-multiple-definition")
 endif()
-# Prefer LLD for all Linux links. GNU ld (bfd) consumes 14+ GB of RAM when linking
+# Prefer LLD for all Linux and Android links. GNU ld (bfd) consumes 14+ GB of RAM when linking
 # the thousands of autowrapper translation units, whereas LLD links in ~1.5 GB.
-# Also pass --no-keep-memory to instruct linkers to optimize for memory usage.
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-  target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--no-keep-memory")
+# Also pass --no-keep-memory to instruct linkers to optimize for memory usage, and --threads=1
+# in Debug builds to eliminate multi-threaded string/DWARF memory multiplication.
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" OR ANDROID OR CMAKE_SYSTEM_NAME STREQUAL "Android")
+  target_link_options(${PROJECT_NAME} PRIVATE
+    "-Wl,--no-keep-memory"
+    "$<$<CONFIG:Debug>:-Wl,--threads=1>"
+  )
   find_program(GDEXT_LLD NAMES ld.lld)
   if(GDEXT_LLD)
-    message(STATUS "Linux: linking with LLD (${GDEXT_LLD})")
+    message(STATUS "Linux/Android: linking with LLD (${GDEXT_LLD})")
     target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=lld")
   else()
-    message(WARNING "Linux: LLD (ld.lld) not found; GNU ld may consume 14+ GB RAM during link")
+    message(WARNING "Linux/Android: LLD (ld.lld) not found; GNU ld may consume 14+ GB RAM during link")
   endif()
 endif()
 # Link godot-cpp and OpenCASCADE.
@@ -296,6 +291,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   # consume gigabytes of memory per compiler worker. -g1 and -fno-var-tracking
   # keep essential line-number information while slashing peak memory by ~80%,
   # avoiding OOM kills on high-parallelism CI runners.
+  string(REGEX REPLACE "-g[0-9]?" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
+  string(REGEX REPLACE "-g[0-9]?" "" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g1 -fno-var-tracking")
+  set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g1 -fno-var-tracking")
   target_compile_options(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:-g1;-fno-var-tracking>"
   )
