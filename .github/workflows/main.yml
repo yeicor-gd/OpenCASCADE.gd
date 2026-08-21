@@ -379,14 +379,14 @@ jobs:
           echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
           echo "CCACHE_SLOPPINESS=include_file_mtime,include_file_ctime,pch_defines,time_macros" >> $GITHUB_ENV
           echo "CCACHE_FILESTATMATCHES=false" >> $GITHUB_ENV
+          echo "CCACHE_MAXSIZE=10G" >> $GITHUB_ENV
           # ---
-          if [ "${{ matrix.target.os }}" = "windows-2025-vs2026" ]; then
-            echo "CMAKE_CXX_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
-            echo "CMAKE_C_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
-          else
-            echo "CMAKE_CXX_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
-            echo "CMAKE_C_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
+          CCACHE_BIN="$(command -v ccache || which ccache)"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            CCACHE_BIN="$(cygpath -m "$CCACHE_BIN")"
           fi
+          echo "CMAKE_CXX_COMPILER_LAUNCHER=$CCACHE_BIN" >> $GITHUB_ENV
+          echo "CMAKE_C_COMPILER_LAUNCHER=$CCACHE_BIN" >> $GITHUB_ENV
           # ---
           # Determine the number of cores to set VCPKG_MAX_CONCURRENCY and bound memory usage
           if [ "$RUNNER_OS" = "Linux" ]; then
@@ -402,7 +402,7 @@ jobs:
           VCPKG_MAX_CONCURRENCY=$NCORES
           echo "VCPKG_MAX_CONCURRENCY=$VCPKG_MAX_CONCURRENCY" >> $GITHUB_ENV
           # ---
-          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_BASEDIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
+          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_BASEDIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CCACHE_MAXSIZE;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
           echo VCPKG_DISABLE_METRICS=1 >> $GITHUB_ENV
           echo VCPKG_DEFAULT_TRIPLET=${{ matrix.target.vcpkg_triplet }} >> $GITHUB_ENV
           echo VCPKG_OVERLAY_TRIPLETS=vcpkg_triplets >> $GITHUB_ENV
