@@ -5,8 +5,8 @@ include(CheckCXXCompilerFlag)
 message(STATUS "Using toolchain file: " "${CMAKE_TOOLCHAIN_FILE}")
 option(ENABLE_WERROR "Enable warnings as errors (ON|OFF)" OFF)
 option(ENABLE_SANITIZERS "Enable sanitizers (ON|OFF)" OFF)
-# Auto-force full LTO in release builds if available
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
+# Auto-force full LTO in release builds if available (skip MSVC: whole-program optimization causes link.exe 14GB+ OOMs with thousands of autowrapper bindings)
+if(CMAKE_BUILD_TYPE STREQUAL "Release" AND NOT MSVC)
   include(CheckIPOSupported)
   check_ipo_supported(RESULT IPO_SUPPORTED OUTPUT IPO_SUPPORT_OUTPUT)
   if(IPO_SUPPORTED)
@@ -17,8 +17,12 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
             "${IPO_SUPPORT_OUTPUT}")
   endif()
 else()
-  message(STATUS "IPO (LTO) is not enabled for Debug "
-        "builds")
+  message(STATUS "IPO (LTO) is not enabled for Debug or MSVC builds")
+endif()
+
+if(POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -268,6 +272,22 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 # Define NOMINMAX and WIN32_LEAN_AND_MEAN to prevent windows.h macro collisions
 target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
 
+if(MSVC)
+  find_program(LLD_LINK_EXE NAMES lld-link lld-link.exe PATHS "C:/Program Files/LLVM/bin" "$ENV{LLVM_PATH}/bin")
+  if(LLD_LINK_EXE)
+    message(STATUS "MSVC: Using lld-link for faster and low-memory linking: ${LLD_LINK_EXE}")
+    set(CMAKE_LINKER "${LLD_LINK_EXE}")
+    set(CMAKE_LINKER_TYPE LLD)
+  endif()
+  target_link_options(${PROJECT_NAME} PRIVATE
+    "/INCREMENTAL:NO"
+    "/OPT:REF"
+    $<$<CONFIG:Release>:/OPT:ICF>
+    $<$<CONFIG:Release>:/DEBUG:NONE>
+    $<$<CONFIG:Debug>:/DEBUG:FASTLINK>
+  )
+endif()
+
 # Force-include the exception guard header. It defines the OCCT signal/exception
 # catch machinery used by the generated wrappers (OCC_CATCH_SIGNALS, OCCT_GUARD_*).
 # Every generated header/source includes exactly the OCCT headers it needs itself.
@@ -279,6 +299,7 @@ if(MSVC)
     "/utf-8"
     "/wd4828"
     "/bigobj"
+    "/Z7"
   )
 else()
   target_compile_options(${PROJECT_NAME} PRIVATE

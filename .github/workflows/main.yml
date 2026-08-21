@@ -374,17 +374,19 @@ jobs:
         run: |
           set -e
           mkdir -p "${{ github.workspace }}/ccache"
-          if [ "${{ matrix.target.os }}" = "windows-2025-vs2026" ]; then
-            echo "CCACHE_DIR=${{ github.workspace }}\\ccache" >> $GITHUB_ENV
-          else
-            echo "CCACHE_DIR=${{ github.workspace }}/ccache" >> $GITHUB_ENV
-          fi
+          echo "CCACHE_DIR=${{ github.workspace }}/ccache" >> $GITHUB_ENV
+          echo "CCACHE_BASEDIR=${{ github.workspace }}" >> $GITHUB_ENV
           echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
-          echo "CCACHE_SLOPPINESS=include_file_mtime,include_file_ctime" >> $GITHUB_ENV
+          echo "CCACHE_SLOPPINESS=include_file_mtime,include_file_ctime,pch_defines,time_macros" >> $GITHUB_ENV
           echo "CCACHE_FILESTATMATCHES=false" >> $GITHUB_ENV
           # ---
-          echo "CMAKE_CXX_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
-          echo "CMAKE_C_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
+          if [ "${{ matrix.target.os }}" = "windows-2025-vs2026" ]; then
+            echo "CMAKE_CXX_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
+            echo "CMAKE_C_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
+          else
+            echo "CMAKE_CXX_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
+            echo "CMAKE_C_COMPILER_LAUNCHER=$(command -v ccache)" >> $GITHUB_ENV
+          fi
           # ---
           # Determine the number of cores to set VCPKG_MAX_CONCURRENCY and bound memory usage
           if [ "$RUNNER_OS" = "Linux" ]; then
@@ -400,7 +402,7 @@ jobs:
           VCPKG_MAX_CONCURRENCY=$NCORES
           echo "VCPKG_MAX_CONCURRENCY=$VCPKG_MAX_CONCURRENCY" >> $GITHUB_ENV
           # ---
-          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
+          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_BASEDIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
           echo VCPKG_DISABLE_METRICS=1 >> $GITHUB_ENV
           echo VCPKG_DEFAULT_TRIPLET=${{ matrix.target.vcpkg_triplet }} >> $GITHUB_ENV
           echo VCPKG_OVERLAY_TRIPLETS=vcpkg_triplets >> $GITHUB_ENV
@@ -446,6 +448,7 @@ jobs:
             Windows)
               winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM
               echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
+              echo "C:\Program Files\LLVM\bin" >> "$GITHUB_PATH"
               ;;
           esac
           PY="$(command -v python3 || command -v python)"
