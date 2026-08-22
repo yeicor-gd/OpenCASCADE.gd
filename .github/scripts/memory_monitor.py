@@ -295,22 +295,22 @@ class Monitor:
             if stats.avail_commit_mb > 0:
                 self.min_avail_commit_seen = min(self.min_avail_commit_seen, stats.avail_commit_mb)
 
-            # Check danger condition
+            # Check danger condition: swap / commit charge is the last resort
             is_critical = False
             reasons = []
-            if stats.avail_phys_mb > 0 and stats.avail_phys_mb < self.min_avail_mb:
-                is_critical = True
-                reasons.append(f"Available Physical RAM is critically low: {stats.avail_phys_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
-            if stats.avail_commit_mb > 0 and stats.avail_commit_mb < self.min_avail_mb:
-                is_critical = True
-                reasons.append(f"Available Commit Charge is critically low: {stats.avail_commit_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
-            min_swap_threshold = min(self.min_avail_mb, 500.0)
-            if stats.total_swap_mb > 0 and stats.avail_swap_mb < min_swap_threshold:
-                is_critical = True
-                reasons.append(f"Available Swap Memory is critically low: {stats.avail_swap_mb:.1f}MB < {min_swap_threshold:.0f}MB (swap exhaustion causes runner lockup)")
-            if stats.avail_swap_mb > 0 and (stats.avail_phys_mb + stats.avail_swap_mb) < self.min_avail_mb:
-                is_critical = True
-                reasons.append(f"Total Available RAM+Swap is critically low: {(stats.avail_phys_mb + stats.avail_swap_mb):.1f}MB < {self.min_avail_mb:.0f}MB")
+            if stats.total_commit_mb > 0:
+                if stats.avail_commit_mb < self.min_avail_mb:
+                    is_critical = True
+                    reasons.append(f"Available Commit Charge is critically low: {stats.avail_commit_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
+            elif stats.total_swap_mb > 0:
+                if stats.avail_swap_mb < self.min_avail_mb:
+                    is_critical = True
+                    reasons.append(f"Available Swap Memory is critically low: {stats.avail_swap_mb:.1f}MB < {self.min_avail_mb:.0f}MB (swap exhaustion causes runner lockup)")
+            else:
+                # No swap configured: fall back to physical RAM threshold
+                if stats.avail_phys_mb > 0 and stats.avail_phys_mb < self.min_avail_mb:
+                    is_critical = True
+                    reasons.append(f"Available Physical RAM is critically low (no swap configured): {stats.avail_phys_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
 
             top_procs = get_top_processes(10)
             for p in top_procs:

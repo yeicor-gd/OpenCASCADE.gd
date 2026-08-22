@@ -170,6 +170,20 @@ jobs:
           remove_tool_cache: true
           remove_swap: false
 
+      - name: Set up swap space (Ubuntu)
+        if: matrix.target.os == 'ubuntu-24.04' || matrix.target.os == 'ubuntu-24.04-arm'
+        shell: bash
+        run: |
+          SWAP_TOTAL=$(free -m | awk '/Swap:/ {print $2}')
+          if [ "${SWAP_TOTAL:-0}" -lt 8192 ]; then
+            echo "Configuring 10GB swapfile..."
+            sudo fallocate -l 10G /swapfile 2>/dev/null || sudo dd if=/dev/zero of=/swapfile bs=1M count=10240
+            sudo chmod 600 /swapfile
+            sudo mkswap /swapfile
+            sudo swapon /swapfile || true
+            free -m
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
@@ -445,11 +459,13 @@ jobs:
               test -f /usr/lib/llvm-22/lib/libclang.so
               # Symlink ld.lld for native and cross-compilers on Linux
               if [ -x /usr/lib/llvm-22/bin/ld.lld ]; then
-                sudo ln -sf /usr/lib/llvm-22/bin/ld.lld /usr/local/bin/ld.lld
-                sudo ln -sf /usr/lib/llvm-22/bin/ld.lld /usr/local/bin/arm-linux-gnueabihf-ld.lld
-                sudo ln -sf /usr/lib/llvm-22/bin/ld.lld /usr/local/bin/i686-linux-gnu-ld.lld
-                sudo ln -sf /usr/lib/llvm-22/bin/ld.lld /usr/local/bin/x86_64-linux-gnu-ld.lld
-                sudo ln -sf /usr/lib/llvm-22/bin/ld.lld /usr/local/bin/aarch64-linux-gnu-ld.lld
+                for p in /usr/local/bin /usr/bin; do
+                  sudo ln -sf /usr/lib/llvm-22/bin/ld.lld "$p/ld.lld"
+                  sudo ln -sf /usr/lib/llvm-22/bin/ld.lld "$p/arm-linux-gnueabihf-ld.lld"
+                  sudo ln -sf /usr/lib/llvm-22/bin/ld.lld "$p/i686-linux-gnu-ld.lld"
+                  sudo ln -sf /usr/lib/llvm-22/bin/ld.lld "$p/x86_64-linux-gnu-ld.lld"
+                  sudo ln -sf /usr/lib/llvm-22/bin/ld.lld "$p/aarch64-linux-gnu-ld.lld"
+                done
               fi
               echo "LIBCLANG_LIBRARY_FILE=/usr/lib/llvm-22/lib/libclang.so" >> "$GITHUB_ENV"
               ;;
