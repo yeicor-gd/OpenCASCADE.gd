@@ -138,9 +138,9 @@ jobs:
             { vcpkg_triplet: x86-linux, os: ubuntu-24.04 },
             { vcpkg_triplet: arm64-linux, os: ubuntu-24.04-arm },
             { vcpkg_triplet: arm-linux, os: ubuntu-24.04-arm },
-            { vcpkg_triplet: x64-mingw-static, os: windows-2025-vs2026 },
-            { vcpkg_triplet: x86-mingw-static, os: windows-2025-vs2026 },
-            { vcpkg_triplet: arm64-mingw-static, os: windows-2025-vs2026 },
+            { vcpkg_triplet: x64-mingw-static, os: ubuntu-24.04 },
+            { vcpkg_triplet: x86-mingw-static, os: ubuntu-24.04 },
+            { vcpkg_triplet: arm64-mingw-static, os: ubuntu-24.04 },
             { vcpkg_triplet: x64-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
             { vcpkg_triplet: x86-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
             { vcpkg_triplet: arm64-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
@@ -318,11 +318,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y "libx11-dev${arch_selector}" "libgl1-mesa-dev${arch_selector}" "libfontconfig-dev${arch_selector}" "autoconf" "autoconf-archive" "automake" "libtool"
 
-      - name: Setup MinGW (Windows) # MSVC is already set up by default
-        if: matrix.target.os == 'windows-2025-vs2026' && contains(matrix.target.vcpkg_triplet, '-mingw')
-        uses: egor-tensin/setup-mingw@v3
-        with:
-          version: ${{ needs.read-versions.outputs.mingw_version }}
+      - name: Setup llvm-mingw (Linux cross-compilation for Windows)
+        if: runner.os == 'Linux' && contains(matrix.target.vcpkg_triplet, '-mingw')
+        shell: bash
+        run: |
+          set -e
+          HOST_ARCH="$(uname -m)"
+          case "$HOST_ARCH" in
+            x86_64)  LLVM_MINGW_ARCH="x86_64" ;;
+            aarch64) LLVM_MINGW_ARCH="aarch64" ;;
+            *)       echo "Unsupported host arch: $HOST_ARCH"; exit 1 ;;
+          esac
+          LLVM_MINGW_VERSION="20260616"
+          LLVM_MINGW_URL="https://github.com/mstorsjo/llvm-mingw/releases/download/${LLVM_MINGW_VERSION}/llvm-mingw-${LLVM_MINGW_VERSION}-ucrt-ubuntu-22.04-${LLVM_MINGW_ARCH}.tar.xz"
+          echo "Downloading and setting up llvm-mingw from $LLVM_MINGW_URL..."
+          sudo mkdir -p /opt/llvm-mingw
+          curl -sL "$LLVM_MINGW_URL" | sudo tar -xJ -C /opt/llvm-mingw --strip-components=1
+          echo "/opt/llvm-mingw/bin" >> "$GITHUB_PATH"
 
       - name: Install build tools (macOS)
         if: matrix.target.os == 'macos-15'
@@ -448,7 +460,7 @@ jobs:
             Windows)
               winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM
               echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
-              echo "C:\Program Files\LLVM\bin" >> "$GITHUB_PATH"
+              echo "LLVM_PATH=C:\\Program Files\\LLVM" >> "$GITHUB_ENV"
               ;;
           esac
           PY="$(command -v python3 || command -v python)"
