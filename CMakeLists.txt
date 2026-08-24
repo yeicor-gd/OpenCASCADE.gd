@@ -277,11 +277,10 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${GODOTCPP_INCLUDES})
 target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
 
 if(MSVC)
-  find_program(LLD_LINK_EXE NAMES lld-link lld-link.exe PATHS "C:/Program Files/LLVM/bin" "$ENV{LLVM_PATH}/bin")
+  find_program(LLD_LINK_EXE NAMES lld-link lld-link.exe PATHS "C:/Program Files/LLVM/bin" "$ENV{LLVM_PATH}/bin" NO_CMAKE_FIND_ROOT_PATH)
   if(LLD_LINK_EXE)
     message(STATUS "MSVC: Using lld-link for faster and low-memory linking: ${LLD_LINK_EXE}")
-    set(CMAKE_LINKER "${LLD_LINK_EXE}")
-    set(CMAKE_LINKER_TYPE LLD)
+    set_property(TARGET ${PROJECT_NAME} PROPERTY LINKER_TYPE LLD)
   endif()
   target_link_options(${PROJECT_NAME} PRIVATE
     "/INCREMENTAL:NO"

@@ -303,9 +303,12 @@ class Monitor:
                     is_critical = True
                     reasons.append(f"Available Commit Charge is critically low: {stats.avail_commit_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
             elif stats.total_swap_mb > 0:
-                if stats.avail_swap_mb < self.min_avail_mb:
+                if (stats.avail_phys_mb + stats.avail_swap_mb) < self.min_avail_mb:
                     is_critical = True
-                    reasons.append(f"Available Swap Memory is critically low: {stats.avail_swap_mb:.1f}MB < {self.min_avail_mb:.0f}MB (swap exhaustion causes runner lockup)")
+                    reasons.append(f"Total Available Memory (RAM+Swap) is critically low: {(stats.avail_phys_mb + stats.avail_swap_mb):.1f}MB < {self.min_avail_mb:.0f}MB")
+                elif stats.avail_swap_mb < min(self.min_avail_mb, 250.0) and stats.avail_phys_mb < self.min_avail_mb:
+                    is_critical = True
+                    reasons.append(f"Both Swap and Physical RAM are critically low: Swap {stats.avail_swap_mb:.1f}MB, RAM {stats.avail_phys_mb:.1f}MB")
             else:
                 # No swap configured: fall back to physical RAM threshold
                 if stats.avail_phys_mb > 0 and stats.avail_phys_mb < self.min_avail_mb:
