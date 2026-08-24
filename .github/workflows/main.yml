@@ -170,20 +170,6 @@ jobs:
           remove_tool_cache: true
           remove_swap: false
 
-      - name: Set up swap space (Ubuntu)
-        if: matrix.target.os == 'ubuntu-24.04' || matrix.target.os == 'ubuntu-24.04-arm'
-        shell: bash
-        run: |
-          SWAP_TOTAL=$(free -m | awk '/Swap:/ {print $2}')
-          if [ "${SWAP_TOTAL:-0}" -lt 8192 ]; then
-            echo "Configuring 10GB swapfile..."
-            sudo fallocate -l 10G /swapfile 2>/dev/null || sudo dd if=/dev/zero of=/swapfile bs=1M count=10240
-            sudo chmod 600 /swapfile
-            sudo mkswap /swapfile
-            sudo swapon /swapfile || true
-            free -m
-          fi
-
       - name: Configure Windows Pagefile
         if: runner.os == 'Windows'
         shell: pwsh
