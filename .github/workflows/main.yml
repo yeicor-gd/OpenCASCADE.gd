@@ -565,9 +565,9 @@ jobs:
           cp -f build-monitor.log "$LOG_DIR/" 2>/dev/null || true
           cp -f build-oom-report.md "$LOG_DIR/" 2>/dev/null || true
 
-          # Summarize memory usage to Step Summary if available
+          # Summarize memory usage to Step Summary on memory exhaustion only
           PY="${PYTHON:-python3}"
-          if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+          if [ -n "$GITHUB_STEP_SUMMARY" ] && [ -f build-oom-report.md ]; then
             "$PY" .github/scripts/memory_monitor.py summarize \
               --log-file build-monitor.log \
               --report-file build-oom-report.md \

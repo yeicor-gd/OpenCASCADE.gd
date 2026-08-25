@@ -369,17 +369,16 @@ class Monitor:
 def write_summary(log_file: Path, summary_file: Path | None, report_file: Path | None) -> None:
     if not summary_file:
         return
-    with open(summary_file, "a", encoding="utf-8") as f:
-        f.write("## 📊 Build Memory & Resource Monitor\n\n")
-        if report_file and report_file.exists():
+    # Only write to Step Summary if an OOM report was generated (i.e. on errors / critical memory exhaustion)
+    if report_file and report_file.exists():
+        with open(summary_file, "a", encoding="utf-8") as f:
+            f.write("## ⚠️ Build Memory & Resource Alert (OOM Safeguard Triggered)\n\n")
             f.write(report_file.read_text(encoding="utf-8") + "\n\n")
-        else:
-            f.write("Build completed without hitting low-memory threshold.\n\n")
-        if log_file.exists():
-            lines = log_file.read_text(encoding="utf-8").splitlines()
-            recent = lines[-25:] if len(lines) > 25 else lines
-            f.write("<details><summary>Recent Memory Monitor Logs (click to expand)</summary>\n\n```text\n")
-            f.write("\n".join(recent) + "\n```\n</details>\n\n")
+            if log_file.exists():
+                lines = log_file.read_text(encoding="utf-8").splitlines()
+                recent = lines[-25:] if len(lines) > 25 else lines
+                f.write("<details><summary>Recent Memory Monitor Logs (click to expand)</summary>\n\n```text\n")
+                f.write("\n".join(recent) + "\n```\n</details>\n\n")
 
 
 def daemon_process_entry(log_file: Path, report_file: Path | None, min_avail_mb: float, interval: float, pid_file: Path) -> None:
