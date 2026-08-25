@@ -57,3 +57,5 @@ string(APPEND _common_flags " -fwasm-exceptions")
 set(ENV{CFLAGS}  "${_common_flags}")
 set(ENV{CXXFLAGS} "${_common_flags}")
 
+set(VCPKG_CMAKE_CONFIGURE_OPTIONS "-DCMAKE_CXX_SCAN_FOR_MODULES=OFF")
+
