@@ -12,6 +12,7 @@ vcpkg_from_github(
         0004-cmake-add-additional-path-extraction-for-OpenCASCADE.patch
         0005-drop-bin-letter.patch
         0006-CUSTOM-standard-assert-always-print-on-posix.patch
+        0007-add-posix_memalign-for-windows.patch
 )
 
 if (VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
