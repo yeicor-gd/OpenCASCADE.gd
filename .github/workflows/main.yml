@@ -262,13 +262,6 @@ jobs:
                   "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}"
                 echo "  Deleted artifact $ARTIFACT_ID from run $RUN."
               else
-                echo "  No valid artifact ID found for run $RUN."
-              fi
-              if [ -n "$ARTIFACT_ID" ]; then
-                echo "  Found artifact ID $ARTIFACT_ID for run $RUN, deleting..."
-                gh api -X DELETE "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}"
-                echo "  Deleted artifact $ARTIFACT_ID from run $RUN."
-              else
                 echo "  No artifact named ${CACHE_ARTIFACT} found in run $RUN."
               fi
             elif try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then

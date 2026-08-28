@@ -16,6 +16,25 @@ jobs:
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.run_id }}
         run: |
-          gh run watch ${{ inputs.run_id }} || true
-          gh run rerun ${{ inputs.run_id }} --failed
+          # Wait for the target run to finalize (it may still be in progress).
+          gh run watch "${RUN_ID}" || true
+          CONCLUSION="$(gh run view "${RUN_ID}" --json conclusion --jq '.conclusion' || true)"
+          echo "Target run ${RUN_ID} conclusion: ${CONCLUSION}"
+          case "${CONCLUSION}" in
+            success)
+              echo "Run already succeeded, nothing to rerun."
+              ;;
+            failure)
+              # Re-run only the failed jobs; fall back to a full re-run if
+              # GitHub refuses (e.g. no failed jobs eligible for re-run).
+              gh run rerun "${RUN_ID}" --failed || gh run rerun "${RUN_ID}"
+              ;;
+            *)
+              # Cancelled runs have no *failed* jobs: 'rerun --failed' exits 0
+              # while silently scheduling nothing (cancelled jobs are skipped),
+              # so only a full re-run can revive them.
+              gh run rerun "${RUN_ID}"
+              ;;
+          esac
