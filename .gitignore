@@ -29,3 +29,4 @@ demo/addons/OpenCASCADE.gd/*.wasm
 demo/addons/OpenCASCADE.gd/*.pdb
 
 .build-autowrapper/
+.verify-godot-cpp-gen/

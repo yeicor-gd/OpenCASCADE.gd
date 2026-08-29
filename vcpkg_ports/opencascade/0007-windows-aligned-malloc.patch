@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: OpenCASCADE <dev@opencascade.example>
+Date: Sat, 29 Aug 2026 10:29:51 +0200
+Subject: [PATCH] Standard.cxx: use _aligned_malloc and _aligned_free for all
+ Windows builds
+
+Windows targets (including MinGW ARM64) do not provide posix_memalign.
+Use _aligned_malloc and _aligned_free whenever _WIN32 or __WIN32__ is defined,
+instead of restricting it solely to _MSC_VER.
+---
+ src/FoundationClasses/TKernel/Standard/Standard.cxx | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/FoundationClasses/TKernel/Standard/Standard.cxx b/src/FoundationClasses/TKernel/Standard/Standard.cxx
+index bddca3e..4da6dab 100644
+--- a/src/FoundationClasses/TKernel/Standard/Standard.cxx
++++ b/src/FoundationClasses/TKernel/Standard/Standard.cxx
+@@ -23,7 +23,7 @@
+   #include <locale.h>
+ #endif
+ 
+-#if defined(_MSC_VER) || defined(__ANDROID__) || defined(__QNX__)
++#if (defined(_WIN32) || defined(__WIN32__)) || defined(_MSC_VER) || defined(__ANDROID__) || defined(__QNX__)
+   #include <malloc.h>
+ #elif (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 1))               \
+        && (defined(__i386) || defined(__x86_64)))
+@@ -471,7 +471,7 @@ void* Standard::AllocateAligned(const size_t theSize, const size_t theAlign)
+ #elif defined OCCT_MMGT_OPT_TBB
+   return scalable_aligned_malloc(theSize, theAlign);
+ #else
+-  #if defined(_MSC_VER)
++  #if (defined(_WIN32) || defined(__WIN32__)) || defined(_MSC_VER)
+   return _aligned_malloc(theSize, theAlign);
+   #elif defined(__ANDROID__) || defined(__QNX__)
+   return memalign(theAlign, theSize);
+@@ -498,7 +498,7 @@ void Standard::FreeAligned(void* thePtrAligned)
+ #elif defined OCCT_MMGT_OPT_TBB
+   return scalable_aligned_free(thePtrAligned);
+ #else
+-  #if defined(_MSC_VER)
++  #if (defined(_WIN32) || defined(__WIN32__)) || defined(_MSC_VER)
+   _aligned_free(thePtrAligned);
+   #elif defined(__ANDROID__) || defined(__QNX__)
+   free(thePtrAligned);
+-- 
