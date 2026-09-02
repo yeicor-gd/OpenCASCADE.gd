@@ -478,6 +478,9 @@ jobs:
           esac
           PY="$(command -v python3 || command -v python)"
           "$PY" -m pip install clang==21.1.7 psutil
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            PY="$(cygpath -m "$PY")"
+          fi
           echo "PYTHON=$PY" >> "$GITHUB_ENV"
 
       - name: Build with vcpkg
