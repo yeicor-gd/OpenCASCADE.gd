@@ -244,16 +244,15 @@ endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux" OR ANDROID OR CMAKE_SYSTEM_NAME STREQUAL "Android")
   target_link_options(${PROJECT_NAME} PRIVATE
     "-Wl,--no-keep-memory"
-    "$<$<CONFIG:Debug>:-Wl,--threads=1>"
   )
   find_program(GDEXT_LLD
-    NAMES ld.lld arm-linux-gnueabihf-ld.lld aarch64-linux-gnu-ld.lld i686-linux-gnu-ld.lld x86_64-linux-gnu-ld.lld
+    NAMES ld.lld ld.lld-22 ld.lld-21 ld.lld-20 ld.lld-19 ld.lld-18 arm-linux-gnueabihf-ld.lld aarch64-linux-gnu-ld.lld i686-linux-gnu-ld.lld x86_64-linux-gnu-ld.lld
     PATHS /usr/lib/llvm-22/bin /usr/lib/llvm-21/bin /usr/lib/llvm-20/bin /usr/local/bin /usr/bin
     NO_CMAKE_FIND_ROOT_PATH
   )
   if(GDEXT_LLD)
     message(STATUS "Linux/Android: linking with LLD (${GDEXT_LLD})")
-    target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=lld")
+    target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=lld" "$<$<CONFIG:Debug>:-Wl,--threads=1>")
   else()
     message(WARNING "Linux/Android: LLD (ld.lld) not found; GNU ld may consume 14+ GB RAM during link")
   endif()
