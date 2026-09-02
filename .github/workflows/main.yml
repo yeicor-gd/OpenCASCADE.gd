@@ -576,6 +576,9 @@ jobs:
 
           # Also copy any .ninja_log from build trees
           find . -maxdepth 5 -name ".ninja_log" -exec cp {} "$LOG_DIR/" \; 2>/dev/null || true
+          
+          # Avoid writes to ccache folder while uploading the artifact
+          ccache --stop-storage-helpers
 
       - name: Upload build and debug logs
         if: "!cancelled()"
