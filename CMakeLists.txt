@@ -230,6 +230,20 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     "-sSIDE_MODULE=2"
     "-sEXPORTED_FUNCTIONS=_gdext_library_init"
   )
+  # Override optimization for Release builds: -O3 triggers an emscripten
+  # compilation bug (br_table arity mismatch). Use -O1 instead; repair_wasm.py
+  # will still run wasm-opt -O4 in CI for final optimization.
+  if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(${PROJECT_NAME} PRIVATE
+      "$<$<CONFIG:Release>:-O1>"
+    )
+    # Also override godot-cpp's optimization since it's built as part of this project
+    if(TARGET godot-cpp)
+      target_compile_options(godot-cpp PRIVATE
+        "$<$<CONFIG:Release>:-O1>"
+      )
+    endif()
+  endif()
 else()
   add_library(${PROJECT_NAME} SHARED ${SOURCES} ${DOC_GEN_FILE})
 endif()
@@ -284,9 +298,14 @@ if(MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE
     "/INCREMENTAL:NO"
     "/OPT:REF"
-    $<$<CONFIG:Release>:/OPT:ICF>
+    # Disable ICF (Identical Code Folding) for 32-bit builds: it consumes
+    # excessive memory in link.exe (32-bit process limited to 2-4GB).
+    # CMAKE_SIZEOF_VOID_P = 4 means 32-bit target.
+    $<$<AND:$<CONFIG:Release>,$<NOT:$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>>:/OPT:ICF>
     $<$<CONFIG:Release>:/DEBUG:NONE>
     $<$<CONFIG:Debug>:/DEBUG:FASTLINK>
+    # Allow 32-bit link.exe to use 4GB address space on 64-bit Windows
+    $<$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>:/LARGEADDRESSAWARE>
   )
 endif()
 
