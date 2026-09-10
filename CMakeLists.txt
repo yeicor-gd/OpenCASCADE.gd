@@ -80,6 +80,27 @@ endif ()
 set(ENV{SDKROOT} "${CMAKE_OSX_SYSROOT}")
 set(GODOTCPP_DISABLE_EXCEPTIONS ON)
 
+# Emscripten: -O2/-O3 causes em++ to invoke wasm-opt during link, which fails
+# with a parse error (br_table arity mismatch) before repair_wasm.py can patch it.
+# Replace -O2/-O3/-Os with -O1 in release flags so both godot-cpp and OpenCASCADE.gd
+# compile/link without running wasm-opt prematurely. repair_wasm.py will run
+# wasm-opt -O4 post-build in CI.
+if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+  foreach(_flag_var
+      CMAKE_CXX_FLAGS_RELEASE
+      CMAKE_C_FLAGS_RELEASE
+      CMAKE_SHARED_LINKER_FLAGS_RELEASE
+      CMAKE_MODULE_LINKER_FLAGS_RELEASE)
+    if("${${_flag_var}}" MATCHES "-O[23s]")
+      string(REGEX REPLACE "-O[23s]" "-O1" _new_val "${${_flag_var}}")
+    else()
+      set(_new_val "${${_flag_var}} -O1")
+    endif()
+    set(${_flag_var} "${_new_val}")
+    set(${_flag_var} "${_new_val}" CACHE STRING "" FORCE)
+  endforeach()
+endif()
+
 # Godot C++ bindings
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/godot-cpp")
 
@@ -229,20 +250,18 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   target_link_options(${PROJECT_NAME} PRIVATE
     "-sSIDE_MODULE=2"
     "-sEXPORTED_FUNCTIONS=_gdext_library_init"
+    "$<$<CONFIG:Release>:-O1>"
   )
   # Override optimization for Release builds: -O3 triggers an emscripten
   # compilation bug (br_table arity mismatch). Use -O1 instead; repair_wasm.py
   # will still run wasm-opt -O4 in CI for final optimization.
-  if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_options(${PROJECT_NAME} PRIVATE
+  target_compile_options(${PROJECT_NAME} PRIVATE
+    "$<$<CONFIG:Release>:-O1>"
+  )
+  if(TARGET godot-cpp)
+    target_compile_options(godot-cpp PRIVATE
       "$<$<CONFIG:Release>:-O1>"
     )
-    # Also override godot-cpp's optimization since it's built as part of this project
-    if(TARGET godot-cpp)
-      target_compile_options(godot-cpp PRIVATE
-        "$<$<CONFIG:Release>:-O1>"
-      )
-    endif()
   endif()
 else()
   add_library(${PROJECT_NAME} SHARED ${SOURCES} ${DOC_GEN_FILE})

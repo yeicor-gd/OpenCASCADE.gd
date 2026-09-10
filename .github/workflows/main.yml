@@ -142,7 +142,7 @@ jobs:
             { vcpkg_triplet: x86-mingw-static, os: ubuntu-24.04 },
             { vcpkg_triplet: arm64-mingw-static, os: ubuntu-24.04 },
             { vcpkg_triplet: x64-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
-            { vcpkg_triplet: x86-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
+            # { vcpkg_triplet: x86-windows-static, os: windows-2025-vs2026 }, # Skip: 32-bit MSVC exhausts resources / D8040 (x86-mingw-static provides 32-bit Windows)
             { vcpkg_triplet: arm64-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
             { vcpkg_triplet: universal-osx, os: macos-15 },
             { vcpkg_triplet: wasm32-emscripten, os: ubuntu-24.04, threads: on },
@@ -782,7 +782,7 @@ jobs:
             { triplet: arm64-linux, preset: "Linux arm64", os: ubuntu-24.04-arm },
             { triplet: arm-linux, preset: "Linux arm32", os: ubuntu-24.04-arm },
             { triplet: x64-windows-static, preset: "Windows x86_64", os: windows-2025-vs2026 },
-            { triplet: x86-windows-static, preset: "Windows x86_32", os: windows-2025-vs2026 },
+            # { triplet: x86-windows-static, preset: "Windows x86_32", os: windows-2025-vs2026 },
             { triplet: arm64-windows-static, preset: "Windows arm64", os: windows-2025-vs2026 },
             { triplet: universal-osx, preset: "macOS universal", os: macos-15 },
             { triplet: wasm32-emscripten, preset: "Web", os: ubuntu-24.04 },
