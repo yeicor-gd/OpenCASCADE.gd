@@ -169,6 +169,12 @@ jobs:
           remove_haskell: true
           remove_tool_cache: true
           remove_swap: false
+      - name: Free disk space (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          sudo rm -rf /Applications/Xcode_15*.app /Applications/Xcode_14*.app 2>/dev/null || true
+          rm -rf ~/Library/Caches/* /usr/local/share/dotnet 2>/dev/null || true
+          df -h
 
       - name: Configure Windows Pagefile
         if: runner.os == 'Windows'
@@ -435,6 +441,13 @@ jobs:
           GDEXT_ARGS="-DGODOTCPP_TARGET=${{ matrix.target-type }} -DGODOTCPP_PRECISION=${{ matrix.float-precision }} ${{ env.gdext_cmake_args }}"
           if [ "$RUNNER_OS" = "Windows" ]; then
             GDEXT_ARGS="-DCMAKE_OBJECT_PATH_MAX=240 $GDEXT_ARGS"
+            SHORT_BT="D:/b"
+            mkdir -p "$SHORT_BT" 2>/dev/null || true
+            echo "BUILDTREES_DIR=$SHORT_BT" >> $GITHUB_ENV
+            echo "VCPKG_BUILDTREES_FLAG=--x-buildtrees-root=$SHORT_BT" >> $GITHUB_ENV
+          else
+            echo "BUILDTREES_DIR=vcpkg/buildtrees" >> $GITHUB_ENV
+            echo "VCPKG_BUILDTREES_FLAG=" >> $GITHUB_ENV
           fi
           echo "GDEXT_CMAKE_ARGS=$GDEXT_ARGS" >> $GITHUB_ENV
 
@@ -513,7 +526,7 @@ jobs:
           attempt=1
           build_success=false
           while [ "$attempt" -le 4 ]; do
-            if "$vcpkg_exe" install --recurse gdext; then
+            if "$vcpkg_exe" install --recurse gdext $VCPKG_BUILDTREES_FLAG; then
               build_success=true
               break
             fi
@@ -579,7 +592,10 @@ jobs:
 
           # Collect vcpkg build logs and error files
           mkdir -p "$LOG_DIR/vcpkg-logs"
-          find vcpkg/buildtrees/ -type f \( -name "*.log" -o -name "error-*.log" -o -name "CMakeOutput.log" -o -name "CMakeError.log" -o -name ".ninja_log" \) -exec cp --parents {} "$LOG_DIR/vcpkg-logs/" \; 2>/dev/null || true
+          BT_DIR="${BUILDTREES_DIR:-vcpkg/buildtrees}"
+          if [ -d "$BT_DIR" ]; then
+            find "$BT_DIR" -type f \( -name "*.log" -o -name "error-*.log" -o -name "CMakeOutput.log" -o -name "CMakeError.log" -o -name ".ninja_log" \) -exec cp {} "$LOG_DIR/vcpkg-logs/" \; 2>/dev/null || true
+          fi
 
           # Also copy any .ninja_log from build trees
           find . -maxdepth 5 -name ".ninja_log" -exec cp {} "$LOG_DIR/" \; 2>/dev/null || true
@@ -600,7 +616,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          files=$( find vcpkg/buildtrees/gdext \( -name "*.so" -o -name "*.dll" -o -name "*.pdb" -o -name "*.dylib" \) )
+          files=$( find "${BUILDTREES_DIR:-vcpkg/buildtrees}/gdext" \( -name "*.so" -o -name "*.dll" -o -name "*.pdb" -o -name "*.dylib" \) )
           if [ -z "$files" ]; then
             echo "No library files found"
             exit 1
