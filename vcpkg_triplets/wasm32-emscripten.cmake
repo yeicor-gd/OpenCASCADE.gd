@@ -63,7 +63,7 @@ set(VCPKG_CMAKE_CONFIGURE_OPTIONS "-DCMAKE_CXX_SCAN_FOR_MODULES=OFF")
 # produces a wasm binary with a br_table arity bug that must be patched by
 # repair_wasm.py before wasm-opt can process it, release builds must link with
 # -O1 to prevent em++ from running wasm-opt prematurely. repair_wasm.py will
-# run wasm-opt -O1 post-build.
+# run wasm-opt -O2 post-build.
 set(VCPKG_LINKER_FLAGS_RELEASE "-O1")
 set(VCPKG_CXX_FLAGS_RELEASE "-O1 -DNDEBUG")
 set(VCPKG_C_FLAGS_RELEASE "-O1 -DNDEBUG")

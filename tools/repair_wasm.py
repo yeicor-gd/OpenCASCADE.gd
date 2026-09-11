@@ -91,7 +91,7 @@ def repair_and_optimize_wasm(input_path, output_path):
         wasm_bytes = patch_wasm(wasm_bytes, offset)
 
     is_debug = os.environ.get("DEBUG", "").lower() in {"1", "on", "true", "yes"}
-    opt_level = os.environ.get("WASM_OPT_LEVEL", "-O1")
+    opt_level = os.environ.get("WASM_OPT_LEVEL", "-O2")
     wasm_opt_args = (
         ["-O0", "--debuginfo"]
         if is_debug

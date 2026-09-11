@@ -87,7 +87,7 @@ set(GODOTCPP_DISABLE_EXCEPTIONS ON)
 # with a parse error (br_table arity mismatch) before repair_wasm.py can patch it.
 # Replace -O2/-O3/-Os with -O1 in release flags so both godot-cpp and OpenCASCADE.gd
 # compile/link without running wasm-opt prematurely. repair_wasm.py will run
-# wasm-opt post-build (-O1 by default).
+# wasm-opt post-build (-O2 by default).
 if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   foreach(_flag_var
       CMAKE_CXX_FLAGS_RELEASE
@@ -277,7 +277,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   )
   # Override optimization for Release builds: -O3 triggers an emscripten
   # compilation bug (br_table arity mismatch). Use -O1 instead; repair_wasm.py
-  # will run wasm-opt post-build (-O1 by default) for final optimization.
+  # will run wasm-opt post-build (-O2 by default) for final optimization.
   target_compile_options(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Release>:-O1>"
   )
