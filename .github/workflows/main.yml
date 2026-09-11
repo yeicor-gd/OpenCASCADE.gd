@@ -432,10 +432,11 @@ jobs:
           echo VCPKG_DEFAULT_TRIPLET=${{ matrix.target.vcpkg_triplet }} >> $GITHUB_ENV
           echo VCPKG_OVERLAY_TRIPLETS=vcpkg_triplets >> $GITHUB_ENV
           echo VCPKG_OVERLAY_PORTS=vcpkg_ports >> $GITHUB_ENV
-          echo "GDEXT_CMAKE_ARGS=-DGODOTCPP_TARGET=${{ matrix.target-type }} -DGODOTCPP_PRECISION=${{ matrix.float-precision }} ${{ env.gdext_cmake_args }}" >> $GITHUB_ENV
+          GDEXT_ARGS="-DGODOTCPP_TARGET=${{ matrix.target-type }} -DGODOTCPP_PRECISION=${{ matrix.float-precision }} ${{ env.gdext_cmake_args }}"
           if [ "$RUNNER_OS" = "Windows" ]; then
-            echo "GDEXT_CMAKE_ARGS=-DCMAKE_OBJECT_PATH_MAX=240 $GDEXT_CMAKE_ARGS" >> $GITHUB_ENV
+            GDEXT_ARGS="-DCMAKE_OBJECT_PATH_MAX=240 $GDEXT_ARGS"
           fi
+          echo "GDEXT_CMAKE_ARGS=$GDEXT_ARGS" >> $GITHUB_ENV
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v2

@@ -108,9 +108,9 @@ if(MSVC)
   # When building with Ninja, disable /MP inside cl.exe since Ninja already manages parallel workers
   add_compile_options("/MP1")
 
-  # 32-bit x86 MSVC release builds trigger an Internal Compiler Error (C1001 Access Violation in p2\\main.cpp)
+  # 32-bit x86 MSVC release builds trigger an Internal Compiler Error (C1001 Access Violation in p2\main.cpp)
   # under /O2 with template temporary object return passing in godot-cpp binder.
-  # Replace /O2 with /O1 and add /d2notmpopt to avoid the compiler optimizer crash.
+  # Replace /O2 with /O1 to avoid the compiler optimizer crash.
   if(CMAKE_SIZEOF_VOID_P EQUAL 4)
     foreach(_flag_var CMAKE_CXX_FLAGS_RELEASE CMAKE_C_FLAGS_RELEASE)
       if("${${_flag_var}}" MATCHES "/O2")
@@ -118,8 +118,8 @@ if(MSVC)
       else()
         set(_new_val "${${_flag_var}} /O1")
       endif()
-      set(${_flag_var} "${_new_val} /d2notmpopt")
-      set(${_flag_var} "${_new_val} /d2notmpopt" CACHE STRING "" FORCE)
+      set(${_flag_var} "${_new_val}")
+      set(${_flag_var} "${_new_val}" CACHE STRING "" FORCE)
     endforeach()
   endif()
 endif()
