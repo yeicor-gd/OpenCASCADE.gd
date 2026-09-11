@@ -184,6 +184,8 @@ jobs:
               New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "C:\pagefile.sys"; InitialSize = 16384; MaximumSize = 32768 }
             }
             Write-Host "Pagefile successfully configured to 16GB-32GB."
+            Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -ErrorAction SilentlyContinue
+            git config --system core.longpaths true
           } catch {
             Write-Warning "Could not configure pagefile: $_"
           }
@@ -431,6 +433,9 @@ jobs:
           echo VCPKG_OVERLAY_TRIPLETS=vcpkg_triplets >> $GITHUB_ENV
           echo VCPKG_OVERLAY_PORTS=vcpkg_ports >> $GITHUB_ENV
           echo "GDEXT_CMAKE_ARGS=-DGODOTCPP_TARGET=${{ matrix.target-type }} -DGODOTCPP_PRECISION=${{ matrix.float-precision }} ${{ env.gdext_cmake_args }}" >> $GITHUB_ENV
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            echo "GDEXT_CMAKE_ARGS=-DCMAKE_OBJECT_PATH_MAX=240 $GDEXT_CMAKE_ARGS" >> $GITHUB_ENV
+          fi
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v2

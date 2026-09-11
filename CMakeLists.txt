@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.25)
 
+# Limit object file full-path length to avoid Windows 260 MAX_PATH limit (fatal error C1083)
+set(CMAKE_OBJECT_PATH_MAX 240)
+
 include(CheckCXXCompilerFlag)
 
 message(STATUS "Using toolchain file: " "${CMAKE_TOOLCHAIN_FILE}")
@@ -99,6 +102,26 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     set(${_flag_var} "${_new_val}")
     set(${_flag_var} "${_new_val}" CACHE STRING "" FORCE)
   endforeach()
+endif()
+
+if(MSVC)
+  # When building with Ninja, disable /MP inside cl.exe since Ninja already manages parallel workers
+  add_compile_options("/MP1")
+
+  # 32-bit x86 MSVC release builds trigger an Internal Compiler Error (C1001 Access Violation in p2\\main.cpp)
+  # under /O2 with template temporary object return passing in godot-cpp binder.
+  # Replace /O2 with /O1 and add /d2notmpopt to avoid the compiler optimizer crash.
+  if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    foreach(_flag_var CMAKE_CXX_FLAGS_RELEASE CMAKE_C_FLAGS_RELEASE)
+      if("${${_flag_var}}" MATCHES "/O2")
+        string(REGEX REPLACE "/O2" "/O1" _new_val "${${_flag_var}}")
+      else()
+        set(_new_val "${${_flag_var}} /O1")
+      endif()
+      set(${_flag_var} "${_new_val} /d2notmpopt")
+      set(${_flag_var} "${_new_val} /d2notmpopt" CACHE STRING "" FORCE)
+    endforeach()
+  endif()
 endif()
 
 # Godot C++ bindings
