@@ -84,7 +84,7 @@ set(GODOTCPP_DISABLE_EXCEPTIONS ON)
 # with a parse error (br_table arity mismatch) before repair_wasm.py can patch it.
 # Replace -O2/-O3/-Os with -O1 in release flags so both godot-cpp and OpenCASCADE.gd
 # compile/link without running wasm-opt prematurely. repair_wasm.py will run
-# wasm-opt -O4 post-build in CI.
+# wasm-opt post-build (-O1 by default).
 if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   foreach(_flag_var
       CMAKE_CXX_FLAGS_RELEASE
@@ -254,7 +254,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   )
   # Override optimization for Release builds: -O3 triggers an emscripten
   # compilation bug (br_table arity mismatch). Use -O1 instead; repair_wasm.py
-  # will still run wasm-opt -O4 in CI for final optimization.
+  # will run wasm-opt post-build (-O1 by default) for final optimization.
   target_compile_options(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Release>:-O1>"
   )
@@ -312,6 +312,10 @@ if(MSVC)
   find_program(LLD_LINK_EXE NAMES lld-link lld-link.exe PATHS "C:/Program Files/LLVM/bin" "$ENV{LLVM_PATH}/bin" NO_CMAKE_FIND_ROOT_PATH)
   if(LLD_LINK_EXE)
     message(STATUS "MSVC: Using lld-link for faster and low-memory linking: ${LLD_LINK_EXE}")
+    set(CMAKE_LINKER_LLD "${LLD_LINK_EXE}" CACHE FILEPATH "LLD linker" FORCE)
+    set(CMAKE_CXX_USING_LINKER_LLD "${LLD_LINK_EXE}")
+    set(CMAKE_C_USING_LINKER_LLD "${LLD_LINK_EXE}")
+    set(CMAKE_LINKER "${LLD_LINK_EXE}")
     set_property(TARGET ${PROJECT_NAME} PROPERTY LINKER_TYPE LLD)
   endif()
   target_link_options(${PROJECT_NAME} PRIVATE
@@ -321,6 +325,7 @@ if(MSVC)
     # excessive memory in link.exe (32-bit process limited to 2-4GB).
     # CMAKE_SIZEOF_VOID_P = 4 means 32-bit target.
     $<$<AND:$<CONFIG:Release>,$<NOT:$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>>:/OPT:ICF>
+    $<$<AND:$<CONFIG:Release>,$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>:/OPT:NOICF>
     $<$<CONFIG:Release>:/DEBUG:NONE>
     $<$<CONFIG:Debug>:/DEBUG:FASTLINK>
     # Allow 32-bit link.exe to use 4GB address space on 64-bit Windows

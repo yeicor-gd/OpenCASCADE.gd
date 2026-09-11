@@ -142,7 +142,7 @@ jobs:
             { vcpkg_triplet: x86-mingw-static, os: ubuntu-24.04 },
             { vcpkg_triplet: arm64-mingw-static, os: ubuntu-24.04 },
             { vcpkg_triplet: x64-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
-            # { vcpkg_triplet: x86-windows-static, os: windows-2025-vs2026 }, # Skip: 32-bit MSVC exhausts resources / D8040 (x86-mingw-static provides 32-bit Windows)
+            { vcpkg_triplet: x86-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
             { vcpkg_triplet: arm64-windows-static, os: windows-2025-vs2026 }, # MSVC instead of mingw
             { vcpkg_triplet: universal-osx, os: macos-15 },
             { vcpkg_triplet: wasm32-emscripten, os: ubuntu-24.04, threads: on },
@@ -425,7 +425,7 @@ jobs:
           VCPKG_MAX_CONCURRENCY=$NCORES
           echo "VCPKG_MAX_CONCURRENCY=$VCPKG_MAX_CONCURRENCY" >> $GITHUB_ENV
           # ---
-          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_BASEDIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CCACHE_MAXSIZE;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;PYTHON" >> $GITHUB_ENV
+          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_BASEDIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CCACHE_MAXSIZE;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;LLVM_PATH;PYTHON" >> $GITHUB_ENV
           echo VCPKG_DISABLE_METRICS=1 >> $GITHUB_ENV
           echo VCPKG_DEFAULT_TRIPLET=${{ matrix.target.vcpkg_triplet }} >> $GITHUB_ENV
           echo VCPKG_OVERLAY_TRIPLETS=vcpkg_triplets >> $GITHUB_ENV
@@ -474,6 +474,7 @@ jobs:
               winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM
               echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
               echo "LLVM_PATH=C:\\Program Files\\LLVM" >> "$GITHUB_ENV"
+              echo "C:\\Program Files\\LLVM\\bin" >> "$GITHUB_PATH"
               ;;
           esac
           PY="$(command -v python3 || command -v python)"
@@ -782,7 +783,7 @@ jobs:
             { triplet: arm64-linux, preset: "Linux arm64", os: ubuntu-24.04-arm },
             { triplet: arm-linux, preset: "Linux arm32", os: ubuntu-24.04-arm },
             { triplet: x64-windows-static, preset: "Windows x86_64", os: windows-2025-vs2026 },
-            # { triplet: x86-windows-static, preset: "Windows x86_32", os: windows-2025-vs2026 },
+            { triplet: x86-windows-static, preset: "Windows x86_32", os: windows-2025-vs2026 },
             { triplet: arm64-windows-static, preset: "Windows arm64", os: windows-2025-vs2026 },
             { triplet: universal-osx, preset: "macOS universal", os: macos-15 },
             { triplet: wasm32-emscripten, preset: "Web", os: ubuntu-24.04 },

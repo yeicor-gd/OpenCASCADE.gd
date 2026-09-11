@@ -1,5 +1,5 @@
 # Portfile for the Godot extension of this project
-# ABI change to force rebuild - v2
+# ABI change to force rebuild - v3
 
 # The dependencies are specified in vcpkg.json
 
@@ -17,6 +17,7 @@ separate_arguments(GDEXT_CMAKE_ARGS UNIX_COMMAND "${GDEXT_CMAKE_ARGS}")
 
 vcpkg_configure_cmake(
     SOURCE_PATH "${SOURCE_PATH}"
+    PREFER_NINJA
     OPTIONS ${GDEXT_CMAKE_ARGS}
     MAYBE_UNUSED_VARIABLES GODOTCPP_PRECISION GODOTCPP_THREADS
 )
