@@ -302,6 +302,11 @@ class Monitor:
                 if stats.avail_commit_mb < self.min_avail_mb:
                     is_critical = True
                     reasons.append(f"Available Commit Charge is critically low: {stats.avail_commit_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
+                # On Windows, physical RAM starvation causes severe paging thrashing that freezes the runner before commit limit is reached
+                phys_floor = min(self.min_avail_mb, 1200.0)
+                if stats.avail_phys_mb > 0 and stats.avail_phys_mb < phys_floor:
+                    is_critical = True
+                    reasons.append(f"Available Physical RAM is critically low: {stats.avail_phys_mb:.1f}MB < {phys_floor:.0f}MB")
             elif stats.total_swap_mb > 0:
                 if (stats.avail_phys_mb + stats.avail_swap_mb) < self.min_avail_mb:
                     is_critical = True
@@ -314,6 +319,23 @@ class Monitor:
                 if stats.avail_phys_mb > 0 and stats.avail_phys_mb < self.min_avail_mb:
                     is_critical = True
                     reasons.append(f"Available Physical RAM is critically low (no swap configured): {stats.avail_phys_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
+
+            # Check disk space on build drive and C:
+            try:
+                import shutil
+                cwd_usage = shutil.disk_usage(os.getcwd())
+                free_cwd_mb = cwd_usage.free / (1024.0 * 1024.0)
+                if free_cwd_mb < 1024.0:
+                    is_critical = True
+                    reasons.append(f"Available disk space on build drive is critically low: {free_cwd_mb:.1f}MB < 1024MB")
+                if platform.system() == "Windows":
+                    c_usage = shutil.disk_usage("C:\\")
+                    free_c_mb = c_usage.free / (1024.0 * 1024.0)
+                    if free_c_mb < 1024.0:
+                        is_critical = True
+                        reasons.append(f"Available disk space on C:\\ is critically low: {free_c_mb:.1f}MB < 1024MB")
+            except Exception:
+                pass
 
             top_procs = get_top_processes(10)
             for p in top_procs:

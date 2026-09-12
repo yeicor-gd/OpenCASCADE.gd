@@ -176,20 +176,40 @@ jobs:
           rm -rf ~/Library/Caches/* /usr/local/share/dotnet 2>/dev/null || true
           df -h
 
+      - name: Free disk space (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{N="FreeGB";E={[math]::Round($_.Free/1GB,2)}}, @{N="UsedGB";E={[math]::Round(($_.Used)/1GB,2)}}
+          $pathsToRemove = @(
+            "$env:AGENT_TOOLSDIRECTORY\Ruby",
+            "$env:AGENT_TOOLSDIRECTORY\Java",
+            "$env:AGENT_TOOLSDIRECTORY\go",
+            "$env:LOCALAPPDATA\Android",
+            "C:\Program Files\Android",
+            "C:\Android"
+          )
+          foreach ($p in $pathsToRemove) {
+            if ($p -and (Test-Path $p)) {
+              Write-Host "Removing $p..."
+              Remove-Item -Recurse -Force $p -ErrorAction SilentlyContinue
+            }
+          }
+          Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{N="FreeGB";E={[math]::Round($_.Free/1GB,2)}}, @{N="UsedGB";E={[math]::Round(($_.Used)/1GB,2)}}
+
       - name: Configure Windows Pagefile
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           try {
+            $drives = Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq 'Fixed' } | Sort-Object SizeRemaining -Descending
+            $targetDrive = $drives[0].DriveLetter
+            Write-Host "Configuring pagefile on drive ${targetDrive}: ($([math]::Round($drives[0].SizeRemaining / 1GB, 1)) GB free)"
             $sys = Get-CimInstance Win32_ComputerSystem
             Set-CimInstance -InputObject $sys -Property @{ AutomaticManagedPagefile = $false }
-            $pf = Get-CimInstance Win32_PageFileSetting | Where-Object { $_.Name -like 'C:*' }
-            if ($pf) {
-              Set-CimInstance -InputObject $pf -Property @{ InitialSize = 16384; MaximumSize = 32768 }
-            } else {
-              New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "C:\pagefile.sys"; InitialSize = 16384; MaximumSize = 32768 }
-            }
-            Write-Host "Pagefile successfully configured to 16GB-32GB."
+            Get-CimInstance Win32_PageFileSetting | Remove-CimInstance -ErrorAction SilentlyContinue
+            New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "${targetDrive}:\pagefile.sys"; InitialSize = 16384; MaximumSize = 32768 }
+            Write-Host "Pagefile successfully configured to 16GB-32GB on ${targetDrive}:"
             Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -ErrorAction SilentlyContinue
             git config --system core.longpaths true
           } catch {
@@ -425,7 +445,9 @@ jobs:
           elif [ "$RUNNER_OS" = "macOS" ]; then
             NCORES=$(sysctl -n hw.ncpu)
           elif [ "$RUNNER_OS" = "Windows" ]; then
-            NCORES=$NUMBER_OF_PROCESSORS
+            # Windows MSVC cl.exe compiler with thousands of template autowrapper bindings uses up to 2.5GB RAM per worker.
+            # Limit concurrency to 2 workers to prevent memory thrashing and OS freeze/crash.
+            NCORES=2
           else
             NCORES=2
           fi
@@ -490,7 +512,10 @@ jobs:
               echo "LIBCLANG_LIBRARY_FILE=$(brew --prefix llvm)/lib/libclang.dylib" >> "$GITHUB_ENV"
               ;;
             Windows)
-              winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM
+              if [ ! -f "C:/Program Files/LLVM/bin/libclang.dll" ]; then
+                winget source update || true
+                winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM || true
+              fi
               echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
               echo "LLVM_PATH=C:\\Program Files\\LLVM" >> "$GITHUB_ENV"
               echo "C:\\Program Files\\LLVM\\bin" >> "$GITHUB_PATH"
@@ -514,11 +539,16 @@ jobs:
 
           # Start memory monitor and OOM watchdog in background
           PY="${PYTHON:-python3}"
+          MIN_AVAIL_MB=750
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            # Windows MSVC needs early intervention (2048 MB) to prevent runner freeze and preserve cache
+            MIN_AVAIL_MB=2048
+          fi
           "$PY" .github/scripts/memory_monitor.py start \
             --log-file build-monitor.log \
             --report-file build-oom-report.md \
             --pid-file build-monitor.pid \
-            --min-avail-mb 750 \
+            --min-avail-mb "$MIN_AVAIL_MB" \
             --interval 0.25 || true
 
           # Retry on transient download failures (gitlab.freedesktop.org
@@ -531,7 +561,7 @@ jobs:
               break
             fi
             if [ -f build-oom-report.md ]; then
-              echo "::error::vcpkg build stopped by memory watchdog due to critical memory exhaustion!"
+              echo "::warning::vcpkg build stopped early by memory watchdog to save cache and prevent system crash!"
               break
             fi
             echo "vcpkg install attempt $attempt failed (likely a flaky source download); retrying..."
@@ -542,35 +572,31 @@ jobs:
           # Stop memory monitor
           "$PY" .github/scripts/memory_monitor.py stop --pid-file build-monitor.pid || true
           ccache --show-stats -vv
+          ccache --stop-storage-helpers || true
 
           if [ "$build_success" != "true" ]; then
             echo "vcpkg build failed." >&2
             exit 1
           fi
 
-      - name: Debug upload generated autowrapper files
-        if: "!cancelled()"
+      - name: Flush ccache storage helpers
+        if: always()
         shell: bash
         run: |
-          set -e
-          # Use a workspace-relative staging dir: on Windows, /tmp is a git-bash
-          # virtual path that the Node-based upload action cannot resolve.
-          STAGE="${{ github.workspace }}/debug-autowrapper"
-          mkdir -p "$STAGE"
-          cp -r src/autowrapper/* "$STAGE/" 2>/dev/null || true
-          echo "Collected $(ls "$STAGE" | wc -l) files"
+          ccache --stop-storage-helpers 2>/dev/null || true
 
-      - name: Upload debug autowrapper artifact
-        if: "!cancelled()"
+      - name: Upload ccache artifact (for faster subsequent builds)
         uses: actions/upload-artifact@v7
+        if: always()
         with:
-          name: debug-autowrapper-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}
+          name: ${{ steps.ccache-artifact.outputs.artifact }}
+          overwrite: true
           path: |
-            ${{ github.workspace }}/debug-autowrapper
+            ccache
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
 
       - name: Collect build and debug logs
-        if: "!cancelled()"
+        if: always()
         shell: bash
         run: |
           set +e
@@ -604,7 +630,7 @@ jobs:
           ccache --stop-storage-helpers
 
       - name: Upload build and debug logs
-        if: "!cancelled()"
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: debug-logs-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}
@@ -613,6 +639,7 @@ jobs:
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
 
       - name: Copy to addon folder
+        if: success()
         shell: bash
         run: |
           set -e
@@ -625,6 +652,7 @@ jobs:
           cp -f $files demo/addons/OpenCASCADE.gd/
 
       - name: Upload addon artifact
+        if: success()
         uses: actions/upload-artifact@v7
         with:
           name: gdext-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}-${{ matrix.target.threads || '' }}
@@ -632,13 +660,25 @@ jobs:
             demo/addons/*.gd/*
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
 
-      - name: Upload ccache artifact (for faster subsequent builds)
+      - name: Debug upload generated autowrapper files
+        if: always()
+        shell: bash
+        run: |
+          set -e
+          # Use a workspace-relative staging dir: on Windows, /tmp is a git-bash
+          # virtual path that the Node-based upload action cannot resolve.
+          STAGE="${{ github.workspace }}/debug-autowrapper"
+          mkdir -p "$STAGE"
+          cp -r src/autowrapper/* "$STAGE/" 2>/dev/null || true
+          echo "Collected $(ls "$STAGE" | wc -l) files"
+
+      - name: Upload debug autowrapper artifact
+        if: always()
         uses: actions/upload-artifact@v7
-        if: "!cancelled()"
         with:
-          name: ${{ steps.ccache-artifact.outputs.artifact }}
+          name: debug-autowrapper-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}
           path: |
-            ccache
+            ${{ github.workspace }}/debug-autowrapper
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
 
   test:
