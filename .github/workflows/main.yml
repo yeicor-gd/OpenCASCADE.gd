@@ -512,10 +512,24 @@ jobs:
               echo "LIBCLANG_LIBRARY_FILE=$(brew --prefix llvm)/lib/libclang.dylib" >> "$GITHUB_ENV"
               ;;
             Windows)
-              if [ ! -f "C:/Program Files/LLVM/bin/libclang.dll" ]; then
-                winget source update || true
-                winget install --accept-source-agreements --accept-package-agreements -e --id LLVM.LLVM || true
+              NEED_LLVM=true
+              if [ -x "C:/Program Files/LLVM/bin/clang.exe" ]; then
+                if "C:/Program Files/LLVM/bin/clang.exe" --version 2>/dev/null | grep -qE "version (2[1-9]|[3-9][0-9])\."; then
+                  echo "Found compatible LLVM 21+ already installed:"
+                  "C:/Program Files/LLVM/bin/clang.exe" --version
+                  NEED_LLVM=false
+                fi
               fi
+              if [ "$NEED_LLVM" = true ]; then
+                echo "Installing LLVM 21.1.7 from official GitHub release..."
+                curl -sSL --retry 5 --retry-connrefused -o LLVM-installer.exe https://github.com/llvm/llvm-project/releases/download/llvmorg-21.1.7/LLVM-21.1.7-win64.exe
+                powershell -NoProfile -Command "Start-Process -FilePath './LLVM-installer.exe' -ArgumentList '/S' -Wait"
+                rm -f LLVM-installer.exe
+                if [ -x "C:/Program Files/LLVM/bin/clang.exe" ]; then
+                  "C:/Program Files/LLVM/bin/clang.exe" --version
+                fi
+              fi
+              test -f "C:/Program Files/LLVM/bin/libclang.dll"
               echo "LIBCLANG_LIBRARY_FILE=C:\\Program Files\\LLVM\\bin\\libclang.dll" >> "$GITHUB_ENV"
               echo "LLVM_PATH=C:\\Program Files\\LLVM" >> "$GITHUB_ENV"
               echo "C:\\Program Files\\LLVM\\bin" >> "$GITHUB_PATH"
@@ -562,6 +576,12 @@ jobs:
             fi
             if [ -f build-oom-report.md ]; then
               echo "::warning::vcpkg build stopped early by memory watchdog to save cache and prevent system crash!"
+              break
+            fi
+            # Do not retry if gdext build/configure failed (retrying won't fix autowrapper or code errors)
+            BT_DIR="${BUILDTREES_DIR:-vcpkg/buildtrees}"
+            if [ -d "$BT_DIR/gdext" ]; then
+              echo "vcpkg failed during gdext build/configure (not a transient download error); aborting retry loop."
               break
             fi
             echo "vcpkg install attempt $attempt failed (likely a flaky source download); retrying..."
