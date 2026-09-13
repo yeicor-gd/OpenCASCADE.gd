@@ -302,8 +302,8 @@ class Monitor:
                 if stats.avail_commit_mb < self.min_avail_mb:
                     is_critical = True
                     reasons.append(f"Available Commit Charge is critically low: {stats.avail_commit_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
-                # On Windows, physical RAM starvation causes severe paging thrashing that freezes the runner before commit limit is reached
-                phys_floor = min(self.min_avail_mb, 1200.0)
+                # On Windows, physical RAM starvation causes severe paging thrashing only when physical RAM is nearly exhausted (< 250MB)
+                phys_floor = min(self.min_avail_mb, 250.0)
                 if stats.avail_phys_mb > 0 and stats.avail_phys_mb < phys_floor:
                     is_critical = True
                     reasons.append(f"Available Physical RAM is critically low: {stats.avail_phys_mb:.1f}MB < {phys_floor:.0f}MB")

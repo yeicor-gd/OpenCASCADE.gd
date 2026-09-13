@@ -380,8 +380,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   # consume gigabytes of memory per compiler worker. -g1 and -fno-var-tracking
   # keep essential line-number information while slashing peak memory by ~80%,
   # avoiding OOM kills on high-parallelism CI runners.
-  string(REGEX REPLACE "-g[0-9]?" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
-  string(REGEX REPLACE "-g[0-9]?" "" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+  string(REGEX REPLACE "(^|[ \t])-g[a-zA-Z0-9_-]*" " " CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
+  string(REGEX REPLACE "(^|[ \t])-g[a-zA-Z0-9_-]*" " " CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+  string(STRIP "${CMAKE_CXX_FLAGS_DEBUG}" CMAKE_CXX_FLAGS_DEBUG)
+  string(STRIP "${CMAKE_C_FLAGS_DEBUG}" CMAKE_C_FLAGS_DEBUG)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g1 -fno-var-tracking")
   set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g1 -fno-var-tracking")
   target_compile_options(${PROJECT_NAME} PRIVATE
