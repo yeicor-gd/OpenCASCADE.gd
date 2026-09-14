@@ -302,11 +302,11 @@ class Monitor:
                 if stats.avail_commit_mb < self.min_avail_mb:
                     is_critical = True
                     reasons.append(f"Available Commit Charge is critically low: {stats.avail_commit_mb:.1f}MB < {self.min_avail_mb:.0f}MB")
-                # On Windows, physical RAM starvation causes severe paging thrashing only when physical RAM is nearly exhausted (< 250MB)
-                phys_floor = min(self.min_avail_mb, 250.0)
-                if stats.avail_phys_mb > 0 and stats.avail_phys_mb < phys_floor:
+                # On Windows, available commit charge is the true ceiling. Only consider physical RAM
+                # critical if commit charge is also depleted (< 1.5x threshold) and RAM is nearly zero (< 64MB).
+                elif stats.avail_commit_mb < (self.min_avail_mb * 1.5) and stats.avail_phys_mb > 0 and stats.avail_phys_mb < 64.0:
                     is_critical = True
-                    reasons.append(f"Available Physical RAM is critically low: {stats.avail_phys_mb:.1f}MB < {phys_floor:.0f}MB")
+                    reasons.append(f"Both Available Commit Charge and Physical RAM are critically low: Commit {stats.avail_commit_mb:.1f}MB, RAM {stats.avail_phys_mb:.1f}MB < 64MB")
             elif stats.total_swap_mb > 0:
                 if (stats.avail_phys_mb + stats.avail_swap_mb) < self.min_avail_mb:
                     is_critical = True

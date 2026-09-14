@@ -337,13 +337,27 @@ if(MSVC)
   # However, lld-link does not support /DEBUG:FASTLINK and forces /DEBUG:FULL, which causes
   # 13.5GB RAM OOM during PDB type merging for 6,472 wrapper TUs.
   # For Debug builds, native MSVC link.exe natively supports /DEBUG:FASTLINK and uses <1.5GB RAM.
-  if(LLD_LINK_EXE AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+  # Robustly detect if this process/workdir is configuring a Debug or Release build
+  set(IS_DEBUG_BUILD FALSE)
+  if(CMAKE_BUILD_TYPE MATCHES "(?i)debug")
+    set(IS_DEBUG_BUILD TRUE)
+  elseif(CMAKE_BINARY_DIR MATCHES "([-_]dbg|debug)(/|$)")
+    set(IS_DEBUG_BUILD TRUE)
+  elseif(DEFINED GODOTCPP_TARGET AND GODOTCPP_TARGET MATCHES "(?i)debug")
+    set(IS_DEBUG_BUILD TRUE)
+  endif()
+
+  if(LLD_LINK_EXE AND NOT IS_DEBUG_BUILD)
     message(STATUS "MSVC: Using lld-link for faster and low-memory Release linking: ${LLD_LINK_EXE}")
-    set(CMAKE_LINKER_LLD "${LLD_LINK_EXE}" CACHE FILEPATH "LLD linker" FORCE)
+    set(CMAKE_LINKER_LLD "${LLD_LINK_EXE}")
     set(CMAKE_CXX_USING_LINKER_LLD "${LLD_LINK_EXE}")
     set(CMAKE_C_USING_LINKER_LLD "${LLD_LINK_EXE}")
     set(CMAKE_LINKER "${LLD_LINK_EXE}")
     set_property(TARGET ${PROJECT_NAME} PROPERTY LINKER_TYPE LLD)
+  else()
+    message(STATUS "MSVC: Using native MSVC link.exe for Debug linking")
+    string(REGEX REPLACE "(^|[ \t])/INCREMENTAL(:YES)?" " /INCREMENTAL:NO" CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}")
+    string(REGEX REPLACE "(^|[ \t])/INCREMENTAL(:YES)?" " /INCREMENTAL:NO" CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}")
   endif()
   target_link_options(${PROJECT_NAME} PRIVATE
     "/INCREMENTAL:NO"
