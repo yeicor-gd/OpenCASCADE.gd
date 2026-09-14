@@ -340,6 +340,13 @@ if(MSVC)
     set(CMAKE_C_USING_LINKER_LLD "${LLD_LINK_EXE}")
     set(CMAKE_LINKER "${LLD_LINK_EXE}")
     set_property(TARGET ${PROJECT_NAME} PROPERTY LINKER_TYPE LLD)
+    # lld-link does not support /DEBUG:FASTLINK and falls back to /DEBUG:FULL,
+    # which exhausts runner memory (>13GB RAM) during PDB type merging for 6,472 TUs.
+    # Replace CMake's default /debug flag with /DEBUG:NONE for lld-link.
+    string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:NONE" CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}")
+    string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:NONE" CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}")
+    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}" CACHE STRING "" FORCE)
+    set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}" CACHE STRING "" FORCE)
   endif()
   target_link_options(${PROJECT_NAME} PRIVATE
     "/INCREMENTAL:NO"
@@ -350,7 +357,10 @@ if(MSVC)
     $<$<AND:$<CONFIG:Release>,$<NOT:$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>>:/OPT:ICF>
     $<$<AND:$<CONFIG:Release>,$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>:/OPT:NOICF>
     $<$<CONFIG:Release>:/DEBUG:NONE>
-    $<$<CONFIG:Debug>:/DEBUG:FASTLINK>
+    # lld-link does not support /DEBUG:FASTLINK (it falls back to /DEBUG:FULL,
+    # which exhausts runner memory >13GB RAM during PDB type merging for 6,472 TUs).
+    # Always use /DEBUG:NONE when linking with lld-link.
+    $<$<CONFIG:Debug>:$<IF:$<BOOL:${LLD_LINK_EXE}>,/DEBUG:NONE,/DEBUG:FASTLINK>>
     # Allow 32-bit link.exe to use 4GB address space on 64-bit Windows
     $<$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>:/LARGEADDRESSAWARE>
   )
@@ -392,12 +402,14 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
 elseif(MSVC)
   # For MSVC Debug builds, wrapper TUs cause huge memory consumption with default /Zi
   # and /DEBUG:FULL. Using /Z7 embeds debug records directly into .obj files without
-  # PDB server (mspdbsrv) overhead, and /DEBUG:FASTLINK reduces link.exe memory by ~80%.
+  # PDB server (mspdbsrv) overhead.
+  # When using lld-link, /DEBUG:FASTLINK is unsupported and forces /DEBUG:FULL,
+  # consuming >13GB RAM. /DEBUG:NONE disables PDB emission and links in seconds.
   target_compile_options(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:/Z7;/Zo->"
   )
   target_link_options(${PROJECT_NAME} PRIVATE
-    "$<$<CONFIG:Debug>:/DEBUG:FASTLINK>"
+    "$<$<CONFIG:Debug>:$<IF:$<BOOL:${LLD_LINK_EXE}>,/DEBUG:NONE,/DEBUG:FASTLINK>>"
   )
 endif()
 
