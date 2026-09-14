@@ -1,5 +1,5 @@
 # Portfile for the Godot extension of this project
-# ABI change to force rebuild - v8
+# ABI change to force rebuild - v9
 
 # The dependencies are specified in vcpkg.json
 
