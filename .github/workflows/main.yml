@@ -219,8 +219,8 @@ jobs:
             $sys = Get-CimInstance Win32_ComputerSystem
             Set-CimInstance -InputObject $sys -Property @{ AutomaticManagedPagefile = $false }
             Get-CimInstance Win32_PageFileSetting | Remove-CimInstance -ErrorAction SilentlyContinue
-            New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "${targetDrive}:\pagefile.sys"; InitialSize = 16384; MaximumSize = 32768 }
-            Write-Host "Pagefile successfully configured to 16GB-32GB on ${targetDrive}:"
+            New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "${targetDrive}:\pagefile.sys"; InitialSize = 32768; MaximumSize = 65536 }
+            Write-Host "Pagefile successfully configured to 32GB-64GB on ${targetDrive}:"
             Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -ErrorAction SilentlyContinue
             git config --system core.longpaths true
           } catch {
@@ -566,8 +566,8 @@ jobs:
           PY="${PYTHON:-python3}"
           MIN_AVAIL_MB=750
           if [ "$RUNNER_OS" = "Windows" ]; then
-            # Windows MSVC needs early intervention (2048 MB) to prevent runner freeze and preserve cache
-            MIN_AVAIL_MB=2048
+            # Windows MSVC needs early intervention (1024 MB) to prevent runner freeze and preserve cache
+            MIN_AVAIL_MB=1024
           fi
           "$PY" .github/scripts/memory_monitor.py start \
             --log-file build-monitor.log \
