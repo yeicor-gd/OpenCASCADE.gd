@@ -214,22 +214,18 @@ jobs:
 
       - name: Configure Windows Pagefile
         if: runner.os == 'Windows'
+        uses: al-cheb/configure-pagefile-action@v1.4
+        with:
+          minimum-size: 32GB
+          maximum-size: 32GB
+          disk-root: "D:"
+
+      - name: Enable Windows Long Paths
+        if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          try {
-            $drives = Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq 'Fixed' } | Sort-Object SizeRemaining -Descending
-            $targetDrive = $drives[0].DriveLetter
-            Write-Host "Configuring pagefile on drive ${targetDrive}: ($([math]::Round($drives[0].SizeRemaining / 1GB, 1)) GB free)"
-            $sys = Get-CimInstance Win32_ComputerSystem
-            Set-CimInstance -InputObject $sys -Property @{ AutomaticManagedPagefile = $false }
-            Get-CimInstance Win32_PageFileSetting | Remove-CimInstance -ErrorAction SilentlyContinue
-            New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "${targetDrive}:\pagefile.sys"; InitialSize = [uint32]32768; MaximumSize = [uint32]65536 }
-            Write-Host "Pagefile successfully configured to 32GB-64GB on ${targetDrive}:"
-            Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -ErrorAction SilentlyContinue
-            git config --system core.longpaths true
-          } catch {
-            Write-Warning "Could not configure pagefile: $_"
-          }
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -ErrorAction SilentlyContinue
+          git config --system core.longpaths true
 
       - name: Checkout repository
         uses: actions/checkout@v6
