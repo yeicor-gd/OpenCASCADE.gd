@@ -206,6 +206,10 @@ jobs:
               Remove-Item -Recurse -Force $p -ErrorAction SilentlyContinue
             }
           }
+          # Stop memory-consuming background services (Windows Update, Search Indexer, SysMain)
+          Get-Service -Name wuauserv, WSearch, SysMain -ErrorAction SilentlyContinue | Stop-Service -Force -ErrorAction SilentlyContinue
+          # Add Windows Defender exclusions for build directories to reduce memory and I/O overhead
+          Set-MpPreference -DisableRealtimeMonitoring $true -ExclusionPath @("C:\", "D:\") -ErrorAction SilentlyContinue
           Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{N="FreeGB";E={[math]::Round($_.Free/1GB,2)}}, @{N="UsedGB";E={[math]::Round(($_.Used)/1GB,2)}}
 
       - name: Configure Windows Pagefile
@@ -219,7 +223,7 @@ jobs:
             $sys = Get-CimInstance Win32_ComputerSystem
             Set-CimInstance -InputObject $sys -Property @{ AutomaticManagedPagefile = $false }
             Get-CimInstance Win32_PageFileSetting | Remove-CimInstance -ErrorAction SilentlyContinue
-            New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "${targetDrive}:\pagefile.sys"; InitialSize = 32768; MaximumSize = 65536 }
+            New-CimInstance -ClassName Win32_PageFileSetting -Property @{ Name = "${targetDrive}:\pagefile.sys"; InitialSize = [uint32]32768; MaximumSize = [uint32]65536 }
             Write-Host "Pagefile successfully configured to 32GB-64GB on ${targetDrive}:"
             Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -ErrorAction SilentlyContinue
             git config --system core.longpaths true
@@ -566,8 +570,8 @@ jobs:
           PY="${PYTHON:-python3}"
           MIN_AVAIL_MB=750
           if [ "$RUNNER_OS" = "Windows" ]; then
-            # Windows MSVC needs early intervention (1024 MB) to prevent runner freeze and preserve cache
-            MIN_AVAIL_MB=1024
+            # Windows MSVC commit threshold: 512 MB prevents system crash while allowing link.exe to complete
+            MIN_AVAIL_MB=512
           fi
           "$PY" .github/scripts/memory_monitor.py start \
             --log-file build-monitor.log \

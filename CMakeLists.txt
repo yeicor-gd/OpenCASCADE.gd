@@ -357,11 +357,12 @@ if(MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE
     "/INCREMENTAL:NO"
     "/OPT:REF"
-    # Disable ICF (Identical Code Folding) for 32-bit builds: it consumes
-    # excessive memory in link.exe (32-bit process limited to 2-4GB).
+    # Disable ICF (Identical Code Folding) for 32-bit builds and all Debug builds:
+    # it consumes excessive memory in link.exe.
     # CMAKE_SIZEOF_VOID_P = 4 means 32-bit target.
     $<$<AND:$<CONFIG:Release>,$<NOT:$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>>:/OPT:ICF>
     $<$<AND:$<CONFIG:Release>,$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>:/OPT:NOICF>
+    $<$<CONFIG:Debug>:/OPT:NOICF>
     $<$<CONFIG:Release>:/DEBUG:NONE>
     # For Debug builds with MSVC link.exe: use /DEBUG:FASTLINK to create partial PDB index
     # without merging/deduplicating 6,472 TUs into a monolithic PDB (>13GB RAM).
@@ -412,9 +413,6 @@ elseif(MSVC)
   # pointing to .obj files, keeping link memory within reasonable limits.
   target_compile_options(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:/Z7;/Zo->"
-  )
-  target_link_options(${PROJECT_NAME} PRIVATE
-    "$<$<CONFIG:Debug>:/DEBUG:FASTLINK>"
   )
 endif()
 
