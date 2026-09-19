@@ -214,7 +214,7 @@ jobs:
 
       - name: Configure Windows Pagefile
         if: runner.os == 'Windows'
-        uses: al-cheb/configure-pagefile-action@v1.4
+        uses: al-cheb/configure-pagefile-action@v1.5
         with:
           minimum-size: 32GB
           maximum-size: 32GB
@@ -275,8 +275,19 @@ jobs:
             trap "echo \"    Cleaning up temporary directory ${TMP}\"; rm -rf ${TMP}" RETURN
 
             if gh run download "${RUN}" --name "${ARTIFACT_NAME}" --dir "${TMP}" 2>/dev/null; then
-              echo "    ✓ Found and successfully downloaded ${ARTIFACT_NAME}, copying contents to workspace..."
-              cp -r "${TMP}"/. "${{ github.workspace }}/"
+              echo "    ✓ Found and successfully downloaded ${ARTIFACT_NAME}, restoring to workspace..."
+              if [ -f "${TMP}/ccache.tar" ]; then
+                echo "    Extracting ccache.tar to workspace..."
+                tar -xf "${TMP}/ccache.tar" -C "${{ github.workspace }}"
+                rm -f "${TMP}/ccache.tar"
+              elif [ -d "${TMP}/ccache" ]; then
+                echo "    Copying legacy ccache directory to workspace..."
+                mkdir -p "${{ github.workspace }}/ccache"
+                cp -r "${TMP}/ccache"/. "${{ github.workspace }}/ccache/"
+              else
+                echo "    Copying contents to workspace..."
+                cp -r "${TMP}"/. "${{ github.workspace }}/"
+              fi
               return 0
             fi
             echo "    ✗ No artifact named ${ARTIFACT_NAME} in run ${RUN}"
@@ -555,7 +566,7 @@ jobs:
 
       - name: Build with vcpkg
         shell: bash
-        timeout-minutes: 330 # 5h30 to account for very long builds on emscripten with cold cache (which slightly exceeds the github max runtime)
+        timeout-minutes: 270 # 4h30 allows safe buffer before GitHub 360m limit to terminate orphans, tar, and upload ccache
         run: |
           set -e
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
@@ -610,11 +621,40 @@ jobs:
             exit 1
           fi
 
-      - name: Flush ccache storage helpers
+      - name: Clean up build processes and flush ccache
         if: always()
         shell: bash
         run: |
-          ccache --stop-storage-helpers 2>/dev/null || true
+          echo "Terminating any lingering build processes..."
+          PY="${PYTHON:-python3}"
+          "$PY" .github/scripts/memory_monitor.py stop --pid-file build-monitor.pid 2>/dev/null || true
+
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            powershell -NoProfile -Command "
+              Get-Process -Name ninja, cl, link, vcpkg, cmake -ErrorAction SilentlyContinue | Stop-Process -Force
+            " 2>/dev/null || true
+            ccache --stop-storage-helpers 2>/dev/null || true
+            powershell -NoProfile -Command "
+              Start-Sleep -Seconds 2
+              Get-Process -Name ccache -ErrorAction SilentlyContinue | Stop-Process -Force
+            " 2>/dev/null || true
+          else
+            pkill -9 -f "ninja|vcpkg|cmake|cl|ccache" 2>/dev/null || true
+            ccache --stop-storage-helpers 2>/dev/null || true
+          fi
+          echo "Lingering build processes terminated and ccache flushed."
+
+      - name: Archive ccache
+        if: always()
+        shell: bash
+        run: |
+          if [ -d "${{ github.workspace }}/ccache" ] && [ -n "$(ls -A "${{ github.workspace }}/ccache" 2>/dev/null)" ]; then
+            echo "Archiving ccache directory into ccache.tar..."
+            tar -cf "${{ github.workspace }}/ccache.tar" -C "${{ github.workspace }}" ccache
+            echo "ccache.tar created successfully: $(ls -lh "${{ github.workspace }}/ccache.tar" | awk '{print $5}')"
+          else
+            echo "ccache directory is missing or empty; skipping archive creation."
+          fi
 
       - name: Upload ccache artifact (for faster subsequent builds)
         uses: actions/upload-artifact@v7
@@ -622,8 +662,9 @@ jobs:
         with:
           name: ${{ steps.ccache-artifact.outputs.artifact }}
           overwrite: true
+          if-no-files-found: ignore
           path: |
-            ccache
+            ccache.tar
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
 
       - name: Collect build and debug logs
@@ -658,7 +699,7 @@ jobs:
           find . -maxdepth 5 -name ".ninja_log" -exec cp {} "$LOG_DIR/" \; 2>/dev/null || true
           
           # Avoid writes to ccache folder while uploading the artifact
-          ccache --stop-storage-helpers
+          ccache --stop-storage-helpers 2>/dev/null || true
 
       - name: Upload build and debug logs
         if: always()
