@@ -278,15 +278,20 @@ jobs:
               echo "    ✓ Found and successfully downloaded ${ARTIFACT_NAME}, restoring to workspace..."
               if [ -f "${TMP}/ccache.tar" ]; then
                 echo "    Extracting ccache.tar to workspace..."
-                tar -xf "${TMP}/ccache.tar" -C "${{ github.workspace }}"
-                rm -f "${TMP}/ccache.tar"
+                TAR_OPTS=()
+                if tar --help 2>&1 | grep -q -- '--force-local'; then
+                  TAR_OPTS+=(--force-local)
+                fi
+                cp -f "${TMP}/ccache.tar" ./
+                tar "${TAR_OPTS[@]}" -xf ccache.tar
+                rm -f ccache.tar "${TMP}/ccache.tar"
               elif [ -d "${TMP}/ccache" ]; then
                 echo "    Copying legacy ccache directory to workspace..."
-                mkdir -p "${{ github.workspace }}/ccache"
-                cp -r "${TMP}/ccache"/. "${{ github.workspace }}/ccache/"
+                mkdir -p "ccache"
+                cp -r "${TMP}/ccache"/. "ccache/"
               else
                 echo "    Copying contents to workspace..."
-                cp -r "${TMP}"/. "${{ github.workspace }}/"
+                cp -r "${TMP}"/. "./"
               fi
               return 0
             fi
@@ -648,10 +653,14 @@ jobs:
         if: always()
         shell: bash
         run: |
-          if [ -d "${{ github.workspace }}/ccache" ] && [ -n "$(ls -A "${{ github.workspace }}/ccache" 2>/dev/null)" ]; then
+          if [ -d "ccache" ] && [ -n "$(ls -A "ccache" 2>/dev/null)" ]; then
             echo "Archiving ccache directory into ccache.tar..."
-            tar -cf "${{ github.workspace }}/ccache.tar" -C "${{ github.workspace }}" ccache
-            echo "ccache.tar created successfully: $(ls -lh "${{ github.workspace }}/ccache.tar" | awk '{print $5}')"
+            TAR_OPTS=()
+            if tar --help 2>&1 | grep -q -- '--force-local'; then
+              TAR_OPTS+=(--force-local)
+            fi
+            tar "${TAR_OPTS[@]}" -cf ccache.tar ccache
+            echo "ccache.tar created successfully: $(ls -lh ccache.tar | awk '{print $5}')"
           else
             echo "ccache directory is missing or empty; skipping archive creation."
           fi
@@ -663,9 +672,7 @@ jobs:
           name: ${{ steps.ccache-artifact.outputs.artifact }}
           overwrite: true
           if-no-files-found: ignore
-          path: |
-            ccache.tar
-            ${{ github.workspace }}/.fake-path-to-force-artifact-root
+          path: ccache.tar
 
       - name: Collect build and debug logs
         if: always()
