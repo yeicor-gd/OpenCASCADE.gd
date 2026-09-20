@@ -636,7 +636,7 @@ jobs:
 
           if [ "$RUNNER_OS" = "Windows" ]; then
             powershell -NoProfile -Command "
-              Get-Process -Name ninja, cl, link, vcpkg, cmake -ErrorAction SilentlyContinue | Stop-Process -Force
+              Get-Process -Name ninja, cl, link -ErrorAction SilentlyContinue | Stop-Process -Force
             " 2>/dev/null || true
             ccache --stop-storage-helpers 2>/dev/null || true
             powershell -NoProfile -Command "
@@ -644,7 +644,6 @@ jobs:
               Get-Process -Name ccache -ErrorAction SilentlyContinue | Stop-Process -Force
             " 2>/dev/null || true
           else
-            pkill -9 -f "ninja|vcpkg|cmake|cl|ccache" 2>/dev/null || true
             ccache --stop-storage-helpers 2>/dev/null || true
           fi
           echo "Lingering build processes terminated and ccache flushed."
