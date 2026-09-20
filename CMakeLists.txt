@@ -367,6 +367,8 @@ if(MSVC)
     # For Debug builds with MSVC link.exe: use /DEBUG:FASTLINK to create partial PDB index
     # without merging/deduplicating 6,472 TUs into a monolithic PDB (>13GB RAM).
     $<$<CONFIG:Debug>:/DEBUG:FASTLINK>
+    # Optimize PDB page size to 8KB to reduce fragmentation and overhead for large debug builds
+    $<$<CONFIG:Debug>:/PDBPAGESIZE:8192>
     # Allow 32-bit link.exe to use 4GB address space on 64-bit Windows
     $<$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>:/LARGEADDRESSAWARE>
   )
