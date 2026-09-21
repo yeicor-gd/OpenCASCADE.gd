@@ -8,10 +8,21 @@ include(CheckCXXCompilerFlag)
 message(STATUS "Using toolchain file: " "${CMAKE_TOOLCHAIN_FILE}")
 option(ENABLE_WERROR "Enable warnings as errors (ON|OFF)" OFF)
 option(ENABLE_SANITIZERS "Enable sanitizers (ON|OFF)" OFF)
+if(POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
+endif()
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+project(OpenCASCADE.gd CXX)  # OpenCASCADE Technology wrapper for Godot
+
 # Auto-force full LTO in release builds if available (skip MSVC: whole-program optimization causes link.exe 14GB+ OOMs with thousands of autowrapper bindings)
+# check_ipo_supported() must be called after languages are enabled with project()
 if(CMAKE_BUILD_TYPE STREQUAL "Release" AND NOT MSVC)
   include(CheckIPOSupported)
-  check_ipo_supported(RESULT IPO_SUPPORTED OUTPUT IPO_SUPPORT_OUTPUT)
+  check_ipo_supported(RESULT IPO_SUPPORTED OUTPUT IPO_SUPPORT_OUTPUT LANGUAGES CXX)
   if(IPO_SUPPORTED)
     message(STATUS "IPO (LTO) is supported, enabling it for Release builds")
     set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
@@ -23,22 +34,13 @@ else()
   message(STATUS "IPO (LTO) is not enabled for Debug or MSVC builds")
 endif()
 
-if(POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
-endif()
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-project(OpenCASCADE.gd CXX)  # OpenCASCADE Technology wrapper for Godot
-
 # Detect ARM64 Windows (link.exe memory thrashing workaround: build unoptimized without debug info)
 set(ARM64_WINDOWS FALSE)
 if(MSVC AND (CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|arm64" OR VCPKG_TARGET_TRIPLET MATCHES "arm64-windows" OR "$ENV{VCPKG_DEFAULT_TRIPLET}" MATCHES "arm64-windows"))
   set(ARM64_WINDOWS TRUE)
   if(POLICY CMP0141)
-    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug>:None>$<$<NOT:$<CONFIG:Debug>>:Embedded>")
+    # In CMake CMP0141, empty string ("") disables debug format flags, whereas 'None' is not a recognized value
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug>:>$<$<NOT:$<CONFIG:Debug>>:Embedded>")
   endif()
 endif()
 
