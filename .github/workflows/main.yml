@@ -472,9 +472,9 @@ jobs:
           elif [ "$RUNNER_OS" = "macOS" ]; then
             NCORES=$(sysctl -n hw.ncpu)
           elif [ "$RUNNER_OS" = "Windows" ]; then
-            # Windows MSVC cl.exe compiler with thousands of template autowrapper bindings uses up to 2.5GB RAM per worker.
-            # Limit concurrency to 2 workers to prevent memory thrashing and OS freeze/crash.
-            NCORES=2
+            # Windows runner has 4 vCPUs, 16GB RAM + 32GB pagefile on D: (49GB total commit limit).
+            # Memory watchdog (memory_monitor.py) safely protects against OOM.
+            NCORES=${NUMBER_OF_PROCESSORS:-4}
           else
             NCORES=2
           fi
@@ -571,7 +571,7 @@ jobs:
 
       - name: Build with vcpkg
         shell: bash
-        timeout-minutes: 270 # 4h30 allows safe buffer before GitHub 360m limit to terminate orphans, tar, and upload ccache
+        timeout-minutes: 340 # 5h40 allows from-scratch MSVC builds to complete while safely reserving 20m for ccache packaging and upload before GitHub 360m limit
         run: |
           set -e
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
