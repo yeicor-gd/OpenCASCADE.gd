@@ -21,6 +21,17 @@ project(OpenCASCADE.gd CXX)  # OpenCASCADE Technology wrapper for Godot
 # Disable IPO (LTO): whole-program optimization causes linkers to exhaust memory (>14GB RAM) with thousands of autowrapper bindings
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION FALSE)
 
+# Detect ARM64 Windows (link.exe memory thrashing workaround: build unoptimized without debug info)
+set(ARM64_WINDOWS FALSE)
+if(MSVC AND (CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|arm64" OR VCPKG_TARGET_TRIPLET MATCHES "arm64-windows" OR "$ENV{VCPKG_DEFAULT_TRIPLET}" MATCHES "arm64-windows"))
+  set(ARM64_WINDOWS TRUE)
+  if(POLICY CMP0141)
+    # In CMake CMP0141, empty string ("") disables debug format flags, whereas 'None' is not a recognized value
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug>:>$<$<NOT:$<CONFIG:Debug>>:Embedded>")
+  endif()
+endif()
+
+
 
 # Automatically use ccache or sccache as a compiler launcher when one is
 # available on the system. This dramatically speeds up the incremental
@@ -332,12 +343,20 @@ if(MSVC)
       set_property(TARGET ${PROJECT_NAME} PROPERTY LINKER_TYPE LLD)
     endif()
   else()
-    # Debug build: use native MSVC link.exe with /DEBUG:FASTLINK.
-    # lld-link does not support /DEBUG:FASTLINK (it falls back to /DEBUG:FULL,
-    # which exhausts runner memory >13GB RAM during PDB type merging for 6,472 TUs).
-    # Native link.exe with /DEBUG:FASTLINK indexes .obj files without merging all types into a monolithic PDB.
-    string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:FASTLINK" CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}")
-    string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:FASTLINK" CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}")
+    # Debug build:
+    if(ARM64_WINDOWS)
+      # On ARM64 Windows, link.exe runs out of memory (>14GB RAM) indexing debug records.
+      # Disable debug info for linking on ARM64 Windows only.
+      string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:NONE" CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}")
+      string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:NONE" CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}")
+    else()
+      # Native MSVC link.exe with /DEBUG:FASTLINK.
+      # lld-link does not support /DEBUG:FASTLINK (it falls back to /DEBUG:FULL,
+      # which exhausts runner memory >13GB RAM during PDB type merging for 6,472 TUs).
+      # Native link.exe with /DEBUG:FASTLINK indexes .obj files without merging all types into a monolithic PDB.
+      string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:FASTLINK" CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}")
+      string(REGEX REPLACE "(^|[ \t])/debug(:[a-zA-Z]+)?" " /DEBUG:FASTLINK" CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}")
+    endif()
     string(REGEX REPLACE "(^|[ \t])/INCREMENTAL(:YES|:NO)?" " /INCREMENTAL:NO" CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}")
     string(REGEX REPLACE "(^|[ \t])/INCREMENTAL(:YES|:NO)?" " /INCREMENTAL:NO" CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}")
     set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}" CACHE STRING "" FORCE)
@@ -353,11 +372,13 @@ if(MSVC)
     $<$<AND:$<CONFIG:Release>,$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>>:/OPT:NOICF>
     $<$<CONFIG:Debug>:/OPT:NOICF>
     $<$<CONFIG:Release>:/DEBUG:NONE>
-    # For Debug builds with MSVC link.exe: use /DEBUG:FASTLINK to create partial PDB index
+    # For ARM64 Windows Debug: disable debug info linking completely to prevent 14GB+ RAM thrashing in link.exe
+    $<$<AND:$<CONFIG:Debug>,$<BOOL:${ARM64_WINDOWS}>>:/DEBUG:NONE>
+    # For other MSVC Debug builds: use /DEBUG:FASTLINK to create partial PDB index
     # without merging/deduplicating 6,472 TUs into a monolithic PDB (>13GB RAM).
-    $<$<CONFIG:Debug>:/DEBUG:FASTLINK>
+    $<$<AND:$<CONFIG:Debug>,$<NOT:$<BOOL:${ARM64_WINDOWS}>>>:/DEBUG:FASTLINK>
     # Optimize PDB page size to 8KB to reduce fragmentation and overhead for large debug builds
-    $<$<CONFIG:Debug>:/PDBPAGESIZE:8192>
+    $<$<AND:$<CONFIG:Debug>,$<NOT:$<BOOL:${ARM64_WINDOWS}>>>:/PDBPAGESIZE:8192>
     # Allow 32-bit link.exe to use 4GB address space on 64-bit Windows
     $<$<STREQUAL:${CMAKE_SIZEOF_VOID_P},4>:/LARGEADDRESSAWARE>
   )
@@ -374,6 +395,7 @@ if(MSVC)
     "/utf-8"
     "/wd4828"
     "/bigobj"
+    $<$<NOT:$<BOOL:${ARM64_WINDOWS}>>:/Z7>
   )
 else()
   target_compile_options(${PROJECT_NAME} PRIVATE
@@ -401,8 +423,9 @@ elseif(MSVC)
   # PDB server (mspdbsrv) overhead.
   # When used with link.exe and /DEBUG:FASTLINK, this produces a fastlink PDB index
   # pointing to .obj files, keeping link memory within reasonable limits.
+  # (On ARM64 Windows, debug info is disabled entirely to avoid linker OOM).
   target_compile_options(${PROJECT_NAME} PRIVATE
-    "$<$<CONFIG:Debug>:/Z7;/Zo->"
+    $<$<AND:$<CONFIG:Debug>,$<NOT:$<BOOL:${ARM64_WINDOWS}>>>:/Z7;/Zo->
   )
 endif()
 

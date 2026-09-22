@@ -571,7 +571,7 @@ jobs:
 
       - name: Build with vcpkg
         shell: bash
-        timeout-minutes: 340 # 5h40 allows from-scratch MSVC builds to complete while safely reserving 20m for ccache packaging and upload before GitHub 360m limit
+        timeout-minutes: 300 # 5h allows from-scratch MSVC builds to complete while safely reserving 60m for ccache packaging and upload before GitHub 360m limit
         run: |
           set -e
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
