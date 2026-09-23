@@ -949,6 +949,18 @@ jobs:
           pattern: gdext-${{ matrix.target.triplet }}-*
           merge-multiple: true
 
+      - name: Download Linux x64 host artifact for cross-platform exports
+        # When exporting for a non-Linux target on an Ubuntu runner (e.g. iOS,
+        # Android, Web), the Godot editor needs the Linux x86_64 .so to load
+        # the GDExtension at editor start-up so that OCG class types are known
+        # during PCK generation. Android exports tolerate missing types (script
+        # errors are non-fatal), but iOS export fails hard on parse errors.
+        if: matrix.target.triplet == 'arm64-ios' && runner.os == 'Linux'
+        uses: actions/download-artifact@v8
+        with:
+          pattern: gdext-x64-linux-template_debug-single-
+          merge-multiple: true
+
       - name: Setup Android NDK
         if: contains(matrix.target.triplet, '-android')
         id: setup-ndk
@@ -982,6 +994,26 @@ jobs:
           use-dotnet: false
           include-templates: true
           cache: false
+
+      - name: Fix macOS export templates (macos.zip)
+        # chickensoft-games/setup-godot@v2 sometimes fails to place macos.zip
+        # in the Godot 4.7 templates directory on macOS runners.  Download the
+        # TPZ and manually copy macos.zip to ensure it is present.
+        if: matrix.target.triplet == 'universal-osx'
+        shell: bash
+        run: |
+          GODOT_VERSION="${{ needs.read-versions.outputs.godot_max_version }}"
+          TPZ_URL="https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          TEMPLATES_DIR="$HOME/Library/Application Support/Godot/export_templates/${GODOT_VERSION}.stable"
+          echo "Ensuring macos.zip is present in $TEMPLATES_DIR"
+          if [ ! -f "${TEMPLATES_DIR}/macos.zip" ]; then
+            echo "macos.zip not found, downloading TPZ and extracting..."
+            curl -fsSL "$TPZ_URL" -o /tmp/godot_export_templates.tpz
+            unzip -p /tmp/godot_export_templates.tpz templates/macos.zip > "${TEMPLATES_DIR}/macos.zip"
+            echo "macos.zip extracted successfully ($(du -sh "${TEMPLATES_DIR}/macos.zip" | cut -f1))"
+          else
+            echo "macos.zip already present ($(du -sh "${TEMPLATES_DIR}/macos.zip" | cut -f1))"
+          fi
 
       - name: Download custom web templates
         if: contains(matrix.target.triplet, 'wasm32-emscripten')
