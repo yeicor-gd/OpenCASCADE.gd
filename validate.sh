@@ -242,15 +242,6 @@ if [ "$GODOT_VERSION" != "system" ]; then
     export LSAN_OPTIONS=detect_leaks=0
 fi
 
-export GODOT_TEST_RUNNER=true
-export GODOT_TEST_RUNNER_TIMEOUT=300000 # 5 minutes (actual timeout is 2x this = 10 minutes)
-# https://github.com/godotengine/godot/issues/111048: Import needs frame delay to avoid crash due to race condition
-"$GODOT_BIN" --frame-delay 1000 --quit-after 3 --import --path "$SCRIPT_DIR/demo" --headless 2>&1 | tee -a "$IMPORT_LOG"
-IMPORT_EXIT=${PIPESTATUS[0]}
-if [ $IMPORT_EXIT -ne 0 ]; then
-    echo "✗ Import failed - exit code $IMPORT_EXIT" >> "$IMPORT_LOG"
-fi
-
 # Portable timeout: use timeout (GNU), gtimeout (macOS coreutils), or fallback to shell
 _timeout_cmd() {
     if command -v timeout &>/dev/null; then
@@ -276,6 +267,18 @@ _timeout_cmd() {
         return 0  # --preserve-status equivalent on timeout: don't fail just for timing out
     fi
 }
+
+export GODOT_TEST_RUNNER=true
+export GODOT_TEST_RUNNER_TIMEOUT=60000 # 60 seconds (actual timeout is 2x this = 2 minutes)
+# https://github.com/godotengine/godot/issues/111048: Import needs frame delay to avoid crash due to race condition.
+# Do NOT pass --quit-after 3 as it prematurely forces Godot to exit while editor scanning/doc generation is still
+# in flight on cold runners, causing a SIGSEGV during shutdown that hangs the process.
+# Run with a 120s timeout so that even if Godot crashes/deadlocks, it will not hang the CI runner.
+_timeout_cmd 120 "$GODOT_BIN" --frame-delay 200 --import --path "$SCRIPT_DIR/demo" --headless 2>&1 | tee -a "$IMPORT_LOG"
+IMPORT_EXIT=${PIPESTATUS[0]}
+if [ $IMPORT_EXIT -ne 0 ]; then
+    echo "✗ Import failed - exit code $IMPORT_EXIT" >> "$IMPORT_LOG"
+fi
 USE_PERF="${USE_PERF:-0}"
 if [ "$USE_PERF" = "1" ] || [ "$USE_PERF" = "true" ]; then
     echo "Running with perf record..."

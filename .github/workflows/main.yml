@@ -775,6 +775,7 @@ jobs:
         mode: [debug, release]
         godot-version: ${{ fromJson(needs.read-versions.outputs.godot_versions) }}
     runs-on: ${{ matrix.target.os }}
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -937,6 +938,7 @@ jobs:
           ]
         mode: [debug, release]
     runs-on: ${{ matrix.target.os }}
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
