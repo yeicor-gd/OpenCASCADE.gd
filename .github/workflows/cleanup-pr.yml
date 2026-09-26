@@ -1,0 +1,41 @@
+name: Cleanup PR Artifacts
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write
+    steps:
+      - name: Delete closed PR artifacts
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          PR_BRANCH: ${{ github.head_ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "PR #${PR_NUMBER} (${PR_BRANCH}) closed. Pruning all associated build artifacts to save storage..."
+
+          # Find all runs associated with this PR branch
+          RUN_IDS=$(gh run list \
+            --workflow=main.yml \
+            --branch="${PR_BRANCH}" \
+            --limit=50 \
+            --json databaseId \
+            -q '.[].databaseId' 2>/dev/null || echo "")
+
+          for RUN in ${RUN_IDS}; do
+            echo "Checking artifacts for run ${RUN}..."
+            ARTIFACT_IDS=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN}/artifacts" \
+              --jq '.artifacts[].id' 2>/dev/null || echo "")
+            for ART_ID in ${ARTIFACT_IDS}; do
+              if [[ "$ART_ID" =~ ^[0-9]+$ ]]; then
+                echo "  Deleting artifact ${ART_ID} from run ${RUN}..."
+                gh api -X DELETE "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ART_ID}" 2>/dev/null || true
+              fi
+            done
+          done
+          echo "Cleanup of PR #${PR_NUMBER} artifacts complete."

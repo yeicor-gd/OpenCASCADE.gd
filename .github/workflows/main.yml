@@ -125,6 +125,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: godot-api-${{ matrix.float-precision }}
+          retention-days: 1
           path: godot-cpp/gdextension/extension_api.json
 
   build:
@@ -258,11 +259,11 @@ jobs:
           echo "Attempting to download cache artifact: ${CACHE_ARTIFACT}"
 
           # Strategy 1: Try same branch first
-          BRANCH="${{ github.ref_name }}"
+          BRANCH="${{ github.head_ref || github.ref_name }}"
           SAME_BRANCH_RUNS=$(gh run list \
             --workflow="${{ github.workflow }}" \
             --branch="${BRANCH}" \
-            --limit=25 \
+            --limit=30 \
             --json databaseId \
             -q '.[].databaseId' 2>/dev/null || echo "")
 
@@ -277,6 +278,10 @@ jobs:
             if gh run download "${RUN}" --name "${ARTIFACT_NAME}" --dir "${TMP}" 2>/dev/null; then
               echo "    ✓ Found and successfully downloaded ${ARTIFACT_NAME}, restoring to workspace..."
               if [ -f "${TMP}/ccache.tar" ]; then
+                if [ ! -s "${TMP}/ccache.tar" ]; then
+                  echo "    ✗ Downloaded ccache.tar is empty (0 bytes), skipping..."
+                  return 1
+                fi
                 echo "    Extracting ccache.tar to workspace..."
                 TAR_OPTS=()
                 if tar --help 2>&1 | grep -q -- '--force-local'; then
@@ -312,14 +317,38 @@ jobs:
             fi
           }
 
-          # Strategy 1: Try branch-specific runs
+          # Strategy 1: Try branch-specific runs and prune older superseded runs on the same branch
+          deleting=false
           for RUN in ${SAME_BRANCH_RUNS}; do
-            if try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
+            if [ "$deleting" = true ]; then
+              echo "Deleting older run artifact ${RUN} on branch ${BRANCH}..."
+              ARTIFACT_ID=$(
+                gh api \
+                  "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN}/artifacts" \
+                  --jq ".artifacts[] | select(.name == \"${CACHE_ARTIFACT}\") | .id" \
+                  2>/dev/null || true
+              )
+              if [[ "$ARTIFACT_ID" =~ ^[0-9]+$ ]]; then
+                echo "  Found artifact ID $ARTIFACT_ID for run $RUN, deleting..."
+                gh api \
+                  -X DELETE \
+                  "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}" \
+                  2>/dev/null || true
+                echo "  Deleted artifact $ARTIFACT_ID from run $RUN."
+              else
+                echo "  No artifact named ${CACHE_ARTIFACT} found in run $RUN."
+              fi
+            elif try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
               echo "✓ Downloaded cache from branch run ${RUN}"
-              post_restore_setup
-              exit 0
+              echo "Since this is the same branch, we will delete older runs to save space, keeping this downloaded run as fallback."
+              deleting=true
             fi
           done
+
+          if [ "$deleting" = true ]; then
+            post_restore_setup
+            exit 0  # Cache found and downloaded from same branch, no need to try other runs
+          fi
 
           # Strategy 2: Try all recent runs if branch strategy failed
           echo "No cache found on branch, trying all recent runs..."
@@ -332,6 +361,7 @@ jobs:
           for RUN in ${ALL_RUNS}; do
             if try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
               echo "✓ Downloaded cache from run ${RUN}"
+              echo "Since this is a fallback across branches, older runs from other branches will not be deleted."
               post_restore_setup
               exit 0
             fi
@@ -673,12 +703,43 @@ jobs:
         if: always()
         with:
           name: ${{ steps.ccache-artifact.outputs.artifact }}
-          retention-days: 14
+          retention-days: ${{ github.event_name == 'pull_request' && 2 || 14 }}
           overwrite: true
           if-no-files-found: ignore
           path: |
             ccache.tar
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
+
+      - name: Prune superseded ccache artifacts
+        if: success()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set +e
+          CACHE_ARTIFACT="${{ steps.ccache-artifact.outputs.artifact }}"
+          CURRENT_RUN="${{ github.run_id }}"
+          BRANCH="${{ github.head_ref || github.ref_name }}"
+          echo "Pruning older ccache artifacts for ${CACHE_ARTIFACT} on branch ${BRANCH} superseded by successful run ${CURRENT_RUN}..."
+
+          OLDER_RUNS=$(gh run list \
+            --workflow="${{ github.workflow }}" \
+            --branch="${BRANCH}" \
+            --limit=30 \
+            --json databaseId \
+            -q '.[].databaseId' 2>/dev/null || echo "")
+
+          for RUN in ${OLDER_RUNS}; do
+            if [ "${RUN}" != "${CURRENT_RUN}" ]; then
+              ARTIFACT_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN}/artifacts" \
+                --jq ".artifacts[] | select(.name == \"${CACHE_ARTIFACT}\") | .id" 2>/dev/null || true)
+              if [[ "$ARTIFACT_ID" =~ ^[0-9]+$ ]]; then
+                echo "  Deleting superseded artifact ${CACHE_ARTIFACT} (ID: $ARTIFACT_ID) from run ${RUN}..."
+                gh api -X DELETE "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}" 2>/dev/null || true
+              fi
+            fi
+          done
 
       - name: Collect build and debug logs
         if: always()
@@ -719,6 +780,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: debug-logs-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}
+          retention-days: ${{ github.event_name == 'pull_request' && 1 || 3 }}
           path: |
             ${{ github.workspace }}/debug-logs
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
@@ -741,6 +803,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: gdext-${{ matrix.target.vcpkg_triplet }}-${{ matrix.target-type }}-${{ matrix.float-precision }}-${{ matrix.target.threads || '' }}
+          retention-days: ${{ github.event_name == 'pull_request' && 2 || 14 }}
           path: |
             demo/addons/*.gd/*
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
@@ -762,6 +825,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: debug-autowrapper-${{ matrix.target.os }}-${{ matrix.target.vcpkg_triplet }}
+          retention-days: ${{ github.event_name == 'pull_request' && 1 || 3 }}
           path: |
             ${{ github.workspace }}/debug-autowrapper
             ${{ github.workspace }}/.fake-path-to-force-artifact-root
@@ -843,6 +907,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ${{ github.event.repository.name }}-${{ env.MODIFIED_REF }}-addon
+          retention-days: ${{ github.event_name == 'pull_request' && 2 || 14 }}
           path: addon-export
 
   build-godot-web:
@@ -917,6 +982,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.artifact.outputs.run }}
+          retention-days: ${{ github.event_name == 'pull_request' && 2 || 14 }}
           path: web-build/
 
   export-demo:
@@ -1036,6 +1102,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.artifact-name.outputs.name }}
+          retention-days: ${{ github.event_name == 'pull_request' && 2 || 14 }}
           path: demo/exports/**
 
   deploy-pages:
