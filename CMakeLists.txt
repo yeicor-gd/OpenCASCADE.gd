@@ -8,22 +8,9 @@ include(CheckCXXCompilerFlag)
 message(STATUS "Using toolchain file: " "${CMAKE_TOOLCHAIN_FILE}")
 option(ENABLE_WERROR "Enable warnings as errors (ON|OFF)" OFF)
 option(ENABLE_SANITIZERS "Enable sanitizers (ON|OFF)" OFF)
-# Detect ARM64 Windows early (link.exe memory thrashing workaround: build unoptimized without debug info)
-set(ARM64_WINDOWS FALSE)
-if(CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|arm64" OR
-   VCPKG_TARGET_TRIPLET MATCHES "arm64-windows" OR
-   "$ENV{VCPKG_DEFAULT_TRIPLET}" MATCHES "arm64-windows" OR
-   CMAKE_GENERATOR_PLATFORM MATCHES "ARM64|arm64")
-  set(ARM64_WINDOWS TRUE)
-endif()
-
 if(POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
-  if(ARM64_WINDOWS)
-    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "")
-  else()
-    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
-  endif()
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -35,21 +22,13 @@ project(OpenCASCADE.gd CXX)  # OpenCASCADE Technology wrapper for Godot
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION FALSE)
 
 # Detect ARM64 Windows (link.exe memory thrashing workaround: build unoptimized without debug info)
-if(MSVC AND (ARM64_WINDOWS OR CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|arm64" OR VCPKG_TARGET_TRIPLET MATCHES "arm64-windows" OR "$ENV{VCPKG_DEFAULT_TRIPLET}" MATCHES "arm64-windows"))
+set(ARM64_WINDOWS FALSE)
+if(MSVC AND (CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|arm64" OR VCPKG_TARGET_TRIPLET MATCHES "arm64-windows" OR "$ENV{VCPKG_DEFAULT_TRIPLET}" MATCHES "arm64-windows"))
   set(ARM64_WINDOWS TRUE)
   if(POLICY CMP0141)
-    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "")
+    # In CMake CMP0141, empty string ("") disables debug format flags, whereas 'None' is not a recognized value
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug>:>$<$<NOT:$<CONFIG:Debug>>:Embedded>")
   endif()
-  # On ARM64 Windows Debug builds, link.exe runs out of memory (>14GB RAM) indexing debug records,
-  # and ccache fills up (>10GB) causing cache evictions.
-  # Ensure /Z7, /Zi, /ZI are completely removed from CMAKE_<LANG>_FLAGS_DEBUG cache variables
-  # (which are set with /Z7 by vcpkg's toolchain by default).
-  string(REGEX REPLACE "(^|[ \t])/Z[iI7]" " " CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
-  string(REGEX REPLACE "(^|[ \t])/Z[iI7]" " " CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
-  string(STRIP "${CMAKE_CXX_FLAGS_DEBUG}" CMAKE_CXX_FLAGS_DEBUG)
-  string(STRIP "${CMAKE_C_FLAGS_DEBUG}" CMAKE_C_FLAGS_DEBUG)
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}" CACHE STRING "" FORCE)
-  set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}" CACHE STRING "" FORCE)
 endif()
 
 
@@ -153,9 +132,6 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/godot-cpp")
 # targets like OpenCASCADE.gd and cause memory exhaustion during compilation/linking.
 set_target_properties(godot-cpp PROPERTIES INTERFACE_COMPILE_OPTIONS "")
 set_target_properties(godot-cpp PROPERTIES INTERFACE_LINK_OPTIONS "")
-if(ARM64_WINDOWS)
-  set_target_properties(godot-cpp PROPERTIES MSVC_DEBUG_INFORMATION_FORMAT "")
-endif()
 
 # Dependencies
 # OpenCASCADE (consumed via vcpkg).
@@ -312,9 +288,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   endif()
 else()
   add_library(${PROJECT_NAME} SHARED ${SOURCES} ${DOC_GEN_FILE})
-endif()
-if(ARM64_WINDOWS)
-  set_target_properties(${PROJECT_NAME} PROPERTIES MSVC_DEBUG_INFORMATION_FORMAT "")
 endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten" OR MINGW)
   # Avoid failing on duplicate definitions for Emscripten and mingw compilers

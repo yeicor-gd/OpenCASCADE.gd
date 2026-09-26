@@ -299,35 +299,27 @@ jobs:
             return 1
           }
 
-          # Try branch-specific runs
-          deleting=false
-          for RUN in ${SAME_BRANCH_RUNS}; do
-            if [ "$deleting" = true ]; then
-              echo "Deleting older run artifact ${RUN}..."
-              ARTIFACT_ID=$(
-                gh api \
-                  "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN}/artifacts" \
-                  --jq ".artifacts[] | select(.name == \"${CACHE_ARTIFACT}\") | .id" \
-                  2>/dev/null
-              )
-              if [[ "$ARTIFACT_ID" =~ ^[0-9]+$ ]]; then
-                echo "  Found artifact ID $ARTIFACT_ID for run $RUN, deleting..."
-                gh api \
-                  -X DELETE \
-                  "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}"
-                echo "  Deleted artifact $ARTIFACT_ID from run $RUN."
+          post_restore_setup() {
+            if [ -f "src/autowrapper/.autowrapper-stamp" ]; then
+              echo "Cached autowrapper restored ($(ls src/autowrapper/*.cpp 2>/dev/null | wc -l) files)."
+              if git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -q "OpenCASCADE.gd-autowrapper"; then
+                echo "Autowrapper submodule was modified in this commit; will regenerate."
+                rm -f "src/autowrapper/.autowrapper-stamp"
               else
-                echo "  No artifact named ${CACHE_ARTIFACT} found in run $RUN."
+                # Update stamp mtime so CMake doesn't treat fresh git checkout timestamps as newer
+                touch "src/autowrapper/.autowrapper-stamp"
               fi
-            elif try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
+            fi
+          }
+
+          # Strategy 1: Try branch-specific runs
+          for RUN in ${SAME_BRANCH_RUNS}; do
+            if try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
               echo "✓ Downloaded cache from branch run ${RUN}"
-              echo "Since this is the same branch, we will delete all older runs to save space, as they are unlikely to be relevant anymore."
-              deleting=true
+              post_restore_setup
+              exit 0
             fi
           done
-          if [ "$deleting" = true ]; then
-            exit 0  # Cache found and downloaded from same branch, no need to try other runs
-          fi
 
           # Strategy 2: Try all recent runs if branch strategy failed
           echo "No cache found on branch, trying all recent runs..."
@@ -340,7 +332,7 @@ jobs:
           for RUN in ${ALL_RUNS}; do
             if try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
               echo "✓ Downloaded cache from run ${RUN}"
-              echo "Since this is a different branch, we won't delete any runs, as they may still be relevant for their respective branches."
+              post_restore_setup
               exit 0
             fi
           done
@@ -454,10 +446,15 @@ jobs:
           mkdir -p "${{ github.workspace }}/ccache"
           echo "CCACHE_DIR=${{ github.workspace }}/ccache" >> $GITHUB_ENV
           echo "CCACHE_BASEDIR=${{ github.workspace }}" >> $GITHUB_ENV
-          echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            echo "CCACHE_COMPILERCHECK=string:msvc-${{ matrix.target.vcpkg_triplet }}" >> $GITHUB_ENV
+          else
+            echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
+          fi
+          echo "CCACHE_NOHASHDIR=true" >> $GITHUB_ENV
           echo "CCACHE_SLOPPINESS=include_file_mtime,include_file_ctime,pch_defines,time_macros" >> $GITHUB_ENV
           echo "CCACHE_FILESTATMATCHES=false" >> $GITHUB_ENV
-          echo "CCACHE_MAXSIZE=10G" >> $GITHUB_ENV
+          echo "CCACHE_MAXSIZE=9.5G" >> $GITHUB_ENV
           # ---
           CCACHE_BIN="$(command -v ccache || which ccache)"
           if [ "$RUNNER_OS" = "Windows" ]; then
@@ -482,7 +479,7 @@ jobs:
           VCPKG_MAX_CONCURRENCY=$NCORES
           echo "VCPKG_MAX_CONCURRENCY=$VCPKG_MAX_CONCURRENCY" >> $GITHUB_ENV
           # ---
-          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_BASEDIR;CCACHE_COMPILERCHECK;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CCACHE_MAXSIZE;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;LLVM_PATH;PYTHON" >> $GITHUB_ENV
+          echo "VCPKG_KEEP_ENV_VARS=VCPKG_MAX_CONCURRENCY;CCACHE_DIR;CCACHE_BASEDIR;CCACHE_COMPILERCHECK;CCACHE_NOHASHDIR;CCACHE_SLOPPINESS;CCACHE_FILESTATMATCHES;CCACHE_MAXSIZE;CMAKE_CXX_COMPILER_LAUNCHER;CMAKE_C_COMPILER_LAUNCHER;LIBCLANG_LIBRARY_FILE;LLVM_PATH;PYTHON" >> $GITHUB_ENV
           echo VCPKG_DISABLE_METRICS=1 >> $GITHUB_ENV
           echo VCPKG_DEFAULT_TRIPLET=${{ matrix.target.vcpkg_triplet }} >> $GITHUB_ENV
           echo VCPKG_OVERLAY_TRIPLETS=vcpkg_triplets >> $GITHUB_ENV
@@ -571,7 +568,7 @@ jobs:
 
       - name: Build with vcpkg
         shell: bash
-        timeout-minutes: 340 # 5h40 allows from-scratch MSVC builds to complete while safely reserving 20m for ccache packaging and upload before GitHub 360m limit
+        timeout-minutes: 300 # 5h allows from-scratch MSVC builds to complete while safely reserving 60m for ccache packaging and upload before GitHub 360m limit
         run: |
           set -e
           echo "${GDEXT_CMAKE_ARGS}" > __GDEXT_CMAKE_ARGS  # Windows needs this workaround?
@@ -658,7 +655,14 @@ jobs:
             if tar --help 2>&1 | grep -q -- '--force-local'; then
               TAR_OPTS+=(--force-local)
             fi
-            tar "${TAR_OPTS[@]}" -cf ccache.tar ccache
+            EXTRA_PATHS=()
+            if [ -d "src/autowrapper" ] && [ -n "$(ls -A "src/autowrapper" 2>/dev/null)" ]; then
+              EXTRA_PATHS+=("src/autowrapper")
+            fi
+            if [ -d "doc_classes/autowrapper" ] && [ -n "$(ls -A "doc_classes/autowrapper" 2>/dev/null)" ]; then
+              EXTRA_PATHS+=("doc_classes/autowrapper")
+            fi
+            tar "${TAR_OPTS[@]}" -cf ccache.tar ccache "${EXTRA_PATHS[@]}"
             echo "ccache.tar created successfully: $(ls -lh ccache.tar | awk '{print $5}')"
           else
             echo "ccache directory is missing or empty; skipping archive creation."
@@ -669,6 +673,7 @@ jobs:
         if: always()
         with:
           name: ${{ steps.ccache-artifact.outputs.artifact }}
+          retention-days: 14
           overwrite: true
           if-no-files-found: ignore
           path: |
