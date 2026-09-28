@@ -627,7 +627,6 @@ jobs:
             echo "vcpkg build failed." >&2
             exit 1
           fi
-          touch build_success.stamp
 
       - name: Clean up build processes and flush ccache
         if: always()
@@ -655,10 +654,6 @@ jobs:
         if: always()
         shell: bash
         run: |
-          if [ ! -f "build_success.stamp" ] && [ ! -f "build-oom-report.md" ]; then
-            echo "Build did not succeed and was not cleanly stopped by watchdog; skipping ccache archive to prevent cache poisoning."
-            exit 0
-          fi
           if [ -d "ccache" ] && [ -n "$(ls -A "ccache" 2>/dev/null)" ]; then
             echo "Archiving ccache directory into ccache.tar..."
             TAR_OPTS=()
@@ -680,7 +675,7 @@ jobs:
 
       - name: Upload ccache artifact (for faster subsequent builds)
         uses: actions/upload-artifact@v7
-        if: always() && hashFiles('ccache.tar') != ''
+        if: always()
         with:
           name: ${{ steps.ccache-artifact.outputs.artifact }}
           retention-days: ${{ github.event_name == 'pull_request' && 2 || 14 }}
