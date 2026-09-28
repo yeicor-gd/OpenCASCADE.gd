@@ -317,38 +317,14 @@ jobs:
             fi
           }
 
-          # Strategy 1: Try branch-specific runs and prune older superseded runs on the same branch
-          deleting=false
+          # Strategy 1: Try branch-specific runs
           for RUN in ${SAME_BRANCH_RUNS}; do
-            if [ "$deleting" = true ]; then
-              echo "Deleting older run artifact ${RUN} on branch ${BRANCH}..."
-              ARTIFACT_ID=$(
-                gh api \
-                  "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN}/artifacts" \
-                  --jq ".artifacts[] | select(.name == \"${CACHE_ARTIFACT}\") | .id" \
-                  2>/dev/null || true
-              )
-              if [[ "$ARTIFACT_ID" =~ ^[0-9]+$ ]]; then
-                echo "  Found artifact ID $ARTIFACT_ID for run $RUN, deleting..."
-                gh api \
-                  -X DELETE \
-                  "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}" \
-                  2>/dev/null || true
-                echo "  Deleted artifact $ARTIFACT_ID from run $RUN."
-              else
-                echo "  No artifact named ${CACHE_ARTIFACT} found in run $RUN."
-              fi
-            elif try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
+            if try_download_run "${RUN}" "${CACHE_ARTIFACT}"; then
               echo "✓ Downloaded cache from branch run ${RUN}"
-              echo "Since this is the same branch, we will delete older runs to save space, keeping this downloaded run as fallback."
-              deleting=true
+              post_restore_setup
+              exit 0
             fi
           done
-
-          if [ "$deleting" = true ]; then
-            post_restore_setup
-            exit 0  # Cache found and downloaded from same branch, no need to try other runs
-          fi
 
           # Strategy 2: Try all recent runs if branch strategy failed
           echo "No cache found on branch, trying all recent runs..."
@@ -483,7 +459,6 @@ jobs:
           fi
           echo "CCACHE_NOHASHDIR=true" >> $GITHUB_ENV
           echo "CCACHE_SLOPPINESS=include_file_mtime,include_file_ctime,pch_defines,time_macros" >> $GITHUB_ENV
-          echo "CCACHE_FILESTATMATCHES=false" >> $GITHUB_ENV
           echo "CCACHE_MAXSIZE=9.5G" >> $GITHUB_ENV
           # ---
           CCACHE_BIN="$(command -v ccache || which ccache)"
@@ -652,6 +627,7 @@ jobs:
             echo "vcpkg build failed." >&2
             exit 1
           fi
+          touch build_success.stamp
 
       - name: Clean up build processes and flush ccache
         if: always()
@@ -679,6 +655,10 @@ jobs:
         if: always()
         shell: bash
         run: |
+          if [ ! -f "build_success.stamp" ] && [ ! -f "build-oom-report.md" ]; then
+            echo "Build did not succeed and was not cleanly stopped by watchdog; skipping ccache archive to prevent cache poisoning."
+            exit 0
+          fi
           if [ -d "ccache" ] && [ -n "$(ls -A "ccache" 2>/dev/null)" ]; then
             echo "Archiving ccache directory into ccache.tar..."
             TAR_OPTS=()
@@ -700,7 +680,7 @@ jobs:
 
       - name: Upload ccache artifact (for faster subsequent builds)
         uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && hashFiles('ccache.tar') != ''
         with:
           name: ${{ steps.ccache-artifact.outputs.artifact }}
           retention-days: ${{ github.event_name == 'pull_request' && 2 || 14 }}

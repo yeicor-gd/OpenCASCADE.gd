@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.25)
 
 # Limit object file full-path length to avoid Windows 260 MAX_PATH limit (fatal error C1083)
-set(CMAKE_OBJECT_PATH_MAX 240)
+if(WIN32)
+  set(CMAKE_OBJECT_PATH_MAX 240)
+endif()
 
 include(CheckCXXCompilerFlag)
 
@@ -291,7 +293,7 @@ else()
 endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten" OR MINGW)
   # Avoid failing on duplicate definitions for Emscripten and mingw compilers
-  target_link_libraries(${PROJECT_NAME} PRIVATE "-Wl,--allow-multiple-definition")
+  target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--allow-multiple-definition")
 endif()
 # Prefer LLD for all Linux and Android links. GNU ld (bfd) consumes 14+ GB of RAM when linking
 # the thousands of autowrapper translation units, whereas LLD links in ~1.5 GB.
@@ -300,6 +302,7 @@ endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux" OR ANDROID OR CMAKE_SYSTEM_NAME STREQUAL "Android")
   target_link_options(${PROJECT_NAME} PRIVATE
     "-Wl,--no-keep-memory"
+    "-Wl,--allow-multiple-definition"
   )
   find_program(GDEXT_LLD
     NAMES ld.lld ld.lld-22 ld.lld-21 ld.lld-20 ld.lld-19 ld.lld-18 arm-linux-gnueabihf-ld.lld aarch64-linux-gnu-ld.lld i686-linux-gnu-ld.lld x86_64-linux-gnu-ld.lld
