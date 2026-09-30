@@ -77,7 +77,7 @@ jobs:
           REBUILD_HASH=$(cat \
             demo/addons/*/gdext.gdextension \
             CMakeLists.txt \
-            src/*.cpp src/*.h \
+            src/*.cpp src/*.c src/*.h \
             tools/repair_wasm.py \
             tools/build_godot_web_templates.sh \
             2>/dev/null | sha256sum | cut -d' ' -f1 | head -c 12)
@@ -1085,6 +1085,7 @@ jobs:
     needs: export-demo
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     permissions:
+      actions: read
       contents: read
       pages: write
       id-token: write
@@ -1097,11 +1098,36 @@ jobs:
         with:
           submodules: false
 
+      - name: Download web addon artifacts
+        shell: bash
+        run: |
+          set -e
+          TMP=$(mktemp -d)
+          gh run download "${{ github.run_id }}" --pattern "gdext-wasm32-emscripten-template_release-*" --dir "$TMP"
+          gh run download "${{ github.run_id }}" --pattern "gdext-wasm32-emscripten-template_debug-*" --dir "$TMP"
+          for dir in "$TMP"/*/; do
+            cp -r "$dir". .
+          done
+          rm -rf "$TMP"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Copy GDExtension .so files as static files
+        run: |
+          set -e
+          mkdir -p web/editor/
+          cp demo/addons/OpenCASCADE.gd/libgdext.web.debug.template_debug.wasm32.so web/editor/ 2>/dev/null || true
+          cp demo/addons/OpenCASCADE.gd/libgdext.web.release.template_release.wasm32.so web/editor/ 2>/dev/null || true
+          if [ ! -f "web/editor/libgdext.web.debug.template_debug.wasm32.so" ] && [ -f "web/editor/libgdext.web.release.template_release.wasm32.so" ]; then
+            cp web/editor/libgdext.web.release.template_release.wasm32.so web/editor/libgdext.web.debug.template_debug.wasm32.so
+          fi
+
       - name: Download web demo artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: demo-web-release
-          path: web
+        shell: bash
+        run: gh run download "$RUN_ID" --name demo-web-release --dir web
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.run_id }}
 
       - name: Download and extract web editor
         shell: bash
@@ -1118,37 +1144,57 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
 
-      - name: Patch editor HTML with project preload
+      - name: Download JSZip for preload script
+        run: curl -sL "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" -o web/editor/jszip.min.js
+
+      - name: Create preload.zip from demo/
         shell: bash
         run: |
           set -e
-          HTML="web/editor/godot.editor.html"
+          cd "${{ github.workspace }}"
+          # Exclude platform binaries (served as static files), import cache, build artifacts
+          zip -qr web/editor/preload.zip demo/ \
+            -x 'demo/exports/*' 'demo/templates/*' \
+            'demo/.godot/*' \
+            'demo/__pycache__/*' 'demo/**/__pycache__/*' \
+            'demo/addons/*/libgdext.*'
+          ls -lh web/editor/preload.zip
 
-          # Accept optional projectPath parameter
-          sed -i 's/function startEditor(zip) {/function startEditor(zip, projectPath) {/' "$HTML"
+      - name: Patch editor HTML with project preload
+        run: tools/patch_editor_html.sh web/editor/godot.editor.html tools/web_editor_preload.html
 
-          # Use --editor --path when projectPath is given
-          sed -i "s|const args = \['--project-manager', '--single-window'\];|const args = projectPath ? ['--editor', '--path', projectPath, '--single-window'] : ['--project-manager', '--single-window'];|" "$HTML"
+      - name: Add coi-serviceworker for SharedArrayBuffer (threads)
+        shell: bash
+        run: |
+          set -e
+          # Copy service worker to root (for game export) and editor directory
+          cp tools/coi-serviceworker.js web/coi-serviceworker.js
+          cp tools/coi-serviceworker.js web/editor/coi-serviceworker.js
 
-          # Only use persistentDrops in project-manager mode
-          sed -i "s|'persistentDrops': true|'persistentDrops': !projectPath|" "$HTML"
-
-          # Inject preload script before </body>
-          sed -i '/<\/body>/,$d' "$HTML"
-          sed -i '/<\/html>/d' "$HTML"
-          # Replace repo/branch placeholders
-          sed "s|__GITHUB_REPOSITORY__|${{ github.repository }}|g; s|__GITHUB_BRANCH__|main|g" \
-            tools/web_editor_preload.html >> "$HTML"
-          echo '</body>' >> "$HTML"
-          echo '</html>' >> "$HTML"
+      - name: Inject COI service worker into exported demo
+        shell: bash
+        run: |
+          set -e
+          html_file="web/gdext-tests.html"
+          if [ -f "$html_file" ]; then
+            if grep -q 'coi-serviceworker.js' "$html_file"; then
+              echo "coi-serviceworker already injected in $html_file"
+            else
+              sed -i 's|</head>|<script src="coi-serviceworker.js"></script>\n</head>|' "$html_file"
+              echo "Injected coi-serviceworker into $html_file"
+            fi
+          else
+            echo "Warning: $html_file not found, was the demo exported?"
+          fi
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: web
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        id: deployment
+        uses: actions/deploy-pages@v5
 
   release:
     runs-on: ubuntu-24.04

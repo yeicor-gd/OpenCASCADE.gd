@@ -1,60 +1,80 @@
+<script src="jszip.min.js"></script>
 <script>
+// The threaded Godot editor needs SharedArrayBuffer, which requires the page to
+// be cross-origin isolated.  GitHub Pages cannot send COOP/COEP headers, so the
+// coi-serviceworker.js script in <head> must serve the document with those
+// headers.  On the first visit the document is loaded before the service worker
+// takes control, so coi-serviceworker.js reloads the page once the SW is ready;
+// that reload destroys this script, and on the new page COI is already true.  We
+// only need to wait here so the editor doesn't start (nor download/compile the
+// big assets) before cross-origin isolation is established.
+async function ensureCrossOriginIsolation() {
+	if (window.crossOriginIsolated) {
+		return;
+	}
+	const deadline = Date.now() + 15000;
+	while (Date.now() < deadline && !window.crossOriginIsolated) {
+		await new Promise((resolve) => setTimeout(resolve, 100));
+	}
+	if (!window.crossOriginIsolated) {
+		console.warn("Page is not cross-origin isolated; threads (and thus the editor) may fail to start.");
+	}
+}
 (async function () {
 	"use strict";
-	const REPO = "__GITHUB_REPOSITORY__";
-	const BRANCH = "__GITHUB_BRANCH__";
 	const PROJECT_PATH = "/home/web_user/demo";
-
 	try {
-		const treeResp = await fetch(
-			`https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`
-		);
-		if (!treeResp.ok) throw new Error(`Failed to fetch repo tree: ${treeResp.status}`);
-		const tree = await treeResp.json();
-
-		const files = tree.tree.filter(
-			(e) => e.type === "blob" && e.path.startsWith("demo/")
-		);
-		console.log(`Preloading ${files.length} files from demo/...`);
-
-		const CONCURRENT = 8;
-		let loaded = 0;
-		const total = files.length;
-
-		async function fetchFile(path) {
-			const resp = await fetch(
-				`https://raw.githubusercontent.com/${REPO}/${BRANCH}/${path}`
-			);
-			if (!resp.ok) throw new Error(`Failed to fetch ${path}: ${resp.status}`);
-			const buf = await resp.arrayBuffer();
-			const rel = path.substring("demo/".length);
-			editor.copyToFS(`${PROJECT_PATH}/${rel}`, new Uint8Array(buf));
-			loaded++;
-			if (loaded % 10 === 0 || loaded === total) {
-				console.log(`Preloaded ${loaded}/${total} files`);
+		await ensureCrossOriginIsolation();
+		console.log("Loading preload.zip...");
+		const resp = await fetch("preload.zip");
+		if (!resp.ok) throw new Error("Failed to fetch preload.zip: " + resp.status);
+		const blob = await resp.blob();
+		console.log("Zip loaded (" + (blob.size / 1048576).toFixed(1) + " MB). Extracting...");
+		const zip = await JSZip.loadAsync(blob);
+		const files = [];
+		zip.forEach((path, entry) => {
+			if (entry.dir) return;
+			if (!path.startsWith("demo/")) return;
+			const rel = path.substring(5);
+			if (!rel) return;
+			files.push([PROJECT_PATH + "/" + rel, entry]);
+		});
+		console.log("Extracting " + files.length + " files...");
+		const extracted = [];
+		for (const [fsPath, entry] of files) {
+			extracted.push([fsPath, await entry.async("uint8array")]);
+		}
+		// Pre-compile the GDExtension .so asynchronously (async compile avoids the
+		// browser's >8MB sync WebAssembly.Module limit on the main thread).
+		// The editor is a Godot editor build (debug), so the .gdextension descriptor
+		// resolves to the debug name. We ship the release binary under that filename.
+		const soName = "libgdext.web.debug.template_debug.wasm32.so";
+		try {
+			console.log("Fetching " + soName + "...");
+			const soResp = await fetch(soName);
+			if (soResp.ok) {
+				const soBuf = new Uint8Array(await soResp.arrayBuffer());
+				console.log(soName + " loaded (" + (soBuf.length / 1048576).toFixed(1) + " MB). Compiling WASM...");
+				const compiled = await WebAssembly.compile(soBuf);
+				window.__preloadedWasmModules = window.__preloadedWasmModules || {};
+				window.__preloadedWasmModules[soName] = compiled;
+				console.log(soName + " compiled successfully.");
+			} else {
+				console.warn("Could not fetch " + soName + " (" + soResp.status + "). GDExtension may fail to load.");
 			}
+		} catch (e) {
+			console.warn("Failed to fetch/compile " + soName + ":", e);
 		}
-
-		for (let i = 0; i < files.length; i += CONCURRENT) {
-			const batch = files.slice(i, i + CONCURRENT);
-			await Promise.all(batch.map((f) => fetchFile(f.path)));
-		}
-
-		console.log("All demo files preloaded.");
-
-		// Dismiss the welcome modal if visible.
-		if (typeof closeWelcomeModal === "function") {
-			closeWelcomeModal(true);
-		}
-
+		window.__preloadFiles = extracted;
+		console.log("Preloaded " + extracted.length + " files into memory.");
+		if (typeof closeWelcomeModal === "function") closeWelcomeModal(true);
 		startEditor(null, PROJECT_PATH);
 	} catch (err) {
 		console.error("Failed to preload project:", err);
 		const el = document.getElementById("status-notice");
 		if (el) {
 			el.style.display = "block";
-			el.textContent =
-				"Failed to load project files. You can still upload a ZIP manually.";
+			el.textContent = "Failed to load project files. You can still upload a ZIP manually.";
 		}
 	}
 })();

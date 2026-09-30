@@ -132,8 +132,12 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/godot-cpp")
 # OOM Mitigation: Clear godot-cpp's PUBLIC debug compile and link flags without modifying the submodule.
 # godot-cpp sets PUBLIC -g2 (GNU/Clang) and /DEBUG:FULL (MSVC), which propagate to consumer
 # targets like OpenCASCADE.gd and cause memory exhaustion during compilation/linking.
-set_target_properties(godot-cpp PROPERTIES INTERFACE_COMPILE_OPTIONS "")
-set_target_properties(godot-cpp PROPERTIES INTERFACE_LINK_OPTIONS "")
+# NOTE: Do NOT wipe for Emscripten, which sets vital interface link options (-sUSE_PTHREADS=1,
+# -sWASM_BIGINT, -fvisibility=hidden, -sSUPPORT_LONGJMP=wasm).
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+  set_target_properties(godot-cpp PROPERTIES INTERFACE_COMPILE_OPTIONS "")
+  set_target_properties(godot-cpp PROPERTIES INTERFACE_LINK_OPTIONS "")
+endif()
 
 # Dependencies
 # OpenCASCADE (consumed via vcpkg).
@@ -275,16 +279,31 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   target_link_options(${PROJECT_NAME} PRIVATE
     "-sSIDE_MODULE=2"
     "-sEXPORTED_FUNCTIONS=_gdext_library_init"
+    "-fvisibility=hidden"
+    "-fvisibility-inlines-hidden"
+    "-Wl,-Bsymbolic"
+    "-sWASM_BIGINT"
+    "-sSUPPORT_LONGJMP=wasm"
+    "$<$<BOOL:${GODOTCPP_THREADS}>:-sUSE_PTHREADS=1>"
     "$<$<CONFIG:Release>:-O1>"
   )
   # Override optimization for Release builds: -O3 triggers an emscripten
   # compilation bug (br_table arity mismatch). Use -O1 instead; repair_wasm.py
   # will run wasm-opt post-build (-O2 by default) for final optimization.
   target_compile_options(${PROJECT_NAME} PRIVATE
+    "-fvisibility=hidden"
+    "-fvisibility-inlines-hidden"
     "$<$<CONFIG:Release>:-O1>"
   )
+  # With -sSUPPORT_LONGJMP=wasm in the triplet, all vcpkg packages compile
+  # setjmp/longjmp to wasm-native intrinsics (__wasm_setjmp/__wasm_longjmp).
+  # The main module (Godot) does not export these, so we define them locally
+  # using __builtin_setjmp/__builtin_longjmp (see src/setjmp_longjmp_shim.c).
+  target_sources(${PROJECT_NAME} PRIVATE src/setjmp_longjmp_shim.c)
   if(TARGET godot-cpp)
     target_compile_options(godot-cpp PRIVATE
+      "-fvisibility=hidden"
+      "-fvisibility-inlines-hidden"
       "$<$<CONFIG:Release>:-O1>"
     )
   endif()
