@@ -311,10 +311,13 @@ def repair_and_optimize_wasm(input_path, output_path):
         check=True,
     )
 
-    # Post-optimization function splitting:
-    # Any monolithic function > 4MB (like __wasm_apply_data_relocs) is split into
-    # ~3MB functions called by a trampoline to avoid V8's kV8MaxWasmFunctionSize limit (7.65MB).
-    split_large_functions(output_path)
+    # Post-optimization function splitting (debug only):
+    # In debug builds (-O0 --debuginfo) wasm-opt preserves the raw linker output,
+    # so __wasm_apply_data_relocs stays monolithic (9.8MB+) and hits V8's
+    # kV8MaxWasmFunctionSize limit (7.65MB). Release builds use -O2+ which
+    # restructures code such that no single function remains that large.
+    if is_debug:
+        split_large_functions(output_path)
 
     # Copy map file if it exists
     possible_map_file = input_path + ".map"
