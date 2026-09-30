@@ -102,12 +102,104 @@ def read_vu(data, offset):
     return res, offset
 
 
+def _get_reloc_target_indices(sections, import_func_count):
+    """
+    Return defined-function indices (0-based within the code section) that are
+    named __wasm_apply_data_relocs / __wasm_apply_tls_relocs, or None when the
+    name section is absent (caller falls back to trivial-pattern detection).
+    See https://github.com/llvm/llvm-project/issues/55608 and
+    https://github.com/llvm/llvm-project/pull/129007: only these trivial
+    linker-generated functions are expected to exceed V8's
+    kV8MaxWasmFunctionSize (7,654,321 bytes).
+    """
+    names = {}
+    for sec_id, sec_data in sections:
+        if sec_id != 0:
+            continue
+        try:
+            n_len, p = read_vu(sec_data, 0)
+            sec_name = sec_data[p : p + n_len].decode("utf-8")
+        except Exception:
+            continue
+        if sec_name != "name":
+            continue
+        p += n_len
+        try:
+            while p < len(sec_data):
+                sub_id = sec_data[p]
+                p += 1
+                sub_len, p = read_vu(sec_data, p)
+                sub_end = p + sub_len
+                if sub_id == 1:  # function names subsection
+                    count, q = read_vu(sec_data, p)
+                    for _ in range(count):
+                        f_idx, q = read_vu(sec_data, q)
+                        s_len, q = read_vu(sec_data, q)
+                        f_name = sec_data[q : q + s_len].decode("utf-8", "replace")
+                        q += s_len
+                        names[f_idx] = f_name
+                p = sub_end
+        except Exception:
+            continue
+    if not names:
+        return None
+    targets = set()
+    for f_idx, f_name in names.items():
+        if f_name in ("__wasm_apply_data_relocs", "__wasm_apply_tls_relocs"):
+            defined_idx = f_idx - import_func_count
+            if defined_idx >= 0:
+                targets.add(defined_idx)
+    return targets
+
+
+def _parse_trivial_reloc_body(body):
+    """
+    Validate that a function body is the trivial linker-generated relocation
+    pattern (a flat sequence of global.get/i32.const + i32.add + i32.store,
+    plus i64 variants for wasm64/memory64) with zero locals.
+    Return (header_len, store_end_offsets) on success, None if the function
+    is anything else (must be left untouched, never fail).
+    """
+    try:
+        p = 0
+        local_cnt, p = read_vu(body, p)
+        if local_cnt != 0:
+            return None
+        header_len = p
+        stores = []
+        while p < len(body):
+            op = body[p]
+            if op == 0x0B:
+                p += 1
+                break
+            elif op in (0x23, 0x41, 0x42):  # global.get, i32.const, i64.const
+                _, p = read_vu(body, p + 1)
+            elif op in (0x6A, 0x7C):  # i32.add, i64.add
+                p += 1
+            elif op in (0x36, 0x37):  # i32.store, i64.store
+                _, p = read_vu(body, p + 1)  # align
+                _, p = read_vu(body, p)  # offset
+                stores.append(p)
+            else:
+                return None
+        return header_len, stores
+    except Exception:
+        return None
+
+
 def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000_000):
     """
     V8 enforces kV8MaxWasmFunctionSize (7,654,321 bytes).
     Large modules generate massive relocation functions (__wasm_apply_data_relocs)
     that exceed this limit. This pass splits functions > max_size into smaller chunks
     called by a lightweight trampoline.
+
+    Focused repair (see https://github.com/llvm/llvm-project/issues/55608,
+    https://github.com/llvm/llvm-project/pull/129007,
+    https://reviews.llvm.org/D140111): only the trivial
+    __wasm_apply_data_relocs / __wasm_apply_tls_relocs pattern is ever split.
+    Any other oversized function is left untouched with a warning, so this pass
+    never breaks arbitrary wasm inputs.
     """
     with open(wasm_path, "rb") as f:
         wasm_bytes = f.read()
@@ -172,9 +264,15 @@ def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000
         func_bodies.append(sec10_data[p10 : p10 + body_len])
         p10 += body_len
 
-    needs_split = any(len(body) > max_size for body in func_bodies)
-    if not needs_split:
+    oversized = [i for i, b in enumerate(func_bodies) if len(b) > max_size]
+    if not oversized:
         return
+
+    # Only the trivial relocation functions are eligible. When the name
+    # section identifies them, strictly limit splitting to those indices;
+    # otherwise (stripped binary) accept any function matching the trivial
+    # store-only pattern. Anything else is left untouched.
+    named_targets = _get_reloc_target_indices(sections, import_func_count)
 
     print(f"Splitting large WebAssembly functions exceeding {max_size} bytes...")
     new_type_indices = list(type_indices)
@@ -182,48 +280,38 @@ def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000
     appended_funcs = []
     appended_types = []
 
-    for i, body in enumerate(func_bodies):
-        if len(body) <= max_size:
+    for i in oversized:
+        body = func_bodies[i]
+        if named_targets is not None and i not in named_targets:
+            print(f"Skipping large function {i} (size: {len(body)} bytes): not a relocation function.")
+            continue
+
+        parsed = _parse_trivial_reloc_body(body)
+        if parsed is None:
+            print(f"Skipping large function {i} (size: {len(body)} bytes): non-trivial body, left as-is.")
+            continue
+        header_len, stores = parsed
+        if not stores:
+            print(f"Skipping large function {i} (size: {len(body)} bytes): no store boundaries found.")
             continue
 
         print(f"Splitting function {i} (size: {len(body)} bytes)...")
-        p = 0
-        local_cnt, p = read_vu(body, p)
-        assert local_cnt == 0, f"Function {i} has {local_cnt} locals; expected 0"
-
-        stores = []
-        while p < len(body):
-            op = body[p]
-            if op == 0x0B:
-                p += 1
-                break
-            elif op == 0x23 or op == 0x41:
-                _, p = read_vu(body, p + 1)
-            elif op == 0x6A:
-                p += 1
-            elif op == 0x36:
-                _, p = read_vu(body, p + 1)
-                _, p = read_vu(body, p)
-                stores.append(p)
-            else:
-                raise RuntimeError(f"Unhandled opcode 0x{op:02x} at offset {p} in large function")
-
         print(f"Found {len(stores)} store boundaries.")
-        num_chunks = math.ceil(len(body) / target_chunk_size)
-        chunk_size = len(stores) // num_chunks
-        print(f"Splitting into {num_chunks} chunks (~{chunk_size} stores each)...")
+        num_chunks = max(1, math.ceil(len(body) / target_chunk_size))
+        # Evenly distribute stores across chunks; guarantees progress even
+        # when there are fewer stores than chunks.
+        boundaries = sorted({(c + 1) * len(stores) // num_chunks for c in range(num_chunks - 1)})
+        print(f"Splitting into {len(boundaries) + 1} chunks...")
 
         chunk_bodies = []
-        cur_start = 1
-        for c in range(num_chunks):
-            if c == num_chunks - 1:
-                cur_end = len(body) - 1
-            else:
-                store_idx = (c + 1) * chunk_size
-                cur_end = stores[store_idx]
+        cur_start = header_len
+        for store_idx in boundaries:
+            cur_end = stores[store_idx]
             chunk_data = b"\x00" + body[cur_start:cur_end] + b"\x0b"
             chunk_bodies.append(chunk_data)
             cur_start = cur_end
+        chunk_data = b"\x00" + body[cur_start : len(body) - 1] + b"\x0b"
+        chunk_bodies.append(chunk_data)
 
         orig_type = type_indices[i]
         caller_body = bytearray(b"\x00")
@@ -236,6 +324,10 @@ def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000
         caller_body.append(0x0b)
         new_func_bodies[i] = bytes(caller_body)
         print(f"Replaced function {i} with trampoline of {len(new_func_bodies[i])} bytes.")
+
+    if not appended_funcs:
+        print("No trivial relocation functions to split; leaving module unchanged.")
+        return
 
     new_func_bodies.extend(appended_funcs)
     new_type_indices.extend(appended_types)
