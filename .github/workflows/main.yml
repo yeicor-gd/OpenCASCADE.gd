@@ -1066,6 +1066,43 @@ jobs:
           mkdir demo/exports
           godot --export-${{ matrix.mode }} "${{ matrix.target.preset }}" --path demo --headless
 
+      - name: Ensure exported web demo WASM functions are split and verify with V8
+        if: contains(matrix.target.triplet, 'wasm32-emscripten')
+        shell: bash
+        run: |
+          set -e
+          python3 -c '
+          import os, sys
+          sys.path.insert(0, "tools")
+          import repair_wasm
+          for root, dirs, files in os.walk("demo/exports"):
+              for f in files:
+                  if f.endswith((".wasm", ".so")):
+                      p = os.path.join(root, f)
+                      print("Checking / splitting:", p)
+                      repair_wasm.split_large_functions(p)
+          '
+          node -e '
+            const fs = require("fs");
+            const path = require("path");
+            function scan(d) {
+              if (!fs.existsSync(d)) return;
+              for (const f of fs.readdirSync(d)) {
+                const full = path.join(d, f);
+                if (fs.statSync(full).isDirectory()) {
+                  scan(full);
+                } else if (f.endsWith(".wasm") || f.endsWith(".so")) {
+                  console.log("Verifying WASM module with V8:", full);
+                  const bytes = fs.readFileSync(full);
+                  new WebAssembly.Module(bytes);
+                  console.log("  -> PASSED:", full);
+                }
+              }
+            }
+            scan("demo/exports");
+            console.log("All WASM modules in demo/exports successfully verified with V8!");
+          '
+
       - name: Build artifact name
         id: artifact-name
         shell: bash
@@ -1186,6 +1223,42 @@ jobs:
           else
             echo "Warning: $html_file not found, was the demo exported?"
           fi
+
+      - name: Ensure large WASM functions are split and verify with V8
+        shell: bash
+        run: |
+          set -e
+          python3 -c '
+          import os, sys
+          sys.path.insert(0, "tools")
+          import repair_wasm
+          for root, dirs, files in os.walk("web"):
+              for f in files:
+                  if f.endswith((".wasm", ".so")):
+                      p = os.path.join(root, f)
+                      print("Checking / splitting:", p)
+                      repair_wasm.split_large_functions(p)
+          '
+          node -e '
+            const fs = require("fs");
+            const path = require("path");
+            function scan(d) {
+              if (!fs.existsSync(d)) return;
+              for (const f of fs.readdirSync(d)) {
+                const full = path.join(d, f);
+                if (fs.statSync(full).isDirectory()) {
+                  scan(full);
+                } else if (f.endsWith(".wasm") || f.endsWith(".so")) {
+                  console.log("Verifying WASM module with V8:", full);
+                  const bytes = fs.readFileSync(full);
+                  new WebAssembly.Module(bytes);
+                  console.log("  -> PASSED:", full);
+                }
+              }
+            }
+            scan("web");
+            console.log("All WASM modules in web/ successfully verified with V8!");
+          '
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v5

@@ -154,37 +154,81 @@ def _get_reloc_target_indices(sections, import_func_count):
 
 def _parse_trivial_reloc_body(body):
     """
-    Validate that a function body is the trivial linker-generated relocation
-    pattern (a flat sequence of global.get/i32.const + i32.add + i32.store,
-    plus i64 variants for wasm64/memory64) with zero locals.
-    Return (header_len, store_end_offsets) on success, None if the function
-    is anything else (must be left untouched, never fail).
+    Validate that a function body is a trivial linker-generated relocation or
+    data-initialization pattern (a flat sequence of stores with zero locals and
+    balanced evaluation stack).
+    Return ((header_len, store_end_offsets), None) on success, or (None, error_reason) on failure.
     """
     try:
         p = 0
         local_cnt, p = read_vu(body, p)
         if local_cnt != 0:
-            return None
+            return None, f"function has {local_cnt} local declarations (expected 0)"
         header_len = p
         stores = []
+        stack_depth = 0
         while p < len(body):
             op = body[p]
-            if op == 0x0B:
+            if op == 0x0B:  # end
                 p += 1
                 break
             elif op in (0x23, 0x41, 0x42):  # global.get, i32.const, i64.const
                 _, p = read_vu(body, p + 1)
-            elif op in (0x6A, 0x7C):  # i32.add, i64.add
+                stack_depth += 1
+            elif op == 0x24:  # global.set
+                _, p = read_vu(body, p + 1)
+                stack_depth -= 1
+            elif op == 0x43:  # f32.const (4 bytes)
+                p += 5
+                stack_depth += 1
+            elif op == 0x44:  # f64.const (8 bytes)
+                p += 9
+                stack_depth += 1
+            elif op in (
+                0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70,  # i32 binary ops (add, sub, mul, div, rem)
+                0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78,  # i32 bitwise / shift / rot
+                0x7C, 0x7D, 0x7E, 0x7F, 0x80, 0x81, 0x82,  # i64 binary ops
+                0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A,  # i64 bitwise / shift / rot
+            ):
                 p += 1
-            elif op in (0x36, 0x37):  # i32.store, i64.store
-                _, p = read_vu(body, p + 1)  # align
-                _, p = read_vu(body, p)  # offset
-                stores.append(p)
+                stack_depth -= 1
+            elif op in (
+                0x50, 0x51,  # i32.eqz, i64.eqz
+                0x67, 0x68, 0x69,  # i32.clz, i32.ctz, i32.popcnt
+                0x79, 0x7A, 0x7B,  # i64.clz, i64.ctz, i64.popcnt
+                0xA7, 0xAC, 0xAD,  # i32.wrap_i64, i64.extend_i32_u, i64.extend_i32_s
+            ):
+                p += 1  # unary ops: pops 1, pushes 1 -> depth unchanged
+            elif op in (
+                0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35
+            ):  # load instructions: align (uleb128), offset (uleb128), pops 1, pushes 1 -> depth unchanged
+                _, p = read_vu(body, p + 1)
+                _, p = read_vu(body, p)
+            elif op in (
+                0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E
+            ):  # store instructions: align (uleb128), offset (uleb128), pops 2, pushes 0
+                _, p = read_vu(body, p + 1)
+                _, p = read_vu(body, p)
+                stack_depth -= 2
+                if stack_depth == 0:
+                    stores.append(p)
+                elif stack_depth < 0:
+                    return None, f"stack underflow ({stack_depth}) at offset {p}"
+            elif op == 0x01:  # nop
+                p += 1
+            elif op == 0x1A:  # drop
+                p += 1
+                stack_depth -= 1
             else:
-                return None
-        return header_len, stores
-    except Exception:
-        return None
+                return None, f"unhandled opcode 0x{op:02x} at offset {p}"
+
+        if p != len(body):
+            return None, f"trailing data ({len(body) - p} bytes) after end opcode"
+        if stack_depth != 0:
+            return None, f"unbalanced stack depth ({stack_depth}) at function end"
+        return (header_len, stores), None
+    except Exception as e:
+        return None, f"exception parsing body: {e}"
 
 
 def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000_000):
@@ -193,13 +237,6 @@ def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000
     Large modules generate massive relocation functions (__wasm_apply_data_relocs)
     that exceed this limit. This pass splits functions > max_size into smaller chunks
     called by a lightweight trampoline.
-
-    Focused repair (see https://github.com/llvm/llvm-project/issues/55608,
-    https://github.com/llvm/llvm-project/pull/129007,
-    https://reviews.llvm.org/D140111): only the trivial
-    __wasm_apply_data_relocs / __wasm_apply_tls_relocs pattern is ever split.
-    Any other oversized function is left untouched with a warning, so this pass
-    never breaks arbitrary wasm inputs.
     """
     with open(wasm_path, "rb") as f:
         wasm_bytes = f.read()
@@ -268,10 +305,6 @@ def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000
     if not oversized:
         return
 
-    # Only the trivial relocation functions are eligible. When the name
-    # section identifies them, strictly limit splitting to those indices;
-    # otherwise (stripped binary) accept any function matching the trivial
-    # store-only pattern. Anything else is left untouched.
     named_targets = _get_reloc_target_indices(sections, import_func_count)
 
     print(f"Splitting large WebAssembly functions exceeding {max_size} bytes...")
@@ -282,24 +315,30 @@ def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000
 
     for i in oversized:
         body = func_bodies[i]
-        if named_targets is not None and i not in named_targets:
-            print(f"Skipping large function {i} (size: {len(body)} bytes): not a relocation function.")
+        parsed, parse_err = _parse_trivial_reloc_body(body)
+        if parsed is None:
+            if len(body) > 7_654_321:
+                raise RuntimeError(
+                    f"Function {i} (size: {len(body)} bytes) exceeds V8 maximum function size "
+                    f"(7,654,321 bytes) but cannot be parsed for splitting: {parse_err}. "
+                    "Leaving this function untouched will cause browser instantiate CompileError."
+                )
+            print(f"Skipping large function {i} (size: {len(body)} bytes): non-trivial body ({parse_err}), left as-is.")
             continue
 
-        parsed = _parse_trivial_reloc_body(body)
-        if parsed is None:
-            print(f"Skipping large function {i} (size: {len(body)} bytes): non-trivial body, left as-is.")
-            continue
         header_len, stores = parsed
         if not stores:
+            if len(body) > 7_654_321:
+                raise RuntimeError(
+                    f"Function {i} (size: {len(body)} bytes) exceeds V8 maximum function size "
+                    "(7,654,321 bytes) but has no store boundaries to split!"
+                )
             print(f"Skipping large function {i} (size: {len(body)} bytes): no store boundaries found.")
             continue
 
         print(f"Splitting function {i} (size: {len(body)} bytes)...")
         print(f"Found {len(stores)} store boundaries.")
         num_chunks = max(1, math.ceil(len(body) / target_chunk_size))
-        # Evenly distribute stores across chunks; guarantees progress even
-        # when there are fewer stores than chunks.
         boundaries = sorted({(c + 1) * len(stores) // num_chunks for c in range(num_chunks - 1)})
         print(f"Splitting into {len(boundaries) + 1} chunks...")
 
@@ -321,16 +360,30 @@ def split_large_functions(wasm_path, max_size=4_000_000, target_chunk_size=3_000
             appended_types.append(orig_type)
             caller_body.append(0x10)
             caller_body.extend(encode_vu(new_func_idx))
-        caller_body.append(0x0b)
+        caller_body.append(0x0B)
         new_func_bodies[i] = bytes(caller_body)
         print(f"Replaced function {i} with trampoline of {len(new_func_bodies[i])} bytes.")
 
     if not appended_funcs:
-        print("No trivial relocation functions to split; leaving module unchanged.")
+        oversized_fatal = [(i, len(b)) for i, b in enumerate(func_bodies) if len(b) > 7_654_321]
+        if oversized_fatal:
+            raise RuntimeError(
+                f"Cannot publish WebAssembly binary: functions exceed V8 size limit (7,654,321 bytes) "
+                f"and were not split: {oversized_fatal}"
+            )
+        print("No functions needed splitting; leaving module unchanged.")
         return
 
     new_func_bodies.extend(appended_funcs)
     new_type_indices.extend(appended_types)
+
+    # Verification pass: ensure NO function in new_func_bodies exceeds V8's hard limit
+    for idx, fb in enumerate(new_func_bodies):
+        if len(fb) > 7_654_321:
+            raise RuntimeError(
+                f"Function {idx} (size {len(fb)} bytes) still exceeds V8 maximum function size limit "
+                f"(7,654,321 bytes) after splitting in {wasm_path}!"
+            )
 
     # Re-encode Section 3
     new_sec3_data = bytearray()
@@ -412,6 +465,26 @@ def repair_and_optimize_wasm(input_path, output_path):
     # CompileError. This pass chunks any function > 4MB into ~3MB pieces called
     # by a small trampoline, for both debug and release builds.
     split_large_functions(output_path)
+
+    # Verification with Node.js V8 WebAssembly engine if available
+    if shutil.which("node"):
+        print(f"Verifying {output_path} with Node.js V8 WebAssembly engine...")
+        res = subprocess.run(
+            [
+                "node",
+                "-e",
+                f"const fs = require('fs'); const bytes = fs.readFileSync({repr(output_path)}); "
+                "new WebAssembly.Module(bytes); console.log('V8 WebAssembly.Module compilation successful!');",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if res.returncode != 0:
+            raise RuntimeError(
+                f"V8 WebAssembly compilation verification failed on {output_path}:\n"
+                f"{res.stderr}\n{res.stdout}"
+            )
+        print("V8 WebAssembly verification succeeded!")
 
     # Copy map file if it exists
     possible_map_file = input_path + ".map"
