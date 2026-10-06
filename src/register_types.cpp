@@ -9,6 +9,11 @@
 
 #include <Message.hxx>
 #include <OSD.hxx>
+#include <OSD_SignalMode.hxx>
+
+#if defined(__APPLE__) || defined(__linux__)
+#include <dlfcn.h>
+#endif
 
 #include <godot_cpp/core/class_db.hpp>
 
@@ -43,6 +48,8 @@ static void opencascade_gd_uninitialize(ModuleInitializationLevel p_level) {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
         return;
     }
+    occt_gd::remove_safe_console_printer(Message::DefaultMessenger());
+    OSD::SetSignal(OSD_SignalMode_Unset, false);
     gdext_uninitialize_module_auto(p_level);
 }
 
@@ -52,6 +59,17 @@ extern "C" {
         GDExtensionClassLibraryPtr p_library,
         GDExtensionInitialization *r_initialization
     ) {
+#if defined(__APPLE__)
+        // Pin this library in memory to prevent dyld from unmapping it on dlclose().
+        // Thread-local storage destructors (tlv_finalize) and OCCT global state
+        // (Message_Messenger, signal handlers) reference symbols in this dylib.
+        // If dyld unmaps the dylib before thread/process termination, those
+        // callbacks jump into unmapped memory, causing Abort trap: 6 (SIGABRT).
+        Dl_info dl_info;
+        if (dladdr((const void *)&gdext_library_init, &dl_info) && dl_info.dli_fname) {
+            dlopen(dl_info.dli_fname, RTLD_NOW | RTLD_NODELETE);
+        }
+#endif
         const godot::GDExtensionBinding::InitObject init_obj(
             p_get_proc_address, p_library, r_initialization
         );

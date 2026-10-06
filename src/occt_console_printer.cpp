@@ -63,4 +63,12 @@ void install_safe_console_printer(const opencascade::handle<::Message_Messenger>
     theMessenger->AddPrinter(new SafeConsolePrinter());
 }
 
+
+void remove_safe_console_printer(const opencascade::handle<::Message_Messenger> &theMessenger) {
+    if (theMessenger.IsNull()) {
+        return;
+    }
+    theMessenger->ChangePrinters().Clear();
+}
+
 } // namespace occt_gd

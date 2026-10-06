@@ -18,4 +18,6 @@ namespace occt_gd {
 // and swap the messenger's printers for ones that use C stdio only.
 void install_safe_console_printer(const opencascade::handle<::Message_Messenger> &theMessenger);
 
+void remove_safe_console_printer(const opencascade::handle<::Message_Messenger> &theMessenger);
+
 } // namespace occt_gd
